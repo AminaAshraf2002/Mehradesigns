@@ -1,250 +1,149 @@
-import React from 'react';
-import Link from 'next/link';
 import type { Metadata } from 'next';
+import { LegalPageLayout, LegalSection } from '@/components/LegalPageLayout';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy | Miracle Feng Shui',
+  title: 'Privacy Policy | Mehra Designs',
   description:
-    'Learn how Miracle Feng Shui collects, uses, protects, and handles your personal information with absolute security and transparency.',
+    'Learn how Mehra Designs collects, uses, protects, and respects your personal data and privacy when shopping for luxury fashion and apparel.',
 };
 
+const privacySections: LegalSection[] = [
+  {
+    id: 'introduction',
+    title: 'Introduction',
+    content: [
+      'Welcome to Mehra Designs. We value your trust and are committed to protecting your personal data and privacy. This Privacy Policy explains how Mehra Designs ("we", "us", or "our") collects, uses, discloses, and safeguards your information when you visit our website, register an account, or purchase dresses and fashion apparel from our online store.',
+      'By accessing or using our services, you acknowledge that you have read, understood, and agreed to the practices described in this Privacy Policy. If you do not agree with our policies, please discontinue use of our website.',
+    ],
+  },
+  {
+    id: 'info-collected',
+    title: 'Information We Collect',
+    content: [
+      'We collect information that you voluntarily provide when interacting with Mehra Designs, as well as automatic data generated when browsing our store.',
+    ],
+    bullets: [
+      'Personal Identification: Name, email address, mobile phone number, and contact details.',
+      'Delivery & Billing: Shipping address, billing address, city, state/province, postal code, and country.',
+      'Payment Information: Payment method choices (processed securely by authorized payment partners; we do not store full credit/debit card numbers on our servers).',
+      'Account Data: Login credentials, saved favorite items, order history, and dedication/personalization notes.',
+      'Device & Browsing Data: IP address, browser type, operating system, pages visited, time spent on site, and referral URLs.',
+      'Cookies & Analytics Data: Information collected automatically through cookies and tracking pixels.',
+    ],
+  },
+  {
+    id: 'how-we-use',
+    title: 'How We Use Your Information',
+    content: [
+      'We use the information we collect for business and operational purposes to provide you with an exceptional, personalized shopping experience.',
+    ],
+    bullets: [
+      'Processing, fulfilling, and dispatching your dress and apparel orders.',
+      'Managing courier deliveries, tracking links, and order status notifications.',
+      'Providing dedicated customer care and responding to your inquiries.',
+      'Sending order confirmations, digital invoices, and promotional newsletters (with easy opt-out options).',
+      'Preventing fraudulent transactions and ensuring website security.',
+      'Enhancing and optimizing our website layout, performance, and product recommendations.',
+    ],
+  },
+  {
+    id: 'cookies',
+    title: 'Cookies and Tracking',
+    content: [
+      'Our website uses cookies, web beacons, and similar tracking technologies to enhance user experience, remember your cart items across sessions, analyze traffic patterns, and personalize content.',
+      'You can manage or disable your cookie preferences at any time through your browser settings. However, please note that disabling certain essential cookies may affect site performance, cart persistence, or checkout functionality.',
+    ],
+  },
+  {
+    id: 'sharing-info',
+    title: 'Sharing of Information',
+    content: [
+      'We respect your privacy and do not sell, rent, or trade your personal information to third parties for marketing purposes.',
+      'We share data strictly with trusted service providers who assist us in operating our business under strict confidentiality agreements:',
+    ],
+    bullets: [
+      'Logistics & Delivery Partners: Courier and shipping services to deliver your purchases.',
+      'Payment Gateways: Encrypted payment processors (Visa, Mastercard, PayPal, Apple Pay, Google Pay) to complete checkout transactions.',
+      'IT & Analytics Providers: Hosting, cloud infrastructure, and site analytics services.',
+      'Legal & Regulatory Authorities: When required by applicable law, court order, or legal proceedings.',
+    ],
+  },
+  {
+    id: 'payment-security',
+    title: 'Payment Security',
+    content: [
+      'All payment transactions on Mehra Designs are executed via industry-standard 256-bit SSL encryption and PCI-DSS compliant payment gateways.',
+      'Your full card numbers, CVV codes, or bank passwords are handled exclusively by certified payment processors and are never stored or accessible on Mehra Designs servers.',
+    ],
+  },
+  {
+    id: 'data-retention',
+    title: 'Data Retention',
+    content: [
+      'We retain your personal data only for as long as necessary to fulfill the purposes outlined in this policy, complete transactions, resolve customer support inquiries, and comply with legal, statutory, and accounting obligations.',
+      'When personal data is no longer required, it is securely deleted or anonymized in accordance with our data retention protocols.',
+    ],
+  },
+  {
+    id: 'your-rights',
+    title: 'Your Rights',
+    content: [
+      'Depending on your location, you possess rights regarding your personal information under data protection laws:',
+    ],
+    bullets: [
+      'Right to Access: Request a copy of the personal information we hold about you.',
+      'Right to Rectification: Request correction or updating of inaccurate or incomplete data.',
+      'Right to Erasure: Request deletion of your account and stored personal details.',
+      'Right to Opt-Out: Unsubscribe from marketing communications at any time via the link in our emails.',
+    ],
+  },
+  {
+    id: 'childrens-privacy',
+    title: "Children's Privacy",
+    content: [
+      "While Mehra Designs offers children's clothing collections, our website and products are intended for purchase exclusively by adults, parents, or legal guardians.",
+      'We do not knowingly collect or solicit personal information from children under the age of 16 without verified parental consent. If we discover that a minor has provided us with personal data, we will promptly delete it.',
+    ],
+  },
+  {
+    id: 'third-party-links',
+    title: 'Third-Party Links',
+    content: [
+      'Our website may contain links to external third-party websites or services (such as payment providers or social media networks).',
+      'We are not responsible for the privacy practices, security protocols, or content of third-party sites. We advise you to review the privacy policy of any external website you visit.',
+    ],
+  },
+  {
+    id: 'changes-to-policy',
+    title: 'Changes to This Policy',
+    content: [
+      'We may update this Privacy Policy from time to time to reflect changes in legal regulations, business operations, or store features.',
+      'Any updates will be published directly on this page with a revised "Last updated" date. We encourage you to review this policy periodically.',
+    ],
+  },
+  {
+    id: 'contact-us',
+    title: 'Contact Us',
+    content: [
+      'If you have any questions, concerns, or requests regarding this Privacy Policy or your personal data, please reach out to our client support team:',
+    ],
+    bullets: [
+      'Email: [Email]',
+      'Phone: [Phone]',
+      'Business Address: [Business Address]',
+    ],
+  },
+];
+
 export default function PrivacyPolicyPage() {
-  const lastUpdated = 'September 16, 2026';
-
   return (
-    <div className="min-h-screen bg-[#FAF9F6] text-[#222222] py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-6xl w-full mx-auto">
-        {/* Breadcrumb */}
-        <nav aria-label="Breadcrumb" className="mb-6">
-          <ol className="flex items-center space-x-2 text-xs text-gray-500">
-            <li>
-              <Link href="/" className="hover:text-[#3A1F62] transition-colors">
-                Home
-              </Link>
-            </li>
-            <li>
-              <span className="text-gray-400">/</span>
-            </li>
-            <li className="text-[#3A1F62] font-semibold" aria-current="page">
-              Privacy Policy
-            </li>
-          </ol>
-        </nav>
-
-        {/* Hero Header */}
-        <div className="bg-white rounded-3xl p-8 sm:p-12 border border-[#E8E4DA] shadow-xs mb-10 relative overflow-hidden">
-          <div className="absolute -right-16 -top-16 w-64 h-64 bg-[#3A1F62]/5 rounded-full pointer-events-none blur-2xl" />
-          <div className="relative z-10">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#F3EEFC] text-[#3A1F62] text-xs font-bold uppercase tracking-wider mb-4">
-              <i className="fa-solid fa-shield-halved text-xs" />
-              <span>Trust & Security</span>
-            </div>
-            <h1 className="text-3xl sm:text-4xl font-bold font-serif tracking-tight text-[#140D1F] mb-3">
-              Privacy Policy
-            </h1>
-            <p className="text-sm text-gray-600 max-w-2xl leading-relaxed">
-              At Miracle Feng Shui, we hold your trust and privacy with sacred respect. This policy outlines how we safeguard your personal information when you visit, explore, or purchase from our sanctuary of authentic handcrafted talismans.
-            </p>
-            <div className="mt-4 pt-4 border-t border-gray-100 flex flex-wrap items-center gap-4 text-xs text-gray-500">
-              <span>
-                <strong>Last Updated:</strong> {lastUpdated}
-              </span>
-              <span>&bull;</span>
-              <span>Effective Globally</span>
-              <span>&bull;</span>
-              <span className="text-emerald-700 font-medium flex items-center gap-1">
-                <i className="fa-solid fa-lock text-[11px]" />
-                256-Bit SSL Encrypted
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* Policy Content Sections */}
-        <div className="bg-white rounded-3xl p-8 sm:p-12 border border-[#E8E4DA] shadow-xs space-y-10 text-[15px] leading-relaxed text-gray-700">
-          {/* Section 1 */}
-          <section>
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-8 h-8 rounded-xl bg-[#F3EEFC] text-[#3A1F62] flex items-center justify-center font-bold text-sm shrink-0">
-                1
-              </div>
-              <h2 className="text-xl font-bold font-serif text-[#140D1F]">
-                Information We Collect
-              </h2>
-            </div>
-            <p className="mb-3">
-              When you interact with Miracle Feng Shui, we collect information necessary to fulfill your orders, provide sacred energy consultations, and ensure an effortless shopping experience:
-            </p>
-            <ul className="list-disc pl-6 space-y-2 text-sm text-gray-600">
-              <li>
-                <strong>Contact & Delivery Details:</strong> Full name, shipping address, billing address, phone number, and email address for order delivery and courier dispatch.
-              </li>
-              <li>
-                <strong>Order Specifications:</strong> Product selections, customized consecration requests, zodiac birth dates (if willingly provided for personalized talisman blessing).
-              </li>
-              <li>
-                <strong>Payment Information:</strong> All payment transactions are processed securely through certified third-party payment gateways (such as Razorpay, Stripe, or Apple Pay). We never store your full credit/debit card numbers or CVV on our servers.
-              </li>
-              <li>
-                <strong>Technical & Device Data:</strong> IP address, browser type, operating system, and browsing habits collected anonymously to prevent fraudulent transactions and improve site performance.
-              </li>
-            </ul>
-          </section>
-
-          {/* Section 2 */}
-          <section>
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-8 h-8 rounded-xl bg-[#F3EEFC] text-[#3A1F62] flex items-center justify-center font-bold text-sm shrink-0">
-                2
-              </div>
-              <h2 className="text-xl font-bold font-serif text-[#140D1F]">
-                How We Use Your Sacred Information
-              </h2>
-            </div>
-            <p className="mb-3">We strictly utilize your data for purposeful, legitimate business needs:</p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
-              <div className="p-4 rounded-2xl bg-[#FAF9F6] border border-gray-200/70">
-                <h3 className="font-bold text-gray-900 mb-1 flex items-center gap-2">
-                  <i className="fa-solid fa-truck-fast text-[#3A1F62]" />
-                  Order Dispatch & Tracking
-                </h3>
-                <p className="text-gray-600">
-                  Coordinating with reputable national and international logistics carriers to deliver your sacred pieces intact.
-                </p>
-              </div>
-              <div className="p-4 rounded-2xl bg-[#FAF9F6] border border-gray-200/70">
-                <h3 className="font-bold text-gray-900 mb-1 flex items-center gap-2">
-                  <i className="fa-solid fa-envelope text-[#3A1F62]" />
-                  Transaction Notifications
-                </h3>
-                <p className="text-gray-600">
-                  Sending instant invoices, order status confirmations, and doorstep tracking links via email or SMS.
-                </p>
-              </div>
-              <div className="p-4 rounded-2xl bg-[#FAF9F6] border border-gray-200/70">
-                <h3 className="font-bold text-gray-900 mb-1 flex items-center gap-2">
-                  <i className="fa-solid fa-wand-magic-sparkles text-[#3A1F62]" />
-                  Consecration & Ritual Customization
-                </h3>
-                <p className="text-gray-600">
-                  Preparing specific intention rituals and personalized feng shui placement cards when requested.
-                </p>
-              </div>
-              <div className="p-4 rounded-2xl bg-[#FAF9F6] border border-gray-200/70">
-                <h3 className="font-bold text-gray-900 mb-1 flex items-center gap-2">
-                  <i className="fa-solid fa-shield-check text-[#3A1F62]" />
-                  Fraud Prevention & Safety
-                </h3>
-                <p className="text-gray-600">
-                  Detecting unauthorized activity and protecting both patrons and our artisan community from fraudulent chargebacks.
-                </p>
-              </div>
-            </div>
-          </section>
-
-          {/* Section 3 */}
-          <section>
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-8 h-8 rounded-xl bg-[#F3EEFC] text-[#3A1F62] flex items-center justify-center font-bold text-sm shrink-0">
-                3
-              </div>
-              <h2 className="text-xl font-bold font-serif text-[#140D1F]">
-                Payment Security & Encryption
-              </h2>
-            </div>
-            <p className="mb-3">
-              Your security is our absolute priority. We adhere strictly to <strong>PCI-DSS Level 1</strong> compliance standards. All sensitive checkout data is transmitted using encrypted Transport Layer Security (TLS/SSL).
-            </p>
-            <div className="p-4 rounded-2xl bg-amber-50/60 border border-amber-200/70 text-amber-900 text-sm flex items-start gap-3">
-              <i className="fa-solid fa-lock text-amber-600 text-lg mt-0.5" />
-              <div>
-                <strong>Zero Card Storage Guarantee:</strong> Miracle Feng Shui does not store, view, or retain your raw debit/credit card numbers or UPI PINs. All financial handoffs happen directly inside encrypted banking gateways.
-              </div>
-            </div>
-          </section>
-
-          {/* Section 4 */}
-          <section>
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-8 h-8 rounded-xl bg-[#F3EEFC] text-[#3A1F62] flex items-center justify-center font-bold text-sm shrink-0">
-                4
-              </div>
-              <h2 className="text-xl font-bold font-serif text-[#140D1F]">
-                Cookies & Session Preferences
-              </h2>
-            </div>
-            <p className="text-sm text-gray-600 mb-2">
-              We employ cookies and local storage tokens to retain items in your shopping bag, remember your currency preferences, and ensure seamless navigation across our site. You may adjust your browser settings to decline cookies at any time, though some interactive features may experience limitations.
-            </p>
-          </section>
-
-          {/* Section 5 */}
-          <section>
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-8 h-8 rounded-xl bg-[#F3EEFC] text-[#3A1F62] flex items-center justify-center font-bold text-sm shrink-0">
-                5
-              </div>
-              <h2 className="text-xl font-bold font-serif text-[#140D1F]">
-                Third-Party Sharing & Logistics
-              </h2>
-            </div>
-            <p className="text-sm text-gray-600 mb-2">
-              We do not sell, rent, or lease your private information to marketing brokers or unrelated third parties. We share information only with:
-            </p>
-            <ul className="list-disc pl-6 space-y-1.5 text-sm text-gray-600">
-              <li>Verified courier partners (e.g., Blue Dart, Delhivery, FedEx) solely for accurate door delivery.</li>
-              <li>Encrypted transaction processors (e.g., Razorpay, Stripe) to authorize payments.</li>
-              <li>Law enforcement authorities only if compelled by formal, legally mandated court orders.</li>
-            </ul>
-          </section>
-
-          {/* Section 6 */}
-          <section>
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-8 h-8 rounded-xl bg-[#F3EEFC] text-[#3A1F62] flex items-center justify-center font-bold text-sm shrink-0">
-                6
-              </div>
-              <h2 className="text-xl font-bold font-serif text-[#140D1F]">
-                Your Rights & Choices
-              </h2>
-            </div>
-            <p className="text-sm text-gray-600 mb-3">
-              Regardless of your location, you hold full autonomy over your stored information:
-            </p>
-            <ul className="list-disc pl-6 space-y-1.5 text-sm text-gray-600">
-              <li><strong>Access & Rectification:</strong> You may request an export of data we hold or request corrections to shipping details.</li>
-              <li><strong>Erasure & Opt-Out:</strong> You may request deletion of your account and opt-out of promotional newsletters at any moment with one click.</li>
-            </ul>
-          </section>
-
-          {/* Section 7 */}
-          <section className="border-t border-gray-100 pt-8">
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-8 h-8 rounded-xl bg-[#F3EEFC] text-[#3A1F62] flex items-center justify-center font-bold text-sm shrink-0">
-                7
-              </div>
-              <h2 className="text-xl font-bold font-serif text-[#140D1F]">
-                Contact Our Privacy Concierge
-              </h2>
-            </div>
-            <p className="text-sm text-gray-600 mb-4">
-              If you have inquiries, suggestions, or wish to exercise any of your privacy rights, please reach out directly:
-            </p>
-            <div className="p-5 rounded-2xl bg-[#FAF9F6] border border-gray-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-              <div>
-                <p className="font-bold text-gray-900 text-sm">Miracle Feng Shui Care Sanctuary</p>
-                <p className="text-xs text-gray-500 mt-0.5">Email: privacy@miraclefengshui.com &bull; Support: 10:00 AM – 7:00 PM IST</p>
-              </div>
-              <Link
-                href="/shop"
-                className="px-5 py-2.5 rounded-full bg-[#3A1F62] text-white hover:bg-[#2B154C] text-xs font-bold transition-all shadow-xs shrink-0"
-              >
-                Return to Shop
-              </Link>
-            </div>
-          </section>
-        </div>
-      </div>
-    </div>
+    <LegalPageLayout
+      eyebrow="LEGAL"
+      title="Privacy Policy"
+      subtitle="How we collect, use, and protect your personal information at Mehra Designs."
+      lastUpdated="September 28, 2026"
+      breadcrumbLabel="Privacy Policy"
+      sections={privacySections}
+    />
   );
 }

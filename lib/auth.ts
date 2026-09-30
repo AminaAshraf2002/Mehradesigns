@@ -7,13 +7,15 @@ export const authOptions: NextAuthOptions = {
     strategy: 'jwt',
     maxAge: 30 * 24 * 60 * 60, // 30 days
   },
-  secret: process.env.NEXTAUTH_SECRET || 'miracle-feng-shui-super-secret-jwt-key-2026',
+  secret: process.env.NEXTAUTH_SECRET || 'mehra-designs-super-secret-jwt-key-2026',
   providers: [
     CredentialsProvider({
       name: 'Credentials',
       credentials: {
         email: { label: 'Email', type: 'email' },
         password: { label: 'Password', type: 'password' },
+        name: { label: 'Name', type: 'text' },
+        isRegister: { label: 'IsRegister', type: 'text' },
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
@@ -22,17 +24,36 @@ export const authOptions: NextAuthOptions = {
 
         try {
           const rawEmail = credentials.email.trim().toLowerCase();
-          const cleanEmail = rawEmail === 'admin' ? 'admin@miraclefengshui.com' : rawEmail;
+          const cleanEmail = rawEmail === 'admin' ? 'admin@mehradesigns.com' : rawEmail;
+          const cleanPassword = credentials.password.trim();
+
+          // 1. Direct one-pass registration & login
+          if (credentials.isRegister === 'true') {
+            const rawName = credentials.name?.trim() || cleanEmail.split('@')[0];
+            const newUser = await authService.register({
+              name: rawName,
+              email: cleanEmail,
+              password: cleanPassword,
+            });
+            return {
+              id: newUser.id,
+              name: newUser.name,
+              email: newUser.email,
+              role: newUser.role,
+              phone: newUser.phone,
+            };
+          }
+
+          // 2. Standard login
           const user = await authService.validateCredentials({
             email: cleanEmail,
-            password: credentials.password.trim(),
+            password: cleanPassword,
           });
           return user;
-        } catch {
-          return null;
+        } catch (err: any) {
+          throw new Error(err.message || 'Invalid email or password');
         }
       },
-
     }),
   ],
   callbacks: {

@@ -138,11 +138,11 @@ function EtsyShopContent() {
 
   return (
     <div className="bg-white min-h-screen pb-20">
-      <div className="etsy-container py-6">
+      <div className="etsy-container py-6" data-aos="fade-up">
         {/* Breadcrumbs & Header */}
-        <div className="flex items-center gap-2 text-[12px] text-etsy-gray mb-3">
+        <div className="flex items-center gap-2 text-[12px] text-etsy-gray mb-3" data-aos="fade-up" data-aos-delay="50">
           <button onClick={clearAllFilters} className="hover:underline">
-            Miracle feng shui
+            Mehra Designs
           </button>
           <i className="fa-solid fa-chevron-right text-[10px]" />
           <span className="text-etsy-dark font-semibold">
@@ -153,13 +153,13 @@ function EtsyShopContent() {
         </div>
 
         {/* Top Filter Bar with Heading & Sort dropdown */}
-        <div className="flex flex-col sm:row items-start sm:items-center justify-between gap-4 pb-6 border-b border-etsy-border">
+        <div className="flex flex-col sm:row items-start sm:items-center justify-between gap-4 pb-6 border-b border-[#E6E0D4]" data-aos="fade-up" data-aos-delay="100">
           <div>
             <h1 className="text-[26px] md:text-[30px] font-bold text-etsy-dark">
               {searchQuery
                 ? t('shop.results_for', 'Results for "{query}"').replace('{query}', searchQuery)
                 : currentCategory === 'All'
-                ? t('shop.all_items_heading', 'All Feng Shui & Spiritual Harmony Items')
+                ? t('shop.all_items_heading', 'All Fashion & Luxury Apparel Items')
                 : translateCategory(currentCategory, language)}
             </h1>
             <p className="text-[13px] text-etsy-gray mt-1">
@@ -172,7 +172,7 @@ function EtsyShopContent() {
             <button
               type="button"
               onClick={() => setMobileFilterOpen(!mobileFilterOpen)}
-              className="lg:hidden flex items-center gap-2 px-4 py-2 rounded-full border border-etsy-dark text-[14px] font-semibold text-etsy-dark hover:bg-etsy-bg-soft"
+              className="lg:hidden flex items-center gap-2 px-4 py-2 rounded-full border border-[#E6E0D4] text-[14px] font-semibold text-etsy-dark hover:bg-etsy-bg-soft"
             >
               <i className="fa-solid fa-sliders text-[13px]" />
               <span>{t('shop.filters', 'Filters')}</span>
@@ -187,7 +187,7 @@ function EtsyShopContent() {
                 id="sort-dropdown"
                 value={currentSort}
                 onChange={(e) => updateFilters({ sort: e.target.value })}
-                className="bg-white border border-etsy-border rounded-full px-4 py-2 text-[13px] font-semibold text-etsy-dark focus:outline-none focus:ring-2 focus:ring-etsy-orange cursor-pointer"
+                className="bg-white border border-[#E6E0D4] rounded-full px-4 py-2 text-[13px] font-semibold text-etsy-dark focus:outline-none focus:ring-2 focus:ring-[#8C6C43] cursor-pointer"
               >
                 <option value="relevancy">{t('shop.sort_relevancy', 'Relevancy')}</option>
                 <option value="price-asc">{t('shop.sort_price_asc', 'Lowest Price')}</option>
@@ -224,7 +224,7 @@ function EtsyShopContent() {
         {/* Main 2-Column Browse Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-[240px_1fr] gap-8 mt-8">
           {/* LEFT SIDEBAR FILTERS (Desktop) */}
-          <aside className="hidden lg:block space-y-6 text-[14px] text-etsy-dark pr-4 border-r border-etsy-border/60">
+          <aside className="hidden lg:block space-y-6 text-[14px] text-etsy-dark pr-4 border-r border-[#E6E0D4]">
             {/* Categories Filter */}
             <div>
               <h3 className="font-bold text-[14px] uppercase tracking-wider text-etsy-gray mb-3">
@@ -241,8 +241,8 @@ function EtsyShopContent() {
                         onClick={() => updateFilters({ category: cat })}
                         className={`text-left text-[14px] w-full py-1 transition-colors ${
                           isActive
-                            ? 'font-bold text-etsy-orange underline'
-                            : 'hover:text-etsy-orange text-etsy-dark'
+                            ? 'font-bold text-[#8C6C43] underline'
+                            : 'hover:text-[#8C6C43] text-[#221D16]'
                         }`}
                       >
                         {translateCategory(cat, language)}
@@ -254,7 +254,7 @@ function EtsyShopContent() {
             </div>
 
             {/* Special Offers */}
-            <div className="border-t border-etsy-border pt-5">
+            <div className="border-t border-[#E6E0D4] pt-5">
               <h3 className="font-bold text-[14px] mb-3">{t('shop.special_offers', 'Special offers')}</h3>
               <div className="space-y-2.5">
                 <label className="flex items-center gap-2.5 cursor-pointer select-none">
@@ -264,7 +264,7 @@ function EtsyShopContent() {
                     onChange={(e) =>
                       updateFilters({ freeShipping: e.target.checked })
                     }
-                    className="w-4 h-4 rounded text-etsy-orange focus:ring-etsy-orange"
+                    className="w-4 h-4 rounded text-[#8C6C43] focus:ring-[#8C6C43]"
                   />
                   <span className="text-[14px]">{t('shop.free_delivery', 'FREE delivery')}</span>
                 </label>
@@ -275,7 +275,7 @@ function EtsyShopContent() {
                     onChange={(e) =>
                       updateFilters({ onSale: e.target.checked })
                     }
-                    className="w-4 h-4 rounded text-etsy-orange focus:ring-etsy-orange"
+                    className="w-4 h-4 rounded text-[#8C6C43] focus:ring-[#8C6C43]"
                   />
                   <span className="text-[14px]">{t('shop.on_sale', 'On sale')}</span>
                 </label>
@@ -283,7 +283,7 @@ function EtsyShopContent() {
             </div>
 
             {/* Price Range */}
-            <div className="border-t border-etsy-border pt-5">
+            <div className="border-t border-[#E6E0D4] pt-5">
               <h3 className="font-bold text-[14px] mb-3">{t('shop.price', 'Price')} ({currencySymbol})</h3>
               <div className="space-y-2">
                 {[
@@ -302,7 +302,7 @@ function EtsyShopContent() {
                       name="price-filter"
                       checked={priceFilter === p.val}
                       onChange={() => updateFilters({ price: p.val })}
-                      className="w-4 h-4 text-etsy-orange focus:ring-etsy-orange"
+                      className="w-4 h-4 text-[#8C6C43] focus:ring-[#8C6C43]"
                     />
                     <span className="text-[14px]">{p.label}</span>
                   </label>
@@ -311,10 +311,10 @@ function EtsyShopContent() {
             </div>
 
             {/* Clear All Filters Button */}
-            <div className="border-t border-etsy-border pt-5">
+            <div className="border-t border-[#E6E0D4] pt-5">
               <button
                 onClick={clearAllFilters}
-                className="w-full py-2 rounded-full border border-etsy-dark text-[13px] font-bold text-etsy-dark hover:bg-etsy-bg-soft transition-colors"
+                className="w-full py-2 rounded-full border border-[#221D16] text-[13px] font-bold text-[#221D16] hover:bg-[#F0E9DC] transition-colors"
               >
                 {t('shop.reset_filters', 'Reset all filters')}
               </button>
@@ -324,13 +324,13 @@ function EtsyShopContent() {
           {/* RIGHT PRODUCT GRID OR EMPTY STATE */}
           <div>
             {filteredProducts.length > 0 ? (
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-                {filteredProducts.map((product) => (
-                  <ProductCard key={product.id} product={product} />
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 gap-y-10">
+                {filteredProducts.map((product, idx) => (
+                  <ProductCard key={product.id} product={product} delayIndex={idx % 8} />
                 ))}
               </div>
             ) : (
-              <div className="py-24 text-center flex flex-col items-center justify-center bg-etsy-bg-soft rounded-2xl border border-etsy-border p-8">
+              <div className="py-24 text-center flex flex-col items-center justify-center bg-etsy-bg-soft rounded-2xl border border-[#E6E0D4] p-8">
                 <h3 className="text-[22px] font-bold text-etsy-dark">
                   {t('shop.no_matches_title', "We couldn't find any matches")}
                 </h3>
@@ -357,7 +357,7 @@ export default function EtsyShopPage() {
     <Suspense
       fallback={
         <div className="etsy-container py-24 text-center">
-          <p className="text-etsy-gray text-[15px] font-medium">Loading Miracle feng shui finds...</p>
+          <p className="text-etsy-gray text-[15px] font-medium">Loading Mehra Designs finds...</p>
         </div>
       }
     >

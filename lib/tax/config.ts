@@ -1,26 +1,26 @@
 export const TAX_CONFIG = {
   seller: {
-    legalName: process.env.NEXT_PUBLIC_SELLER_LEGAL_NAME || 'Miracle Feng Shui Studio Private Limited',
-    brandName: process.env.NEXT_PUBLIC_SELLER_BRAND_NAME || 'Miracles Feng Shui',
+    legalName: process.env.NEXT_PUBLIC_SELLER_LEGAL_NAME || 'Mehra Designs Private Limited',
+    brandName: process.env.NEXT_PUBLIC_SELLER_BRAND_NAME || 'Mehra Designs',
     country: 'India',
     countryCode: 'IN',
-    state: process.env.NEXT_PUBLIC_SELLER_STATE || 'Maharashtra',
+    state: process.env.NEXT_PUBLIC_SELLER_STATE || 'Kerala',
     stateCode: process.env.NEXT_PUBLIC_SELLER_STATE_CODE || '32',
-    city: process.env.NEXT_PUBLIC_SELLER_CITY || 'Mumbai',
-    pincode: process.env.NEXT_PUBLIC_SELLER_PINCODE || '400001',
-    address: process.env.NEXT_PUBLIC_SELLER_ADDRESS || 'Suite 402, Lotus Grandeur, Veera Desai Road, Andheri West, Mumbai, MH 400053',
+    city: process.env.NEXT_PUBLIC_SELLER_CITY || 'Kochi',
+    pincode: process.env.NEXT_PUBLIC_SELLER_PINCODE || '682001',
+    address: process.env.NEXT_PUBLIC_SELLER_ADDRESS || 'Suite 402, Mehra Towers, MG Road, Ernakulam, Kochi, KL 682001',
     phone: process.env.NEXT_PUBLIC_SELLER_PHONE || '+91 98765 43210',
-    email: process.env.NEXT_PUBLIC_SELLER_EMAIL || 'care@miraclefengshui.com',
-    gstin: process.env.NEXT_PUBLIC_SELLER_GSTIN || '32AAMFI0291H1ZI',       // Official India GSTIN Number
-    pan: process.env.NEXT_PUBLIC_SELLER_PAN || 'AAMFI0291H',              // Income Tax PAN (extracted from GSTIN)
-    lutNumber: process.env.NEXT_PUBLIC_SELLER_LUT || 'AD320324009812M',   // Letter of Undertaking for Zero-rated Exports
-    uaeTrn: process.env.NEXT_PUBLIC_SELLER_UAE_TRN || '100482910300003',      // UAE Federal Tax Authority TRN
+    email: process.env.NEXT_PUBLIC_SELLER_EMAIL || 'care@mehradesigns.com',
+    gstin: process.env.NEXT_PUBLIC_SELLER_GSTIN || process.env.GST_NUMBER || process.env.NEXT_PUBLIC_GST_NUMBER || '32AAMFI0291H1ZI',
+    pan: process.env.NEXT_PUBLIC_SELLER_PAN || 'AAMFI0291H',
+    lutNumber: process.env.NEXT_PUBLIC_SELLER_LUT || 'AD320324009812M',
+    uaeTrn: process.env.NEXT_PUBLIC_SELLER_UAE_TRN || '100482910300003',
     uaeOfficeAddress: process.env.NEXT_PUBLIC_SELLER_UAE_ADDRESS || 'Al Hudaiba Awards Building, Block B, Jumeirah 1, Dubai, UAE',
   },
   rates: {
-    indiaStandardGst: 18,           // 18% standard GST rate for sacred decor & brass items
-    indiaJewelryGst: 3,             // 3% for precious gemstone jewelry
-    uaeVat: 5,                      // 5% UAE standard VAT
+    indiaStandardGst: 18,
+    indiaJewelryGst: 3,
+    uaeVat: 5,
   },
-  defaultHsnCode: '71179090',       // Imitation jewelry, talisman art & sacred craft artifacts
+  defaultHsnCode: '71179090',
 };

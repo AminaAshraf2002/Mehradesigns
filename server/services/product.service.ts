@@ -3,6 +3,49 @@ import { ProductQueryInput } from '../validators/product.validator';
 import { ApiError } from '../utils/ApiError';
 import { products as fallbackProducts, categories as fallbackCategories } from '@/lib/placeholder-data';
 
+const isLegacyItem = (p: any) => {
+  const name = (p.title || p.name || '').toLowerCase();
+  const category = (p.category?.name || p.category || '').toLowerCase();
+  const description = (p.description || '').toLowerCase();
+  const legacyKeywords = [
+    'feng shui',
+    'wealth',
+    'riches',
+    'attraction',
+    'poster',
+    'bracelet',
+    'candle',
+    'fortune',
+    'chinese',
+    'talisman',
+    'amulet',
+    'censer',
+    'incense',
+    'brass bell',
+    'singing bowl',
+    'cure',
+    'consecrated',
+    'tai sui',
+    'pixiu',
+    'buddha',
+    'mantra',
+    'tibetan',
+    'chakra',
+    'orgonite',
+    'pyramid',
+    'generator',
+    'energy',
+    'crystal',
+    'statue',
+    'god',
+    'goddess',
+    'sacred',
+  ];
+  return legacyKeywords.some(
+    (kw) => name.includes(kw) || category.includes(kw) || description.includes(kw)
+  );
+};
+
 export const productService = {
   formatProduct(p: any) {
     return {
@@ -18,37 +61,44 @@ export const productService = {
   async list(query: ProductQueryInput) {
     try {
       const { items, total } = await productRepository.findMany(query);
-      return {
-        items: items.map(this.formatProduct),
-        total,
-        page: query.page,
-        pageSize: query.pageSize,
-        totalPages: Math.ceil(total / query.pageSize),
-      };
+      const formatted = items.map(this.formatProduct);
+      const cleanItems = formatted.filter((p) => !isLegacyItem(p));
+
+      if (cleanItems.length > 0) {
+        return {
+          items: cleanItems,
+          total: cleanItems.length,
+          page: query.page,
+          pageSize: query.pageSize,
+          totalPages: Math.ceil(cleanItems.length / query.pageSize),
+        };
+      }
     } catch (dbErr) {
-      console.warn('[productService] DB unreachable, serving fallback catalog products.');
-      let filtered = [...fallbackProducts];
-      if (query.category && query.category !== 'All') {
-        filtered = filtered.filter(
-          (p) => p.category.toLowerCase() === query.category?.toLowerCase()
-        );
-      }
-      if (query.q && query.q.trim()) {
-        const q = query.q.toLowerCase().trim();
-        filtered = filtered.filter(
-          (p) => p.name.toLowerCase().includes(q) || p.description.toLowerCase().includes(q)
-        );
-      }
-      const skip = (query.page - 1) * query.pageSize;
-      const paginated = filtered.slice(skip, skip + query.pageSize);
-      return {
-        items: paginated.map(this.formatProduct),
-        total: filtered.length,
-        page: query.page,
-        pageSize: query.pageSize,
-        totalPages: Math.ceil(filtered.length / query.pageSize),
-      };
+      console.warn('[productService] DB unreachable or legacy data found, serving fallback catalog products.');
     }
+
+    // Fallback to curated fashion catalog
+    let filtered = fallbackProducts.filter((p) => !isLegacyItem(p));
+    if (query.category && query.category !== 'All') {
+      filtered = filtered.filter(
+        (p) => p.category.toLowerCase() === query.category?.toLowerCase()
+      );
+    }
+    if (query.q && query.q.trim()) {
+      const q = query.q.toLowerCase().trim();
+      filtered = filtered.filter(
+        (p) => p.name.toLowerCase().includes(q) || p.description.toLowerCase().includes(q)
+      );
+    }
+    const skip = (query.page - 1) * query.pageSize;
+    const paginated = filtered.slice(skip, skip + query.pageSize);
+    return {
+      items: paginated.map(this.formatProduct),
+      total: filtered.length,
+      page: query.page,
+      pageSize: query.pageSize,
+      totalPages: Math.ceil(filtered.length / query.pageSize),
+    };
   },
 
   async getBySlugOrId(identifier: string) {

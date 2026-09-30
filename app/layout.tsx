@@ -1,16 +1,21 @@
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 import './globals.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import 'aos/dist/aos.css';
 import { Providers } from '@/components/Providers';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { GuestNotificationToast } from '@/components/GuestNotificationToast';
 import { ScrollToTop } from '@/components/ScrollToTop';
+import { AosGsapInit } from '@/components/AosGsapInit';
+import { TrackingHeadScripts } from '@/components/tracking/TrackingHeadScripts';
+import { RouteTrackingListener } from '@/components/tracking/RouteTrackingListener';
 
 export const metadata: Metadata = {
-  title: 'Miracle feng shui - Shop for handmade, vintage, custom, and unique gifts for everyone',
+  title: 'Mehra Designs - Luxury Fashion, Couture & Signature Accessories',
   description:
-    'Find the perfect handmade gift, vintage & on-trend clothes, unique jewelry, and more… lots more on Miracle feng shui.',
+    'Discover timeless fashion, luxury apparel, handcrafted jewelry, and signature designer collections at Mehra Designs.',
 };
 
 export default function RootLayout({
@@ -24,7 +29,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cinzel:wght@500;600;700;800&family=Fira+Code:wght@400;500;600;700&family=Fira+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cinzel:wght@500;600;700;800&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Fira+Code:wght@400;500;600;700&family=Fira+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
         <link
@@ -34,12 +39,17 @@ export default function RootLayout({
           crossOrigin="anonymous"
           referrerPolicy="no-referrer"
         />
+        <TrackingHeadScripts />
       </head>
       <body
         suppressHydrationWarning
         className="min-h-screen flex flex-col bg-white text-etsy-dark antialiased"
       >
         <Providers>
+          <AosGsapInit />
+          <Suspense fallback={null}>
+            <RouteTrackingListener />
+          </Suspense>
           <Header />
           <main className="flex-grow">{children}</main>
           <Footer />

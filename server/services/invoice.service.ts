@@ -36,8 +36,8 @@ export class InvoiceService {
           margin: 45,
           size: 'A4',
           info: {
-            Title: `Invoice ${order.orderNumber} - Miracle Feng Shui`,
-            Author: 'Miracle Feng Shui Pvt. Ltd.',
+            Title: `Invoice ${order.orderNumber} - Mehra Designs`,
+            Author: 'Mehra Designs Pvt. Ltd.',
           },
         });
 
@@ -54,16 +54,16 @@ export class InvoiceService {
 
         // 1. HEADER BRANDING & INVOICE TITLE
         doc
-          .fillColor('#140D1F')
+          .fillColor('#221D16')
           .fontSize(20)
           .font('Helvetica-Bold')
-          .text('MIRACLE FENG SHUI', 45, 45);
+          .text('MEHRA DESIGNS', 45, 45);
 
         doc
-          .fillColor('#C2410C')
+          .fillColor('#8C6C43')
           .fontSize(9)
           .font('Helvetica-Bold')
-          .text('CONSECRATED TREASURES & SACRED LIVING', 45, 68);
+          .text('LUXURY FASHION & ATELIER APPAREL', 45, 68);
 
         // Right-aligned Invoice Badge & Number
         doc
@@ -156,14 +156,14 @@ export class InvoiceService {
         let currentY = tableTop + 28;
         const items = order.items && order.items.length > 0 ? order.items : [
           {
-            title: 'Consecrated Feng Shui Sacred Item',
+            title: 'Mehra Designs Luxury Fashion Item',
             price: Number(order.totalAmount) || 2433,
             quantity: 1,
           },
         ];
 
         items.forEach((item, index) => {
-          const itemTitle = item.title || item.productName || 'Consecrated Feng Shui Item';
+          const itemTitle = item.title || item.productName || 'Mehra Designs Apparel Item';
           const itemPrice = Number(item.price) || 0;
           const itemQty = Number(item.quantity) || 1;
           const lineTotal = itemPrice * itemQty;
@@ -202,7 +202,7 @@ export class InvoiceService {
         // 4. TOTALS SUMMARY BLOCK & DYNAMIC GST/VAT CALCULATION
         const taxBreakdown = calculateOrderTax(
           items.map((it) => ({
-            name: it.title || it.productName || 'Consecrated Feng Shui Item',
+            name: it.title || it.productName || 'Mehra Designs Apparel Item',
             price: Number(it.price) || 0,
             quantity: Number(it.quantity) || 1,
           })),
@@ -219,12 +219,12 @@ export class InvoiceService {
         const totalAmountVal = taxBreakdown.totalGrossAmount || Number(order.totalAmount) || 0;
         let totalsY = Math.max(currentY + 10, 320);
 
-        // Subtotal (Taxable Base Amount)
+        // Subtotal (Pre-Tax Base Amount)
         doc
           .fillColor('#666666')
           .fontSize(8.5)
           .font('Helvetica')
-          .text('Subtotal (Taxable Base):', 320, totalsY, { width: 140, align: 'right' })
+          .text('Subtotal (Pre-Tax):', 320, totalsY, { width: 140, align: 'right' })
           .font('Helvetica-Bold')
           .fillColor('#222222')
           .text(`${currSym} ${taxBreakdown.totalTaxableAmount.toLocaleString('en-IN')}`, 470, totalsY, { width: 70, align: 'right' });

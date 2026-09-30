@@ -201,11 +201,47 @@ export const adminService = {
       ctaLink: sec.ctaLink || undefined,
       badge: sec.badge || undefined,
       order: sec.order,
+      config: sec.config || undefined,
     }));
+  },
+
+  async getHomepageSectionByKey(sectionKey: string) {
+    const sec = await adminRepository.getHomepageSectionByKey(sectionKey);
+    if (!sec) return null;
+    return {
+      id: sec.sectionKey as any,
+      sectionKey: sec.sectionKey,
+      name: sec.name,
+      enabled: sec.enabled,
+      title: sec.title,
+      subtitle: sec.subtitle || undefined,
+      ctaText: sec.ctaText || undefined,
+      ctaLink: sec.ctaLink || undefined,
+      badge: sec.badge || undefined,
+      order: sec.order,
+      config: sec.config || undefined,
+    };
   },
 
   async updateHomepageSections(input: UpdateHomepageSectionInput) {
     await adminRepository.updateHomepageSections(input.sections);
     return this.getHomepageSections();
+  },
+
+  async updateSingleHomepageSection(sectionKey: string, input: any) {
+    const sec = await adminRepository.upsertHomepageSection(sectionKey, input);
+    return {
+      id: sec.sectionKey as any,
+      sectionKey: sec.sectionKey,
+      name: sec.name,
+      enabled: sec.enabled,
+      title: sec.title,
+      subtitle: sec.subtitle || undefined,
+      ctaText: sec.ctaText || undefined,
+      ctaLink: sec.ctaLink || undefined,
+      badge: sec.badge || undefined,
+      order: sec.order,
+      config: sec.config || undefined,
+    };
   },
 };

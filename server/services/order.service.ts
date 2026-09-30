@@ -69,17 +69,17 @@ export const orderService = {
       courier: order.courier || 'BlueDart Express',
       trackingNumber,
       estimatedDelivery,
-      shopName: 'Miracle Feng Shui Studio',
+      shopName: 'Mehra Designs',
       createdAt: order.createdAt,
       items: (order.items || []).map((item: any) => {
         const prod = item.product;
-        const img = item.image || prod?.images?.[0] || '/images/miracle.jpeg';
+        const img = item.image || prod?.images?.[0] || '/mehra-logo.png';
         return {
           id: item.id,
           productId: item.productId,
-          productName: item.title || prod?.title || 'Feng Shui Sacred Item',
-          title: item.title || prod?.title || 'Feng Shui Sacred Item',
-          name: item.title || prod?.title || 'Feng Shui Sacred Item',
+          productName: item.title || prod?.title || 'Mehra Designs Fashion Item',
+          title: item.title || prod?.title || 'Mehra Designs Fashion Item',
+          name: item.title || prod?.title || 'Mehra Designs Fashion Item',
           price: item.price ?? prod?.price ?? 0,
           quantity: item.quantity || 1,
           image: img,
@@ -99,7 +99,7 @@ export const orderService = {
                 name: item.title,
                 price: item.price,
                 images: [img],
-                maker: 'Miracle Feng Shui Studio',
+                maker: 'Mehra Designs',
                 slug: item.productId,
               },
         };

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+    <defs>
+      <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#FAF6F0"/>
+        <stop offset="50%" stop-color="#EFE6D5"/>
+        <stop offset="100%" stop-color="#DECFAF"/>
+      </linearGradient>
+      <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#F4D068"/>
+        <stop offset="50%" stop-color="#B99465"/>
+        <stop offset="100%" stop-color="#7A5C34"/>
+      </linearGradient>
+      <filter id="shadow" x="-10%" y="-10%" width="130%" height="130%">
+        <feDropShadow dx="0" dy="12" stdDeviation="15" flood-color="#221D16" flood-opacity="0.25"/>
+      </filter>
+    </defs>
+    <rect width="500" height="500" fill="url(#bgGrad)"/>
+    
+    <!-- Floor Shadow -->
+    <ellipse cx="250" cy="435" rx="110" ry="18" fill="#221D16" opacity="0.2" filter="url(#shadow)"/>
+
+    <!-- High-Waisted Beige Wide-Leg Trousers Cutout -->
+    <g filter="url(#shadow)">
+      <!-- Waistband & Black Leather Belt -->
+      <rect x="190" y="140" width="120" height="24" rx="4" fill="#D6C4A5" stroke="#C2AF8F" stroke-width="1.5"/>
+      <rect x="192" y="146" width="116" height="12" fill="#1C1814"/>
+      <!-- Gold Buckle -->
+      <rect x="242" y="143" width="16" height="18" fill="url(#gold)" rx="2"/>
+      
+      <!-- Wide Legs Pants -->
+      <path d="M190 164 L244 164 L235 430 L170 430 Z" fill="#D6C4A5" stroke="#C2AF8F" stroke-width="1.5"/>
+      <path d="M256 164 L310 164 L330 430 L265 430 Z" fill="#D6C4A5" stroke="#C2AF8F" stroke-width="1.5"/>
+      <!-- Center Crease Lines -->
+      <path d="M217 170 L202 425 M283 170 L298 425" fill="none" stroke="#C0AE90" stroke-width="2"/>
+      
+      <!-- Pointed Black Stiletto Heels -->
+      <path d="M172 430 L200 430 L205 442 L165 442 Z" fill="#1C1814"/>
+      <path d="M268 430 L296 430 L301 442 L261 442 Z" fill="#1C1814"/>
+    </g>
+  </svg>

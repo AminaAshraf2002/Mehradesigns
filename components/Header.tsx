@@ -10,6 +10,24 @@ import { signIn, signOut, useSession } from 'next-auth/react';
 import { useLocale } from '@/context/CurrencyContext';
 import { Country, Currency, Language, translateCategory } from '@/lib/translations';
 import AddressManagerModal from '@/components/AddressManagerModal';
+import { MehraLogo } from '@/components/MehraLogo';
+import {
+  Menu,
+  Search,
+  User,
+  Heart,
+  ShoppingBag,
+  ChevronLeft,
+  ChevronRight,
+  X,
+  ArrowRight,
+  Globe,
+  Calendar,
+  MapPin,
+  LogOut,
+  ChevronDown
+} from 'lucide-react';
+import gsap from 'gsap';
 
 export function Header() {
   const router = useRouter();
@@ -34,8 +52,35 @@ export function Header() {
     t,
   } = useLocale();
 
+  const announcementMessages = [
+    'FREE SHIPPING ON ORDERS OVER $100',
+    'COMPLIMENTARY GIFT WITH PURCHASES OVER $250',
+    'TIMELESS LUXURY & HANDCRAFTED ELEGANCE',
+  ];
+  const [announcementIndex, setAnnouncementIndex] = useState(0);
+
+  const handlePrevAnnouncement = () => {
+    setAnnouncementIndex((prev) => (prev === 0 ? announcementMessages.length - 1 : prev - 1));
+  };
+
+  const handleNextAnnouncement = () => {
+    setAnnouncementIndex((prev) => (prev === announcementMessages.length - 1 ? 0 : prev + 1));
+  };
+
   const [query, setQuery] = useState('');
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const searchInputRef = useRef<HTMLInputElement>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsSearchOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
   const mobileSearchInputRef = useRef<HTMLInputElement>(null);
   const [mobileSearchActive, setMobileSearchActive] = useState(false);
@@ -72,15 +117,24 @@ export function Header() {
 
   // Synchronize session with header profile and login status
   useEffect(() => {
-    if (status === 'authenticated' && session?.user) {
+    // Only CUSTOMER accounts should be logged into the public storefront!
+    // Admin credentials (admin@mehradesigns.com / role: ADMIN) are reserved strictly for /admin
+    const currentUser = session?.user;
+    const isCustomer =
+      status === 'authenticated' &&
+      currentUser &&
+      (currentUser as any).role === 'CUSTOMER' &&
+      currentUser.email !== 'admin@mehradesigns.com';
+
+    if (isCustomer && currentUser) {
       setUserLoggedIn(true);
-      if (session.user.name) {
-        setUserName(session.user.name);
-      } else if (session.user.email) {
-        setUserName(session.user.email.split('@')[0]);
+      if (currentUser.name) {
+        setUserName(currentUser.name);
+      } else if (currentUser.email) {
+        setUserName(currentUser.email.split('@')[0]);
       }
-      if (session.user.email) {
-        setUserEmail(session.user.email);
+      if (currentUser.email) {
+        setUserEmail(currentUser.email);
       }
 
       // Fetch persisted user profile and addresses from PostgreSQL
@@ -97,13 +151,64 @@ export function Header() {
             }
           }
         })
-        .catch(() => {});
-    } else if (status === 'unauthenticated') {
+        .catch(() => { });
+    } else {
+      // Unauthenticated or ADMIN - keep storefront logged out
       setUserLoggedIn(false);
+      setUserName('');
+      setUserEmail('');
+      setUserPhone('');
+      setUserAddress('');
     }
   }, [status, session, setUserLoggedIn]);
 
   const profileRef = useRef<HTMLDivElement>(null);
+  const drawerRef = useRef<HTMLDivElement>(null);
+  const backdropRef = useRef<HTMLDivElement>(null);
+
+  // GSAP animation for navigation menu drawer (smooth enlargement and entrance)
+  useEffect(() => {
+    if (mobileMenuOpen && drawerRef.current) {
+      gsap.fromTo(
+        drawerRef.current,
+        { x: -50, scale: 0.94, opacity: 0 },
+        { x: 0, scale: 1, opacity: 1, duration: 0.42, ease: 'power3.out' }
+      );
+      if (backdropRef.current) {
+        gsap.fromTo(
+          backdropRef.current,
+          { opacity: 0 },
+          { opacity: 1, duration: 0.3, ease: 'power2.out' }
+        );
+      }
+      const navItems = drawerRef.current.querySelectorAll('.drawer-nav-item');
+      if (navItems.length > 0) {
+        gsap.fromTo(
+          navItems,
+          { opacity: 0, x: -16 },
+          { opacity: 1, x: 0, duration: 0.32, stagger: 0.04, delay: 0.1, ease: 'power2.out' }
+        );
+      }
+    }
+  }, [mobileMenuOpen]);
+
+  const handleCloseDrawer = () => {
+    if (drawerRef.current) {
+      gsap.to(drawerRef.current, {
+        x: -40,
+        scale: 0.95,
+        opacity: 0,
+        duration: 0.25,
+        ease: 'power3.in',
+        onComplete: () => setMobileMenuOpen(false),
+      });
+      if (backdropRef.current) {
+        gsap.to(backdropRef.current, { opacity: 0, duration: 0.2 });
+      }
+    } else {
+      setMobileMenuOpen(false);
+    }
+  };
 
   // Tooltip hover states
   const [hoveredIcon, setHoveredIcon] = useState<string | null>(null);
@@ -194,12 +299,13 @@ export function Header() {
         }));
     }
     return [
-      { name: 'Feng Shui Decor', href: '/shop?category=Feng%20Shui%20Decor', isGift: true },
-      { name: 'Feng Shui Jewelry', href: '/shop?category=Feng%20Shui%20Jewelry' },
-      { name: 'Feng Shui Candles', href: '/shop?category=Feng%20Shui%20Candles' },
-      { name: 'Crystals & Trees', href: '/shop?category=Crystals%20%26%20Trees' },
-      { name: 'Zen & Meditation', href: '/shop?category=Zen%20%26%20Meditation' },
-      { name: 'Feng Shui Books', href: '/shop?category=Feng%20Shui%20Books' },
+      { name: 'Dresses', href: '/shop?category=Dresses', isGift: true },
+      { name: 'Tops', href: '/shop?category=Tops' },
+      { name: 'Outerwear', href: '/shop?category=Outerwear' },
+      { name: 'Bottoms', href: '/shop?category=Bottoms' },
+      { name: 'Bags', href: '/shop?category=Bags' },
+      { name: 'Shoes', href: '/shop?category=Shoes' },
+      { name: 'Accessories', href: '/shop?category=Accessories' },
     ];
   }, [storeCategories]);
 
@@ -211,33 +317,28 @@ export function Header() {
     const cleanEmail = email.trim().toLowerCase();
     const cleanPassword = password.trim();
 
-    try {
-      if (isRegisterMode) {
-        const regRes = await fetch('/api/auth/register', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            name: firstName.trim() || cleanEmail.split('@')[0],
-            email: cleanEmail,
-            password: cleanPassword,
-          }),
-        });
-        const regData = await regRes.json();
-        if (!regRes.ok || !regData.success) {
-          setAuthError(regData.error || 'Registration failed');
-          setIsAuthSubmitting(false);
-          return;
-        }
-      }
+    if (cleanEmail === 'admin@mehradesigns.com' || cleanEmail === 'admin') {
+      setAuthError('This email is reserved strictly for the Admin Panel. Please sign in at /admin.');
+      setIsAuthSubmitting(false);
+      return;
+    }
 
+    try {
       const res = await signIn('credentials', {
         email: cleanEmail,
         password: cleanPassword,
+        name: firstName.trim() || cleanEmail.split('@')[0],
+        isRegister: isRegisterMode ? 'true' : 'false',
         redirect: false,
       });
 
       if (res?.error) {
-        setAuthError('Invalid email or password');
+        const rawErr = res.error.replace(/^Error:\s*/, '');
+        if (rawErr === 'CredentialsSignin') {
+          setAuthError(isRegisterMode ? 'Registration failed. An account with this email may already exist.' : 'Invalid email or password');
+        } else {
+          setAuthError(rawErr || (isRegisterMode ? 'Registration failed' : 'Invalid email or password'));
+        }
         setIsAuthSubmitting(false);
         return;
       }
@@ -304,392 +405,135 @@ export function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-40 bg-white border-b border-[#E0D7E8]">
-        {/* Top Header Row */}
-        <div className="etsy-container py-2 sm:py-2.5">
-          {/* Mobile Full-Screen Fixed Search Overlay (Zero overlap with page content below) */}
-          {mobileSearchActive && (
-            <div className="fixed inset-0 z-[9999] bg-white md:hidden flex flex-col animate-in fade-in duration-150">
-              {/* Fixed Top Search Bar */}
-              <div className="px-3.5 py-2.5 border-b border-gray-200 bg-white flex items-center gap-2.5 shadow-2xs">
-                <form
-                  onSubmit={(e) => {
-                    handleSearch(e);
-                    setMobileSearchActive(false);
-                  }}
-                  role="search"
-                  className="flex-1 min-w-0 relative"
-                >
-                  <div className="relative flex items-center">
-                    <i className="fa-solid fa-magnifying-glass text-[#3A1F62] absolute left-3.5 top-1/2 -translate-y-1/2 text-sm pointer-events-none" />
-                    <input
-                      ref={mobileSearchInputRef}
-                      type="text"
-                      value={query}
-                      onChange={(e) => setQuery(e.target.value)}
-                      placeholder="Search for anything..."
-                      className="w-full h-10 pl-9 pr-9 rounded-full border border-gray-300 focus:border-[#3A1F62] focus:ring-1 focus:ring-[#3A1F62]/20 focus:outline-none text-[14.5px] text-[#222222] placeholder-gray-400 bg-white shadow-xs"
-                      autoFocus
-                    />
-                    {query && (
-                      <button
-                        type="button"
-                        onClick={() => setQuery('')}
-                        className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-700 p-1 text-xs cursor-pointer"
-                        aria-label="Clear search text"
-                      >
-                        <i className="fa-solid fa-xmark text-sm" />
-                      </button>
-                    )}
-                  </div>
-                </form>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setMobileSearchActive(false);
-                  }}
-                  className="text-[14.5px] font-bold text-[#222222] hover:text-black shrink-0 px-2 py-1 cursor-pointer"
-                >
-                  Cancel
-                </button>
-              </div>
+      {/* 1. ANNOUNCEMENT BAR */}
+      <div className="bg-[#221D16] text-[#FFFDFA] py-2 px-4 border-b border-white/10 flex items-center justify-between select-none">
+        <button
+          type="button"
+          onClick={handlePrevAnnouncement}
+          className="text-white/70 hover:text-white transition-colors p-1 cursor-pointer"
+          aria-label="Previous announcement"
+        >
+          <ChevronLeft className="w-3.5 h-3.5" />
+        </button>
 
-              {/* Suggestions / Popular Searches Container */}
-              <div className="flex-1 bg-white p-4 overflow-y-auto">
-                {!query.trim() ? (
-                  <div>
-                    {/* Trending Keywords (Popular Searches) */}
-                    <div className="flex items-center gap-1.5 mb-3">
-                      <i className="fa-solid fa-arrow-trend-up text-xs text-[#3A1F62]" />
-                      <span className="text-[11.5px] uppercase tracking-wider font-bold text-gray-500">
-                        Popular Searches
-                      </span>
-                    </div>
-                    <div className="flex flex-wrap gap-2">
-                      {[
-                        'Pixiu Wealth Bracelet',
-                        'Citrine Money Tree',
-                        'S925 Pixiu Ring',
-                        'Blackwood Amulet',
-                        'Tibetan Singing Bowl',
-                        'Laughing Buddha',
-                        '7 Chakra Gemstone Tree',
-                        'Tai Sui Protection',
-                        'Feng Shui Tortoise',
-                        'Evil Eye Wall Charm',
-                        'Chinese Wealth Coins',
-                        'Rose Quartz Tree',
-                      ].map((term) => (
-                        <button
-                          key={term}
-                          type="button"
-                          onClick={() => {
-                            setQuery(term);
-                            router.push(`/shop?q=${encodeURIComponent(term)}`);
-                            setMobileSearchActive(false);
-                          }}
-                          className="px-3.5 py-1.5 rounded-full bg-[#FAF9F6] hover:bg-[#F3EEFC] text-gray-700 hover:text-[#3A1F62] text-xs font-medium border border-gray-200/80 shadow-2xs transition-all flex items-center gap-1.5 cursor-pointer active:scale-95"
-                        >
-                          <i className="fa-solid fa-magnifying-glass text-[10px] text-gray-400" />
-                          <span>{term}</span>
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                ) : (
-                  /* Live Search Results while typing */
-                  <div>
-                    <div className="flex items-center justify-between mb-3 pb-1.5 border-b border-gray-200">
-                      <span className="text-[11px] uppercase tracking-wider font-bold text-gray-600">
-                        Products Matching &ldquo;{query}&rdquo; ({mobileLiveMatches.length})
-                      </span>
-                    </div>
+        <div className="text-center font-medium tracking-[0.18em] text-[10.5px] uppercase truncate px-2 text-white/90">
+          {announcementMessages[announcementIndex]}
+        </div>
 
-                    {mobileLiveMatches.length > 0 ? (
-                      <div className="flex flex-col gap-2">
-                        {mobileLiveMatches.map((prod) => (
-                          <div
-                            key={prod.id}
-                            onClick={() => {
-                              router.push(`/product/${prod.id}`);
-                              setMobileSearchActive(false);
-                            }}
-                            className="flex items-center gap-3 p-2 rounded-xl border border-gray-200/80 bg-white hover:border-[#3A1F62]/40 hover:bg-[#FAF8FD] transition-all cursor-pointer shadow-2xs active:scale-[0.99]"
-                          >
-                            <img
-                              src={prod.images[0]}
-                              alt={prod.name}
-                              className="w-14 h-14 rounded-lg object-cover bg-gray-100 shrink-0 border border-black/5"
-                            />
-                            <div className="flex-1 min-w-0">
-                              <p className="text-xs font-bold text-gray-900 truncate leading-snug">
-                                {prod.name}
-                              </p>
-                              <span className="text-[10.5px] text-gray-400 block truncate mt-0.5">
-                                {prod.category} &bull; {prod.maker}
-                              </span>
-                              <div className="flex items-center gap-2 mt-1">
-                                <span className="text-xs font-bold text-gray-900">
-                                  {formatPrice(prod.price)}
-                                </span>
-                                {prod.bestseller && (
-                                  <span className="text-[9px] font-bold text-amber-800 bg-[#FEF9C3] px-1.5 py-0.2 rounded border border-yellow-300">
-                                    Popular
-                                  </span>
-                                )}
-                              </div>
-                            </div>
-                            <span className="text-[11px] font-bold text-[#3A1F62] shrink-0 pr-1 flex items-center gap-1">
-                              <span>View</span>
-                              <i className="fa-solid fa-arrow-right text-[10px]" />
-                            </span>
-                          </div>
-                        ))}
+        <button
+          type="button"
+          onClick={handleNextAnnouncement}
+          className="text-white/70 hover:text-white transition-colors p-1 cursor-pointer"
+          aria-label="Next announcement"
+        >
+          <ChevronRight className="w-3.5 h-3.5" />
+        </button>
+      </div>
 
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            handleSearch(e);
-                            setMobileSearchActive(false);
-                          }}
-                          className="mt-3 w-full py-2.5 rounded-xl bg-[#3A1F62] hover:bg-[#2B154C] text-white text-xs font-bold text-center transition-colors cursor-pointer shadow-xs flex items-center justify-center gap-2"
-                        >
-                          <span>See all results for &ldquo;{query}&rdquo;</span>
-                          <i className="fa-solid fa-arrow-right text-[11px]" />
-                        </button>
-                      </div>
-                    ) : (
-                      <div className="py-10 text-center text-gray-400 bg-white rounded-2xl border border-gray-200/80 p-6">
-                        <i className="fa-solid fa-magnifying-glass text-gray-300 text-3xl mb-2 block" />
-                        <p className="text-sm font-semibold text-gray-800">
-                          No matching products found
-                        </p>
-                        <p className="text-xs text-gray-400 mt-1">
-                          We couldn&apos;t find products for &ldquo;{query}&rdquo;.
-                        </p>
-                        <div className="mt-4 flex flex-wrap justify-center gap-1.5">
-                          {['Tree', 'Pixiu', 'Buddha', 'Bracelet'].map((tag) => (
-                            <button
-                              key={tag}
-                              type="button"
-                              onClick={() => setQuery(tag)}
-                              className="px-2.5 py-1 text-xs rounded-full bg-gray-100 hover:bg-[#F3EEFC] text-gray-700 hover:text-[#3A1F62] font-medium transition-colors cursor-pointer"
-                            >
-                              Try &ldquo;{tag}&rdquo;
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
+      {/* 2. HEADER MAIN ROW */}
+      <header className="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-[#E6E0D4] shadow-xs select-none">
+        <div className="max-w-[1280px] mx-auto px-3 sm:px-6 md:px-8 py-2 sm:py-2 md:py-2.5 flex items-center justify-between gap-2 sm:gap-4">
+          {/* Left: Menu Hamburger Button + Mobile Brand Logo (placed near menu on mobile) */}
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen(true)}
+              className="flex items-center gap-1.5 sm:gap-2 text-[#221D16] hover:text-[#B99465] transition-colors py-1 cursor-pointer shrink-0"
+              aria-label="Open navigation menu"
+            >
+              <Menu className="w-5 h-5 stroke-[1.75]" />
+              <span className="text-xs font-semibold tracking-widest uppercase hidden sm:inline-block">MENU</span>
+            </button>
 
-          {/* Standard Header Row */}
-          <div className="flex items-center justify-between gap-1 sm:gap-2.5 md:gap-4 w-full">
-            {/* Left: Mobile Menu Button + Brand Logo */}
-            <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
-              {/* Mobile Menu Button */}
-              <button
-                type="button"
-                aria-label="Toggle navigation menu"
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="lg:hidden p-1.5 -ml-1 rounded-full hover:bg-etsy-bg-soft text-etsy-dark shrink-0 cursor-pointer"
-              >
-                {mobileMenuOpen ? <i className="fa-solid fa-xmark text-[18px]" /> : <i className="fa-solid fa-bars text-[18px]" />}
-              </button>
-
-              {/* Logo: Round avatar + Brand Name (Increased sizes for mobile) */}
+            {/* Mobile Brand Logo: directly near the menu */}
+            <div className="flex sm:hidden items-center">
               <Link
                 href="/"
-                className="flex items-center gap-2 sm:gap-2.5 shrink-0 select-none hover:opacity-90 transition-opacity"
+                className="flex items-center hover:opacity-90 transition-opacity"
               >
-                <div className="w-[38px] h-[38px] sm:w-[44px] sm:h-[44px] md:w-[48px] md:h-[48px] rounded-full overflow-hidden shadow-2xs shrink-0 border border-black/10">
-                  <img
-                    src="/images/miracle.jpeg"
-                    alt="Miracle feng shui"
-                    className="w-full h-full object-cover scale-105"
-                  />
-                </div>
-                <span className="font-serif text-[22px] sm:text-[25px] md:text-[28px] font-bold text-[#222222] tracking-tight leading-none">
-                  <span className="sm:hidden">Miracle</span>
-                  <span className="hidden sm:inline">Miracle feng shui</span>
-                </span>
+                <MehraLogo size="md" />
               </Link>
-
-              {/* Categories Trigger Button (Desktop Only) */}
-              <button
-                type="button"
-                onClick={() => router.push('/shop')}
-                className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-full hover:bg-etsy-bg-soft text-[14px] font-semibold text-etsy-dark shrink-0 transition-colors ml-1"
-              >
-                <i className="fa-solid fa-bars text-[13px]" />
-                <span>{t('nav.categories', 'Categories')}</span>
-              </button>
             </div>
+          </div>
 
-            {/* Middle: Desktop Search Bar */}
-            <form
-              onSubmit={handleSearch}
-              role="search"
-              className="hidden md:block flex-1 min-w-0 max-w-3xl mx-3 relative"
+          {/* Desktop Center: Luxury Brand Logo */}
+          <div className="hidden sm:flex items-center justify-center shrink-0 min-w-0">
+            <Link
+              href="/"
+              className="flex items-center hover:opacity-90 transition-opacity"
             >
-              <div className="relative flex items-center">
-                <input
-                  type="text"
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  placeholder={t('nav.search_placeholder', 'Search')}
-                  className="w-full h-10 md:h-11 pl-4 pr-12 rounded-full border border-gray-400 md:border-2 md:border-[#222222] focus:outline-none focus:border-[#3A1F62] text-[14.5px] text-[#222222] placeholder-gray-500 bg-white transition-all shadow-2xs"
-                />
-                {query && (
-                  <button
-                    type="button"
-                    onClick={() => setQuery('')}
-                    className="absolute right-11 text-gray-400 hover:text-gray-600 p-0.5 text-xs cursor-pointer"
-                    aria-label="Clear search text"
-                  >
-                    <i className="fa-solid fa-xmark text-[11px]" />
-                  </button>
-                )}
-                {/* Search Button with Logo Purple Background */}
-                <button
-                  type="submit"
-                  aria-label="Submit search"
-                  className="absolute right-1 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-[#3A1F62] hover:bg-[#2B154C] text-white flex items-center justify-center transition-colors shrink-0 cursor-pointer shadow-xs"
-                >
-                  <i className="fa-solid fa-magnifying-glass text-[12px]" />
-                </button>
-              </div>
-            </form>
+              <MehraLogo size="md" />
+            </Link>
+          </div>
 
-            {/* Right Actions: Mobile Search Icon 🔍 | Region Flag 🇮🇳/🇦🇪 | Profile / Sign In 👤 | Favourites ♥ | Cart 👜 */}
-            <div className="flex items-center gap-1 sm:gap-2 shrink-0">
-              {/* Mobile Search Icon Trigger Button */}
-              <button
-                type="button"
-                aria-label="Open search"
-                onClick={() => {
-                  setMobileSearchActive(true);
-                  setTimeout(() => mobileSearchInputRef.current?.focus(), 60);
-                }}
-                className="md:hidden w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center cursor-pointer transition-colors shrink-0"
-              >
-                <i className="fa-solid fa-magnifying-glass text-[17px] text-[#3A1F62]" />
-              </button>
+          {/* Right: Action Icons (Search, Account, Wishlist, Cart) */}
+          <div className="flex items-center gap-2 sm:gap-3.5 md:gap-5 shrink-0 text-[#221D16]">
+            {/* Search Trigger Button */}
+            <button
+              type="button"
+              onClick={() => {
+                setIsSearchOpen(true);
+                setTimeout(() => searchInputRef.current?.focus(), 60);
+              }}
+              className="p-1 sm:p-1.5 hover:text-[#B99465] transition-colors cursor-pointer shrink-0"
+              aria-label="Search"
+            >
+              <Search className="w-5 h-5 stroke-[1.75]" />
+            </button>
 
-              {/* Region Button with Tooltip (Dynamic Flag: India 🇮🇳 or UAE 🇦🇪) */}
-              <div
-                className="relative"
-                onMouseEnter={() => setHoveredIcon('region')}
-                onMouseLeave={() => setHoveredIcon(null)}
-              >
+            {/* User Profile / Account Trigger */}
+            {userLoggedIn ? (
+              <div className="relative shrink-0" ref={profileRef}>
                 <button
                   type="button"
-                  aria-label="Select region, language and currency"
-                  onClick={() => setShowRegionModal(true)}
-                  className="w-8 h-8 sm:w-10 sm:h-10 rounded-full hover:bg-[#DCE8F5] flex items-center justify-center transition-colors cursor-pointer"
+                  onClick={() => setProfileDropdownOpen((prev) => !prev)}
+                  className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#221D16] hover:bg-[#3D3327] text-[#F9F6F0] flex items-center justify-center text-xs font-bold shrink-0 tracking-wider shadow-xs transition-colors cursor-pointer border border-[#221D16]"
+                  aria-label="User account menu"
                 >
-                  {country === 'UAE' ? (
-                    /* UAE Flag */
-                    <svg className="w-5 h-5 rounded-full shadow-xs" viewBox="0 0 36 36" fill="none">
-                      <circle cx="18" cy="18" r="18" fill="#F4F4F4" />
-                      <path d="M0 6C0 2.686 2.686 0 6 0H36V12H0V6Z" fill="#00732F" />
-                      <path d="M0 12H36V24H0V12Z" fill="#FFFFFF" />
-                      <path d="M0 24H36V30C36 33.314 33.314 36 30 36H6C2.686 36 0 33.314 0 30V24Z" fill="#000000" />
-                      <path d="M0 6C0 2.686 2.686 0 6 0H12V36H6C2.686 36 0 33.314 0 30V6Z" fill="#FF0000" />
-                    </svg>
-                  ) : (
-                    /* Indian Flag */
-                    <svg className="w-5 h-5 rounded-full shadow-xs" viewBox="0 0 36 36" fill="none">
-                      <circle cx="18" cy="18" r="18" fill="#F4F4F4" />
-                      <path d="M0 6C0 2.686 2.686 0 6 0H30C33.314 0 36 2.686 36 6V12H0V6Z" fill="#FF9933" />
-                      <path d="M0 24H36V30C36 33.314 33.314 36 30 36H6C2.686 36 0 33.314 0 30V24Z" fill="#138808" />
-                      <path d="M0 12H36V24H0V12Z" fill="#FFFFFF" />
-                      <circle cx="18" cy="18" r="4.5" stroke="#000080" strokeWidth="1" fill="none" />
-                      <circle cx="18" cy="18" r="1.2" fill="#000080" />
-                    </svg>
-                  )}
+                  {(userName || userEmail || 'U').charAt(0).toUpperCase()}
                 </button>
 
-                {hoveredIcon === 'region' && (
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1.5 bg-[#1E2B37] text-white text-[12px] font-semibold px-3 py-1 rounded-md shadow-lg whitespace-nowrap z-50 animate-in fade-in">
-                    {country === 'UAE' ? '🇦🇪 UAE (AED)' : '🇮🇳 India (INR)'}
-                  </div>
-                )}
-              </div>
-
-              {/* Profile Dropdown / Sign In Trigger */}
-              {userLoggedIn ? (
-                <div className="relative" ref={profileRef}>
-                  <button
-                    type="button"
-                    onClick={() => setProfileDropdownOpen((prev) => !prev)}
-                    className="flex items-center gap-1.5 py-1 px-1.5 sm:py-1.5 sm:px-2.5 rounded-full hover:bg-gray-100 transition-colors border border-gray-200 cursor-pointer"
-                    aria-label="User account menu"
-                  >
-                    <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#111111] text-white flex items-center justify-center font-bold text-[11px] sm:text-[12px] shadow-xs shrink-0">
-                      {userName.charAt(0).toUpperCase() || 'A'}
+                {profileDropdownOpen && (
+                  <div className="absolute right-0 top-full mt-2 w-64 bg-white rounded-2xl shadow-xl border border-[#E6E0D4] p-3 z-50 animate-in fade-in text-left normal-case">
+                    <div className="px-3 pt-2 pb-3 border-b border-gray-100">
+                      <p className="font-bold text-sm text-[#221D16]">{userName || 'Valued Client'}</p>
+                      <p className="text-xs text-gray-400 truncate">{userEmail || 'client@mehradesigns.com'}</p>
                     </div>
-                    <span className="hidden md:inline text-[13px] font-semibold text-[#111111] max-w-[90px] truncate">
-                      {userName.split(' ')[0]}
-                    </span>
-                    <i className="fa-solid fa-chevron-down text-[9px] text-gray-400 hidden sm:inline" />
-                  </button>
+                    <div className="py-2 text-xs space-y-1">
+                      <Link
+                        href="/my-orders"
+                        onClick={() => setProfileDropdownOpen(false)}
+                        className="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-[#F6F1E9] font-medium text-[#221D16] transition-colors"
+                      >
+                        <Calendar className="w-4 h-4 text-gray-500 stroke-[1.8]" />
+                        <span>My Orders</span>
+                      </Link>
 
-                  {/* Sleek Dropdown Menu */}
-                  {profileDropdownOpen && (
-                    <div className="absolute right-0 top-full mt-2 w-72 bg-white rounded-2xl shadow-2xl border border-gray-100 p-3 z-50 animate-in fade-in slide-in-from-top-1 duration-150 text-left">
-                      {/* User Header */}
-                      <div className="px-3 pt-2 pb-3 border-b border-gray-100">
-                        <p className="font-bold text-[14.5px] text-[#111111] leading-snug">
-                          {userName}
-                        </p>
-                        <p className="text-[12px] text-gray-400 mt-0.5 truncate">
-                          {userEmail}
-                        </p>
-                      </div>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setProfileDropdownOpen(false);
+                          setShowAddressModal(true);
+                        }}
+                        className="w-full flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-[#F6F1E9] font-medium text-[#221D16] transition-colors text-left cursor-pointer"
+                      >
+                        <MapPin className="w-4 h-4 text-gray-500 stroke-[1.8]" />
+                        <span>Delivery addresses</span>
+                      </button>
 
-                      {/* Store Navigation Items */}
-                      <div className="py-2 text-[13px] space-y-0.5 text-gray-700">
-                        <Link
-                          href="/my-orders"
-                          onClick={() => setProfileDropdownOpen(false)}
-                          className="w-full flex items-center gap-3.5 px-3 py-2.5 rounded-xl hover:bg-gray-50 hover:text-black transition-colors"
-                        >
-                          <i className="fa-regular fa-calendar-check text-[14px] text-gray-400 w-4 text-center shrink-0" />
-                          <span className="font-medium text-gray-800">{t('nav.my_orders', 'My orders')}</span>
-                        </Link>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setProfileDropdownOpen(false);
+                          setShowProfileEditModal(true);
+                        }}
+                        className="w-full flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-[#F6F1E9] font-medium text-[#221D16] transition-colors text-left cursor-pointer"
+                      >
+                        <User className="w-4 h-4 text-gray-500 stroke-[1.8]" />
+                        <span>Edit profile</span>
+                      </button>
 
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setProfileDropdownOpen(false);
-                            setShowAddressModal(true);
-                          }}
-                          className="w-full flex items-center gap-3.5 px-3 py-2.5 rounded-xl hover:bg-gray-50 hover:text-black transition-colors text-left cursor-pointer"
-                        >
-                          <i className="fa-solid fa-location-dot text-[14px] text-gray-400 w-4 text-center shrink-0" />
-                          <span className="font-medium text-gray-800">{t('nav.delivery_addresses', 'Delivery addresses')}</span>
-                        </button>
-
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setProfileDropdownOpen(false);
-                            setShowProfileEditModal(true);
-                          }}
-                          className="w-full flex items-center gap-3.5 px-3 py-2.5 rounded-xl hover:bg-gray-50 hover:text-black transition-colors text-left cursor-pointer"
-                        >
-                          <i className="fa-regular fa-user text-[14px] text-gray-400 w-4 text-center shrink-0" />
-                          <span className="font-medium text-gray-800">{t('nav.edit_profile', 'Edit profile')}</span>
-                        </button>
-                      </div>
-
-                      {/* Sign Out */}
-                      <div className="pt-2 mt-1 border-t border-gray-100">
+                      <div className="border-t border-gray-100 my-1 pt-1">
                         <button
                           type="button"
                           onClick={async () => {
@@ -697,222 +541,217 @@ export function Header() {
                             setUserLoggedIn(false);
                             setProfileDropdownOpen(false);
                           }}
-                          className="w-full flex items-center gap-3.5 px-3 py-2 rounded-xl hover:bg-red-50 text-red-600 font-medium text-[13px] transition-colors text-left cursor-pointer"
+                          className="w-full flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-red-50 text-red-600 font-medium text-left transition-colors cursor-pointer"
                         >
-                          <i className="fa-solid fa-arrow-right-from-bracket text-[13px] text-red-500 w-4 text-center shrink-0" />
-                          <span>{t('nav.sign_out', 'Sign out')}</span>
+                          <LogOut className="w-4 h-4 stroke-[1.8]" />
+                          <span>Sign Out</span>
                         </button>
                       </div>
                     </div>
-                  )}
-                </div>
-              ) : (
-                <button
-                  type="button"
-                  onClick={() => {
-                    setIsRegisterMode(false);
-                    setShowAuthModal(true);
-                  }}
-                  aria-label="Sign in"
-                  className="w-8 h-8 sm:w-auto sm:h-auto sm:px-4 sm:py-1.5 rounded-full hover:bg-gray-100 text-[13.5px] font-semibold text-[#111111] transition-colors cursor-pointer flex items-center justify-center"
-                >
-                  <span className="hidden sm:inline">{t('nav.signin', 'Sign in')}</span>
-                  <i className="fa-solid fa-user text-[16px] text-[#222222] sm:hidden" />
-                </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <button
+                type="button"
+                onClick={() => {
+                  setIsRegisterMode(false);
+                  setShowAuthModal(true);
+                }}
+                className="p-1.5 hover:text-[#B99465] transition-colors cursor-pointer"
+                aria-label="Sign in"
+              >
+                <User className="w-5 h-5 stroke-[1.75]" />
+              </button>
+            )}
+
+            {/* Wishlist / Heart Icon */}
+            <Link
+              href="/favorites"
+              className="p-1 sm:p-1.5 hover:text-[#B99465] transition-colors relative cursor-pointer shrink-0 block"
+              aria-label="Wishlist"
+            >
+              <Heart className="w-5 h-5 stroke-[1.75]" />
+              {favorites.length > 0 && (
+                <span className="absolute -top-1 -right-1 bg-[#221D16] text-white text-[9px] font-bold rounded-full min-w-[15px] h-[15px] px-1 flex items-center justify-center border border-white">
+                  {favorites.length}
+                </span>
               )}
+            </Link>
 
-              {/* Wishlist / Favourites Button with Tooltip */}
-              <div
-                className="relative"
-                onMouseEnter={() => setHoveredIcon('favourites')}
-                onMouseLeave={() => setHoveredIcon(null)}
-              >
-                <Link
-                  href="/favorites"
-                  aria-label="Favourites"
-                  className="w-8 h-8 sm:w-10 sm:h-10 rounded-full hover:bg-[#DCE8F5] text-etsy-dark flex items-center justify-center transition-colors relative"
-                >
-                  <i className="fa-solid fa-heart text-[16px] sm:text-[18px] text-[#222222]" />
-                  {favorites.length > 0 && (
-                    <span className="absolute -top-1 -right-1 sm:top-0.5 sm:right-0.5 bg-etsy-orange text-white text-[10px] font-bold rounded-full min-w-[16px] h-[16px] px-1 inline-flex items-center justify-center leading-none shadow-xs">
-                      {favorites.length}
-                    </span>
-                  )}
-                </Link>
-
-                {hoveredIcon === 'favourites' && (
-                  <div className="hidden sm:block absolute top-full left-1/2 -translate-x-1/2 mt-1.5 bg-[#1E2B37] text-white text-[12px] font-semibold px-3 py-1 rounded-md shadow-lg whitespace-nowrap z-50 animate-in fade-in">
-                    {t('nav.favorites', 'Favourites')}
-                  </div>
-                )}
-              </div>
-
-              {/* Cart Button with Tooltip */}
-              <div
-                className="relative"
-                onMouseEnter={() => setHoveredIcon('cart')}
-                onMouseLeave={() => setHoveredIcon(null)}
-              >
-                <Link
-                  href="/cart"
-                  aria-label="Cart"
-                  className="w-8 h-8 sm:w-10 sm:h-10 rounded-full hover:bg-[#DCE8F5] text-etsy-dark flex items-center justify-center transition-colors relative"
-                >
-                  <i className="fa-solid fa-bag-shopping text-[17px] sm:text-[18px] text-[#222222]" />
-                  {count > 0 && (
-                    <span className="absolute -top-1 -right-1 sm:top-0.5 sm:right-0.5 bg-etsy-orange text-white text-[10px] font-bold rounded-full min-w-[16px] h-[16px] px-1 inline-flex items-center justify-center leading-none shadow-xs">
-                      {count}
-                    </span>
-                  )}
-                </Link>
-
-                {hoveredIcon === 'cart' && (
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1.5 bg-[#1E2B37] text-white text-[12px] font-semibold px-3 py-1 rounded-md shadow-lg whitespace-nowrap z-50 animate-in fade-in">
-                    {t('nav.cart', 'Cart')}
-                  </div>
-                )}
-              </div>
-            </div>
+            {/* Shopping Bag / Cart Icon */}
+            <Link
+              href="/cart"
+              className="p-1 sm:p-1.5 hover:text-[#B99465] transition-colors relative cursor-pointer shrink-0 block"
+              aria-label="Shopping Cart"
+            >
+              <ShoppingBag className="w-5 h-5 stroke-[1.75]" />
+              {count > 0 && (
+                <span className="absolute -top-1 -right-1 bg-[#221D16] text-white text-[9px] font-bold rounded-full min-w-[15px] h-[15px] px-1 flex items-center justify-center border border-white">
+                  {count}
+                </span>
+              )}
+            </Link>
           </div>
         </div>
 
-        {/* Secondary Categories Navigation Bar (Desktop & Tablet) */}
-        <nav className="border-t border-[#E1E3DF] bg-white hidden md:block">
-          <div className="etsy-container">
-            <ul className="flex items-center justify-center gap-7 sm:gap-9 py-2.5 list-none m-0 p-0 overflow-x-auto text-[13.5px] sm:text-[14px] font-medium text-[#222222] whitespace-nowrap scrollbar-none mx-auto w-full">
-              {secondaryNavItems.map((item) => (
-                <li key={item.name}>
-                  <Link
-                    href={item.href}
-                    className={`flex items-center gap-1.5 hover:text-etsy-orange hover:underline transition-colors ${item.isGift ? 'text-etsy-orange font-bold' : ''
-                      }`}
-                  >
-                    {item.isGift && <i className="fa-solid fa-gift text-[13px]" />}
-                    <span>{translateCategory(item.name, language)}</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
+        {/* EXPANDABLE INLINE HEADER SEARCH OVERLAY */}
+        {isSearchOpen && (
+          <div className="absolute inset-0 bg-white/98 backdrop-blur-md z-50 px-3 sm:px-6 flex items-center justify-between gap-2.5 animate-in fade-in duration-200 shadow-xs">
+            <form onSubmit={handleSearch} className="flex-1 relative flex items-center max-w-xl mx-auto">
+              <Search className="w-3.5 h-3.5 text-[#8C6C43] absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+              <input
+                ref={searchInputRef}
+                type="text"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search collections, pieces..."
+                className="w-full h-8 sm:h-9 pl-8.5 pr-8 rounded-full border border-[#E6E0D4] focus:border-[#221D16] focus:outline-none text-xs text-[#221D16] bg-[#FAF8F3] placeholder:text-[#9C9488] shadow-2xs transition-colors"
+                autoFocus
+              />
+              {query && (
+                <button
+                  type="button"
+                  onClick={() => setQuery('')}
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-700 p-0.5 cursor-pointer"
+                  aria-label="Clear search"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              )}
+            </form>
+            <button
+              type="button"
+              onClick={() => setIsSearchOpen(false)}
+              className="text-[11px] font-bold text-[#7C7267] hover:text-[#221D16] px-2 py-1 cursor-pointer shrink-0 uppercase tracking-widest transition-colors flex items-center gap-1"
+              aria-label="Close search"
+            >
+              <X className="w-4 h-4 sm:hidden" />
+              <span className="hidden sm:inline">Close</span>
+            </button>
+
+            {/* Live Search Suggestions Dropdown */}
+            {query.trim() && (
+              <div className="absolute left-3 right-3 sm:left-6 sm:right-6 top-full mt-1.5 bg-white border border-[#E6E0D4] rounded-2xl shadow-xl z-50 p-2.5 max-h-72 overflow-y-auto">
+                <p className="text-[11px] font-bold text-gray-400 uppercase tracking-wider px-3 py-1.5">Search Results</p>
+                {products
+                  .filter(
+                    (p) =>
+                      p.name.toLowerCase().includes(query.toLowerCase()) ||
+                      p.category.toLowerCase().includes(query.toLowerCase())
+                  )
+                  .slice(0, 6)
+                  .map((prod) => (
+                    <Link
+                      key={prod.id}
+                      href={`/product/${prod.id}`}
+                      onClick={() => {
+                        setQuery('');
+                        setIsSearchOpen(false);
+                      }}
+                      className="flex items-center justify-between px-3 py-2 rounded-md hover:bg-[#F6F1E9] text-xs text-[#221D16] transition-colors"
+                    >
+                      <span className="font-medium truncate">{prod.name}</span>
+                      <span className="text-gray-500 font-semibold">{formatPrice(prod.price)}</span>
+                    </Link>
+                  ))}
+              </div>
+            )}
           </div>
-        </nav>
+        )}
       </header>
 
-      {/* MOBILE NAVIGATION DRAWER */}
+      {/* 4. SLIDE-OUT NAVIGATION DRAWER WITH GSAP ANIMATION & LOGO */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-50 lg:hidden">
+        <div className="fixed inset-0 z-50">
           {/* Backdrop */}
           <div
-            className="fixed inset-0 bg-black/50 backdrop-blur-xs transition-opacity"
-            onClick={() => setMobileMenuOpen(false)}
+            ref={backdropRef}
+            className="fixed inset-0 bg-black/50 backdrop-blur-xs transition-opacity cursor-pointer"
+            onClick={handleCloseDrawer}
           />
 
           {/* Drawer Content */}
-          <div className="fixed inset-y-0 left-0 max-w-xs w-full bg-white shadow-2xl z-50 flex flex-col p-5 overflow-y-auto animate-in slide-in-from-left duration-200">
-            {/* Drawer Header */}
-            <div className="flex items-center justify-between pb-4 border-b border-gray-100">
-              <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-full overflow-hidden border border-black/10">
-                  <img src="/images/miracle.jpeg" alt="Miracle feng shui" className="w-full h-full object-cover" />
-                </div>
-                <span className="font-serif font-semibold text-[18px] text-[#222222]">Miracle feng shui</span>
-              </div>
+          <div
+            ref={drawerRef}
+            className="fixed inset-y-0 left-0 max-w-sm w-full bg-[#FFFDFA] shadow-2xl z-50 flex flex-col p-6 overflow-y-auto border-r border-[#E6E0D4] will-change-transform"
+          >
+            {/* Drawer Header with Logo & Brand Name */}
+            {/* Drawer Header with Logo & Brand Name */}
+            <div className="relative flex items-center justify-center h-16 border-b border-[#E6E0D4] shrink-0">
+              <img
+                src="/logo.png"
+                alt="Mehra Designs Logo"
+                className="h-9 w-auto object-contain scale-[1.6] origin-center"
+              />
               <button
                 type="button"
-                onClick={() => setMobileMenuOpen(false)}
-                className="p-1.5 rounded-full hover:bg-gray-100 text-gray-500"
+                onClick={handleCloseDrawer}
+                className="absolute right-0 top-1/2 -translate-y-1/2 p-1.5 rounded-full hover:bg-black/5 text-[#221D16] transition-colors cursor-pointer"
                 aria-label="Close menu"
               >
-                <i className="fa-solid fa-xmark text-[18px]" />
+                <X className="w-5 h-5" />
               </button>
             </div>
 
-            {/* User Quick Bar */}
-            <div className="py-4 border-b border-gray-100">
-              {userLoggedIn ? (
-                <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-full bg-[#111111] text-white flex items-center justify-center font-bold text-[14px]">
-                    {userName.charAt(0).toUpperCase()}
-                  </div>
-                  <div className="overflow-hidden">
-                    <p className="font-bold text-[14px] text-gray-900 truncate">{userName}</p>
-                    <p className="text-[12px] text-gray-400 truncate">{userEmail}</p>
-                  </div>
-                </div>
-              ) : (
-                <button
-                  type="button"
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    setShowAuthModal(true);
-                  }}
-                  className="w-full py-2.5 px-4 rounded-full bg-[#222222] text-white text-[14px] font-bold shadow-xs hover:bg-black transition-colors"
+            {/* Menu Navigation Categories */}
+            <div className="py-6 space-y-1.5 flex-1">
+              <p className="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-3 px-3">Explore Collections</p>
+              {[
+                { name: 'New In', href: '/shop?category=New%20Arrivals' },
+                { name: 'Clothing', href: '/shop?category=Clothing' },
+                { name: 'Dresses', href: '/shop?category=Dresses' },
+                { name: 'Tops', href: '/shop?category=Tops' },
+                { name: 'Bottoms', href: '/shop?category=Bottoms' },
+                { name: 'Bags', href: '/shop?category=Bags' },
+                { name: 'Shoes', href: '/shop?category=Shoes' },
+                { name: 'Accessories', href: '/shop?category=Accessories' },
+              ].map((link) => (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  onClick={handleCloseDrawer}
+                  className="drawer-nav-item flex items-center justify-between px-3 py-2.5 rounded-md hover:bg-[#F6F1E9] text-sm font-medium text-[#221D16] transition-colors"
                 >
-                  {t('nav.signin_or_register', 'Sign in or Register')}
-                </button>
-              )}
+                  <span>{link.name}</span>
+                  <ChevronRight className="w-4 h-4 text-gray-400" />
+                </Link>
+              ))}
             </div>
 
-            {/* Categories Navigation */}
-            <div className="py-4 flex-1">
-              <p className="text-[12px] font-bold text-gray-400 uppercase tracking-wider mb-2">{t('nav.explore_categories', 'Explore Categories')}</p>
-              <div className="space-y-1">
-                {secondaryNavItems.map((item) => (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-gray-50 text-[14px] font-medium text-[#222222] transition-colors"
-                  >
-                    <span className="flex items-center gap-2">
-                      {item.isGift && <i className="fa-solid fa-gift text-etsy-orange text-[13px]" />}
-                      {translateCategory(item.name, language)}
-                    </span>
-                    <i className="fa-solid fa-chevron-right text-[11px] text-gray-300" />
-                  </Link>
-                ))}
-              </div>
+            {/* Quick Actions Footer */}
+            <div className="pt-4 border-t border-[#E6E0D4] space-y-2 text-xs font-semibold text-[#221D16]">
+              <Link
+                href="/favorites"
+                onClick={handleCloseDrawer}
+                className="drawer-nav-item flex items-center justify-between px-3 py-2.5 rounded-md hover:bg-[#F6F1E9]"
+              >
+                <span className="flex items-center gap-2.5">
+                  <Heart className="w-4.5 h-4.5 text-gray-500" />
+                  <span>Wishlist</span>
+                </span>
+                {favorites.length > 0 && (
+                  <span className="bg-[#221D16] text-white text-[10px] px-2 py-0.5 rounded-full">
+                    {favorites.length}
+                  </span>
+                )}
+              </Link>
 
-              {/* Quick links: Favorites & Orders */}
-              <div className="pt-4 mt-3 border-t border-gray-100 space-y-1">
-                <Link
-                  href="/favorites"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-gray-50 text-[14px] font-medium text-[#222222]"
-                >
-                  <span className="flex items-center gap-3">
-                    <i className="fa-solid fa-heart text-[15px] text-gray-500 w-5 text-center" />
-                    <span>{t('nav.favorites', 'Favourites')}</span>
+              <Link
+                href="/cart"
+                onClick={handleCloseDrawer}
+                className="drawer-nav-item flex items-center justify-between px-3 py-2.5 rounded-md hover:bg-[#F6F1E9]"
+              >
+                <span className="flex items-center gap-2.5">
+                  <ShoppingBag className="w-4.5 h-4.5 text-gray-500" />
+                  <span>Shopping Cart</span>
+                </span>
+                {count > 0 && (
+                  <span className="bg-[#221D16] text-white text-[10px] px-2 py-0.5 rounded-full">
+                    {count}
                   </span>
-                  {favorites.length > 0 && (
-                    <span className="bg-etsy-orange text-white text-[11px] font-bold px-2 py-0.5 rounded-full">
-                      {favorites.length}
-                    </span>
-                  )}
-                </Link>
-                <Link
-                  href="/my-orders"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 text-[14px] font-medium text-[#222222]"
-                >
-                  <i className="fa-regular fa-calendar-check text-[15px] text-gray-500 w-5 text-center" />
-                  <span>{t('nav.my_orders', 'My orders')}</span>
-                </Link>
-                <Link
-                  href="/cart"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-gray-50 text-[14px] font-medium text-[#222222]"
-                >
-                  <span className="flex items-center gap-3">
-                    <i className="fa-solid fa-bag-shopping text-[15px] text-gray-500 w-5 text-center" />
-                    <span>{t('nav.cart', 'Cart')}</span>
-                  </span>
-                  {count > 0 && (
-                    <span className="bg-etsy-orange text-white text-[11px] font-bold px-2 py-0.5 rounded-full">
-                      {count}
-                    </span>
-                  )}
-                </Link>
-              </div>
+                )}
+              </Link>
             </div>
           </div>
         </div>
@@ -920,542 +759,524 @@ export function Header() {
 
       {/* AUTH MODAL */}
       {showAuthModal && (
-        <div
-          className="fixed inset-0 z-50 overflow-y-auto bg-[#F0F1F5] md:bg-black/55 md:flex md:items-center md:justify-center md:p-4 md:backdrop-blur-xs animate-in fade-in"
-          onClick={() => setShowAuthModal(false)}
-        >
-          {/* ══════════════════════════════════════════════════════════════════════
-              MOBILE VIEW (< md): Exact same design as Admin Login
-              Cover Image: feng_shui_sacred_finds.jpg | Caption: Pure White
-              ══════════════════════════════════════════════════════════════════════ */}
+        <>
+          {/* MOBILE VIEW (< md): Luxury Full Screen / Slide-up Sheet */}
           <div
-            className="md:hidden min-h-screen w-full flex flex-col bg-[#F0F1F5]"
-            onClick={(e) => e.stopPropagation()}
+            className="fixed inset-0 z-50 overflow-y-auto bg-black/75 backdrop-blur-sm flex flex-col md:hidden animate-in fade-in"
+            onClick={() => setShowAuthModal(false)}
           >
-            {/* Top Cover Banner */}
-            <div className="relative h-56 sm:h-64 w-full overflow-hidden bg-[#161619] flex-shrink-0">
-              <img
-                src="/images/feng_shui_sacred_finds.jpg"
-                alt="Miracle Feng Shui"
-                className="w-full h-full object-cover brightness-[0.65] contrast-[1.1]"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+            <div
+              className="w-full min-h-screen bg-[#FAF7F2] flex flex-col my-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Top Atmospheric Photography Banner with Floating Controls */}
+              <div className="relative h-56 sm:h-64 w-full overflow-hidden bg-[#161619] shrink-0">
+                <img
+                  src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1200&q=80"
+                  alt="Mehra Designs Sanctuary"
+                  className="w-full h-full object-cover object-top brightness-[0.55] contrast-[1.1]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/25 to-black/85" />
 
-              {/* Floating '< Back' Pill Button */}
-              <button
-                type="button"
-                onClick={() => setShowAuthModal(false)}
-                className="absolute top-5 left-4 z-20 inline-flex items-center gap-1.5 bg-black/60 hover:bg-black text-white text-xs font-semibold px-3.5 py-1.5 rounded-full backdrop-blur-md border border-white/20 transition-all shadow-md cursor-pointer"
-              >
-                <i className="fa-solid fa-chevron-left text-[10px]" />
-                <span>Back</span>
-              </button>
+                {/* Top Bar: Left Back Button & Right Mehra Brand Pill */}
+                <div className="absolute top-4 left-4 right-4 z-20 flex items-center justify-between">
+                  {/* Floating '< Back' Button */}
+                  <button
+                    type="button"
+                    onClick={() => setShowAuthModal(false)}
+                    className="inline-flex items-center gap-1.5 bg-black/60 hover:bg-black text-white text-xs font-semibold px-3.5 py-1.5 rounded-full backdrop-blur-md border border-white/20 transition-all shadow-md cursor-pointer"
+                  >
+                    <i className="fa-solid fa-chevron-left text-[10px]" />
+                    <span>Back</span>
+                  </button>
 
-              {/* Brand Pill Badge */}
-              <div className="absolute top-5 right-4 z-20 flex items-center gap-2 bg-black/50 backdrop-blur-md border border-white/15 px-3 py-1 rounded-full">
-                <img src="/images/miracle.jpeg" alt="Logo" className="w-4 h-4 rounded-full object-cover" />
-                <span className="text-[10.5px] font-semibold text-white/90">Miracle Feng Shui</span>
-              </div>
-
-              {/* Bottom text inside banner (White font color, NO yellow) */}
-              <div className="absolute bottom-10 left-6 z-10">
-                <span className="inline-block text-[10px] uppercase font-bold tracking-widest text-white/90 mb-0.5">
-                  {isRegisterMode ? 'Member Registration' : 'Member Sanctuary'}
-                </span>
-              </div>
-            </div>
-
-            {/* Sliding White Sheet with rounded-t-[32px] */}
-            <div className="relative z-10 -mt-7 bg-white rounded-t-[32px] shadow-2xl px-6 pt-7 pb-8 flex-1 flex flex-col justify-between">
-              <div>
-                {/* Brand Logo above title */}
-                <div className="flex justify-center mb-3">
-                  <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-gray-100 shadow-md">
-                    <img src="/images/miracle.jpeg" alt="Miracle Feng Shui" className="w-full h-full object-cover" />
-                  </div>
+                  {/* Close 'X' Button on Right */}
+                  <button
+                    type="button"
+                    onClick={() => setShowAuthModal(false)}
+                    className="w-8 h-8 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center backdrop-blur-md border border-white/20 transition-all cursor-pointer shadow-md"
+                    aria-label="Close"
+                  >
+                    <i className="fa-solid fa-xmark text-xs" />
+                  </button>
                 </div>
 
-                {/* Title & Subtitle matching Admin Bebas Neue styling */}
-                <h1
-                  style={{ fontFamily: "'Bebas Neue', 'Montserrat', sans-serif" }}
-                  className="text-3xl sm:text-4xl text-gray-900 tracking-wide font-normal mb-1 text-center leading-none"
-                >
-                  {isRegisterMode ? 'Create Your Account' : 'Welcome Back'}
-                </h1>
-                <p className="text-xs text-gray-500 text-center mb-3 leading-relaxed">
-                  {isRegisterMode
-                    ? 'Join Miracle Feng Shui for orders & saved addresses'
-                    : 'Sign in to access your store orders & wishlist'}
-                </p>
-
-                {/* Mode Switcher */}
-                <div className="text-xs text-gray-600 mb-5 text-center">
-                  {isRegisterMode ? (
-                    <span>
-                      Already have an account?{' '}
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setIsRegisterMode(false);
-                          setAuthError('');
-                        }}
-                        className="text-black font-bold underline hover:text-[#e05638] transition-colors cursor-pointer"
-                      >
-                        Sign in
-                      </button>
-                    </span>
-                  ) : (
-                    <span>
-                      New to Miracle Feng Shui?{' '}
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setIsRegisterMode(true);
-                          setAuthError('');
-                        }}
-                        className="text-black font-bold underline hover:text-[#e05638] transition-colors cursor-pointer"
-                      >
-                        Create an account
-                      </button>
-                    </span>
-                  )}
+                {/* Above Card Title: MEMBER SANCTUARY */}
+                <div className="absolute bottom-8 left-5 z-10">
+                  <span className="text-[10px] font-mono uppercase font-bold tracking-[0.25em] text-[#C5A880]">
+                    MEMBER SANCTUARY
+                  </span>
                 </div>
+              </div>
 
-                {/* Error Alert */}
-                {authError && (
-                  <div className="bg-rose-50 border border-rose-200 text-rose-700 px-3.5 py-2.5 rounded-xl text-xs font-semibold flex items-center gap-2 mb-4 animate-in fade-in">
-                    <i className="fa-solid fa-circle-exclamation shrink-0" />
-                    <span>{authError}</span>
+              {/* Sliding White Sheet with rounded-t-[32px] */}
+              <div className="relative z-10 -mt-5 bg-[#FFFDFA] rounded-t-[32px] shadow-2xl border-t border-[#E6E0D4] px-5 sm:px-8 pt-6 pb-8 flex-1 flex flex-col justify-between max-w-xl mx-auto w-full">
+                <div>
+                  {/* Centered Brand Logo (Direct logo.png, Not in Circle, Increased Size) */}
+                  <div className="flex justify-center mb-3">
+                    <img
+                      src="/logo.png"
+                      alt="Mehra Designs"
+                      className="h-14 sm:h-16 w-auto max-w-[200px] object-contain"
+                    />
                   </div>
-                )}
 
-                {/* Customer Form matching Admin layout */}
-                <form onSubmit={handleAuthSubmit} className="space-y-4 text-left">
-                  {/* Email with floating label */}
-                  <div className="relative">
-                    <label className="absolute -top-2.5 left-3.5 bg-white px-1.5 text-[11px] font-bold text-gray-700 z-10">
-                      Email <span className="text-rose-600">*</span>
-                    </label>
-                    <div className="relative">
-                      <input
-                        type="email"
-                        required
-                        placeholder="you@example.com"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3.5 py-3 text-xs sm:text-sm text-gray-900 focus:bg-white focus:outline-none focus:border-black transition-all"
-                      />
-                      <i className="fa-regular fa-envelope absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-xs pointer-events-none" />
+                  {/* Heading in Bebas Neue uppercase */}
+                  <h2
+                    style={{ fontFamily: "'Bebas Neue', 'Montserrat', sans-serif" }}
+                    className="text-2xl sm:text-3xl font-normal text-[#221D16] tracking-wide text-center uppercase"
+                  >
+                    {isRegisterMode ? 'JOIN THE ATELIER' : 'WELCOME BACK'}
+                  </h2>
+                  <p className="text-xs text-[#221D16]/65 text-center mt-0.5 mb-1 leading-relaxed">
+                    {isRegisterMode
+                      ? 'Sign up to track your luxury orders & wishlist'
+                      : 'Sign in to access your store orders & wishlist'}
+                  </p>
+
+                  {/* Switch Mode Prompt: "New to Mehra Designs? Create an account" */}
+                  <div className="text-center mb-4">
+                    <span className="text-xs text-[#221D16]/60">
+                      {isRegisterMode ? 'Already have an account?' : 'New to Mehra Designs?'}{' '}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsRegisterMode(!isRegisterMode);
+                        setAuthError('');
+                      }}
+                      className="text-xs font-bold text-[#221D16] underline hover:text-[#8C6C43] cursor-pointer ml-0.5"
+                    >
+                      {isRegisterMode ? 'Sign in' : 'Create an account'}
+                    </button>
+                  </div>
+
+                  {/* Error Alert */}
+                  {authError && (
+                    <div className="bg-rose-50 border border-rose-200 text-rose-700 px-3.5 py-2.5 rounded-xl text-xs font-semibold flex items-center gap-2 mb-4 animate-in fade-in">
+                      <i className="fa-solid fa-circle-exclamation shrink-0 text-rose-500" />
+                      <span>{authError}</span>
                     </div>
-                  </div>
+                  )}
 
-                  {/* First Name (Visible in Register Mode) */}
-                  {isRegisterMode && (
-                    <div className="relative">
-                      <label className="absolute -top-2.5 left-3.5 bg-white px-1.5 text-[11px] font-bold text-gray-700 z-10">
-                        First name <span className="text-rose-600">*</span>
+                  {/* Form */}
+                  <form onSubmit={handleAuthSubmit} className="space-y-3.5 text-left">
+                    {/* Full Name (Register only) */}
+                    {isRegisterMode && (
+                      <div>
+                        <label className="text-[11px] font-semibold text-[#221D16] block mb-1">
+                          Full Name <span className="text-rose-500">*</span>
+                        </label>
+                        <div className="relative">
+                          <input
+                            type="text"
+                            required
+                            placeholder="e.g. Sophia Loren"
+                            value={firstName}
+                            onChange={(e) => setFirstName(e.target.value)}
+                            className="w-full bg-[#FAF7F2] border border-[#E6E0D4] rounded-xl px-3.5 py-2.5 pr-10 text-xs sm:text-sm text-[#221D16] focus:bg-white focus:outline-none focus:border-[#8C6C43] transition-all"
+                          />
+                          <i className="fa-regular fa-user absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-xs pointer-events-none" />
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Email Address */}
+                    <div>
+                      <label className="text-[11px] font-semibold text-[#221D16] block mb-1">
+                        Email <span className="text-rose-500">*</span>
                       </label>
                       <div className="relative">
                         <input
-                          type="text"
+                          type="email"
                           required
-                          placeholder="Your full name"
-                          value={firstName}
-                          onChange={(e) => setFirstName(e.target.value)}
-                          className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3.5 py-3 text-xs sm:text-sm text-gray-900 focus:bg-white focus:outline-none focus:border-black transition-all"
+                          placeholder="you@example.com"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          className="w-full bg-[#FAF7F2] border border-[#E6E0D4] rounded-xl px-3.5 py-2.5 pr-10 text-xs sm:text-sm text-[#221D16] focus:bg-white focus:outline-none focus:border-[#8C6C43] transition-all"
                         />
-                        <i className="fa-regular fa-user absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-xs pointer-events-none" />
+                        <i className="fa-regular fa-envelope absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-xs pointer-events-none" />
                       </div>
                     </div>
-                  )}
 
-                  {/* Password with floating label & eye toggle */}
-                  <div className="relative">
-                    <label className="absolute -top-2.5 left-3.5 bg-white px-1.5 text-[11px] font-bold text-gray-700 z-10">
-                      Password <span className="text-rose-600">*</span>
-                    </label>
-                    <div className="relative">
-                      <input
-                        type={showPassword ? 'text' : 'password'}
-                        required
-                        placeholder="Enter your password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3.5 py-3 text-xs sm:text-sm text-gray-900 focus:bg-white focus:outline-none focus:border-black transition-all"
-                      />
-                      <button
-                        type="button"
-                        onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-700 p-1 cursor-pointer transition-colors"
-                        aria-label={showPassword ? 'Hide password' : 'Show password'}
-                      >
-                        <i className={`fa-regular ${showPassword ? 'fa-eye-slash' : 'fa-eye'} text-xs`} />
-                      </button>
+                    {/* Password */}
+                    <div>
+                      <label className="text-[11px] font-semibold text-[#221D16] block mb-1">
+                        Password <span className="text-rose-500">*</span>
+                      </label>
+                      <div className="relative">
+                        <input
+                          type={showPassword ? 'text' : 'password'}
+                          required
+                          placeholder="Enter your password"
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                          className="w-full bg-[#FAF7F2] border border-[#E6E0D4] rounded-xl px-3.5 py-2.5 pr-10 text-xs sm:text-sm text-[#221D16] focus:bg-white focus:outline-none focus:border-[#8C6C43] transition-all"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setShowPassword(!showPassword)}
+                          className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#221D16] p-0.5 cursor-pointer transition-colors"
+                          aria-label={showPassword ? 'Hide password' : 'Show password'}
+                        >
+                          <i className={`fa-regular ${showPassword ? 'fa-eye-slash' : 'fa-eye'} text-xs`} />
+                        </button>
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Remember / Stay signed in */}
-                  {!isRegisterMode && (
+                    {/* Remember this device & Forgot Password */}
                     <div className="flex items-center justify-between pt-0.5">
-                      <div className="flex items-center gap-2">
+                      <label className="flex items-center gap-2 cursor-pointer select-none">
                         <input
                           type="checkbox"
-                          id="mobile-stay-signed-in"
                           checked={staySignedIn}
                           onChange={(e) => setStaySignedIn(e.target.checked)}
-                          className="w-4 h-4 rounded border-gray-300 text-black focus:ring-black accent-black cursor-pointer"
+                          className="w-4 h-4 accent-[#221D16] rounded"
                         />
-                        <label htmlFor="mobile-stay-signed-in" className="text-xs text-gray-600 font-medium cursor-pointer select-none">
-                          Remember this device
-                        </label>
-                      </div>
-                      <button
-                        type="button"
-                        className="text-xs text-gray-500 hover:text-black hover:underline cursor-pointer"
-                        onClick={() => {
-                          setShowAuthModal(false);
-                          router.push('/forgot-password');
-                        }}
-                      >
-                        Forgot password?
-                      </button>
+                        <span className="text-xs text-[#221D16]/80 font-medium">Remember this device</span>
+                      </label>
+                      {!isRegisterMode && (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setShowAuthModal(false);
+                            router.push('/forgot-password');
+                          }}
+                          className="text-xs text-[#221D16]/80 hover:text-[#8C6C43] hover:underline cursor-pointer"
+                        >
+                          Forgot password?
+                        </button>
+                      )}
                     </div>
-                  )}
 
-                  {/* Sign In / Register button matching Admin styling */}
-                  <button
-                    type="submit"
-                    disabled={isAuthSubmitting}
-                    style={{ backgroundColor: '#111111', color: '#ffffff' }}
-                    className="w-full py-3.5 px-5 rounded-xl text-xs sm:text-sm font-bold tracking-wider uppercase bg-[#111111] hover:bg-black text-white flex items-center justify-center gap-2 shadow-sm hover:shadow-md transition-all cursor-pointer disabled:opacity-60 active:scale-[0.99] mt-1"
-                  >
-                    {isAuthSubmitting ? (
-                      <>
-                        <i className="fa-solid fa-circle-notch fa-spin text-xs" />
-                        <span>Processing...</span>
-                      </>
-                    ) : (
-                      <>
-                        <span>{isRegisterMode ? 'Create Account' : 'Sign In'}</span>
-                        <i className="fa-solid fa-arrow-right text-xs" />
-                      </>
-                    )}
-                  </button>
-                </form>
+                    {/* Submit Button: SIGN IN -> */}
+                    <button
+                      type="submit"
+                      disabled={isAuthSubmitting}
+                      style={{ color: '#FFFFFF' }}
+                      className="w-full py-3.5 px-5 rounded-xl text-xs font-bold uppercase tracking-[0.14em] bg-[#111111] hover:bg-black text-white flex items-center justify-center gap-2 shadow-sm transition-all cursor-pointer disabled:opacity-60 active:scale-[0.99] mt-3"
+                    >
+                      {isAuthSubmitting ? (
+                        <>
+                          <i className="fa-solid fa-circle-notch fa-spin text-xs" />
+                          <span>{isRegisterMode ? 'CREATING ACCOUNT...' : 'SIGNING IN...'}</span>
+                        </>
+                      ) : (
+                        <>
+                          <span>{isRegisterMode ? 'CREATE ACCOUNT' : 'SIGN IN'}</span>
+                          <span className="text-sm leading-none">&rarr;</span>
+                        </>
+                      )}
+                    </button>
+                  </form>
 
-                {/* Social logins */}
-                <div className="relative my-4">
-                  <div className="absolute inset-0 flex items-center">
-                    <div className="w-full border-t border-gray-200" />
+                  {/* Divider: "or continue with" */}
+                  <div className="relative my-4 text-center">
+                    <div className="absolute inset-0 flex items-center">
+                      <div className="w-full border-t border-[#E6E0D4]" />
+                    </div>
+                    <span className="relative bg-[#FFFDFA] px-3 text-[11px] text-[#221D16]/50">
+                      or continue with
+                    </span>
                   </div>
-                  <div className="relative flex justify-center text-xs">
-                    <span className="bg-white px-3 text-gray-400 font-medium">or continue with</span>
+
+                  {/* Social Logins: 3 Rounded Icons (Google, Facebook, Apple) */}
+                  <div className="flex items-center justify-center gap-3">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setEmail('user@gmail.com');
+                        setUserLoggedIn(true);
+                        setShowAuthModal(false);
+                      }}
+                      className="w-16 h-10 rounded-xl border border-[#E6E0D4] bg-[#FAF7F2] hover:bg-white flex items-center justify-center transition-colors cursor-pointer shadow-2xs"
+                      title="Sign in with Google"
+                    >
+                      <svg className="w-4 h-4" viewBox="0 0 24 24">
+                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" />
+                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
+                      </svg>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setEmail('user@facebook.com');
+                        setUserLoggedIn(true);
+                        setShowAuthModal(false);
+                      }}
+                      className="w-16 h-10 rounded-xl border border-[#E6E0D4] bg-[#FAF7F2] hover:bg-white flex items-center justify-center transition-colors cursor-pointer shadow-2xs"
+                      title="Sign in with Facebook"
+                    >
+                      <i className="fa-brands fa-facebook-f text-[#1877F2] text-sm" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setEmail('user@apple.com');
+                        setUserLoggedIn(true);
+                        setShowAuthModal(false);
+                      }}
+                      className="w-16 h-10 rounded-xl border border-[#E6E0D4] bg-[#FAF7F2] hover:bg-white flex items-center justify-center transition-colors cursor-pointer shadow-2xs"
+                      title="Sign in with Apple"
+                    >
+                      <i className="fa-brands fa-apple text-[#221D16] text-base" />
+                    </button>
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between gap-3">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setEmail('user@gmail.com');
-                      setUserLoggedIn(true);
-                      setShowAuthModal(false);
-                    }}
-                    className="flex-1 h-11 rounded-xl border border-gray-200 hover:border-black flex items-center justify-center transition-colors bg-gray-50 hover:bg-white cursor-pointer"
-                    title="Continue with Google"
-                  >
-                    <svg className="w-5 h-5" viewBox="0 0 24 24">
-                      <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
-                      <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
-                      <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" />
-                      <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
-                    </svg>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setEmail('user@facebook.com');
-                      setUserLoggedIn(true);
-                      setShowAuthModal(false);
-                    }}
-                    className="flex-1 h-11 rounded-xl border border-gray-200 hover:border-black flex items-center justify-center transition-colors bg-gray-50 hover:bg-white cursor-pointer"
-                    title="Continue with Facebook"
-                  >
-                    <svg className="w-5 h-5 text-[#1877F2] fill-current" viewBox="0 0 24 24">
-                      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                    </svg>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setEmail('user@icloud.com');
-                      setUserLoggedIn(true);
-                      setShowAuthModal(false);
-                    }}
-                    className="flex-1 h-11 rounded-xl border border-gray-200 hover:border-black flex items-center justify-center transition-colors bg-gray-50 hover:bg-white cursor-pointer"
-                    title="Continue with Apple"
-                  >
-                    <svg className="w-5 h-5 fill-current text-black" viewBox="0 0 24 24">
-                      <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.63-.76 1.05-1.82.93-2.88-.91.04-2.01.61-2.66 1.37-.57.65-1.07 1.73-.94 2.76 1.02.08 2.05-.49 2.67-1.25z" />
-                    </svg>
-                  </button>
+                {/* Footer */}
+                <div className="pt-4 text-center">
+                  <p className="text-[10px] text-[#221D16]/45 leading-relaxed">
+                    By continuing, you agree to our{' '}
+                    <Link href="/terms" onClick={() => setShowAuthModal(false)} className="underline hover:text-[#8C6C43]">
+                      Terms
+                    </Link>{' '}
+                    and{' '}
+                    <Link href="/privacy-policy" onClick={() => setShowAuthModal(false)} className="underline hover:text-[#8C6C43]">
+                      Privacy Policy
+                    </Link>
+                    .
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* DESKTOP VIEW (>= md): Classic Luxury Modal Dialog */}
+          <div
+            className="fixed inset-0 z-50 overflow-y-auto bg-black/55 backdrop-blur-xs hidden md:flex items-center justify-center p-4 animate-in fade-in"
+            onClick={() => setShowAuthModal(false)}
+          >
+            <div
+              className="relative flex w-full max-w-[860px] bg-white shadow-2xl my-auto animate-in zoom-in-95"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Close button (dark square, top right) */}
+              <button
+                type="button"
+                aria-label="Close"
+                onClick={() => setShowAuthModal(false)}
+                className="absolute top-0 right-0 z-20 w-10 h-10 bg-[#221D16] text-white flex items-center justify-center hover:bg-[#8C6C43] transition-colors cursor-pointer"
+              >
+                <X className="w-4 h-4" />
+              </button>
+
+              {/* LEFT: form panel */}
+              <div className="flex-1 min-w-0 flex flex-col">
+                <div className="p-6 sm:p-9 pb-6">
+                  {/* Brand Logo (logo.png directly, not in circle, increased size) */}
+                  <div className="mb-5">
+                    <img
+                      src="/logo.png"
+                      alt="Mehra Designs"
+                      className="h-12 sm:h-14 w-auto object-contain"
+                    />
+                  </div>
+
+                  {/* Title with gold underline */}
+                  <h2 className="relative inline-block text-[13px] sm:text-sm font-semibold uppercase tracking-[0.2em] text-[#221D16] pb-2.5">
+                    {isRegisterMode ? 'Create Account' : 'Sign In'}
+                    <span className="absolute left-0 bottom-0 w-10 h-[2px] bg-[#8C6C43]" />
+                  </h2>
+
+                  <form onSubmit={handleAuthSubmit} className="mt-7 space-y-5">
+                    {/* Email */}
+                    <div>
+                      <label className="block text-[12px] font-medium uppercase tracking-wider text-[#221D16] mb-2">
+                        E-mail address<span className="text-red-500 ml-0.5">*</span>
+                      </label>
+                      <input
+                        type="email"
+                        required
+                        placeholder="enter your email address"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="w-full h-11 px-4 border border-[#E6E0D4] bg-white text-sm text-[#221D16] placeholder:text-gray-400 focus:outline-none focus:border-[#221D16] transition-colors"
+                      />
+                    </div>
+
+                    {/* First name (register only) */}
+                    {isRegisterMode && (
+                      <div>
+                        <label className="block text-[12px] font-medium uppercase tracking-wider text-[#221D16] mb-2">
+                          First name<span className="text-red-500 ml-0.5">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          placeholder="your full name"
+                          value={firstName}
+                          onChange={(e) => setFirstName(e.target.value)}
+                          className="w-full h-11 px-4 border border-[#E6E0D4] bg-white text-sm text-[#221D16] placeholder:text-gray-400 focus:outline-none focus:border-[#221D16] transition-colors"
+                        />
+                      </div>
+                    )}
+
+                    {/* Password */}
+                    <div>
+                      <label className="block text-[12px] font-medium uppercase tracking-wider text-[#221D16] mb-2">
+                        Password<span className="text-red-500 ml-0.5">*</span>
+                      </label>
+                      <div className="relative">
+                        <input
+                          type={showPassword ? 'text' : 'password'}
+                          required
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                          className="w-full h-11 px-4 pr-11 border border-[#E6E0D4] bg-white text-sm text-[#221D16] focus:outline-none focus:border-[#221D16] transition-colors"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setShowPassword(!showPassword)}
+                          className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#221D16] p-1 cursor-pointer"
+                          aria-label={showPassword ? 'Hide password' : 'Show password'}
+                        >
+                          <i className={`fa-regular ${showPassword ? 'fa-eye-slash' : 'fa-eye'} text-[13px]`} />
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Remember me + Forgot password */}
+                    {!isRegisterMode && (
+                      <div className="flex items-center justify-between">
+                        <label className="flex items-center gap-2 text-[13px] text-gray-500 cursor-pointer select-none">
+                          <input
+                            type="checkbox"
+                            checked={staySignedIn}
+                            onChange={(e) => setStaySignedIn(e.target.checked)}
+                            className="w-3.5 h-3.5 accent-[#8C6C43] cursor-pointer"
+                          />
+                          Remember me!
+                        </label>
+                        <button
+                          type="button"
+                          className="text-[13px] text-[#8C6C43] hover:underline cursor-pointer"
+                          onClick={() => {
+                            setShowAuthModal(false);
+                            router.push('/forgot-password');
+                          }}
+                        >
+                          Forgot password?
+                        </button>
+                      </div>
+                    )}
+
+                    {/* Error */}
+                    {authError && (
+                      <div className="px-3.5 py-2.5 bg-red-50 border border-red-200 text-red-700 text-xs font-medium flex items-center gap-2">
+                        <i className="fa-solid fa-circle-exclamation" />
+                        <span>{authError}</span>
+                      </div>
+                    )}
+
+                    {/* Mode switch (left) + Sign in button (right) */}
+                    <div className="flex flex-col-reverse sm:flex-row sm:items-center sm:justify-between gap-4 pt-1">
+                      <p className="text-[13px] text-gray-500">
+                        {isRegisterMode ? 'Already have an account? ' : 'New to Mehra Designs? '}
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setIsRegisterMode(!isRegisterMode);
+                            setAuthError('');
+                          }}
+                          className="text-[#221D16] font-semibold underline hover:text-[#8C6C43] cursor-pointer"
+                        >
+                          {isRegisterMode ? 'Sign in' : 'Create an account'}
+                        </button>
+                      </p>
+
+                      <button
+                        type="submit"
+                        disabled={isAuthSubmitting}
+                        style={{ color: '#FFFFFF' }}
+                        className="h-11 px-9 bg-[#221D16] hover:bg-[#8C6C43] disabled:opacity-60 text-xs font-semibold uppercase tracking-[0.15em] transition-colors cursor-pointer"
+                      >
+                        {isAuthSubmitting
+                          ? isRegisterMode
+                            ? 'Creating Account...'
+                            : 'Signing In...'
+                          : isRegisterMode
+                          ? 'Create Account'
+                          : 'Sign In'}
+                      </button>
+                    </div>
+                  </form>
+                </div>
+
+                {/* Bottom: social buttons */}
+                <div className="mt-auto border-t border-[#E6E0D4] p-5 sm:px-9 sm:py-6">
+                  <div className="grid grid-cols-2 gap-3">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setEmail('user@gmail.com');
+                        setUserLoggedIn(true);
+                        setShowAuthModal(false);
+                      }}
+                      className="h-11 border border-[#E6E0D4] hover:border-[#221D16] bg-white flex items-center justify-center gap-2.5 text-[13px] tracking-wide text-[#221D16] transition-colors cursor-pointer"
+                    >
+                      <i className="fa-brands fa-google text-[#4285F4]" />
+                      <span>Google<span className="hidden sm:inline"> Sign In</span></span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setEmail('user@facebook.com');
+                        setUserLoggedIn(true);
+                        setShowAuthModal(false);
+                      }}
+                      className="h-11 border border-[#E6E0D4] hover:border-[#221D16] bg-white flex items-center justify-center gap-2.5 text-[13px] tracking-wide text-[#221D16] transition-colors cursor-pointer"
+                    >
+                      <i className="fa-brands fa-facebook-f text-[#1877F2]" />
+                      <span>Facebook<span className="hidden sm:inline"> Sign In</span></span>
+                    </button>
+                  </div>
+
+                  <p className="text-[11px] text-gray-400 text-center mt-4 leading-snug">
+                    By continuing, you agree to our{' '}
+                    <Link href="/terms" onClick={() => setShowAuthModal(false)} className="underline text-gray-600 hover:text-[#8C6C43]">
+                      Terms of Use
+                    </Link>{' '}
+                    and{' '}
+                    <Link href="/privacy-policy" onClick={() => setShowAuthModal(false)} className="underline text-gray-600 hover:text-[#8C6C43]">
+                      Privacy Policy
+                    </Link>
+                    .
+                  </p>
                 </div>
               </div>
 
-              {/* Bottom Terms */}
-              <div className="text-center mt-5">
-                <p className="text-[11px] text-gray-400 leading-tight">
-                  By continuing, you agree to our{' '}
-                  <a href="#" className="underline text-gray-700 hover:text-black">Terms of Use</a>{' '}
-                  and{' '}
-                  <a href="#" className="underline text-gray-700 hover:text-black">Privacy Policy</a>.
+              {/* RIGHT: image panel (hidden on mobile) */}
+              <div
+                className="hidden md:block relative w-[40%] shrink-0 min-h-[540px] bg-cover bg-center"
+                style={{ backgroundImage: "url('/grid1.png')" }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/20" />
+
+                <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 px-8 text-white">
+                  <span className="block text-[10.5px] font-semibold uppercase tracking-[0.3em] text-[#E3C79B] mb-3">
+                    Mehra Designs
+                  </span>
+                  <p
+                    className="text-4xl lg:text-5xl leading-[1.05]"
+                    style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 400 }}
+                  >
+                    Timeless
+                    <br />
+                    Elegance
+                  </p>
+                </div>
+
+                <p className="absolute bottom-7 inset-x-0 text-center text-[11px] uppercase tracking-[0.2em] text-white/90">
+                  Dresses &amp; gowns for every occasion
                 </p>
               </div>
             </div>
           </div>
-
-          {/* ══════════════════════════════════════════════════════════════════════
-              DESKTOP VIEW (>= md): Classic Elegance Modal Card
-              ══════════════════════════════════════════════════════════════════════ */}
-          <div
-            className="hidden md:block bg-white rounded-[24px] max-w-[445px] w-full px-7 sm:px-9 py-6 sm:py-7 shadow-2xl relative text-center animate-in zoom-in-95 my-auto border border-gray-100/80 max-h-[95vh] overflow-y-auto"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Top Close Button */}
-            <button
-              type="button"
-              aria-label="Close"
-              onClick={() => setShowAuthModal(false)}
-              className="absolute top-4.5 right-4.5 p-1.5 rounded-full hover:bg-gray-100 text-gray-500 hover:text-black transition-colors"
-            >
-              <i className="fa-solid fa-xmark text-[16px]" />
-            </button>
-
-            {/* Round Brand Logo */}
-            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden shadow-xs border border-black/10 mx-auto mb-2.5">
-              <img
-                src="/images/miracle.jpeg"
-                alt="Miracle feng shui"
-                className="w-full h-full object-cover scale-105"
-              />
-            </div>
-
-            {/* Headline */}
-            <h2 className="text-[26px] sm:text-[29px] font-serif font-normal text-[#222222] leading-tight mb-2">
-              {isRegisterMode ? 'Create your account' : 'Sign in to Miracle feng shui'}
-            </h2>
-
-            {/* Mode Switcher */}
-            <div className="text-[13.5px] text-gray-600 mb-5">
-              {isRegisterMode ? (
-                <span>
-                  Already have an account?{' '}
-                  <button
-                    type="button"
-                    onClick={() => setIsRegisterMode(false)}
-                    className="text-[#222222] font-semibold underline hover:text-etsy-orange transition-colors"
-                  >
-                    Sign in
-                  </button>
-                </span>
-              ) : (
-                <span>
-                  New to Miracle feng shui?{' '}
-                  <button
-                    type="button"
-                    onClick={() => setIsRegisterMode(true)}
-                    className="text-[#222222] font-semibold underline hover:text-etsy-orange transition-colors"
-                  >
-                    Create an account
-                  </button>
-                </span>
-              )}
-            </div>
-
-            {/* Form */}
-            <form onSubmit={handleAuthSubmit} className="space-y-3.5 text-left">
-              {/* Email Address */}
-              <div>
-                <label className="text-[13.5px] font-medium text-[#222222] block mb-1">
-                  Email address<span className="text-[#A61A11] ml-0.5">*</span>
-                </label>
-                <input
-                  type="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full h-[44px] px-3.5 rounded-[10px] border border-[#757575] text-[14.5px] text-[#222222] focus:outline-none focus:ring-2 focus:ring-black/15 focus:border-black transition-all"
-                />
-              </div>
-
-              {/* First Name (Visible in Register Mode) */}
-              {isRegisterMode && (
-                <div>
-                  <label className="text-[13.5px] font-medium text-[#222222] block mb-1">
-                    First name<span className="text-[#A61A11] ml-0.5">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                    className="w-full h-[44px] px-3.5 rounded-[10px] border border-[#757575] text-[14.5px] text-[#222222] focus:outline-none focus:ring-2 focus:ring-black/15 focus:border-black transition-all"
-                  />
-                </div>
-              )}
-
-              {/* Password with Show/Hide Eye Icon */}
-              <div>
-                <label className="text-[13.5px] font-medium text-[#222222] block mb-1">
-                  Password<span className="text-[#A61A11] ml-0.5">*</span>
-                </label>
-                <div className="relative">
-                  <input
-                    type={showPassword ? 'text' : 'password'}
-                    required
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="w-full h-[44px] px-3.5 pr-11 rounded-[10px] border border-[#757575] text-[14.5px] text-[#222222] focus:outline-none focus:ring-2 focus:ring-black/15 focus:border-black transition-all"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-[#222222] hover:text-etsy-orange focus:outline-none p-1"
-                  >
-                    {showPassword ? (
-                      <i className="fa-regular fa-eye-slash text-[14px]" />
-                    ) : (
-                      <i className="fa-regular fa-eye text-[14px]" />
-                    )}
-                  </button>
-                </div>
-              </div>
-
-              {/* Stay Signed In */}
-              {!isRegisterMode && (
-                <div className="flex items-center justify-between pt-0.5">
-                  <div className="flex items-center gap-2">
-                    <input
-                      type="checkbox"
-                      id="stay-signed-in-modal"
-                      checked={staySignedIn}
-                      onChange={(e) => setStaySignedIn(e.target.checked)}
-                      className="w-4 h-4 rounded text-black focus:ring-black accent-black cursor-pointer"
-                    />
-                    <label htmlFor="stay-signed-in-modal" className="text-[13px] text-[#222222] cursor-pointer select-none">
-                      Stay signed in
-                    </label>
-                  </div>
-                  <button
-                    type="button"
-                    className="text-[12.5px] text-[#222222] hover:underline cursor-pointer"
-                    onClick={() => {
-                      setShowAuthModal(false);
-                      router.push('/forgot-password');
-                    }}
-                  >
-                    Forgot your password?
-                  </button>
-                </div>
-              )}
-
-              {/* Auth Error Message */}
-              {authError && (
-                <div className="p-2.5 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs font-medium flex items-center gap-2">
-                  <i className="fa-solid fa-circle-exclamation text-red-500" />
-                  <span>{authError}</span>
-                </div>
-              )}
-
-              {/* Submit Button */}
-              <button
-                type="submit"
-                disabled={isAuthSubmitting}
-                style={{ backgroundColor: '#222222', color: '#ffffff' }}
-                className="w-full bg-[#222222] hover:bg-black disabled:opacity-60 text-white font-bold h-[46px] rounded-full text-[15.5px] transition-all mt-3.5 cursor-pointer text-center flex items-center justify-center shadow-sm hover:shadow-md"
-              >
-                {isAuthSubmitting ? 'Please wait...' : isRegisterMode ? 'Register' : 'Sign in'}
-              </button>
-            </form>
-
-            {/* Divider */}
-            <div className="relative my-4">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-[#E1E3DF]" />
-              </div>
-              <div className="relative flex justify-center text-[12.5px]">
-                <span className="bg-white px-3.5 text-[#595959] font-normal">or</span>
-              </div>
-            </div>
-
-            {/* 3 Social Buttons */}
-            <div className="flex items-center justify-between gap-3">
-              <button
-                type="button"
-                onClick={() => {
-                  setEmail('user@gmail.com');
-                  setUserLoggedIn(true);
-                  setShowAuthModal(false);
-                }}
-                style={{ border: '1px solid #222222' }}
-                className="flex-1 h-[42px] rounded-full border border-[#222222] hover:bg-gray-100 flex items-center justify-center transition-colors bg-white cursor-pointer"
-                title="Continue with Google"
-              >
-                <svg className="w-5 h-5" viewBox="0 0 24 24">
-                  <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
-                  <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
-                  <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" />
-                  <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
-                </svg>
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setEmail('user@facebook.com');
-                  setUserLoggedIn(true);
-                  setShowAuthModal(false);
-                }}
-                style={{ border: '1px solid #222222' }}
-                className="flex-1 h-[42px] rounded-full border border-[#222222] hover:bg-gray-100 flex items-center justify-center transition-colors bg-white cursor-pointer"
-                title="Continue with Facebook"
-              >
-                <svg className="w-5 h-5 text-[#1877F2] fill-current" viewBox="0 0 24 24">
-                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                </svg>
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setEmail('user@icloud.com');
-                  setUserLoggedIn(true);
-                  setShowAuthModal(false);
-                }}
-                style={{ border: '1px solid #222222' }}
-                className="flex-1 h-[42px] rounded-full border border-[#222222] hover:bg-gray-100 flex items-center justify-center transition-colors bg-white cursor-pointer"
-                title="Continue with Apple"
-              >
-                <svg className="w-5 h-5 fill-current text-black" viewBox="0 0 24 24">
-                  <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.63-.76 1.05-1.82.93-2.88-.91.04-2.01.61-2.66 1.37-.57.65-1.07 1.73-.94 2.76 1.02.08 2.05-.49 2.67-1.25z" />
-                </svg>
-              </button>
-            </div>
-
-            {/* Terms and Privacy Footer */}
-            <p className="text-[12px] text-[#595959] text-center mt-4 leading-tight">
-              By continuing, you agree to our{' '}
-              <a href="#" className="underline text-[#222222] hover:text-etsy-orange">
-                Terms of Use
-              </a>{' '}
-              and{' '}
-              <a href="#" className="underline text-[#222222] hover:text-etsy-orange">
-                Privacy Policy
-              </a>
-              .
-            </p>
-          </div>
-        </div>
+        </>
       )}
-
       {/* REGION SETTINGS MODAL */}
       {showRegionModal && (
         <div
@@ -1586,84 +1407,84 @@ export function Header() {
           onClick={() => setShowProfileEditModal(false)}
         >
           <div
-            className="bg-white rounded-[24px] max-w-md w-full p-6 sm:p-7 shadow-2xl relative my-auto border border-gray-100 animate-in zoom-in-95 duration-200"
+            className="bg-[#FFFDFA] rounded-[28px] max-w-md w-full p-6 sm:p-8 shadow-2xl relative my-auto border border-[#E6E0D4] animate-in zoom-in-95 duration-200"
             onClick={(e) => e.stopPropagation()}
           >
             <button
               type="button"
               onClick={() => setShowProfileEditModal(false)}
-              className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 text-gray-500 hover:text-black cursor-pointer"
+              className="absolute top-5 right-5 w-8 h-8 rounded-full hover:bg-[#F5F2EB] text-[#7C7267] hover:text-[#221D16] flex items-center justify-center cursor-pointer transition-colors"
+              aria-label="Close modal"
             >
-              <i className="fa-solid fa-xmark text-[16px]" />
+              <X className="w-5 h-5" />
             </button>
 
-            <div className="flex items-center gap-3 mb-5 text-left">
-              <div className="w-10 h-10 rounded-full bg-purple-50 text-purple-700 flex items-center justify-center shrink-0">
-                <i className="fa-solid fa-gear text-[18px]" />
+            <div className="flex items-center gap-3.5 mb-6 text-left">
+              <div className="w-11 h-11 rounded-2xl bg-[#F5F2EB] text-[#221D16] border border-[#E6E0D4] flex items-center justify-center shrink-0 shadow-2xs">
+                <User className="w-5 h-5 text-[#8C6C43]" />
               </div>
               <div>
-                <h2 className="text-[20px] font-bold text-[#222222]">
-                  Edit Profile &amp; Account
+                <h2 className="font-serif text-xl sm:text-2xl font-bold text-[#221D16] leading-tight">
+                  Client Profile
                 </h2>
-                <p className="text-[12.5px] text-[#595959]">
-                  Update your contact details and sanctuary preferences
+                <p className="text-xs text-[#7C7267] mt-0.5">
+                  Manage your personal credentials &amp; contact info
                 </p>
               </div>
             </div>
 
             <form onSubmit={handleSaveProfile} className="space-y-4 text-left">
               <div>
-                <label className="text-[12.5px] font-bold text-[#222222] block mb-1">
-                  Full Name:
+                <label className="text-[11px] font-bold tracking-wider text-[#221D16] block mb-1.5 uppercase">
+                  Full Name <span className="text-rose-500">*</span>
                 </label>
                 <input
                   type="text"
                   required
                   value={userName}
                   onChange={(e) => setUserName(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#E1E3DF] text-[13.5px] text-[#222222] focus:outline-none focus:ring-2 focus:ring-[#F1641E]"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#E6E0D4] bg-white text-xs text-[#221D16] focus:outline-none focus:ring-2 focus:ring-[#8C6C43]"
                 />
               </div>
 
               <div>
-                <label className="text-[12.5px] font-bold text-[#222222] block mb-1">
-                  Email Address:
+                <label className="text-[11px] font-bold tracking-wider text-[#221D16] block mb-1.5 uppercase">
+                  Email Address <span className="text-rose-500">*</span>
                 </label>
                 <input
                   type="email"
                   required
                   value={userEmail}
                   onChange={(e) => setUserEmail(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#E1E3DF] text-[13.5px] text-[#222222] focus:outline-none focus:ring-2 focus:ring-[#F1641E]"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#E6E0D4] bg-white text-xs text-[#221D16] focus:outline-none focus:ring-2 focus:ring-[#8C6C43]"
                 />
               </div>
 
               <div>
-                <label className="text-[12.5px] font-bold text-[#222222] block mb-1">
-                  Phone Number:
+                <label className="text-[11px] font-bold tracking-wider text-[#221D16] block mb-1.5 uppercase">
+                  Phone Number
                 </label>
                 <input
                   type="tel"
                   value={userPhone}
                   onChange={(e) => setUserPhone(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#E1E3DF] text-[13.5px] text-[#222222] focus:outline-none focus:ring-2 focus:ring-[#F1641E]"
+                  placeholder="+91 98765 43210"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#E6E0D4] bg-white text-xs text-[#221D16] focus:outline-none focus:ring-2 focus:ring-[#8C6C43]"
                 />
               </div>
 
               {/* Action Buttons */}
-              <div className="flex items-center justify-end gap-3 pt-3 border-t border-[#E1E3DF]">
+              <div className="flex items-center justify-end gap-3 pt-4 border-t border-[#E6E0D4]">
                 <button
                   type="button"
                   onClick={() => setShowProfileEditModal(false)}
-                  style={{ border: '1.5px solid #222222', color: '#222222', backgroundColor: '#FFFFFF' }}
-                  className="px-5 py-2 rounded-full hover:bg-[#F5F5F1] text-[13.5px] font-bold transition-colors cursor-pointer"
+                  className="px-5 py-2.5 rounded-full border border-[#E6E0D4] text-[#221D16] bg-white hover:bg-[#F5F2EB] text-xs font-bold transition-colors cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  style={{ backgroundColor: '#222222', color: '#FFFFFF' }}
-                  className="px-6 py-2 rounded-full hover:bg-black text-[13.5px] font-bold transition-all shadow-sm hover:shadow-md cursor-pointer"
+                  className="px-7 py-2.5 rounded-full bg-[#221D16] hover:bg-black text-[#FAF9F5] text-xs font-bold transition-all shadow-sm hover:shadow-md cursor-pointer tracking-wide"
                 >
                   Save Changes
                 </button>
@@ -1692,15 +1513,15 @@ export function Header() {
             </button>
 
             <div className="flex items-center gap-3 mb-5 text-left">
-              <div className="w-10 h-10 rounded-full bg-blue-50 text-blue-700 flex items-center justify-center shrink-0">
+              <div className="w-10 h-10 rounded-full bg-[#F5F2EB] text-[#221D16] border border-[#E6E0D4] flex items-center justify-center shrink-0">
                 <i className="fa-solid fa-file-invoice text-[18px]" />
               </div>
               <div>
-                <h2 className="text-[20px] font-bold text-[#222222]">
+                <h2 className="text-[20px] font-bold text-[#221D16]">
                   Tax Invoices &amp; Receipts
                 </h2>
                 <p className="text-[12.5px] text-[#595959]">
-                  Download GST invoices and authentic consecration certificates
+                  Download GST invoices and authentic certificates of craftsmanship
                 </p>
               </div>
             </div>
@@ -1709,8 +1530,8 @@ export function Header() {
               {/* Sample Invoice Item 1 */}
               <div className="bg-[#FAF9F5] p-3.5 rounded-2xl border border-[#E1E3DF] flex items-center justify-between gap-3">
                 <div>
-                  <p className="font-bold text-[13.5px] text-[#222222]">
-                    Order #FS-235358
+                  <p className="font-bold text-[13.5px] text-[#221D16]">
+                    Order #MD-235358
                   </p>
                   <p className="text-[12px] text-[#595959]">
                     15 Sept 2026 • {formatPrice(4349)} (Paid in full)
@@ -1722,7 +1543,7 @@ export function Header() {
                 <button
                   type="button"
                   onClick={() => window.print()}
-                  className="px-3.5 py-1.5 rounded-full border border-[#222222] hover:bg-white text-[12.5px] font-bold text-[#222222] flex items-center gap-1.5 transition-colors cursor-pointer shrink-0 shadow-2xs"
+                  className="px-3.5 py-1.5 rounded-full border border-[#221D16] hover:bg-[#F5F2EB] text-[12.5px] font-bold text-[#221D16] flex items-center gap-1.5 transition-colors cursor-pointer shrink-0 shadow-2xs"
                 >
                   <i className="fa-solid fa-print text-[12px]" />
                   <span>Download / Print</span>
@@ -1732,20 +1553,20 @@ export function Header() {
               {/* Sample Invoice Item 2 */}
               <div className="bg-[#FAF9F5] p-3.5 rounded-2xl border border-[#E1E3DF] flex items-center justify-between gap-3">
                 <div>
-                  <p className="font-bold text-[13.5px] text-[#222222]">
-                    Order #FS-190482
+                  <p className="font-bold text-[13.5px] text-[#221D16]">
+                    Order #MD-190482
                   </p>
                   <p className="text-[12px] text-[#595959]">
                     02 Aug 2026 • {formatPrice(2430)} (Delivered)
                   </p>
                   <span className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full inline-block mt-1">
-                    ✓ Consecration Certificate Ready
+                    ✓ Certificate of Authenticity Ready
                   </span>
                 </div>
                 <button
                   type="button"
                   onClick={() => window.print()}
-                  className="px-3.5 py-1.5 rounded-full border border-[#222222] hover:bg-white text-[12.5px] font-bold text-[#222222] flex items-center gap-1.5 transition-colors cursor-pointer shrink-0 shadow-2xs"
+                  className="px-3.5 py-1.5 rounded-full border border-[#221D16] hover:bg-[#F5F2EB] text-[12.5px] font-bold text-[#221D16] flex items-center gap-1.5 transition-colors cursor-pointer shrink-0 shadow-2xs"
                 >
                   <i className="fa-solid fa-print text-[12px]" />
                   <span>Download / Print</span>

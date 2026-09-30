@@ -7,7 +7,7 @@ WORKDIR /app
 COPY package.json package-lock.json* ./
 COPY prisma ./prisma/
 
-RUN npm ci
+RUN npm install --legacy-peer-deps
 
 # Generate Prisma Client
 RUN npx prisma generate
@@ -42,6 +42,7 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 COPY --from=builder /app/app/generated ./app/generated
 COPY --from=builder /app/prisma ./prisma
+COPY --from=builder /app/prisma7.config.ts ./prisma7.config.ts
 
 USER nextjs
 

@@ -20,9 +20,9 @@ export * from './config';
 export function calculateOrderTax(
   items: TaxItemInput[],
   address?: TaxAddressInput,
-  options: { isInclusive?: boolean; overrideCurrency?: 'INR' | 'AED' } = { isInclusive: true }
+  options: { isInclusive?: boolean; overrideCurrency?: 'INR' | 'AED' } = { isInclusive: false }
 ): OrderTaxBreakdown {
-  const isInclusive = options.isInclusive ?? true;
+  const isInclusive = options.isInclusive ?? false;
   const rawCountry = (address?.country || 'India').trim().toUpperCase();
 
   const isUAE =
@@ -32,7 +32,7 @@ export function calculateOrderTax(
     rawCountry.includes('DUBAI') ||
     options.overrideCurrency === 'AED';
 
-  const totalGross = items.reduce((sum, it) => sum + (it.price || 0) * (it.quantity || 1), 0);
+  const itemsRawTotal = items.reduce((sum, it) => sum + (it.price || 0) * (it.quantity || 1), 0);
 
   // =========================================================================
   // 1. UAE VALUE ADDED TAX (VAT) CALCULATION - Flat 5%
@@ -43,18 +43,21 @@ export function calculateOrderTax(
     let totalTax = 0;
 
     const breakdownItems: TaxLineItemBreakdown[] = items.map((it) => {
-      const gross = it.price * it.quantity;
+      const lineSubtotal = (it.price || 0) * (it.quantity || 1);
       let taxable = 0;
       let tax = 0;
 
       if (isInclusive) {
-        // Base Price = Gross / 1.05
-        taxable = Number((gross / (1 + vatRate / 100)).toFixed(2));
-        tax = Number((gross - taxable).toFixed(2));
+        // Post-tax pricing (tax inclusive): Base Price = Gross / 1.05
+        taxable = Number((lineSubtotal / (1 + vatRate / 100)).toFixed(2));
+        tax = Number((lineSubtotal - taxable).toFixed(2));
       } else {
-        taxable = gross;
-        tax = Number((gross * (vatRate / 100)).toFixed(2));
+        // Pre-tax pricing: Price is base taxable amount, tax added on top
+        taxable = Number(lineSubtotal.toFixed(2));
+        tax = Number((taxable * (vatRate / 100)).toFixed(2));
       }
+
+      const itemGross = isInclusive ? lineSubtotal : Number((taxable + tax).toFixed(2));
 
       totalTaxable += taxable;
       totalTax += tax;
@@ -64,13 +67,17 @@ export function calculateOrderTax(
         hsnCode: it.hsnCode || TAX_CONFIG.defaultHsnCode,
         quantity: it.quantity,
         unitPrice: it.price,
-        grossAmount: gross,
+        grossAmount: itemGross,
         taxableAmount: taxable,
         taxAmount: tax,
         taxRate: vatRate,
         vatAmount: tax,
       };
     });
+
+    const totalGross = isInclusive
+      ? Number(itemsRawTotal.toFixed(2))
+      : Number((totalTaxable + totalTax).toFixed(2));
 
     return {
       country: 'AE',
@@ -81,7 +88,7 @@ export function calculateOrderTax(
       sellerTrn: TAX_CONFIG.seller.uaeTrn,
       sellerState: 'Dubai, UAE',
       isInclusive,
-      totalGrossAmount: Number(totalGross.toFixed(2)),
+      totalGrossAmount: totalGross,
       totalTaxableAmount: Number(totalTaxable.toFixed(2)),
       totalTaxAmount: Number(totalTax.toFixed(2)),
       vatTotal: Number(totalTax.toFixed(2)),
@@ -95,9 +102,8 @@ export function calculateOrderTax(
   const buyerState = (address?.state || '').trim().toLowerCase();
   const sellerState = TAX_CONFIG.seller.state.trim().toLowerCase();
 
-  // If buyer state is Maharashtra (same as seller) -> Intra-State (CGST 9% + SGST 9%)
-  // Otherwise -> Inter-State (IGST 18%)
-  const isIntraState = buyerState.length > 0 && buyerState === sellerState;
+  // Intra-State (CGST + SGST) vs Inter-State (IGST)
+  const isIntraState = buyerState.length > 0 && (buyerState === sellerState || buyerState === TAX_CONFIG.seller.stateCode);
   const standardRate = TAX_CONFIG.rates.indiaStandardGst; // 18%
 
   let totalTaxable = 0;
@@ -108,19 +114,22 @@ export function calculateOrderTax(
 
   const breakdownItems: TaxLineItemBreakdown[] = items.map((it) => {
     const rate = it.customTaxRate ? it.customTaxRate * 100 : standardRate;
-    const gross = it.price * it.quantity;
+    const lineSubtotal = (it.price || 0) * (it.quantity || 1);
 
     let taxable = 0;
     let tax = 0;
 
     if (isInclusive) {
-      // Base Price = Gross / 1.18
-      taxable = Number((gross / (1 + rate / 100)).toFixed(2));
-      tax = Number((gross - taxable).toFixed(2));
+      // Post-tax pricing (tax inclusive): Base Price = Gross / 1.18
+      taxable = Number((lineSubtotal / (1 + rate / 100)).toFixed(2));
+      tax = Number((lineSubtotal - taxable).toFixed(2));
     } else {
-      taxable = gross;
-      tax = Number((gross * (rate / 100)).toFixed(2));
+      // Pre-tax pricing: Price is base taxable amount, tax added on top
+      taxable = Number(lineSubtotal.toFixed(2));
+      tax = Number((taxable * (rate / 100)).toFixed(2));
     }
+
+    const itemGross = isInclusive ? lineSubtotal : Number((taxable + tax).toFixed(2));
 
     totalTaxable += taxable;
     totalTax += tax;
@@ -134,7 +143,7 @@ export function calculateOrderTax(
         hsnCode: it.hsnCode || TAX_CONFIG.defaultHsnCode,
         quantity: it.quantity,
         unitPrice: it.price,
-        grossAmount: gross,
+        grossAmount: itemGross,
         taxableAmount: taxable,
         taxAmount: tax,
         taxRate: rate,
@@ -148,7 +157,7 @@ export function calculateOrderTax(
         hsnCode: it.hsnCode || TAX_CONFIG.defaultHsnCode,
         quantity: it.quantity,
         unitPrice: it.price,
-        grossAmount: gross,
+        grossAmount: itemGross,
         taxableAmount: taxable,
         taxAmount: tax,
         taxRate: rate,
@@ -156,6 +165,10 @@ export function calculateOrderTax(
       };
     }
   });
+
+  const totalGross = isInclusive
+    ? Number(itemsRawTotal.toFixed(2))
+    : Number((totalTaxable + totalTax).toFixed(2));
 
   return {
     country: 'IN',
@@ -168,7 +181,7 @@ export function calculateOrderTax(
     sellerGstin: TAX_CONFIG.seller.gstin,
     sellerState: `${TAX_CONFIG.seller.state} (Code: ${TAX_CONFIG.seller.stateCode})`,
     isInclusive,
-    totalGrossAmount: Number(totalGross.toFixed(2)),
+    totalGrossAmount: totalGross,
     totalTaxableAmount: Number(totalTaxable.toFixed(2)),
     totalTaxAmount: Number(totalTax.toFixed(2)),
     cgstTotal: isIntraState ? Number(totalCgst.toFixed(2)) : undefined,

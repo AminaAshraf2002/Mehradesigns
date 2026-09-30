@@ -86,7 +86,7 @@ export function generateTaxInvoiceHTML(data: TaxInvoiceData): string {
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tax Invoice #${orderId} - Miracle Feng Shui</title>
+  <title>Tax Invoice #${orderId} - Mehra Designs</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -289,7 +289,7 @@ export function generateTaxInvoiceHTML(data: TaxInvoiceData): string {
         <p>Payment Mode: <strong>${paymentMethod}</strong></p>
         <p>Payment Status: <strong style="color: #059669;">${paymentStatus}</strong></p>
         <p>Tax Regime: <strong>${taxBreakdown.taxTitle}</strong></p>
-        <p>Prices: <strong>Inclusive of All Applicable Taxes</strong></p>
+        <p>Pricing Basis: <strong>Pre-Tax (Applicable Taxes Added)</strong></p>
       </div>
     </div>
 
@@ -368,7 +368,7 @@ export function generateTaxInvoiceHTML(data: TaxInvoiceData): string {
 
     <div class="footer">
       <div>
-        <p>• All sacred talismans and cures are consecrated and authenticity certified.</p>
+        <p>• All Mehra Designs luxury creations are authentic and quality certified.</p>
         <p>• This is a computer-generated tax invoice and requires no physical signature.</p>
       </div>
       <div class="auth-sign">

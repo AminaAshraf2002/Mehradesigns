@@ -5,17 +5,7 @@ import bcrypt from 'bcryptjs';
 
 describe('AuthService', () => {
   it('should throw error when registering with an existing email', async () => {
-    vi.spyOn(userRepository, 'findByEmail').mockResolvedValueOnce({
-      id: 'existing-id',
-      email: 'user@example.com',
-      passwordHash: 'hash',
-      name: 'Existing User',
-      role: 'CUSTOMER',
-      phone: null,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      addresses: [],
-    } as any);
+    vi.spyOn(userRepository, 'existsByEmail').mockResolvedValueOnce(true);
 
     await expect(
       authService.register({
@@ -27,7 +17,7 @@ describe('AuthService', () => {
   });
 
   it('should hash password and create customer user successfully', async () => {
-    vi.spyOn(userRepository, 'findByEmail').mockResolvedValueOnce(null);
+    vi.spyOn(userRepository, 'existsByEmail').mockResolvedValueOnce(false);
     vi.spyOn(userRepository, 'create').mockImplementationOnce(async (data) => ({
       id: 'new-user-123',
       name: data.name,
@@ -55,7 +45,7 @@ describe('AuthService', () => {
     const password = 'testpassword123';
     const hash = await bcrypt.hash(password, 10);
 
-    vi.spyOn(userRepository, 'findByEmail').mockResolvedValueOnce({
+    vi.spyOn(userRepository, 'findAuthUserByEmail').mockResolvedValueOnce({
       id: 'user-id-1',
       name: 'Amina',
       email: 'amina@example.com',
@@ -72,7 +62,7 @@ describe('AuthService', () => {
     expect(validated?.name).toBe('Amina');
 
     // Invalid password
-    vi.spyOn(userRepository, 'findByEmail').mockResolvedValueOnce({
+    vi.spyOn(userRepository, 'findAuthUserByEmail').mockResolvedValueOnce({
       id: 'user-id-1',
       name: 'Amina',
       email: 'amina@example.com',

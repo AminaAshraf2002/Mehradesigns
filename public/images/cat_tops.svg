@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+    <defs>
+      <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#FAF6F0"/>
+        <stop offset="50%" stop-color="#EFE6D5"/>
+        <stop offset="100%" stop-color="#DECFAF"/>
+      </linearGradient>
+      <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#F4D068"/>
+        <stop offset="50%" stop-color="#B99465"/>
+        <stop offset="100%" stop-color="#7A5C34"/>
+      </linearGradient>
+      <filter id="shadow" x="-10%" y="-10%" width="130%" height="130%">
+        <feDropShadow dx="0" dy="12" stdDeviation="15" flood-color="#221D16" flood-opacity="0.25"/>
+      </filter>
+    </defs>
+    <rect width="500" height="500" fill="url(#bgGrad)"/>
+    
+    <!-- Travertine Marble Pedestal -->
+    <rect x="180" y="330" width="140" height="130" fill="#E3D6C1" stroke="#D1C2A9" stroke-width="2" filter="url(#shadow)"/>
+
+    <!-- Chic Studio Mannequin Bust & Black Knit Top -->
+    <g filter="url(#shadow)">
+      <!-- Wood Stand -->
+      <rect x="244" y="270" width="12" height="70" fill="#7A5C34"/>
+      <!-- Black Ribbed Knit Crop Top Body -->
+      <path d="M190 150 C210 140 290 140 310 150 L290 270 L210 270 Z" fill="#1C1814"/>
+      <!-- Neckline -->
+      <path d="M220 145 C235 160 265 160 280 145" fill="none" stroke="url(#gold)" stroke-width="3"/>
+      <!-- Fine Ribbed Texture Lines -->
+      <path d="M225 170 L225 260 M240 168 L240 265 M260 168 L260 265 M275 170 L275 260" fill="none" stroke="#2D2822" stroke-width="2"/>
+    </g>
+  </svg>

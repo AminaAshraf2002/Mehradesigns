@@ -1,4 +1,4 @@
-// Prisma schema for Miracle Feng Shui
+// Prisma schema for Mehra Designs
 // Learn more: https://pris.ly/d/prisma-schema
 
 generator client {
@@ -105,7 +105,7 @@ model Product {
   categoryId            String
   category              Category    @relation(fields: [categoryId], references: [id], onDelete: Restrict)
   tags                  String[]
-  maker                 String      @default("Miracle Feng Shui Studio")
+  maker                 String      @default("Mehra Designs Studio")
   makerAvatar           String?
   makerSales            Int         @default(0)
   starSeller            Boolean     @default(false)

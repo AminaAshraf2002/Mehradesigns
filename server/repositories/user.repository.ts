@@ -22,6 +22,30 @@ export const userRepository = {
     });
   },
 
+  async existsByEmail(email: string, tx?: Prisma.TransactionClient): Promise<boolean> {
+    const client = tx || prisma;
+    const user = await client.user.findUnique({
+      where: { email: email.toLowerCase().trim() },
+      select: { id: true },
+    });
+    return !!user;
+  },
+
+  async findAuthUserByEmail(email: string, tx?: Prisma.TransactionClient) {
+    const client = tx || prisma;
+    return client.user.findUnique({
+      where: { email: email.toLowerCase().trim() },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        passwordHash: true,
+        role: true,
+        phone: true,
+      },
+    });
+  },
+
   async create(
     data: {
       name: string;

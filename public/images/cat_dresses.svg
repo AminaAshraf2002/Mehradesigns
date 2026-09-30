@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+    <defs>
+      <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#FAF6F0"/>
+        <stop offset="50%" stop-color="#EFE6D5"/>
+        <stop offset="100%" stop-color="#DECFAF"/>
+      </linearGradient>
+      <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#F4D068"/>
+        <stop offset="50%" stop-color="#B99465"/>
+        <stop offset="100%" stop-color="#7A5C34"/>
+      </linearGradient>
+      <linearGradient id="silk" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#2A241D"/>
+        <stop offset="50%" stop-color="#191511"/>
+        <stop offset="100%" stop-color="#0A0806"/>
+      </linearGradient>
+      <filter id="shadow" x="-10%" y="-10%" width="130%" height="130%">
+        <feDropShadow dx="0" dy="12" stdDeviation="15" flood-color="#221D16" flood-opacity="0.3"/>
+      </filter>
+    </defs>
+    <rect width="500" height="500" fill="url(#bgGrad)"/>
+    
+    <!-- Floor Soft Shadow -->
+    <ellipse cx="250" cy="435" rx="130" ry="20" fill="#221D16" opacity="0.2" filter="url(#shadow)"/>
+
+    <!-- High-Fashion Black Silk Gown Model Studio Cutout -->
+    <g filter="url(#shadow)">
+      <!-- Head / Updo Hair Silhouette -->
+      <circle cx="250" cy="95" r="22" fill="#191511"/>
+      <ellipse cx="250" cy="72" r="14" ry="10" fill="#191511"/>
+      <!-- Neck & Collarbone -->
+      <rect x="243" y="112" width="14" height="28" fill="#EBDCCA"/>
+      <!-- Gold Necklace -->
+      <path d="M238 135 C245 145 255 145 262 135" fill="none" stroke="url(#gold)" stroke-width="3"/>
+      <!-- Black Silk Evening Dress Body -->
+      <path d="M228 140 Q250 135 272 140 L260 210 Q250 215 240 210 Z" fill="url(#silk)"/>
+      <!-- Flaring Gown Skirt -->
+      <path d="M240 210 Q250 215 260 210 L330 430 Q250 445 170 430 Z" fill="url(#silk)"/>
+      <!-- Gold Belt Accent -->
+      <rect x="238" y="206" width="24" height="6" fill="url(#gold)"/>
+      <!-- Dress Folds / Highlights -->
+      <path d="M220 280 Q240 360 210 430" fill="none" stroke="#3D352B" stroke-width="2"/>
+      <path d="M260 270 Q255 350 280 430" fill="none" stroke="#3D352B" stroke-width="2"/>
+    </g>
+  </svg>

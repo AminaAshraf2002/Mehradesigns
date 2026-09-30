@@ -9,6 +9,35 @@ export type ProductReview = {
   image?: string;
 };
 
+export type ProductOption = {
+  id: string;
+  name: string;
+  priceOverride?: number;
+  stock: number;
+  inStock: boolean;
+};
+
+export type ProductSpecification = {
+  label: string;
+  value: string;
+};
+
+export type ProductWeight = {
+  value: number;
+  unit: 'g' | 'kg';
+};
+
+export type ProductCustomization = {
+  enabled: boolean;
+  label?: string;
+  required?: boolean;
+};
+
+export type ProductTax = {
+  percentage: number;
+  inclusive: boolean;
+};
+
 export type Product = {
   id: string;
   name: string;
@@ -37,18 +66,38 @@ export type Product = {
   personalizationPrompt?: string;
   inDemandCount?: number;
   stock?: number;
+
+  // Extended fields for admin & storefront
+  brand?: string;
+  sku?: string;
+  minQty?: number;
+  features?: string[];
+  specifications?: ProductSpecification[];
+  options?: ProductOption[];
+  weight?: ProductWeight;
+  variantIds?: string[];
+  customization?: ProductCustomization;
+  warranty?: string;
+  tax?: ProductTax;
+  tags?: string[];
+  seoTitle?: string;
+  seoDescription?: string;
+  isUnpublished?: boolean;
+  views?: number;
+  addedToCartCount?: number;
+  ordersCount?: number;
 };
 
 export const categories = [
   'All',
-  'Feng Shui Decor',
-  'Feng Shui Jewelry',
-  'Feng Shui Candles',
-  'Crystals & Trees',
-  'Zen & Meditation',
-  'Feng Shui Books',
-  'Wealth & Abundance',
-  'Protection & Charms',
+  'New Arrivals',
+  'Dresses',
+  'Tops',
+  'Outerwear',
+  'Bottoms',
+  'Bags',
+  'Shoes',
+  'Accessories',
 ] as const;
 
 export type CategoryCircleInfo = {
@@ -59,2101 +108,1766 @@ export type CategoryCircleInfo = {
 
 export const circularCategories: CategoryCircleInfo[] = [
   {
-    name: 'Feng Shui Decor',
-    slug: 'Feng Shui Decor',
-    image: 'https://i.etsystatic.com/61062687/r/il/8c215d/7104788870/il_794xN.7104788870_shv6.jpg',
+    name: 'Evening Dresses',
+    slug: 'Dresses',
+    image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=600&q=80',
   },
   {
-    name: 'Feng Shui Jewelry',
-    slug: 'Feng Shui Jewelry',
-    image: 'https://i.etsystatic.com/65398995/r/il/637ebb/7994749201/il_1080xN.7994749201_tjcq.jpg',
+    name: 'Luxury Tops',
+    slug: 'Tops',
+    image: 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=600&q=80',
   },
   {
-    name: 'Feng Shui Candles',
-    slug: 'Feng Shui Candles',
-    image: 'https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=800&q=80',
+    name: 'Coats & Outerwear',
+    slug: 'Outerwear',
+    image: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=600&q=80',
   },
   {
-    name: 'Feng Shui Books',
-    slug: 'Feng Shui Books',
-    image: 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=600&q=80',
+    name: 'Artisanal Bags',
+    slug: 'Bags',
+    image: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=600&q=80',
   },
   {
-    name: 'Crystals & Trees',
-    slug: 'Crystals & Trees',
-    image: 'https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=500&q=80',
+    name: 'Designer Shoes',
+    slug: 'Shoes',
+    image: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=600&q=80',
   },
   {
-    name: 'Zen & Meditation',
-    slug: 'Zen & Meditation',
-    image: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=500&q=80',
+    name: 'Fine Accessories',
+    slug: 'Accessories',
+    image: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=600&q=80',
   },
 ];
 
 export const summerCollections: CategoryCircleInfo[] = [
   {
-    name: 'Wealth & Prosperity',
-    slug: 'Feng Shui Decor',
-    image: 'https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=800&q=80',
+    name: 'Summer Refresh',
+    slug: 'Dresses',
+    image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80',
   },
   {
-    name: 'Health & Longevity',
-    slug: 'Feng Shui Jewelry',
-    image: 'https://i.etsystatic.com/58154797/r/il/827b49/7627716971/il_fullxfull.7627716971_ctfy.jpg',
+    name: 'Monochrome Luxe',
+    slug: 'Tops',
+    image: 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=800&q=80',
   },
   {
-    name: 'Love & Harmony',
-    slug: 'Feng Shui Jewelry',
-    image: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=800&q=80',
+    name: 'Resort Wear',
+    slug: 'Dresses',
+    image: 'https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=800&q=80',
   },
   {
-    name: 'Protection & Shielding',
-    slug: 'Feng Shui Jewelry',
-    image: 'https://i.etsystatic.com/27864554/r/il/32250d/5943360949/il_fullxfull.5943360949_g433.jpg',
-  },
-  {
-    name: 'Zen Meditation Space',
-    slug: 'Feng Shui Candles',
-    image: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=800&q=80',
-  },
-  {
-    name: 'Career & Success',
-    slug: 'Feng Shui Decor',
-    image: 'https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=800&q=80',
+    name: 'Tailored Essentials',
+    slug: 'Outerwear',
+    image: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=800&q=80',
   },
 ];
 
 export const birthdayHeroCards = [
   {
-    title: 'Feng Shui Wealth Corner Starter Kits',
-    slug: 'Feng Shui Decor',
-    image: 'https://i.etsystatic.com/61062687/r/il/8c215d/7104788870/il_794xN.7104788870_shv6.jpg',
+    title: 'New Season Evening Dresses',
+    slug: 'Dresses',
+    image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=600&q=80',
   },
   {
-    title: 'Cinnabar & Obsidian Talismans',
-    slug: 'Feng Shui Jewelry',
-    image: 'https://i.etsystatic.com/58154797/r/il/827b49/7627716971/il_fullxfull.7627716971_ctfy.jpg',
+    title: 'Minimalist Cotton & Silk Tops',
+    slug: 'Tops',
+    image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=600&q=80',
   },
   {
-    title: 'Natural Citrine & Amethyst Money Trees',
-    slug: 'Crystals & Trees',
-    image: 'https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=600&q=80',
+    title: 'Handcrafted Leather Bags',
+    slug: 'Bags',
+    image: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=600&q=80',
   },
 ];
 
 export const birthdayProductPicks = [
   {
-    id: 'j4',
-    title: 'Temple Blessed 2027 Tai Sui Protection Bracelet',
-    price: 1464,
-    originalPrice: 2090,
-    image: 'https://i.etsystatic.com/58154797/r/il/827b49/7627716971/il_fullxfull.7627716971_ctfy.jpg',
+    id: 'top-1',
+    title: 'Loose Fit Hoodie',
+    price: 24.99,
+    originalPrice: 35.00,
+    image: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=800&q=80',
   },
   {
-    id: 'd1',
-    title: 'Taoist Master Blessed Five Emperor Coins',
-    price: 4008,
-    originalPrice: 5725,
-    image: 'https://i.etsystatic.com/61062687/r/il/8c215d/7104788870/il_794xN.7104788870_shv6.jpg',
+    id: 'top-3',
+    title: 'Polo with Contrast Trims',
+    price: 212.00,
+    originalPrice: 242.00,
+    image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80',
   },
   {
-    id: 'j2',
-    title: 'S925 Pixiu Ring, Wealth Luck Amulet',
-    price: 3462,
-    originalPrice: 4945,
-    image: 'https://i.etsystatic.com/65398995/r/il/637ebb/7994749201/il_1080xN.7994749201_tjcq.jpg',
+    id: 'out-1',
+    title: 'Striped Trench Jacket',
+    price: 120.00,
+    originalPrice: 160.00,
+    image: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=800&q=80',
   },
   {
-    id: 'c2',
-    title: 'Fu Prosperity Prayer Candle | Good Fortune',
-    price: 1403,
-    originalPrice: 2004,
-    image: 'https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=800&q=80',
-  },
-  {
-    id: 'c4',
-    title: 'Feng Shui Lucky Dragon Incense Burner',
-    price: 3159,
-    originalPrice: 4512,
-    image: 'https://i.etsystatic.com/60335618/r/il/5e079c/7435054325/il_1080xN.7435054325_s37u.jpg',
-  },
-  {
-    id: 'c1',
-    title: 'Money Multiplying Poster, Wealth Building',
-    price: 2433,
-    originalPrice: 3475,
-    image: 'https://i.etsystatic.com/19246526/r/il/35c642/6558547910/il_fullxfull.6558547910_qiy1.jpg',
+    id: 'dress-1',
+    title: 'Evening Silk Slip Dress',
+    price: 280.00,
+    originalPrice: 350.00,
+    image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=800&q=80',
   },
 ];
 
 export const specialGiftCategories = [
   {
-    name: 'Protection Mirrors & Charms',
-    slug: 'Feng Shui Jewelry',
-    image: 'https://i.etsystatic.com/27864554/r/il/32250d/5943360949/il_fullxfull.5943360949_g433.jpg',
+    name: 'Evening Dresses',
+    slug: 'Dresses',
+    image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=600&q=80',
   },
   {
-    name: 'Abundance Candles',
-    slug: 'Feng Shui Candles',
-    image: 'https://i.etsystatic.com/59148376/r/il/5c6a68/7037517033/il_fullxfull.7037517033_rp73.jpg',
+    name: 'Everyday Tops',
+    slug: 'Tops',
+    image: 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=600&q=80',
   },
   {
-    name: 'Pixiu Luck Bracelets',
-    slug: 'Feng Shui Jewelry',
-    image: 'https://i.etsystatic.com/65398995/r/il/637ebb/7994749201/il_1080xN.7994749201_tjcq.jpg',
+    name: 'Statement Outerwear',
+    slug: 'Outerwear',
+    image: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=600&q=80',
   },
   {
-    name: 'Cinnabar Protection',
-    slug: 'Feng Shui Jewelry',
-    image: 'https://i.etsystatic.com/58154797/r/il/827b49/7627716971/il_fullxfull.7627716971_ctfy.jpg',
+    name: 'Leather Handbags',
+    slug: 'Bags',
+    image: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=600&q=80',
   },
   {
-    name: 'Wealth Coins & Charms',
-    slug: 'Feng Shui Decor',
-    image: 'https://i.etsystatic.com/61062687/r/il/8c215d/7104788870/il_794xN.7104788870_shv6.jpg',
+    name: 'Footwear Collection',
+    slug: 'Shoes',
+    image: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=600&q=80',
   },
   {
-    name: 'Tibetan Sound Bowls',
-    slug: 'Zen & Meditation',
-    image: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=500&q=80',
+    name: 'Silk & Gold Accessories',
+    slug: 'Accessories',
+    image: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=600&q=80',
   },
 ];
 
 export const todaysDeals = [
   {
-    id: 'j4',
-    title: 'Temple Blessed 2027 Tai Sui Protection Bracelet',
-    price: 1464,
-    originalPrice: 2090,
-    image: 'https://i.etsystatic.com/58154797/r/il/827b49/7627716971/il_fullxfull.7627716971_ctfy.jpg',
+    id: 'top-1',
+    title: 'Loose Fit Hoodie',
+    price: 24.99,
+    originalPrice: 35.00,
+    image: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=800&q=80',
   },
   {
-    id: 'j2',
-    title: 'S925 Pixiu Ring, Feng Shui Wealth Luck Amulet',
-    price: 3462,
-    originalPrice: 4945,
-    image: 'https://i.etsystatic.com/65398995/r/il/637ebb/7994749201/il_1080xN.7994749201_tjcq.jpg',
+    id: 'top-3',
+    title: 'Polo with Contrast Trims',
+    price: 212.00,
+    originalPrice: 242.00,
+    image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80',
   },
   {
-    id: 'd1',
-    title: 'Taoist Master Blessed Five Emperor Coins: Feng Shui',
-    price: 4008,
-    originalPrice: 5725,
-    image: 'https://i.etsystatic.com/61062687/r/il/8c215d/7104788870/il_794xN.7104788870_shv6.jpg',
+    id: 'out-1',
+    title: 'Striped Trench Jacket',
+    price: 120.00,
+    originalPrice: 160.00,
+    image: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=800&q=80',
   },
   {
-    id: 'c1',
-    title: 'Money Multiplying Poster, Wealth Building Feng Shui',
-    price: 2433,
-    originalPrice: 3475,
-    image: 'https://i.etsystatic.com/19246526/r/il/35c642/6558547910/il_fullxfull.6558547910_qiy1.jpg',
-  },
-  {
-    id: 'c2',
-    title: 'Fu Prosperity Prayer Candle | Chinese Good Fortune',
-    price: 1403,
-    originalPrice: 2004,
-    image: 'https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=800&q=80',
-  },
-  {
-    id: 'c4',
-    title: 'Feng Shui Lucky Dragon Incense Burner, Vintage',
-    price: 3159,
-    originalPrice: 4512,
-    image: 'https://i.etsystatic.com/60335618/r/il/5e079c/7435054325/il_1080xN.7435054325_s37u.jpg',
-  },
-  {
-    id: 'j3',
-    title: 'Brass Bagua Pendant Necklace | Feng Shui I Ching',
-    price: 2175,
-    originalPrice: 3107,
-    image: 'https://i.etsystatic.com/27864554/r/il/32250d/5943360949/il_fullxfull.5943360949_g433.jpg',
+    id: 'dress-1',
+    title: 'Evening Silk Slip Dress',
+    price: 280.00,
+    originalPrice: 350.00,
+    image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=800&q=80',
   },
 ];
 
 export const fashionGuideData = {
-  title: "Miracle feng shui's Guide to Energy & Harmony",
-  subtitle: "From sacred brass talismans to handcrafted healing crystals, everything you need to balance your home and spirit.",
+  title: "Mehra Designs Style Guide",
+  subtitle: "Explore timeless silhouettes, luxury fabrics, and essential wardrobe pieces tailored to perfection.",
   sweatshirts: {
-    title: 'Blackwood Feng Shui Amulet Necklace: Tree of Life',
-    image: 'https://i.etsystatic.com/28306871/r/il/791365/7159126948/il_fullxfull.7159126948_ebgf.jpg',
-    slug: 'Feng Shui Jewelry',
+    title: 'Loose Fit Hoodie',
+    image: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=800&q=80',
+    slug: 'Tops',
   },
   mensOvershirt: {
-    title: 'S925 Pixiu Ring, Feng Shui Wealth Luck Amulet',
-    image: 'https://i.etsystatic.com/65398995/r/il/637ebb/7994749201/il_1080xN.7994749201_tjcq.jpg',
-    slug: 'Feng Shui Jewelry',
+    title: 'Polo with Contrast Trims',
+    image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80',
+    slug: 'Tops',
   },
   toteBag: {
-    title: 'Feng Shui Lucky Dragon Incense Burner, Vintage',
-    image: 'https://i.etsystatic.com/60335618/r/il/5e079c/7435054325/il_1080xN.7435054325_s37u.jpg',
-    videoUrl: '/videos/fashion-craft-1.mp4',
-    slug: 'Feng Shui Candles',
+    title: 'Minimalist Structured Leather Tote',
+    image: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=800&q=80',
+    slug: 'Bags',
   },
   linenBlouse: {
-    title: 'Taoist Master Blessed Five Emperor Coins',
-    image: 'https://i.etsystatic.com/61062687/r/il/8c215d/7104788870/il_794xN.7104788870_shv6.jpg',
-    slug: 'Feng Shui Decor',
+    title: 'Sculptural Linen Midi Dress',
+    image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=800&q=80',
+    slug: 'Dresses',
   },
   metallicHeart: {
-    title: 'Feng Shui 2026 28 Hums Safety Talisman Keychain',
-    image: 'https://i.etsystatic.com/18528884/r/il/4255ed/7574072434/il_fullxfull.7574072434_8ebu.jpg',
-    videoUrl: '/videos/fashion-craft-2.mp4',
-    slug: 'Feng Shui Jewelry',
+    title: 'Striped Trench Jacket',
+    image: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=800&q=80',
+    slug: 'Outerwear',
   },
   spiralEarrings: {
-    title: 'Brass Bagua Pendant Necklace | Feng Shui I Ching',
-    image: 'https://i.etsystatic.com/27864554/r/il/32250d/5943360949/il_fullxfull.5943360949_g433.jpg',
-    videoUrl: '/videos/fashion-craft-3.mp4',
-    slug: 'Feng Shui Jewelry',
+    title: 'Silk Printed Square Scarf',
+    image: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=800&q=80',
+    slug: 'Accessories',
   },
 };
 
 export const blogPosts = [
   {
     id: 'blog-1',
-    category: 'Shopping Guides',
-    title: 'How to activate your home\'s southeast wealth corner with Feng Shui',
-    summary: 'Discover the exact placements for water elements, citrine crystals, and dragon censers to amplify your home\'s prosperity.',
-    slug: '/shop?category=Feng%20Shui%20Decor',
-    image: 'https://i.etsystatic.com/19246526/r/il/35c642/6558547910/il_fullxfull.6558547910_qiy1.jpg',
-    collage: [
-      'https://i.etsystatic.com/61062687/r/il/8c215d/7104788870/il_794xN.7104788870_shv6.jpg',
-      'https://i.etsystatic.com/60335618/r/il/5e079c/7435054325/il_1080xN.7435054325_s37u.jpg',
-      'https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=800&q=80',
-      'https://i.etsystatic.com/27864554/r/il/32250d/5943360949/il_fullxfull.5943360949_g433.jpg',
-    ],
+    category: 'Style Guides',
+    title: 'Mastering Minimalist Layering for Autumn & Winter',
+    summary: 'Discover how to pair oversized knitwear, tailored outerwear, and silk scarves for effortless sophistication.',
+    slug: '/shop?category=Outerwear',
+    image: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 'blog-2',
-    category: 'Shopping Guides',
-    title: 'The power of Pixiu & Cinnabar: Attracting prosperity and protection in 2026',
-    summary: 'Learn the ancient art of wearing sacred red string cinnabar beads and how the Pixiu talisman guards your financial harmony.',
-    slug: '/shop?category=Feng%20Shui%20Jewelry',
-    image: 'https://i.etsystatic.com/58154797/r/il/827b49/7627716971/il_fullxfull.7627716971_ctfy.jpg',
-  },
-  {
-    id: 'blog-3',
-    category: 'Gift Ideas',
-    title: '11 sacred crafts that make shopping on Miracle feng shui special',
-    summary: 'Get to know the artistry behind authentic Tibetan singing bowls, hand-carved jade statues, and artisan crystal bonsai trees.',
-    slug: '/shop?category=Zen%20%26%20Meditation',
-    hasOrangeBar: true,
-    image: 'https://i.etsystatic.com/65398995/r/il/637ebb/7994749201/il_1080xN.7994749201_tjcq.jpg',
-    collage: [
-      'https://i.etsystatic.com/28306871/r/il/791365/7159126948/il_fullxfull.7159126948_ebgf.jpg',
-      'https://i.etsystatic.com/57158477/r/il/5dae6a/6913075322/il_fullxfull.6913075322_qfbf.jpg',
-      'https://i.etsystatic.com/59148376/r/il/5c6a68/7037517033/il_fullxfull.7037517033_rp73.jpg',
-    ],
+    category: 'Fabric Care',
+    title: 'The Ultimate Care Guide for Pure Silk & Fine Wool',
+    summary: 'Essential tips to preserve the soft luster, drape, and longevity of your luxury investment wardrobe.',
+    slug: '/shop?category=Dresses',
+    image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=800&q=80',
   },
 ];
 
 export const products: Product[] = [
+  // NEW ARRIVALS
   {
-    "id": "j1",
-    "name": "Blackwood Feng Shui Amulet Necklace: Tree of Life",
-    "maker": "ShanghaiAttic",
-    "price": 2163,
-    "originalPrice": 3090,
-    "discount": "30% off",
-    "bestseller": true,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 5,
-    "reviewCount": 1420,
-    "category": "Feng Shui Jewelry",
-    "images": [
-      "https://i.etsystatic.com/28306871/r/il/791365/7159126948/il_340x270.7159126948_ebgf.jpg",
-      "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=800&q=80"
+    id: "new-1",
+    name: "Resort Silk Halter Maxi Dress",
+    brand: "Mehra Designs",
+    sku: "MD-NA-001",
+    maker: "Mehra Designs Couture",
+    price: 310.00,
+    originalPrice: 380.00,
+    discount: "20% off",
+    bestseller: true,
+    etsyPick: true,
+    freeShipping: true,
+    rating: 5.0,
+    reviewCount: 430,
+    category: "New Arrivals",
+    images: [
+      "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=1000&q=80"
     ],
-    "description": "Hand-carved natural African Blackwood amulet necklace featuring the sacred Tree of Life and Feng Shui protective blessings. Balances personal energy and wards off negative Chi.",
-    "itemDetails": [
-      "Handcrafted natural African blackwood pendant",
-      "Adjustable hand-braided cord (18\" to 28\")",
-      "Blessed with traditional harmony mantra",
-      "Comes with authentic gift pouch"
+    description: "Statement summer halterneck maxi dress crafted from fluid mulberry silk with back tie detail and cascading hemline.",
+    itemDetails: [
+      "100% Mulberry silk satin",
+      "Adjustable halterneck tie",
+      "Flattering open back silhouette",
+      "Floor-length bias-cut hem"
     ],
-    "materials": [
-      "Natural Blackwood",
-      "Braided Silk Cord"
+    features: [
+      "100% Pure Mulberry silk weave",
+      "Hand-finished French inner seams",
+      "Signature back tassel detailing"
     ],
-    "inDemandCount": 14
+    specifications: [
+      { label: "Fabric", value: "Mulberry Silk Satin" },
+      { label: "Fit", value: "Fluid Maxi Fit" },
+      { label: "Care", value: "Dry Clean Only" }
+    ],
+    options: [
+      { id: "opt-n1-xs", name: "XS", stock: 4, inStock: true },
+      { id: "opt-n1-s", name: "S", stock: 10, inStock: true },
+      { id: "opt-n1-m", name: "M", stock: 8, inStock: true }
+    ],
+    weight: { value: 310, unit: "g" },
+    warranty: "14-day luxury returns",
+    tax: { percentage: 18, inclusive: true },
+    materials: ["Mulberry Silk"],
+    inDemandCount: 28,
+    stock: 22
   },
   {
-    "id": "j2",
-    "name": "S925 Pixiu Ring, Feng Shui Wealth Luck Amulet",
-    "maker": "Miracle Feng Shui Studio",
-    "price": 3462,
-    "originalPrice": 4945,
-    "discount": "30% off",
-    "bestseller": true,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 4.9,
-    "reviewCount": 2310,
-    "category": "Feng Shui Jewelry",
-    "images": [
-      "https://i.etsystatic.com/65398995/r/il/637ebb/7994749201/il_1080xN.7994749201_tjcq.jpg",
-      "https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=800&q=80"
+    id: "new-2",
+    name: "Bespoke Cashmere Ribbed Cardigan",
+    brand: "Mehra Designs",
+    sku: "MD-NA-002",
+    maker: "Mehra Designs Atelier",
+    price: 245.00,
+    originalPrice: 295.00,
+    discount: "17% off",
+    bestseller: true,
+    etsyPick: true,
+    freeShipping: true,
+    rating: 4.9,
+    reviewCount: 310,
+    category: "New Arrivals",
+    images: [
+      "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?auto=format&fit=crop&w=1000&q=80"
     ],
-    "description": "Genuine solid S925 sterling silver adjustable Pixiu ring engraved with ancient Buddhist Heart Sutra scriptures. Pi Xiu draws wealth and protects the wearer from financial misfortune.",
-    "itemDetails": [
-      "Solid S925 Sterling Silver with oxidized vintage finish",
-      "Adjustable open-band sizing (fits US 7 to 12)",
-      "Intricate Heart Sutra mantra engraving inside the band",
-      "Blessed for wealth accumulation and prosperity"
+    description: "Ultra-soft 2-ply Mongolian cashmere cardigan featuring horn buttons, relaxed drop shoulders, and ribbed trims.",
+    itemDetails: [
+      "100% Grade-A Mongolian Cashmere",
+      "Natural horn button fastening",
+      "Ribbed cuffs and hem",
+      "Relaxed cozy silhouette"
     ],
-    "materials": [
-      "S925 Sterling Silver"
+    features: [
+      "2-ply long-staple cashmere yarn",
+      "Pilling-resistant finish",
+      "Naturally insulating & lightweight"
     ],
-    "inDemandCount": 19
+    specifications: [
+      { label: "Fabric", value: "100% Cashmere" },
+      { label: "Fit", value: "Relaxed Fit" },
+      { label: "Care", value: "Hand Wash Cold / Dry Flat" }
+    ],
+    options: [
+      { id: "opt-n2-s", name: "S", stock: 8, inStock: true },
+      { id: "opt-n2-m", name: "M", stock: 12, inStock: true },
+      { id: "opt-n2-l", name: "L", stock: 6, inStock: true }
+    ],
+    weight: { value: 340, unit: "g" },
+    warranty: "1-year cashmere care guarantee",
+    tax: { percentage: 18, inclusive: true },
+    materials: ["100% Cashmere"],
+    inDemandCount: 19,
+    stock: 26
   },
   {
-    "id": "j3",
-    "name": "Brass Bagua Pendant Necklace | Feng Shui I Ching",
-    "maker": "YUGNAGEMS",
-    "price": 2175,
-    "originalPrice": 3107,
-    "discount": "30% off",
-    "bestseller": false,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 4.8,
-    "reviewCount": 890,
-    "category": "Feng Shui Jewelry",
-    "images": [
-      "https://i.etsystatic.com/27864554/r/il/32250d/5943360949/il_fullxfull.5943360949_g433.jpg",
-      "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=800&q=80"
+    id: "new-3",
+    name: "Crocodile Embossed Leather Clutch",
+    brand: "Mehra Designs",
+    sku: "MD-NA-003",
+    maker: "Mehra Designs Leatherworks",
+    price: 275.00,
+    originalPrice: 320.00,
+    discount: "14% off",
+    bestseller: false,
+    etsyPick: true,
+    freeShipping: true,
+    rating: 4.8,
+    reviewCount: 185,
+    category: "New Arrivals",
+    images: [
+      "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=1000&q=80"
     ],
-    "description": "Traditional solid brass Bagua Eight Trigrams pendant necklace. Aligns with I Ching ancient principles to harmonize elemental forces and shield against sha chi.",
-    "itemDetails": [
-      "Solid cast brass with antiqued patina",
-      "Features Early Heaven Bagua trigram alignment",
-      "Includes 24-inch brass curb chain",
-      "Pendant diameter: 32mm"
+    description: "Structured evening clutch in crocodile-embossed Italian calfskin leather with detachable gold chain strap.",
+    itemDetails: [
+      "Italian croc-embossed calfskin",
+      "Polished 18k gold-plated hardware",
+      "Internal suede lining with card slots",
+      "Magnetic flap closure"
     ],
-    "materials": [
-      "Solid Brass",
-      "Brass Chain"
+    features: [
+      "Hand-polished leather edges",
+      "Detachable shoulder chain strap",
+      "Dual internal compartment design"
     ],
-    "inDemandCount": 8
+    specifications: [
+      { label: "Material", value: "Calfskin Leather" },
+      { label: "Lining", value: "Microfiber Suede" },
+      { label: "Dimensions", value: "26cm x 15cm x 5cm" }
+    ],
+    options: [
+      { id: "opt-n3-blk", name: "Onyx Black", stock: 9, inStock: true },
+      { id: "opt-n3-brn", name: "Chestnut Brown", stock: 5, inStock: true }
+    ],
+    weight: { value: 480, unit: "g" },
+    warranty: "Lifetime leather craftsmanship warranty",
+    tax: { percentage: 18, inclusive: true },
+    materials: ["Italian Calfskin"],
+    inDemandCount: 14,
+    stock: 14
   },
   {
-    "id": "j4",
-    "name": "Temple Blessed 2027 Tai Sui Protection Bracelet",
-    "maker": "ArtDesignByHao",
-    "price": 1464,
-    "originalPrice": 2090,
-    "discount": "30% off",
-    "bestseller": true,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 5,
-    "reviewCount": 3120,
-    "category": "Feng Shui Jewelry",
-    "images": [
-      "https://i.etsystatic.com/58154797/r/il/827b49/7627716971/il_fullxfull.7627716971_ctfy.jpg",
-      "https://images.unsplash.com/photo-1599643477877-530eb83abc8e?auto=format&fit=crop&w=800&q=80"
+    id: "new-4",
+    name: "Pleated Satin Asymmetric Skirt",
+    brand: "Mehra Designs",
+    sku: "MD-NA-004",
+    maker: "Mehra Designs Studio",
+    price: 185.00,
+    originalPrice: 220.00,
+    discount: "16% off",
+    bestseller: true,
+    etsyPick: false,
+    freeShipping: true,
+    rating: 4.9,
+    reviewCount: 240,
+    category: "New Arrivals",
+    images: [
+      "https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=1000&q=80"
     ],
-    "description": "Consecrated at Taoist temple for Tai Sui protection. Woven red silk cord with natural cinnabar and protective talisman beads to safeguard your health and luck.",
-    "itemDetails": [
-      "Temple-consecrated red silk cord",
-      "Natural cinnabar and gold vermeil beads",
-      "Adjustable sliding knot (6\" to 8.5\")",
-      "Blessing certificate included"
+    description: "Fluid accordion-pleated midi skirt featuring an asymmetrical handkerchief hemline and comfortable elastic waistband.",
+    itemDetails: [
+      "Silky high-luster satin drape",
+      "Sharp permanent knife pleating",
+      "Asymmetric handkerchief hem",
+      "Concealed elasticated waistband"
     ],
-    "materials": [
-      "Red Silk",
-      "Natural Cinnabar",
-      "Gold Vermeil"
+    features: [
+      "Non-crease satin fabric",
+      "Dynamic movement pleat design",
+      "Fully lined skirt body"
     ],
-    "inDemandCount": 27
+    specifications: [
+      { label: "Fabric", value: "Satin Crepe" },
+      { label: "Fit", value: "High-Waisted A-Line" },
+      { label: "Care", value: "Gentle Machine Wash" }
+    ],
+    options: [
+      { id: "opt-n4-s", name: "S", stock: 11, inStock: true },
+      { id: "opt-n4-m", name: "M", stock: 14, inStock: true },
+      { id: "opt-n4-l", name: "L", stock: 7, inStock: true }
+    ],
+    weight: { value: 320, unit: "g" },
+    warranty: "14-day easy return policy",
+    tax: { percentage: 18, inclusive: true },
+    materials: ["Satin Crepe"],
+    inDemandCount: 16,
+    stock: 32
   },
-  {
-    "id": "j5",
-    "name": "Red String Wealth Bracelet, Wealth Attraction Luck",
-    "maker": "BlessingOnYou",
-    "price": 2727,
-    "originalPrice": 3895,
-    "discount": "30% off",
-    "bestseller": true,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 4.9,
-    "reviewCount": 1750,
-    "category": "Feng Shui Jewelry",
-    "images": [
-      "https://i.etsystatic.com/57158477/r/il/5dae6a/6913075322/il_fullxfull.6913075322_qfbf.jpg",
-      "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "Auspicious braided red cord wealth bracelet adorned with five emperor wealth coins and auspicious knots to open multiple streams of prosperity.",
-    "itemDetails": [
-      "Hand-braided high-durability red nylon cord",
-      "Five lucky mini emperor coins",
-      "Adjustable circumference: 15-22 cm",
-      "Attracts continuous financial fortune"
-    ],
-    "materials": [
-      "Braided Cord",
-      "Brass Coins"
-    ],
-    "inDemandCount": 16
-  },
-  {
-    "id": "j6",
-    "name": "Gold Ingot Cinnabar Bracelet: Chinese Knot Feng Shui",
-    "maker": "JewelrWEI",
-    "price": 53058,
-    "originalPrice": 75797,
-    "discount": "30% off",
-    "bestseller": false,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 5,
-    "reviewCount": 420,
-    "category": "Feng Shui Jewelry",
-    "images": [
-      "https://images.unsplash.com/photo-1599643477877-530eb83abc8e?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "Masterpiece luxury Feng Shui bracelet featuring 24K pure solid gold Yuanbao ingot, untreated imperial cinnabar beads, and handcrafted ceremonial Chinese knots.",
-    "itemDetails": [
-      "Solid 24K Gold Ingot (stamped 999 gold)",
-      "Imperial Grade High-Density Cinnabar Beads (8mm)",
-      "Ceremonial hand-tied red silk knots",
-      "Includes luxury wooden presentation box & appraisal certificate"
-    ],
-    "materials": [
-      "24K Solid Gold",
-      "Imperial Cinnabar",
-      "Pure Silk Cord"
-    ],
-    "inDemandCount": 5
-  },
-  {
-    "id": "j7",
-    "name": "Copper Double Dragon Bagua Qilin Feng Shui Home",
-    "maker": "Mantyartdecor",
-    "price": 1845,
-    "originalPrice": 2635,
-    "discount": "30% off",
-    "bestseller": false,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 4.8,
-    "reviewCount": 640,
-    "category": "Feng Shui Jewelry",
-    "images": [
-      "https://images.unsplash.com/photo-1606744837616-56c9a5c6a6eb?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "Solid pure copper pendant depicting double dragons playing with pearls, encircling the Eight Trigrams and celestial Qilin protector for house and personal defense.",
-    "itemDetails": [
-      "Cast high-grade red copper",
-      "Dual-sided intricate relief carving",
-      "Diameter: 38mm / Weight: 28g",
-      "Wearable as pendant or vehicle protective hang"
-    ],
-    "materials": [
-      "Red Copper",
-      "Waxed Cotton Cord"
-    ],
-    "inDemandCount": 9
-  },
-  {
-    "id": "j8",
-    "name": "Feng Shui 2026 Get Rich Immediately Wealth Amulet",
-    "maker": "Crystalempress",
-    "price": 2005,
-    "originalPrice": 2864,
-    "discount": "30% off",
-    "bestseller": true,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 4.9,
-    "reviewCount": 1980,
-    "category": "Feng Shui Jewelry",
-    "images": [
-      "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "Consecrated 2026 wealth activation medallion featuring Chinese talisman characters \"Fa Cai\" (Instant Wealth) with protective celestial symbols.",
-    "itemDetails": [
-      "Gold-plated brass with protective glaze",
-      "Embossed with authentic Taoist wealth sigil",
-      "Includes 20\" chain and keychain adapter",
-      "Blessed for windfalls and sudden career expansion"
-    ],
-    "materials": [
-      "Gold Plated Brass",
-      "Protective Enamel"
-    ],
-    "inDemandCount": 15
-  },
-  {
-    "id": "j9",
-    "name": "Lucky Wealth God Charm – Rotating Blessing Bead",
-    "maker": "ShawnPlayStudio",
-    "price": 1134,
-    "originalPrice": 1620,
-    "discount": "30% off",
-    "bestseller": false,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 4.9,
-    "reviewCount": 950,
-    "category": "Feng Shui Jewelry",
-    "images": [
-      "https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "Precision mechanical rotating cylindrical bead charm with God of Wealth blessings. Spin the cylinder daily to activate positive energy and dispel stagnation.",
-    "itemDetails": [
-      "Smooth micro-bearing rotating mechanism",
-      "Solid brass construction with golden polish",
-      "Fits Pandora and standard charm bracelets or cord",
-      "Size: 12mm x 10mm"
-    ],
-    "materials": [
-      "Polished Brass"
-    ],
-    "inDemandCount": 11
-  },
-  {
-    "id": "j10",
-    "name": "Men's Abundance Bracelet: Tiger Eye Pixiu Feng Shui",
-    "maker": "FeelingHK",
-    "price": 4927,
-    "originalPrice": 7038,
-    "discount": "30% off",
-    "bestseller": true,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 5,
-    "reviewCount": 2840,
-    "category": "Feng Shui Jewelry",
-    "images": [
-      "https://images.unsplash.com/photo-1599643477877-530eb83abc8e?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "Natural Grade-AAA Golden Tiger Eye beads paired with hand-carved black obsidian Pi Xiu beast. Enhances masculine courage, decisiveness, and steady wealth building.",
-    "itemDetails": [
-      "12mm Natural Grade-AAA Golden Tiger Eye",
-      "Hand-carved Black Obsidian Pixiu Centerpiece",
-      "Heavy-duty dual elastic cord (fits 7.5\" to 8.5\" wrists)",
-      "Infused with grounding earth energy"
-    ],
-    "materials": [
-      "Natural Tiger Eye",
-      "Obsidian",
-      "Stretch Cord"
-    ],
-    "inDemandCount": 21
-  },
-  {
-    "id": "j11",
-    "name": "Blessed Cinnabar Pixiu Keychain | Putuo Mountain",
-    "maker": "ArtDesignByHao",
-    "price": 1208,
-    "originalPrice": 1725,
-    "discount": "30% off",
-    "bestseller": false,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 4.9,
-    "reviewCount": 1680,
-    "category": "Feng Shui Jewelry",
-    "images": [
-      "https://images.unsplash.com/photo-1599643477877-530eb83abc8e?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "Purified and consecrated at Mount Putuo Buddhist Sanctuary. High-density vermillion cinnabar carved Pixiu attached to a braided auspicious red keyring.",
-    "itemDetails": [
-      "Natural Cinnabar carving (35mm)",
-      "Reinforced stainless steel ring & swivel clasp",
-      "Hand-braided Chinese longevity knot",
-      "Ideal for keys, purse, or car interior"
-    ],
-    "materials": [
-      "Cinnabar",
-      "Braided Cord",
-      "Steel Keyring"
-    ],
-    "inDemandCount": 13
-  },
-  {
-    "id": "j12",
-    "name": "Feng Shui 2026 28 Hums Safety Talisman Keychain",
-    "maker": "Crystalempress",
-    "price": 2005,
-    "originalPrice": 2864,
-    "discount": "30% off",
-    "bestseller": true,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 4.8,
-    "reviewCount": 1150,
-    "category": "Feng Shui Jewelry",
-    "images": [
-      "https://i.etsystatic.com/18528884/r/il/4255ed/7574072434/il_fullxfull.7574072434_8ebu.jpg",
-      "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "The sacred 28 Hums syllable talisman keychain generates a protective aura against accidents, negative flying stars, and spiritual obstacles throughout 2026.",
-    "itemDetails": [
-      "Features 28 sacred HUM syllables in Tibetan script",
-      "Heavy gold-plated metal construction with enamel fill",
-      "Overall length: 4.5 inches",
-      "Essential annual protection cure"
-    ],
-    "materials": [
-      "Gold Plated Alloy",
-      "Enamel"
-    ],
-    "inDemandCount": 18
-  },
-  {
-    "id": "c1",
-    "name": "Money Multiplying Poster, Wealth Building Feng Shui",
-    "maker": "FengShuiTurkiye",
-    "price": 2433,
-    "originalPrice": 3475,
-    "discount": "30% off",
-    "bestseller": true,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 5,
-    "reviewCount": 3890,
-    "category": "Feng Shui Candles",
-    "images": [
-      "https://i.etsystatic.com/19246526/r/il/35c642/6558547910/il_fullxfull.6558547910_qiy1.jpg",
-      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "High-vibrational Money Multiplying Feng Shui poster. Designed with mathematical sacred geometry and ancient wealth glyphs to stimulate abundant financial flow.",
-    "itemDetails": [
-      "Giclée archival fine art print with gold pigment inks",
-      "Matte museum finish to prevent glare",
-      "Ready to frame in standard dimensions",
-      "Best hung in Southeast wealth sector or office"
-    ],
-    "materials": [
-      "Archival Museum Paper",
-      "Golden Pigment Ink"
-    ],
-    "inDemandCount": 22
-  },
-  {
-    "id": "c2",
-    "name": "Fu Prosperity Prayer Candle | Chinese Good Fortune",
-    "maker": "GypsyTideCollective",
-    "price": 1403,
-    "originalPrice": 2004,
-    "discount": "30% off",
-    "bestseller": true,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 4.9,
-    "reviewCount": 2150,
-    "category": "Feng Shui Candles",
-    "images": [
-      "https://i.etsystatic.com/22910392/r/il/bae559/5610740112/il_1080xN.5610740112_bo2m.jpg",
-      "https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "Natural soy wax prayer candle poured in a gilded glass jar adorned with the sacred Fu (Good Fortune) character. Scented with sandalwood and sweet orange.",
-    "itemDetails": [
-      "100% Organic Soy Wax with lead-free cotton wick",
-      "Essential oil blend: Sandalwood, Mandarin & Clove",
-      "Burn time: approx. 55 hours",
-      "Blessed for household harmony and luck"
-    ],
-    "materials": [
-      "Organic Soy Wax",
-      "Essential Oils",
-      "Glass Jar"
-    ],
-    "inDemandCount": 16
-  },
-  {
-    "id": "c3",
-    "name": "Reiki Charged Crystal Candles: Healing Candle",
-    "maker": "ViatheVeil",
-    "price": 1181,
-    "originalPrice": 1687,
-    "discount": "30% off",
-    "bestseller": true,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 5,
-    "reviewCount": 4210,
-    "category": "Feng Shui Candles",
-    "images": [
-      "https://i.etsystatic.com/iap/525f9c/6590809009/iap_600x600.6590809009_28b5u0k3.jpg?version=0",
-      "https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "Hand-poured coconut-soy candle embedded with genuine raw amethyst and clear quartz points, charged with Usui Reiki energy to dissolve mental stress.",
-    "itemDetails": [
-      "Embedded genuine raw healing crystals",
-      "Herbal infusion: Lavender, White Sage & Chamomile",
-      "Clean non-toxic slow burn (40+ hours)",
-      "Crystals can be collected and kept once candle burns"
-    ],
-    "materials": [
-      "Coconut Soy Wax",
-      "Raw Crystals",
-      "Dried Botanical Herbs"
-    ],
-    "inDemandCount": 25
-  },
-  {
-    "id": "c4",
-    "name": "Feng Shui Lucky Dragon Incense Burner, Vintage",
-    "maker": "SerenityObjectHouse",
-    "price": 3159,
-    "originalPrice": 4512,
-    "discount": "30% off",
-    "bestseller": true,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 4.9,
-    "reviewCount": 1830,
-    "category": "Feng Shui Candles",
-    "images": [
-      "https://i.etsystatic.com/60335618/r/il/5e079c/7435054325/il_1080xN.7435054325_s37u.jpg",
-      "https://images.unsplash.com/photo-1606744837616-56c9a5c6a6eb?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "Heirloom quality antique bronze incense censer featuring intricately sculpted imperial dragons wrapping around the perforated lid to diffuse purifying smoke.",
-    "itemDetails": [
-      "Heavy solid cast bronze alloy with antique patina",
-      "Accommodates incense coils, sticks, and cones",
-      "Removable pierced lid with dragon finial",
-      "Dimensions: 4.8\" wide x 3.6\" tall"
-    ],
-    "materials": [
-      "Cast Bronze Alloy"
-    ],
-    "inDemandCount": 12
-  },
-  {
-    "id": "c5",
-    "name": "Feng Shui Yuanbao Ingot Candle – Wealth, Prosperity",
-    "maker": "LulusMagicalBotanica",
-    "price": 1114,
-    "originalPrice": 1591,
-    "discount": "30% off",
-    "bestseller": false,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 4.8,
-    "reviewCount": 940,
-    "category": "Feng Shui Candles",
-    "images": [
-      "https://i.etsystatic.com/59148376/r/il/5c6a68/7037517033/il_fullxfull.7037517033_rp73.jpg",
-      "https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "Sculpted in the authentic shape of a traditional golden Chinese Yuanbao money boat. Light during new moons and business openings to summon commercial fortune.",
-    "itemDetails": [
-      "Gold shimmer mica infused soy candle wax",
-      "Fragrance notes of cinnamon bark, frankincense & amber",
-      "Burn time: approx. 30 hours",
-      "Includes gold fortune card"
-    ],
-    "materials": [
-      "Gold Mica Wax",
-      "Cotton Wick",
-      "Essential Fragrance"
-    ],
-    "inDemandCount": 14
-  },
-  {
-    "id": "c6",
-    "name": "Bronze Pumpkin Incense Burner - Vine Handle",
-    "maker": "Tangqiantreasures",
-    "price": 2864,
-    "originalPrice": 4091,
-    "discount": "30% off",
-    "bestseller": false,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 4.9,
-    "reviewCount": 760,
-    "category": "Feng Shui Candles",
-    "images": [
-      "https://images.unsplash.com/photo-1606744837616-56c9a5c6a6eb?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "Elegantly sculpted bronze pumpkin censer. In Feng Shui, the pumpkin symbolizes boundless harvest, family fertility, and lasting abundance.",
-    "itemDetails": [
-      "Solid bronze with natural verdigris highlights",
-      "Delicate hand-twisted vine handle and leaf filigree",
-      "Fire-resistant bottom with brass incense pin cushion",
-      "Diameter: 4.2 inches"
-    ],
-    "materials": [
-      "Solid Bronze",
-      "Brass Accents"
-    ],
-    "inDemandCount": 8
-  },
-  {
-    "id": "c7",
-    "name": "Workplace Peace Feng Shui Poster (Digital)",
-    "maker": "FengShuiTurkiye",
-    "price": 2433,
-    "originalPrice": 3475,
-    "discount": "30% off",
-    "bestseller": true,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 5,
-    "reviewCount": 3200,
-    "category": "Feng Shui Candles",
-    "images": [
-      "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "Serene printable Feng Shui wall art to eliminate office gossip, interpersonal friction, and workplace stress. Promotes calm focus and authoritative grace.",
-    "itemDetails": [
-      "Ultra high-resolution printable files (300 DPI)",
-      "Multiple aspect ratios included (4:5, 3:4, 2:3, ISO)",
-      "Instant digital download with placement guide",
-      "Designed by certified Feng Shui interior master"
-    ],
-    "materials": [
-      "Digital Download",
-      "High-Res PDF & JPG"
-    ],
-    "inDemandCount": 19
-  },
-  {
-    "id": "c8",
-    "name": "Year of the Horse Intention Candle: Aventurine",
-    "maker": "TheMoonHeart",
-    "price": 512,
-    "originalPrice": 731,
-    "discount": "30% off",
-    "bestseller": false,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 4.8,
-    "reviewCount": 820,
-    "category": "Feng Shui Candles",
-    "images": [
-      "https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "Compact intention tea-light candle topped with green aventurine gemstone chips for swift career progress and victorious energy during the Year of the Horse.",
-    "itemDetails": [
-      "Natural soy and beeswax blend",
-      "Topped with genuine green aventurine chips",
-      "Scented with pine and cedarwood",
-      "Burn time: 12-15 hours"
-    ],
-    "materials": [
-      "Natural Soy Wax",
-      "Green Aventurine"
-    ],
-    "inDemandCount": 7
-  },
-  {
-    "id": "c9",
-    "name": "Conflict Prevention Peace Poster Printable (Digital)",
-    "maker": "FengShuiTurkiye",
-    "price": 2433,
-    "originalPrice": 3475,
-    "discount": "30% off",
-    "bestseller": false,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 4.9,
-    "reviewCount": 1450,
-    "category": "Feng Shui Candles",
-    "images": [
-      "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "Minimalist Feng Shui print based on the Quarrelsome Star 3 neutralization method. Restores domestic peace, soothing fiery tempers and misunderstandings.",
-    "itemDetails": [
-      "300 DPI high-definition digital vector files",
-      "Compatible with poster frames up to 24\" x 36\"",
-      "Curated soothing palette: Jade, Sage & Warm Cream",
-      "Includes sector placement instructions"
-    ],
-    "materials": [
-      "Digital Art File",
-      "Printable PDF"
-    ],
-    "inDemandCount": 11
-  },
-  {
-    "id": "c10",
-    "name": "Gold Mountain Chinese Feng Shui Wall Art (Digital)",
-    "maker": "FengShuiTurkiye",
-    "price": 2433,
-    "originalPrice": 3475,
-    "discount": "30% off",
-    "bestseller": true,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 5,
-    "reviewCount": 2780,
-    "category": "Feng Shui Candles",
-    "images": [
-      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "The celestial Golden Mountain provides supreme backing support (\"Gui Ren\" benefactor luck) when placed behind your desk or sofa. Shields against instability.",
-    "itemDetails": [
-      "Digital high-resolution artwork for canvas or paper printing",
-      "Rich golden mountain peak watercolor composition",
-      "5 scalable ratio files included",
-      "Recommended by corporate Feng Shui consultants"
-    ],
-    "materials": [
-      "Digital File",
-      "Scalable High-Res File"
-    ],
-    "inDemandCount": 17
-  },
-  {
-    "id": "c11",
-    "name": "Chinese Glass Citrine Ingot Figurine, Feng Shui Wealth",
-    "maker": "FengShuiTreasures",
-    "price": 1499,
-    "originalPrice": 2141,
-    "discount": "30% off",
-    "bestseller": false,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 4.8,
-    "reviewCount": 920,
-    "category": "Feng Shui Candles",
-    "images": [
-      "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1606744837616-56c9a5c6a6eb?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "Sparkling optic crystal glass Yuanbao ingot in warm citrine yellow. Radiates solar abundance energy to attract profitable opportunities.",
-    "itemDetails": [
-      "High-refraction K9 optical crystal glass",
-      "Dimensions: 3.2\" x 2.2\" x 1.8\"",
-      "Smooth hand-polished facet edges",
-      "Ideal for wealth bowl, altar, or cash register"
-    ],
-    "materials": [
-      "K9 Optical Crystal Glass"
-    ],
-    "inDemandCount": 10
-  },
-  {
-    "id": "c12",
-    "name": "Feng Shui Basket – Luck, Harmony & Prosperity",
-    "maker": "HarmonyBotanicals",
-    "price": 2199,
-    "originalPrice": 3141,
-    "discount": "30% off",
-    "bestseller": false,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 4.9,
-    "reviewCount": 650,
-    "category": "Feng Shui Candles",
-    "images": [
-      "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "Traditional woven Feng Shui bamboo basket filled with lucky red ribbon, ancient fortune coins, and fragrant dried botanical potpourri.",
-    "itemDetails": [
-      "Hand-woven natural bamboo basket with wooden handle",
-      "Includes brass coins tied with mystic red knots",
-      "Infused with natural aromatic botanical potpourri",
-      "Dimensions: 7\" x 7\" x 5\""
-    ],
-    "materials": [
-      "Natural Bamboo",
-      "Brass Coins",
-      "Silk Ribbon"
-    ],
-    "inDemandCount": 8
-  },
-  {
-    "id": "d1",
-    "name": "Taoist Master Blessed Five Emperor Coins: Feng Shui",
-    "maker": "AncientDaoTalismans",
-    "price": 4008,
-    "originalPrice": 5725,
-    "discount": "30% off",
-    "bestseller": true,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 5,
-    "reviewCount": 3820,
-    "category": "Feng Shui Decor",
-    "images": [
-      "https://i.etsystatic.com/61062687/r/il/8c215d/7104788870/il_794xN.7104788870_shv6.jpg",
-      "https://images.unsplash.com/photo-1606744837616-56c9a5c6a6eb?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "Consecrated five ancient Qing dynasty brass emperor coins strung on ceremonial red cord with mystic knots. Renowned for suppressing Sha Chi and amplifying wealth.",
-    "itemDetails": [
-      "Five genuine replica brass emperor coins (Shunzhi to Jiaqing)",
-      "Hand-tied ceremonial crimson silk cord",
-      "Consecrated with personalized buyer Taoist blessing",
-      "Overall length: 13 inches"
-    ],
-    "materials": [
-      "Cast Brass",
-      "Silk Cords"
-    ],
-    "inDemandCount": 26
-  },
-  {
-    "id": "d2",
-    "name": "Pixiu - Guardian Dragon - Feng Shui Decor",
-    "maker": "MajasGeschenkladen",
-    "price": 2594,
-    "originalPrice": 3705,
-    "discount": "30% off",
-    "bestseller": true,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 4.9,
-    "reviewCount": 1620,
-    "category": "Feng Shui Decor",
-    "images": [
-      "https://images.unsplash.com/photo-1606744837616-56c9a5c6a6eb?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "Majestic cast brass Pixiu dragon figurine standing atop mounds of wealth coins and gold ingots. Swallows wealth without expelling it, guarding your savings.",
-    "itemDetails": [
-      "Solid brass with antique golden sheen",
-      "Weight: 450g / Length: 4.8 inches",
-      "Place facing the door or window to draw wealth from outside",
-      "Includes protective felt bottom pad"
-    ],
-    "materials": [
-      "Solid Cast Brass"
-    ],
-    "inDemandCount": 15
-  },
-  {
-    "id": "d3",
-    "name": "Career Success Poster, Professional Achievement (Digital)",
-    "maker": "FengShuiTurkiye",
-    "price": 2433,
-    "originalPrice": 3475,
-    "discount": "30% off",
-    "bestseller": false,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 4.9,
-    "reviewCount": 2190,
-    "category": "Feng Shui Decor",
-    "images": [
-      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "North sector water element career growth poster. Activates professional recognition, salary raises, and corporate leadership.",
-    "itemDetails": [
-      "High-resolution digital printable art files (300 DPI)",
-      "Multiple aspect ratios for easy frame fitting",
-      "Includes complete office desk layout blueprint",
-      "Instant digital download"
-    ],
-    "materials": [
-      "Digital Download",
-      "High-Res PDF"
-    ],
-    "inDemandCount": 13
-  },
-  {
-    "id": "d4",
-    "name": "Conflict Prevention Peace Poster Printable (Digital)",
-    "maker": "FengShuiTurkiye",
-    "price": 2433,
-    "originalPrice": 3475,
-    "discount": "30% off",
-    "bestseller": false,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 4.8,
-    "reviewCount": 1510,
-    "category": "Feng Shui Decor",
-    "images": [
-      "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "Harmonious yin-yang balance wall art with peaceful water and mountain brushwork. Clears conflict from central living spaces.",
-    "itemDetails": [
-      "Ultra high-resolution printable art",
-      "Formats: JPG, PDF, PNG with CMYK print profile",
-      "Instantly download and print locally",
-      "Designed to neutralize negative arguments"
-    ],
-    "materials": [
-      "Digital Art File"
-    ],
-    "inDemandCount": 9
-  },
-  {
-    "id": "d5",
-    "name": "Workplace Peace Feng Shui Poster (Digital)",
-    "maker": "FengShuiTurkiye",
-    "price": 2433,
-    "originalPrice": 3475,
-    "discount": "30% off",
-    "bestseller": true,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 5,
-    "reviewCount": 2900,
-    "category": "Feng Shui Decor",
-    "images": [
-      "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "Serene minimalist bamboo and golden orb Feng Shui art for office tranquility. Calms high-stress corporate environments.",
-    "itemDetails": [
-      "Instant download high-resolution art files",
-      "Scalable to 24\" x 36\" without pixelation",
-      "Detailed recommendations for hanging position",
-      "Neutralizes aggressive energy in conference rooms"
-    ],
-    "materials": [
-      "Digital Art Download"
-    ],
-    "inDemandCount": 16
-  },
-  {
-    "id": "d6",
-    "name": "328 Wealth Number Feng Shui Poster, Prosperity (Digital)",
-    "maker": "FengShuiTurkiye",
-    "price": 2433,
-    "originalPrice": 3475,
-    "discount": "30% off",
-    "bestseller": true,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 5,
-    "reviewCount": 3420,
-    "category": "Feng Shui Decor",
-    "images": [
-      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "\"328\" represents \"Easy and Continuous Prosperity\" in Cantonese Feng Shui numerology. Designed with shimmering gold leaf texture on obsidian canvas.",
-    "itemDetails": [
-      "High-grade digital print files with gold texture rendering",
-      "Ready to print on canvas or textured archival paper",
-      "Instant delivery via download",
-      "Essential for home wealth corner"
-    ],
-    "materials": [
-      "Digital Art Files"
-    ],
-    "inDemandCount": 24
-  },
-  {
-    "id": "d7",
-    "name": "Rising Success Poster Printable, Career Growth (Digital)",
-    "maker": "FengShuiTurkiye",
-    "price": 2433,
-    "originalPrice": 3475,
-    "discount": "30% off",
-    "bestseller": false,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 4.9,
-    "reviewCount": 1890,
-    "category": "Feng Shui Decor",
-    "images": [
-      "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "Ascending golden dragon / rising sun minimalist Feng Shui art for career advancement. Inspires ambition and attracts executive sponsorship.",
-    "itemDetails": [
-      "Printable PDF and high-res JPG included",
-      "Matches contemporary and classic office frames",
-      "Instant download with quick setup instructions",
-      "Harmonizes North & Northwest sectors"
-    ],
-    "materials": [
-      "Digital Art File"
-    ],
-    "inDemandCount": 12
-  },
-  {
-    "id": "d8",
-    "name": "Koi Fish Metal Wall Art, Japanese Zen Decor",
-    "maker": "Lilacwalldecor",
-    "price": 3586,
-    "originalPrice": 5122,
-    "discount": "30% off",
-    "bestseller": true,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 4.9,
-    "reviewCount": 2450,
-    "category": "Feng Shui Decor",
-    "images": [
-      "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "Precision laser-cut steel wall sculpture depicting two graceful swimming Koi fish forming a sacred circle of abundance, perseverance, and romantic harmony.",
-    "itemDetails": [
-      "2mm high-grade steel with electrostatic matte black powder coat",
-      "Stands 1.5cm off the wall creating dramatic 3D shadow depth",
-      "Diameter: 18 inches (45 cm)",
-      "Waterproof and suitable for indoor or outdoor patios"
-    ],
-    "materials": [
-      "Laser Cut Steel",
-      "Matte Powder Coating"
-    ],
-    "inDemandCount": 18
-  },
-  {
-    "id": "d9",
-    "name": "Pair Copper Feng Shui Pi Yao/Pi Xiu for Wealth",
-    "maker": "Phenixapiii",
-    "price": 2327,
-    "originalPrice": 3324,
-    "discount": "30% off",
-    "bestseller": true,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 5,
-    "reviewCount": 1780,
-    "category": "Feng Shui Decor",
-    "images": [
-      "https://images.unsplash.com/photo-1606744837616-56c9a5c6a6eb?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "Matched pair of male (Tian Lu) and female (Bi Xie) solid copper Pi Xiu statues. Tian Lu attracts wealth into the home while Bi Xie wards off evil spirits.",
-    "itemDetails": [
-      "100% Solid cast copper with hand-buffed finish",
-      "Pair weight: 620g",
-      "Dimensions: 3.5\" length x 3.0\" height each",
-      "Includes consecration instructions"
-    ],
-    "materials": [
-      "Solid Copper"
-    ],
-    "inDemandCount": 15
-  },
-  {
-    "id": "d10",
-    "name": "Brass Fortune Tree Figurine: Mini Money Tree Desk",
-    "maker": "KraftedGB",
-    "price": 1891,
-    "originalPrice": 2701,
-    "discount": "30% off",
-    "bestseller": false,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 4.8,
-    "reviewCount": 930,
-    "category": "Feng Shui Decor",
-    "images": [
-      "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1606744837616-56c9a5c6a6eb?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "Intricately cast solid brass miniature wealth tree figurine with branches laden with ancient Chinese coins and wealth ingots. Ideal desk enhancer.",
-    "itemDetails": [
-      "Solid cast brass with protective lacquer coat",
-      "Height: 4.5 inches / Weight: 280g",
-      "Heavy coin-stacked planter base",
-      "Boosts steady financial growth and investments"
-    ],
-    "materials": [
-      "Solid Brass"
-    ],
-    "inDemandCount": 11
-  },
-  {
-    "id": "d11",
-    "name": "New Income Source Card, Money Flow Feng Shui (Digital)",
-    "maker": "FengShuiTurkiye",
-    "price": 2433,
-    "originalPrice": 3475,
-    "discount": "30% off",
-    "bestseller": false,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 4.9,
-    "reviewCount": 1120,
-    "category": "Feng Shui Decor",
-    "images": [
-      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "Printable Feng Shui manifestation card embedded with sacred water-flow geometry and affirmations to open secondary and passive income streams.",
-    "itemDetails": [
-      "High-resolution printable card format (wallet and desk sizes)",
-      "300 DPI print quality",
-      "Includes daily activation ritual instructions",
-      "Instant digital download"
-    ],
-    "materials": [
-      "Digital Printable Card"
-    ],
-    "inDemandCount": 8
-  },
-  {
-    "id": "d12",
-    "name": "Exam Ranking Success Poster Printable, Honor Roll (Digital)",
-    "maker": "FengShuiTurkiye",
-    "price": 2433,
-    "originalPrice": 3475,
-    "discount": "30% off",
-    "bestseller": false,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 4.9,
-    "reviewCount": 1340,
-    "category": "Feng Shui Decor",
-    "images": [
-      "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "Northeast education sector activator poster featuring the Wen Chang Pagoda and scholastic harmony symbols to sharpen memory, test focus, and exam results.",
-    "itemDetails": [
-      "Digital printable poster in multiple standard dimensions",
-      "Clean modern aesthetic suitable for study rooms",
-      "Instant digital download file package",
-      "Recommended by academic mentors"
-    ],
-    "materials": [
-      "Digital Art File"
-    ],
-    "inDemandCount": 10
-  },
-  {
-    "id": "d13",
-    "name": "Vintage Bronze Carved Dragon Incense Burner",
-    "maker": "MEIYOURUGUO",
-    "price": 2675,
-    "originalPrice": 3821,
-    "discount": "30% off",
-    "bestseller": true,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 4.9,
-    "reviewCount": 1470,
-    "category": "Feng Shui Decor",
-    "images": [
-      "https://images.unsplash.com/photo-1606744837616-56c9a5c6a6eb?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "Heavy antique bronze three-legged censer with coiled imperial dragons serving as side handles and auspicious cloud perforations on the domed lid.",
-    "itemDetails": [
-      "Cast antiqued bronze alloy",
-      "Holds incense sticks, cones, or charcoal",
-      "Dimensions: 5.1\" wide x 4.0\" tall / Weight: 520g",
-      "Purifies household energy and invites blessings"
-    ],
-    "materials": [
-      "Cast Bronze"
-    ],
-    "inDemandCount": 14
-  },
-  {
-    "id": "d14",
-    "name": "Wealth Fortune Magnet Poster, Riches Attraction (Digital)",
-    "maker": "FengShuiTurkiye",
-    "price": 2433,
-    "originalPrice": 3475,
-    "discount": "30% off",
-    "bestseller": true,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 5,
-    "reviewCount": 4120,
-    "category": "Feng Shui Decor",
-    "images": [
-      "https://i.etsystatic.com/61064616/r/il/209d99/7042851538/il_1080xN.7042851538_ma68.jpg",
-      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "Sacred geometric wealth vortex and coin attractor printable poster in emerald and gold. Amplifies money magnetization in residential and retail spaces.",
-    "itemDetails": [
-      "300 DPI ultra-high-resolution files for gallery printing",
-      "Includes instructions on compass sector alignment",
-      "Instant digital download",
-      "Bestseller for entrepreneurs and shop owners"
-    ],
-    "materials": [
-      "Digital Art File"
-    ],
-    "inDemandCount": 28
-  },
-  {
-    "id": "d15",
-    "name": "Feng Shui Gift, Feng Shui Wall Art, Feng Shui Decor (Digital)",
-    "maker": "FengShuiTurkiye",
-    "price": 2433,
-    "originalPrice": 3475,
-    "discount": "30% off",
-    "bestseller": false,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 4.8,
-    "reviewCount": 980,
-    "category": "Feng Shui Decor",
-    "images": [
-      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "All-in-one harmonious home energy printable poster featuring the 8 aspirations and universal Bagua matrix. Perfect housewarming gift.",
-    "itemDetails": [
-      "Print-ready high-resolution file bundle",
-      "Fits standard 16x20, 18x24, and A2 frames",
-      "Instant digital download",
-      "Brings balanced Chi to entryways and living rooms"
-    ],
-    "materials": [
-      "Digital Art File"
-    ],
-    "inDemandCount": 11
-  },
-  {
-    "id": "d16",
-    "name": "Copper Double Dragon Bagua Qilin Feng Shui Home",
-    "maker": "Mantyartdecor",
-    "price": 1845,
-    "originalPrice": 2635,
-    "discount": "30% off",
-    "bestseller": false,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 4.9,
-    "reviewCount": 780,
-    "category": "Feng Shui Decor",
-    "images": [
-      "https://images.unsplash.com/photo-1606744837616-56c9a5c6a6eb?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "Heavy cast copper plaque with double dragons and Qilin for entrance doorway warding. Dissolves external negative Sha Chi from roads and neighboring structures.",
-    "itemDetails": [
-      "Cast copper plaque with pre-drilled hanging hole",
-      "Diameter: 3.5 inches / Weight: 180g",
-      "Mount above front entrance or main window",
-      "Traditional Taoist talisman inscription"
-    ],
-    "materials": [
-      "Cast Pure Copper"
-    ],
-    "inDemandCount": 9
-  },
-  {
-    "id": "b1",
-    "name": "Workplace Peace Feng Shui Poster (Digital)",
-    "maker": "FengShuiTurkiye",
-    "price": 2433,
-    "originalPrice": 3475,
-    "discount": "30% off",
-    "bestseller": true,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 5,
-    "reviewCount": 2450,
-    "category": "Feng Shui Books",
-    "images": [
-      "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "Feng Shui workplace energy flow guide and art print. Illustrates core desk positioning, commanding view rules, and elemental balancing principles.",
-    "itemDetails": [
-      "Printable comprehensive infographic guide (300 DPI)",
-      "Includes desk positioning checklist",
-      "Instant digital download",
-      "Suitable for home office and corporate cubicles"
-    ],
-    "materials": [
-      "Digital Printable Guide"
-    ],
-    "inDemandCount": 14
-  },
-  {
-    "id": "b2",
-    "name": "New Income Source Card, Money Flow Feng Shui (Digital)",
-    "maker": "FengShuiTurkiye",
-    "price": 2433,
-    "originalPrice": 3475,
-    "discount": "30% off",
-    "bestseller": false,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 4.8,
-    "reviewCount": 1100,
-    "category": "Feng Shui Books",
-    "images": [
-      "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "Pocket manifestation guide and talisman card. Features daily micro-rituals and water placement secrets to stimulate new business contracts.",
-    "itemDetails": [
-      "Digital printable cards with folding guidelines",
-      "Pocket wallet size + desk card size",
-      "Instant download delivery",
-      "Includes 30-day abundance tracking calendar"
-    ],
-    "materials": [
-      "Digital Download"
-    ],
-    "inDemandCount": 9
-  },
-  {
-    "id": "b3",
-    "name": "Feng Shui - The Chinese Art of Placement by Sarah",
-    "maker": "TwelvetreesBooks",
-    "price": 1680,
-    "originalPrice": 2400,
-    "discount": "30% off",
-    "bestseller": true,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 5,
-    "reviewCount": 3100,
-    "category": "Feng Shui Books",
-    "images": [
-      "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "Vintage collectible illustrated hardcover book on authentic spatial arrangement, Chi flows, Bagua energy maps, and interior harmonious placement.",
-    "itemDetails": [
-      "Hardcover collector vintage edition",
-      "Over 200 pages with diagrams and color photographs",
-      "Covers room-by-room environmental remedies",
-      "Shipped securely in protective archival sleeve"
-    ],
-    "materials": [
-      "Hardcover Book",
-      "Archival Paper"
-    ],
-    "inDemandCount": 22
-  },
-  {
-    "id": "b4",
-    "name": "Rising Success Poster Printable, Career Growth (Digital)",
-    "maker": "FengShuiTurkiye",
-    "price": 2433,
-    "originalPrice": 3475,
-    "discount": "30% off",
-    "bestseller": false,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 4.9,
-    "reviewCount": 1650,
-    "category": "Feng Shui Books",
-    "images": [
-      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "Feng Shui success roadmap poster with 9 grid Bagua alignment. Guides home dwellers through activating life goals sector by sector.",
-    "itemDetails": [
-      "Digital printable reference poster (300 DPI)",
-      "Clear step-by-step compass orientation chart",
-      "Instant access link immediately after purchase",
-      "High compatibility with home and office printers"
-    ],
-    "materials": [
-      "Digital Art File"
-    ],
-    "inDemandCount": 11
-  },
-  {
-    "id": "b5",
-    "name": "Career Success Poster, Professional Achievement (Digital)",
-    "maker": "FengShuiTurkiye",
-    "price": 2433,
-    "originalPrice": 3475,
-    "discount": "30% off",
-    "bestseller": true,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 5,
-    "reviewCount": 2980,
-    "category": "Feng Shui Books",
-    "images": [
-      "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "North sector water element career activation visual diagram. Details colors, materials, and fountain placements to trigger professional recognition.",
-    "itemDetails": [
-      "Includes visual layout guide and color swatches",
-      "Ultra high-resolution printable files (PDF/JPG)",
-      "Instant digital download",
-      "Trusted by interior designers and consultants"
-    ],
-    "materials": [
-      "Digital Download"
-    ],
-    "inDemandCount": 15
-  },
-  {
-    "id": "b6",
-    "name": "Exam Ranking Success Poster Printable, Honor Roll (Digital)",
-    "maker": "FengShuiTurkiye",
-    "price": 2433,
-    "originalPrice": 3475,
-    "discount": "30% off",
-    "bestseller": false,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 4.9,
-    "reviewCount": 1200,
-    "category": "Feng Shui Books",
-    "images": [
-      "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "Northeast education and study desk Feng Shui printable placement guide. Boosts mental stamina, exam recall, and honors ranking.",
-    "itemDetails": [
-      "Printable student study room placement blueprint",
-      "Formulated according to Classical Flying Stars",
-      "Instant digital download file package",
-      "Fits standard frame sizes"
-    ],
-    "materials": [
-      "Digital Download File"
-    ],
-    "inDemandCount": 9
-  },
-  {
-    "id": "b7",
-    "name": "Sales Boost Wealth Card, Business Growth Feng Shui (Digital)",
-    "maker": "FengShuiTurkiye",
-    "price": 2433,
-    "originalPrice": 3475,
-    "discount": "30% off",
-    "bestseller": true,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 5,
-    "reviewCount": 3150,
-    "category": "Feng Shui Books",
-    "images": [
-      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "Commercial cash register / retail storefront Feng Shui blessing card. Attracts high-value paying customers and steady cash turnover.",
-    "itemDetails": [
-      "Printable counter cards and register inserts",
-      "Inscribed with sacred business expansion glyphs",
-      "Instant digital download",
-      "Includes instructions for point-of-sale placement"
-    ],
-    "materials": [
-      "Digital Card Download"
-    ],
-    "inDemandCount": 20
-  },
-  {
-    "id": "b8",
-    "name": "Digital Downloadable Card Design to Boost Money (Digital)",
-    "maker": "FengShuiTurkiye",
-    "price": 2433,
-    "originalPrice": 3475,
-    "discount": "30% off",
-    "bestseller": false,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 4.8,
-    "reviewCount": 970,
-    "category": "Feng Shui Books",
-    "images": [
-      "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "Sacred geometry wallet cash talisman printable insert. Place inside wallet or invoice folders to prevent financial leakage and enhance prosperity Chi.",
-    "itemDetails": [
-      "Wallet-sized printable template with cutting guidelines",
-      "Golden spiral and wealth accumulator motif",
-      "Instant download delivery",
-      "Print on thick parchment or laminate"
-    ],
-    "materials": [
-      "Digital Download"
-    ],
-    "inDemandCount": 12
-  },
-  {
-    "id": "b9",
-    "name": "Bagua Map Feng Shui Guide & Workbook | 9 Life Zones (Digital)",
-    "maker": "HealershubCo",
-    "price": 1453,
-    "originalPrice": 2075,
-    "discount": "30% off",
-    "bestseller": true,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 5,
-    "reviewCount": 4200,
-    "category": "Feng Shui Books",
-    "images": [
-      "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "Complete 40-page interactive printable workbook with 9 Bagua zones and floor plan overlays. Easily map and cure every quadrant of your house.",
-    "itemDetails": [
-      "40-Page Printable PDF Workbook (A4 and US Letter)",
-      "Detailed checklist for each of the 9 Life Areas",
-      "Transparent floorplan overlay grid template",
-      "Instant download delivery"
-    ],
-    "materials": [
-      "Digital Interactive PDF Workbook"
-    ],
-    "inDemandCount": 35
-  },
-  {
-    "id": "b10",
-    "name": "Pearls of Sufism - A Book for the Anxious, Stressed (Digital)",
-    "maker": "Muhebb",
-    "price": 1094,
-    "originalPrice": 1563,
-    "discount": "30% off",
-    "bestseller": false,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 4.9,
-    "reviewCount": 1150,
-    "category": "Feng Shui Books",
-    "images": [
-      "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "Peaceful spiritual wisdom eBook and guide for inner tranquility, stress alleviation, and emotional centering. Perfect companion for quiet meditation spaces.",
-    "itemDetails": [
-      "Digital eBook in EPUB and PDF formats",
-      "Over 160 pages of calming wisdom and daily contemplation",
-      "Instant download compatible with Kindle, iPad, and phone",
-      "Brings deep emotional solace and stillness"
-    ],
-    "materials": [
-      "Digital eBook",
-      "EPUB & PDF"
-    ],
-    "inDemandCount": 14
-  },
-  {
-    "id": "b11",
-    "name": "Vintage Bronze Carved Guan Yin Statue Fengshui",
-    "maker": "ZHONGLIJIN",
-    "price": 1774,
-    "originalPrice": 2534,
-    "discount": "30% off",
-    "bestseller": true,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 4.9,
-    "reviewCount": 2210,
-    "category": "Feng Shui Books",
-    "images": [
-      "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1606744837616-56c9a5c6a6eb?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "Solid carved bronze Bodhisattva of Compassion Guan Yin seated in meditation atop a blooming lotus throne. Radiates soothing protection throughout the home.",
-    "itemDetails": [
-      "Solid cast bronze with antique golden patina",
-      "Height: 4.8 inches / Weight: 380g",
-      "Detailed facial expression and sacred vase attribute",
-      "Place in quiet library or prayer altar"
-    ],
-    "materials": [
-      "Solid Bronze"
-    ],
-    "inDemandCount": 16
-  },
-  {
-    "id": "b12",
-    "name": "Conflict Prevention Peace Poster Printable (Digital)",
-    "maker": "FengShuiTurkiye",
-    "price": 2433,
-    "originalPrice": 3475,
-    "discount": "30% off",
-    "bestseller": false,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 4.8,
-    "reviewCount": 1420,
-    "category": "Feng Shui Books",
-    "images": [
-      "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "Southwest relationships sector harmony guide and art print. Harmonizes couple communication and dissolves household friction.",
-    "itemDetails": [
-      "High-resolution digital printable art files (300 DPI)",
-      "Multiple aspect ratios for easy frame fitting",
-      "Includes relationship sector activation instructions",
-      "Instant digital download"
-    ],
-    "materials": [
-      "Digital Art File"
-    ],
-    "inDemandCount": 10
-  },
-  {
-    "id": "b13",
-    "name": "Wealth Fortune Magnet Poster, Riches Attraction (Digital)",
-    "maker": "FengShuiTurkiye",
-    "price": 2433,
-    "originalPrice": 3475,
-    "discount": "30% off",
-    "bestseller": true,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 5,
-    "reviewCount": 3950,
-    "category": "Feng Shui Books",
-    "images": [
-      "https://i.etsystatic.com/61064616/r/il/209d99/7042851538/il_1080xN.7042851538_ma68.jpg",
-      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "Southeast wealth corner activator poster with gold ingot symbolism. Features wealth multiplication formulas from classical San Yuan Feng Shui.",
-    "itemDetails": [
-      "Ultra high-resolution printable files (300 DPI)",
-      "Printable on canvas, metallic foil paper, or fine cardstock",
-      "Instant download delivery",
-      "Proven wealth cornerstone visual anchor"
-    ],
-    "materials": [
-      "Digital Art File"
-    ],
-    "inDemandCount": 26
-  },
-  {
-    "id": "b14",
-    "name": "Workplace Peace Feng Shui Poster, Golden Elephant (Digital)",
-    "maker": "FengShuiTurkiye",
-    "price": 2433,
-    "originalPrice": 3475,
-    "discount": "30% off",
-    "bestseller": true,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 4.9,
-    "reviewCount": 2100,
-    "category": "Feng Shui Books",
-    "images": [
-      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "Feng Shui Golden Elephant with trunk up for office wisdom, loyalty, and peaceful authority. Commands respect without provoking opposition.",
-    "itemDetails": [
-      "Gilded digital art print with sacred elephant motif",
-      "High-resolution PDF and JPG files ready for framing",
-      "Instant digital download",
-      "Best hung directly behind executive chair"
-    ],
-    "materials": [
-      "Digital Download"
-    ],
-    "inDemandCount": 17
-  },
-  {
-    "id": "b15",
-    "name": "Beginner Feng Shui Guide | Home Energy, Organising (Digital)",
-    "maker": "Adigitiallife",
-    "price": 477,
-    "originalPrice": 681,
-    "discount": "30% off",
-    "bestseller": true,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 5,
-    "reviewCount": 5120,
-    "category": "Feng Shui Books",
-    "images": [
-      "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "Comprehensive step-by-step illustrated beginner's handbook for clearing clutter and room-by-room Chi balancing. Practical, modern, and easy to apply.",
-    "itemDetails": [
-      "28-page practical printable eBooklet (PDF)",
-      "Room-by-room decluttering and orientation guide",
-      "Quick-reference elemental cheat sheet",
-      "Instant digital download to any device"
-    ],
-    "materials": [
-      "Digital PDF Handbook"
-    ],
-    "inDemandCount": 39
-  },
-  {
-    "id": "b16",
-    "name": "Wealth Abundance Frequency Label, Prosperity Map (Digital)",
-    "maker": "FengShuiTurkiye",
-    "price": 2433,
-    "originalPrice": 3475,
-    "discount": "30% off",
-    "bestseller": false,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 4.8,
-    "reviewCount": 940,
-    "category": "Feng Shui Books",
-    "images": [
-      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "Prosperity grid label and frequency chart printable. Calibrated to 528Hz and 888Hz wealth resonance frequencies to attach to jars, books, and wealth corners.",
-    "itemDetails": [
-      "Printable sticker sheet and framed frequency map",
-      "High-resolution vector files for crystal-clear labels",
-      "Instant download delivery",
-      "Includes instructions on water and jar consecration"
-    ],
-    "materials": [
-      "Digital Printable Sheet"
-    ],
-    "inDemandCount": 11
-  },
-  {
-    "id": "e2",
-    "name": "Natural Citrine Crystal Bonsai Wealth Tree on Real Agate Slice • Feng Shui Money Tree for Abundance & Prosperity",
-    "maker": "SacredCrystalSanctuary",
-    "makerAvatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80",
-    "makerSales": 29450,
-    "starSeller": true,
-    "price": 2445,
-    "originalPrice": 3705,
-    "discount": "34% off",
-    "bestseller": true,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 5,
-    "reviewCount": 3820,
-    "category": "Crystals & Trees",
-    "images": [
-      "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "Crafted with hundreds of natural raw golden citrine crystal chips wired into copper branches on a natural Brazilian agate slice base. Ideal for the Southeast wealth corner.",
-    "itemDetails": [
-      "Handcrafted natural citrine gemstone",
-      "Natural Brazilian agate slice base",
-      "Flexible hand-twisted copper branches",
-      "Height approx. 7 inches"
-    ],
-    "inDemandCount": 14
-  },
-  {
-    "id": "e4",
-    "name": "Authentic Hand-Hammered Tibetan Singing Bowl Sound Healing Set • Meditation & Energy Space Cleansing Kit",
-    "maker": "HimalayanZenSound",
-    "makerAvatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80",
-    "makerSales": 19800,
-    "starSeller": true,
-    "price": 1850,
-    "originalPrice": 2800,
-    "discount": "34% off",
-    "bestseller": true,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 5,
-    "reviewCount": 2150,
-    "category": "Zen & Meditation",
-    "images": [
-      "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "Handcrafted in Nepal by multi-generational metalsmiths using traditional 7-metal alloy. Emits deep, resonant harmonic vibrations that instantly clear negative stagnant Chi.",
-    "itemDetails": [
-      "Hand-hammered 7-metal bronze alloy",
-      "Includes dual-end suede rosewood mallet",
-      "Hand-sewn silk brocade ring cushion",
-      "Diameter: 4.5 inches / F Note resonance"
-    ],
-    "inDemandCount": 9
-  },
-  {
-    "id": "e10",
-    "name": "Rose Quartz Mandarin Ducks Pair on Lotus Leaf • Harmony & Unconditional Love Romance Feng Shui Enhancer",
-    "maker": "CrystalSanctuaryCo",
-    "makerAvatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80",
-    "makerSales": 48900,
-    "starSeller": true,
-    "price": 1690,
-    "originalPrice": 2400,
-    "discount": "30% off",
-    "bestseller": true,
-    "etsyPick": true,
-    "freeShipping": true,
-    "rating": 5,
-    "reviewCount": 11200,
-    "category": "Crystals & Trees",
-    "images": [
-      "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "Mandarin ducks mate for life, making them the ultimate Feng Shui symbol of eternal marital devotion and romantic harmony. Carved from natural rose quartz crystal.",
-    "itemDetails": [
-      "Pair of hand-carved Natural Rose Quartz Ducks",
-      "Green Aventurine lotus leaf base included",
-      "Dimensions: 3\" length x 2\" height each",
-      "Best placed in Southwest corner of the bedroom"
-    ],
-    "allowsPersonalization": true,
-    "personalizationPrompt": "Provide custom gift message or couple names for blessed card:",
-    "inDemandCount": 31
-  },
-  {
-    "id": "e11",
-    "name": "Tibetan 7 Chakra Orgonite Energy Generator Pyramid • EMF Protection & Chi Balance Healing Crystal",
-    "maker": "ZenHavenArtisans",
-    "makerAvatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80",
-    "makerSales": 16700,
-    "starSeller": true,
-    "price": 1350,
-    "originalPrice": 1950,
-    "discount": "30% off",
-    "bestseller": true,
-    "etsyPick": false,
-    "freeShipping": true,
-    "rating": 4.9,
-    "reviewCount": 2840,
-    "category": "Zen & Meditation",
-    "images": [
-      "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1545205597-3d9d02c29597?auto=format&fit=crop&w=800&q=80"
-    ],
-    "description": "Layered with genuine amethyst, lapis lazuli, turquoise, green aventurine, tiger eye, red jasper, and copper coil matrix to transmute negative electromagnetic energy into vibrant prana.",
-    "itemDetails": [
-      "7 Authentic Chakra Gemstone layers",
-      "High-clarity organic resin matrix with Copper Coil",
-      "Pyramid Base: 60mm x 60mm",
-      "Sacred geometry Sri Yantra symbol engraved"
-    ],
-    "inDemandCount": 12
-  },
-];
 
-export const sampleReviews: ProductReview[] = [
+  // DRESSES
   {
-    id: 'r1',
-    author: 'Emily Watson',
-    avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=100&q=80',
-    rating: 5,
-    date: 'Sep 2, 2026',
-    comment:
-      'Absolutely breathtaking quality! The engraving was so delicate and crisp, and the packaging felt like receiving a high-end luxury gift. My sister cried when she opened it!',
-    productVariation: 'Finish: 14K Gold Fill, Chain Length: 18 inches',
+    id: "dress-1",
+    name: "Evening Silk Slip Dress",
+    brand: "Mehra Designs",
+    sku: "MD-DR-001",
+    maker: "Mehra Designs Couture",
+    price: 280.00,
+    originalPrice: 350.00,
+    discount: "20% off",
+    bestseller: true,
+    etsyPick: true,
+    freeShipping: true,
+    rating: 4.9,
+    reviewCount: 1540,
+    category: "Dresses",
+    images: [
+      "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1000&q=80"
+    ],
+    description: "Elegant bias-cut silk midi dress featuring delicate shoulder straps and a flattering cowl neckline.",
+    itemDetails: [
+      "100% Mulberry silk satin",
+      "Adjustable spaghetti straps",
+      "Fluid bias cut silhouette",
+      "Subtle side slit detail"
+    ],
+    features: [
+      "Pure 100% Mulberry silk satin weave",
+      "Bias cut draping for effortless silhouette",
+      "Hand-finished French inner seams"
+    ],
+    specifications: [
+      { label: "Fabric", value: "Mulberry Silk Satin" },
+      { label: "Fit", value: "Fluid Bias Fit" },
+      { label: "Care", value: "Dry Clean Only" }
+    ],
+    options: [
+      { id: "opt-d1-xs", name: "XS", stock: 5, inStock: true },
+      { id: "opt-d1-s", name: "S", stock: 12, inStock: true },
+      { id: "opt-d1-m", name: "M", stock: 8, inStock: true },
+      { id: "opt-d1-l", name: "L", stock: 2, inStock: true }
+    ],
+    weight: { value: 240, unit: "g" },
+    warranty: "Lifetime seam finish guarantee",
+    tax: { percentage: 18, inclusive: true },
+    materials: ["Mulberry Silk"],
+    inDemandCount: 22,
+    stock: 27
   },
   {
-    id: 'r2',
-    author: 'Marcus Chen',
-    avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&q=80',
-    rating: 5,
-    date: 'Aug 28, 2026',
-    comment:
-      'Fast shipping, arrived 3 days earlier than estimated. The craftsmanship is top notch and the seller reached out with a mock-up to confirm spelling. 10/10 will buy again.',
-    productVariation: 'Finish: Sterling Silver, Chain Length: 16 inches',
+    id: "dress-2",
+    name: "Sculptural Linen Midi Dress",
+    brand: "Mehra Designs",
+    sku: "MD-DR-002",
+    maker: "Mehra Designs Atelier",
+    price: 195.00,
+    originalPrice: 230.00,
+    discount: "15% off",
+    bestseller: true,
+    etsyPick: true,
+    freeShipping: true,
+    rating: 4.8,
+    reviewCount: 890,
+    category: "Dresses",
+    images: [
+      "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=1000&q=80"
+    ],
+    description: "Breathable pure European linen dress with a waist-cinching tie belt, notched collar, and side split hemline.",
+    itemDetails: [
+      "100% European Flax Linen",
+      "Detachable self-fabric waist belt",
+      "Concealed back zip closure",
+      "Deep side pockets"
+    ],
+    features: [
+      "Natural European flax woven linen",
+      "Cinched waist tie belt included",
+      "Side slit hemline for movement"
+    ],
+    specifications: [
+      { label: "Fabric", value: "Flax Linen" },
+      { label: "Fit", value: "Tailored Waist Fit" },
+      { label: "Care", value: "Machine Wash Cold" }
+    ],
+    options: [
+      { id: "opt-d2-s", name: "S", stock: 10, inStock: true },
+      { id: "opt-d2-m", name: "M", stock: 15, inStock: true },
+      { id: "opt-d2-l", name: "L", stock: 6, inStock: true }
+    ],
+    weight: { value: 380, unit: "g" },
+    warranty: "14-day luxury exchange policy",
+    tax: { percentage: 18, inclusive: true },
+    materials: ["Linen"],
+    inDemandCount: 15,
+    stock: 31
   },
   {
-    id: 'r3',
-    author: 'Sarah Jenkins',
-    avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80',
-    rating: 5,
-    date: 'Aug 15, 2026',
-    comment:
-      'Exceeded every single expectation. You can tell this was made with real love and care. Looks even better in person than in the photos!',
+    id: "dress-3",
+    name: "Velvet Off-Shoulder Gown",
+    brand: "Mehra Designs",
+    sku: "MD-DR-003",
+    maker: "Mehra Designs Couture",
+    price: 390.00,
+    originalPrice: 450.00,
+    discount: "13% off",
+    bestseller: false,
+    etsyPick: true,
+    freeShipping: true,
+    rating: 5.0,
+    reviewCount: 520,
+    category: "Dresses",
+    images: [
+      "https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=1000&q=80"
+    ],
+    description: "Opulent silk-blend velvet evening gown with off-the-shoulder neckline, corseted internal bodice, and subtle train.",
+    itemDetails: [
+      "Silk-rayon plush velvet",
+      "Internal boned corsetry support",
+      "Concealed back zip with hook closure",
+      "Floor-sweeping skirt line"
+    ],
+    features: [
+      "Rich deep-tone silk velvet finish",
+      "Built-in structure for flawless fit",
+      "Luxurious stretch satin lining"
+    ],
+    specifications: [
+      { label: "Fabric", value: "Silk Velvet" },
+      { label: "Silhouette", value: "Form-Fitting Gown" },
+      { label: "Care", value: "Professional Dry Clean" }
+    ],
+    options: [
+      { id: "opt-d3-s", name: "S", stock: 5, inStock: true },
+      { id: "opt-d3-m", name: "M", stock: 7, inStock: true },
+      { id: "opt-d3-l", name: "L", stock: 3, inStock: true }
+    ],
+    weight: { value: 620, unit: "g" },
+    warranty: "Complimentary luxury alterations",
+    tax: { percentage: 18, inclusive: true },
+    materials: ["Silk Velvet"],
+    inDemandCount: 31,
+    stock: 15
   },
+  {
+    id: "dress-4",
+    name: "Tiered Georgette Wrap Dress",
+    brand: "Mehra Designs",
+    sku: "MD-DR-004",
+    maker: "Mehra Designs Studio",
+    price: 210.00,
+    originalPrice: 250.00,
+    discount: "16% off",
+    bestseller: true,
+    etsyPick: false,
+    freeShipping: true,
+    rating: 4.7,
+    reviewCount: 680,
+    category: "Dresses",
+    images: [
+      "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=1000&q=80"
+    ],
+    description: "Romantic floral printed georgette wrap dress with ruffle-trimmed tiered skirt and sheer puff sleeves.",
+    itemDetails: [
+      "Breathable silk georgette fabric",
+      "Functional wrap waistband tie",
+      "Tiered ruffle skirt design",
+      "Semi-sheer sleeve cuffs"
+    ],
+    features: [
+      "Exclusive artisanal botanical print",
+      "Flattering V-neckline drape",
+      "Includes matching slip dress"
+    ],
+    specifications: [
+      { label: "Fabric", value: "Silk Georgette" },
+      { label: "Fit", value: "Adjustable Wrap Fit" },
+      { label: "Care", value: "Dry Clean Only" }
+    ],
+    options: [
+      { id: "opt-d4-s", name: "S", stock: 9, inStock: true },
+      { id: "opt-d4-m", name: "M", stock: 14, inStock: true },
+      { id: "opt-d4-l", name: "L", stock: 8, inStock: true }
+    ],
+    weight: { value: 310, unit: "g" },
+    warranty: "14-day return policy",
+    tax: { percentage: 18, inclusive: true },
+    materials: ["Silk Georgette"],
+    inDemandCount: 18,
+    stock: 31
+  },
+
+  // TOPS
+  {
+    id: "top-1",
+    name: "Loose Fit French Terry Hoodie",
+    brand: "Mehra Designs",
+    sku: "MD-TP-001",
+    maker: "Mehra Designs Atelier",
+    price: 24.99,
+    originalPrice: 35.00,
+    discount: "30% off",
+    bestseller: true,
+    etsyPick: true,
+    freeShipping: true,
+    rating: 4.9,
+    reviewCount: 2840,
+    category: "Tops",
+    images: [
+      "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1509967419530-da38b4704bc6?auto=format&fit=crop&w=1000&q=80"
+    ],
+    description: "Loose-fit hoodie in medium weight cotton-blend fabric. Jersey-lined drawstring hood, dropped shoulders, and kangaroo front pocket.",
+    itemDetails: [
+      "Medium weight cotton-blend french terry",
+      "Jersey-lined hood with adjustable drawstrings",
+      "Ribbed cuffs and hem line",
+      "Kangaroo pocket front"
+    ],
+    features: [
+      "Soft brushed interior fleece",
+      "Reinforced double-stitched seams",
+      "Pre-shrunk organic cotton yarn"
+    ],
+    specifications: [
+      { label: "Fabric", value: "80% Organic Cotton, 20% Poly" },
+      { label: "Fit", value: "Relaxed Loose Fit" },
+      { label: "Care", value: "Machine Wash Warm" }
+    ],
+    options: [
+      { id: "opt-t1-s", name: "S", stock: 15, inStock: true },
+      { id: "opt-t1-m", name: "M", stock: 20, inStock: true },
+      { id: "opt-t1-l", name: "L", stock: 12, inStock: true }
+    ],
+    weight: { value: 450, unit: "g" },
+    warranty: "30-day standard returns",
+    tax: { percentage: 18, inclusive: true },
+    materials: ["Organic Cotton"],
+    inDemandCount: 24,
+    stock: 47
+  },
+  {
+    id: "top-2",
+    name: "Gradient Silk Touch Graphic Tee",
+    brand: "Mehra Designs",
+    sku: "MD-TP-002",
+    maker: "Mehra Designs Studio",
+    price: 145.00,
+    originalPrice: 175.00,
+    discount: "17% off",
+    bestseller: true,
+    etsyPick: true,
+    freeShipping: true,
+    rating: 4.8,
+    reviewCount: 420,
+    category: "Tops",
+    images: [
+      "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=1000&q=80"
+    ],
+    description: "Modern relaxed silhouette t-shirt crafted from 100% organic combed cotton featuring a subtle gradient tone artwork on the chest.",
+    itemDetails: [
+      "100% Organic combed cotton",
+      "Reinforced rib crewneck collar",
+      "Pre-shrunk fabric finish"
+    ],
+    features: [
+      "Ultra-soft silk-touch handfeel",
+      "Bespoke chest graphic embroidery",
+      "Breathable lightweight weave"
+    ],
+    specifications: [
+      { label: "Fabric", value: "100% Organic Combed Cotton" },
+      { label: "Fit", value: "Modern Relaxed Fit" },
+      { label: "Care", value: "Machine Wash Cold" }
+    ],
+    options: [
+      { id: "opt-t2-s", name: "S", stock: 8, inStock: true },
+      { id: "opt-t2-m", name: "M", stock: 16, inStock: true },
+      { id: "opt-t2-l", name: "L", stock: 10, inStock: true }
+    ],
+    weight: { value: 210, unit: "g" },
+    warranty: "14-day exchange warranty",
+    tax: { percentage: 18, inclusive: true },
+    materials: ["Combed Cotton"],
+    inDemandCount: 12,
+    stock: 34
+  },
+  {
+    id: "top-3",
+    name: "Mercerized Polo with Contrast Trims",
+    brand: "Mehra Designs",
+    sku: "MD-TP-003",
+    maker: "Mehra Designs Line",
+    price: 212.00,
+    originalPrice: 242.00,
+    discount: "12% off",
+    bestseller: true,
+    etsyPick: true,
+    freeShipping: true,
+    rating: 4.8,
+    reviewCount: 950,
+    category: "Tops",
+    images: [
+      "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=1000&q=80"
+    ],
+    description: "Classic piqué polo knit with refined contrast trim detail on the collar and sleeve cuffs. Designed for a tailored modern fit.",
+    itemDetails: [
+      "Premium cotton piqué weave",
+      "Mother-of-pearl buttons",
+      "Contrast edge tipping"
+    ],
+    features: [
+      "Mercerized luster sheen",
+      "Anti-pilling treatment",
+      "Split side hem detail"
+    ],
+    specifications: [
+      { label: "Fabric", value: "100% Mercerized Cotton" },
+      { label: "Fit", value: "Tailored Fit" },
+      { label: "Care", value: "Dry Clean / Delicate Wash" }
+    ],
+    options: [
+      { id: "opt-t3-s", name: "S", stock: 6, inStock: true },
+      { id: "opt-t3-m", name: "M", stock: 14, inStock: true },
+      { id: "opt-t3-l", name: "L", stock: 9, inStock: true }
+    ],
+    weight: { value: 260, unit: "g" },
+    warranty: "14-day warranty",
+    tax: { percentage: 18, inclusive: true },
+    materials: ["Mercerized Cotton"],
+    inDemandCount: 16,
+    stock: 29
+  },
+  {
+    id: "top-4",
+    name: "Silk Chiffon Pintuck Blouse",
+    brand: "Mehra Designs",
+    sku: "MD-TP-004",
+    maker: "Mehra Designs Studio",
+    price: 135.00,
+    originalPrice: 160.00,
+    discount: "15% off",
+    bestseller: true,
+    etsyPick: true,
+    freeShipping: true,
+    rating: 4.8,
+    reviewCount: 710,
+    category: "Tops",
+    images: [
+      "https://images.unsplash.com/photo-1564257631407-4deb1f99d992?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=1000&q=80"
+    ],
+    description: "Featherlight silk chiffon blouse with fine pintuck pleats, mother-of-pearl buttons, and gathered balloon sleeves.",
+    itemDetails: [
+      "100% Pure silk chiffon",
+      "Mother-of-pearl front buttons",
+      "Relaxed elegant fit",
+      "Gathered cuff detailing"
+    ],
+    features: [
+      "Pin-tucked chest panel",
+      "Gathered balloon cuffs",
+      "Lightweight semi-sheer fabric"
+    ],
+    specifications: [
+      { label: "Fabric", value: "Silk Chiffon" },
+      { label: "Fit", value: "Relaxed Fit" },
+      { label: "Care", value: "Dry Clean Only" }
+    ],
+    options: [
+      { id: "opt-t4-s", name: "S", stock: 14, inStock: true },
+      { id: "opt-t4-m", name: "M", stock: 10, inStock: true },
+      { id: "opt-t4-l", name: "L", stock: 7, inStock: true }
+    ],
+    weight: { value: 160, unit: "g" },
+    warranty: "14-day return guarantee",
+    tax: { percentage: 18, inclusive: true },
+    materials: ["Silk Chiffon"],
+    inDemandCount: 12,
+    stock: 31
+  },
+
+  // OUTERWEAR
+  {
+    id: "out-1",
+    name: "Tailored Double-Breasted Wool Blazer",
+    brand: "Mehra Designs",
+    sku: "MD-OW-001",
+    maker: "Mehra Designs Tailoring",
+    price: 240.00,
+    originalPrice: 290.00,
+    discount: "17% off",
+    bestseller: true,
+    etsyPick: true,
+    freeShipping: true,
+    rating: 5.0,
+    reviewCount: 3120,
+    category: "Outerwear",
+    images: [
+      "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?auto=format&fit=crop&w=1000&q=80"
+    ],
+    description: "Sharp double-breasted blazer tailored from premium crepe wool blend with padded shoulders and satin lapels.",
+    itemDetails: [
+      "Wool crepe blend fabric",
+      "Peak lapels & tortoiseshell buttons",
+      "Fully lined interior with flap pockets",
+      "Back center vent"
+    ],
+    features: [
+      "Structure-retaining internal interfacing",
+      "Dual interior jet pockets",
+      "Silk satin inner sleeve lining"
+    ],
+    specifications: [
+      { label: "Fabric", value: "Wool Crepe Blend" },
+      { label: "Fit", value: "Structured Tailored Fit" },
+      { label: "Care", value: "Dry Clean Only" }
+    ],
+    options: [
+      { id: "opt-o1-s", name: "S", stock: 7, inStock: true },
+      { id: "opt-o1-m", name: "M", stock: 14, inStock: true },
+      { id: "opt-o1-l", name: "L", stock: 5, inStock: true }
+    ],
+    weight: { value: 650, unit: "g" },
+    warranty: "Lifetime button replacement guarantee",
+    tax: { percentage: 18, inclusive: true },
+    materials: ["Wool", "Viscose"],
+    inDemandCount: 30,
+    stock: 26
+  },
+  {
+    id: "out-2",
+    name: "Belted Oversized Trench Coat",
+    brand: "Mehra Designs",
+    sku: "MD-OW-002",
+    maker: "Mehra Designs Outerwear",
+    price: 320.00,
+    originalPrice: 380.00,
+    discount: "16% off",
+    bestseller: true,
+    etsyPick: true,
+    freeShipping: true,
+    rating: 4.9,
+    reviewCount: 1420,
+    category: "Outerwear",
+    images: [
+      "https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=1000&q=80"
+    ],
+    description: "Iconic double-breasted trench coat crafted from water-repellent cotton gabardine with adjustable waist belt and storm flap.",
+    itemDetails: [
+      "100% Water-repellent cotton gabardine",
+      "Leather-buckled waist and cuff straps",
+      "Back rain shield storm flap",
+      "Signature checked inner lining"
+    ],
+    features: [
+      "Weather-resistant tightly woven gabardine",
+      "Deep slant welt pockets",
+      "Reinforced collar latch hook"
+    ],
+    specifications: [
+      { label: "Fabric", value: "Cotton Gabardine" },
+      { label: "Fit", value: "Oversized Trench Fit" },
+      { label: "Care", value: "Specialist Dry Clean" }
+    ],
+    options: [
+      { id: "opt-o2-s", name: "S", stock: 6, inStock: true },
+      { id: "opt-o2-m", name: "M", stock: 11, inStock: true },
+      { id: "opt-o2-l", name: "L", stock: 4, inStock: true }
+    ],
+    weight: { value: 920, unit: "g" },
+    warranty: "2-year garment warranty",
+    tax: { percentage: 18, inclusive: true },
+    materials: ["Cotton Gabardine"],
+    inDemandCount: 22,
+    stock: 21
+  },
+  {
+    id: "out-3",
+    name: "Cropped Shearling Leather Jacket",
+    brand: "Mehra Designs",
+    sku: "MD-OW-003",
+    maker: "Mehra Designs Leatherworks",
+    price: 450.00,
+    originalPrice: 520.00,
+    discount: "13% off",
+    bestseller: false,
+    etsyPick: true,
+    freeShipping: true,
+    rating: 5.0,
+    reviewCount: 380,
+    category: "Outerwear",
+    images: [
+      "https://images.unsplash.com/photo-1520975954732-35dd22299614?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=1000&q=80"
+    ],
+    description: "Edgy cropped jacket crafted from supple lambskin leather with lush plush shearling collar and silver hardware zippers.",
+    itemDetails: [
+      "Genuine lambskin leather exterior",
+      "100% Australian shearling collar",
+      "Asymmetric front zipper closure",
+      "Zippered expandable cuffs"
+    ],
+    features: [
+      "Heavyweight thermal warmth",
+      "Polished metal hardware zippers",
+      "Adjustable buckled hemline belt"
+    ],
+    specifications: [
+      { label: "Exterior", value: "Lambskin Leather" },
+      { label: "Collar", value: "Australian Shearling" },
+      { label: "Care", value: "Leather Specialist Clean" }
+    ],
+    options: [
+      { id: "opt-o3-s", name: "S", stock: 3, inStock: true },
+      { id: "opt-o3-m", name: "M", stock: 5, inStock: true }
+    ],
+    weight: { value: 1100, unit: "g" },
+    warranty: "Lifetime leather care support",
+    tax: { percentage: 18, inclusive: true },
+    materials: ["Lambskin", "Shearling"],
+    inDemandCount: 19,
+    stock: 8
+  },
+  {
+    id: "out-4",
+    name: "Handstitched Cashmere Wrap Coat",
+    brand: "Mehra Designs",
+    sku: "MD-OW-004",
+    maker: "Mehra Designs Couture",
+    price: 480.00,
+    originalPrice: 560.00,
+    discount: "14% off",
+    bestseller: true,
+    etsyPick: true,
+    freeShipping: true,
+    rating: 4.9,
+    reviewCount: 650,
+    category: "Outerwear",
+    images: [
+      "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=1000&q=80"
+    ],
+    description: "Sumptuous double-faced virgin wool and cashmere wrap coat finished with hand-stitched pick seams and a self-tie belt.",
+    itemDetails: [
+      "90% Virgin Wool, 10% Cashmere",
+      "Unlined double-face construction",
+      "Hand-sewn pick stitch detailing",
+      "Kimono style wide sleeves"
+    ],
+    features: [
+      "Ultra-lightweight yet warm double weave",
+      "Exaggerated shawl lapel collar",
+      "Seamless patch pockets"
+    ],
+    specifications: [
+      { label: "Fabric", value: "Wool & Cashmere Blend" },
+      { label: "Fit", value: "Fluid Wrap Fit" },
+      { label: "Care", value: "Dry Clean Only" }
+    ],
+    options: [
+      { id: "opt-o4-s", name: "S", stock: 4, inStock: true },
+      { id: "opt-o4-m", name: "M", stock: 8, inStock: true },
+      { id: "opt-o4-l", name: "L", stock: 3, inStock: true }
+    ],
+    weight: { value: 880, unit: "g" },
+    warranty: "Complimentary storage garment bag included",
+    tax: { percentage: 18, inclusive: true },
+    materials: ["Virgin Wool", "Cashmere"],
+    inDemandCount: 27,
+    stock: 15
+  },
+
+  // BOTTOMS
+  {
+    id: "bot-1",
+    name: "High-Waisted Wide-Leg Trousers",
+    brand: "Mehra Designs",
+    sku: "MD-BT-001",
+    maker: "Mehra Designs Tailoring",
+    price: 165.00,
+    originalPrice: 195.00,
+    discount: "15% off",
+    bestseller: true,
+    etsyPick: true,
+    freeShipping: true,
+    rating: 4.9,
+    reviewCount: 940,
+    category: "Bottoms",
+    images: [
+      "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?auto=format&fit=crop&w=1000&q=80"
+    ],
+    description: "Tailored high-waisted wide-leg trousers crafted from fluid wool-crepe blend with sharp front pleats and press creases.",
+    itemDetails: [
+      "Wool-crepe blend fabric",
+      "Concealed hook and bar closure",
+      "Side slant pockets & back welt pockets",
+      "Full-length wide leg line"
+    ],
+    features: [
+      "High waist cinching waistband",
+      "Crease-resistant tailoring fabric",
+      "Generous 4cm turn-up hem allowance"
+    ],
+    specifications: [
+      { label: "Fabric", value: "Wool Crepe Blend" },
+      { label: "Fit", value: "High-Waisted Wide-Leg" },
+      { label: "Care", value: "Dry Clean Only" }
+    ],
+    options: [
+      { id: "opt-b1-s", name: "S", stock: 6, inStock: true },
+      { id: "opt-b1-m", name: "M", stock: 12, inStock: true },
+      { id: "opt-b1-l", name: "L", stock: 4, inStock: true }
+    ],
+    weight: { value: 420, unit: "g" },
+    warranty: "14-day return policy",
+    tax: { percentage: 18, inclusive: true },
+    materials: ["Wool", "Crepe"],
+    inDemandCount: 16,
+    stock: 22
+  },
+  {
+    id: "bot-2",
+    name: "Tailored Cigarette Ankle Pants",
+    brand: "Mehra Designs",
+    sku: "MD-BT-002",
+    maker: "Mehra Designs Tailoring",
+    price: 145.00,
+    originalPrice: 175.00,
+    discount: "17% off",
+    bestseller: false,
+    etsyPick: true,
+    freeShipping: true,
+    rating: 4.8,
+    reviewCount: 510,
+    category: "Bottoms",
+    images: [
+      "https://images.unsplash.com/photo-1509551388413-e18d0ac5d495?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=1000&q=80"
+    ],
+    description: "Sleek cropped cigarette pants in stretch cotton-twill featuring crisp center creases and a clean tab closure waist.",
+    itemDetails: [
+      "Stretch cotton-twill stretch weave",
+      "Ankle grazing cropped length",
+      "Side jetted slant pockets",
+      "Belt loops at waistband"
+    ],
+    features: [
+      "Comfort stretch recovery fabric",
+      "Slim flattering leg taper",
+      "Non-gap curved waistband"
+    ],
+    specifications: [
+      { label: "Fabric", value: "97% Cotton, 3% Elastane" },
+      { label: "Fit", value: "Slim Cigarette Fit" },
+      { label: "Care", value: "Machine Wash Delicate" }
+    ],
+    options: [
+      { id: "opt-b2-s", name: "S", stock: 8, inStock: true },
+      { id: "opt-b2-m", name: "M", stock: 15, inStock: true },
+      { id: "opt-b2-l", name: "L", stock: 7, inStock: true }
+    ],
+    weight: { value: 360, unit: "g" },
+    warranty: "14-day exchange warranty",
+    tax: { percentage: 18, inclusive: true },
+    materials: ["Cotton Twill"],
+    inDemandCount: 11,
+    stock: 30
+  },
+  {
+    id: "bot-3",
+    name: "Silk Satin Bias Cut Midi Skirt",
+    brand: "Mehra Designs",
+    sku: "MD-BT-003",
+    maker: "Mehra Designs Atelier",
+    price: 170.00,
+    originalPrice: 200.00,
+    discount: "15% off",
+    bestseller: true,
+    etsyPick: true,
+    freeShipping: true,
+    rating: 4.9,
+    reviewCount: 1180,
+    category: "Bottoms",
+    images: [
+      "https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1000&q=80"
+    ],
+    description: "Flowing silk satin midi skirt cut on the bias to hug curves elegantly before cascading into a fluted hemline.",
+    itemDetails: [
+      "100% Heavyweight silk satin",
+      "Concealed elastic waistband",
+      "Bias cut fluid drape",
+      "Midi length coverage"
+    ],
+    features: [
+      "Luminous luster finish",
+      "Smooth interior touch",
+      "Versatile day-to-night styling"
+    ],
+    specifications: [
+      { label: "Fabric", value: "100% Silk Satin" },
+      { label: "Fit", value: "Bias Cut Slim Fit" },
+      { label: "Care", value: "Dry Clean Only" }
+    ],
+    options: [
+      { id: "opt-b3-xs", name: "XS", stock: 5, inStock: true },
+      { id: "opt-b3-s", name: "S", stock: 12, inStock: true },
+      { id: "opt-b3-m", name: "M", stock: 9, inStock: true }
+    ],
+    weight: { value: 210, unit: "g" },
+    warranty: "14-day warranty",
+    tax: { percentage: 18, inclusive: true },
+    materials: ["Silk Satin"],
+    inDemandCount: 20,
+    stock: 26
+  },
+  {
+    id: "bot-4",
+    name: "Raw Selvedge Denim Straight Jeans",
+    brand: "Mehra Designs",
+    sku: "MD-BT-004",
+    maker: "Mehra Designs Studio",
+    price: 155.00,
+    originalPrice: 185.00,
+    discount: "16% off",
+    bestseller: false,
+    etsyPick: true,
+    freeShipping: true,
+    rating: 4.7,
+    reviewCount: 640,
+    category: "Bottoms",
+    images: [
+      "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1509551388413-e18d0ac5d495?auto=format&fit=crop&w=1000&q=80"
+    ],
+    description: "Premium 14oz Japanese raw selvedge denim jeans featuring a high-rise straight leg cut and branded copper rivets.",
+    itemDetails: [
+      "14oz Japanese cotton selvedge denim",
+      "Button fly closure",
+      "Five-pocket classic construction",
+      "Red line selvedge cuff detail"
+    ],
+    features: [
+      "Unwashed indigo raw denim",
+      "Develops custom fading over time",
+      "Reinforced stress points"
+    ],
+    specifications: [
+      { label: "Fabric", value: "100% Cotton Selvedge Denim" },
+      { label: "Fit", value: "High-Rise Straight Leg" },
+      { label: "Care", value: "Wash Inside Out Cold / Hang Dry" }
+    ],
+    options: [
+      { id: "opt-b4-26", name: "26 Waist", stock: 4, inStock: true },
+      { id: "opt-b4-28", name: "28 Waist", stock: 10, inStock: true },
+      { id: "opt-b4-30", name: "30 Waist", stock: 6, inStock: true }
+    ],
+    weight: { value: 650, unit: "g" },
+    warranty: "Lifetime seam durability pledge",
+    tax: { percentage: 18, inclusive: true },
+    materials: ["Japanese Selvedge Denim"],
+    inDemandCount: 13,
+    stock: 20
+  },
+
+  // BAGS
+  {
+    id: "bag-1",
+    name: "Minimalist Structured Leather Tote",
+    brand: "Mehra Designs",
+    sku: "MD-BG-001",
+    maker: "Mehra Designs Leatherworks",
+    price: 290.00,
+    originalPrice: 340.00,
+    discount: "15% off",
+    bestseller: true,
+    etsyPick: true,
+    freeShipping: true,
+    rating: 4.9,
+    reviewCount: 1950,
+    category: "Bags",
+    images: [
+      "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=1000&q=80"
+    ],
+    description: "Handcrafted full-grain Italian leather tote with spacious interior, protective metal feet, and padded laptop sleeve.",
+    itemDetails: [
+      "Full-grain Italian calfskin leather",
+      "Fits up to 15\" laptop",
+      "Magnetic snap closure & zippered inner pocket",
+      "Reinforced double top shoulder handles"
+    ],
+    features: [
+      "Scratch-resistant pebbled leather",
+      "Soft brushed suede interior lining",
+      "Polished metal bottom feet"
+    ],
+    specifications: [
+      { label: "Material", value: "Full-Grain Calfskin" },
+      { label: "Lining", value: "Microfiber Suede" },
+      { label: "Dimensions", value: "38cm x 28cm x 14cm" }
+    ],
+    options: [
+      { id: "opt-bg1-tan", name: "Tan Leather", stock: 8, inStock: true },
+      { id: "opt-bg1-blk", name: "Onyx Black", stock: 15, inStock: true }
+    ],
+    weight: { value: 850, unit: "g" },
+    warranty: "Lifetime leather craftsmanship warranty",
+    tax: { percentage: 18, inclusive: true },
+    materials: ["Calfskin Leather"],
+    inDemandCount: 25,
+    stock: 23
+  },
+  {
+    id: "bag-2",
+    name: "Quilted Lambskin Crossbody Bag",
+    brand: "Mehra Designs",
+    sku: "MD-BG-002",
+    maker: "Mehra Designs Leatherworks",
+    price: 260.00,
+    originalPrice: 310.00,
+    discount: "16% off",
+    bestseller: true,
+    etsyPick: true,
+    freeShipping: true,
+    rating: 4.9,
+    reviewCount: 1620,
+    category: "Bags",
+    images: [
+      "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=1000&q=80"
+    ],
+    description: "Timeless diamond-quilted lambskin handbag with interwoven leather chain strap and polished twist lock clasp.",
+    itemDetails: [
+      "Supple butter-soft lambskin",
+      "Gold-finish chain link strap",
+      "Signature turn-lock front clasp",
+      "Rear slip exterior pocket"
+    ],
+    features: [
+      "Hand-quilted diamond stitching",
+      "Dual convertible chain length",
+      "Burgundy leather interior lining"
+    ],
+    specifications: [
+      { label: "Material", value: "Lambskin Leather" },
+      { label: "Hardware", value: "18k Gold Plated Brass" },
+      { label: "Dimensions", value: "24cm x 16cm x 7cm" }
+    ],
+    options: [
+      { id: "opt-bg2-blk", name: "Black Gold", stock: 10, inStock: true },
+      { id: "opt-bg2-nude", name: "Blush Beige", stock: 6, inStock: true }
+    ],
+    weight: { value: 540, unit: "g" },
+    warranty: "1-year hardware & seam warranty",
+    tax: { percentage: 18, inclusive: true },
+    materials: ["Lambskin"],
+    inDemandCount: 21,
+    stock: 16
+  },
+  {
+    id: "bag-3",
+    name: "Handwoven Leather Shoulder Hobo",
+    brand: "Mehra Designs",
+    sku: "MD-BG-003",
+    maker: "Mehra Designs Leatherworks",
+    price: 310.00,
+    originalPrice: 360.00,
+    discount: "14% off",
+    bestseller: false,
+    etsyPick: true,
+    freeShipping: true,
+    rating: 4.8,
+    reviewCount: 470,
+    category: "Bags",
+    images: [
+      "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=1000&q=80"
+    ],
+    description: "Slouchy shoulder hobo bag intricately handwoven using supple leather strips with top zip closure.",
+    itemDetails: [
+      "Intrecciato handwoven Nappa leather",
+      "Seamless ergonomic shoulder strap",
+      "Top main zip closure",
+      "Spacious expandable interior"
+    ],
+    features: [
+      "Artisanal woven construction",
+      "Lightweight slouched silhouette",
+      "Internal phone & key zip pockets"
+    ],
+    specifications: [
+      { label: "Material", value: "Nappa Calfskin" },
+      { label: "Closure", value: "YKK Metal Zipper" },
+      { label: "Dimensions", value: "35cm x 26cm x 10cm" }
+    ],
+    options: [
+      { id: "opt-bg3-brn", name: "Saddle Tan", stock: 7, inStock: true },
+      { id: "opt-bg3-olv", name: "Olive Green", stock: 4, inStock: true }
+    ],
+    weight: { value: 680, unit: "g" },
+    warranty: "Lifetime leather weave warranty",
+    tax: { percentage: 18, inclusive: true },
+    materials: ["Nappa Leather"],
+    inDemandCount: 15,
+    stock: 11
+  },
+  {
+    id: "bag-4",
+    name: "Architectural Top-Handle Bag",
+    brand: "Mehra Designs",
+    sku: "MD-BG-004",
+    maker: "Mehra Designs Leatherworks",
+    price: 340.00,
+    originalPrice: 395.00,
+    discount: "14% off",
+    bestseller: true,
+    etsyPick: true,
+    freeShipping: true,
+    rating: 5.0,
+    reviewCount: 780,
+    category: "Bags",
+    images: [
+      "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=1000&q=80"
+    ],
+    description: "Sculptural geometric handbag with curved top handle, hidden magnetic clasp, and detachable crossbody strap.",
+    itemDetails: [
+      "Smooth box calf leather finish",
+      "Rigid architectural frame",
+      "Removable leather crossbody strap",
+      "Concealed magnetic lock closure"
+    ],
+    features: [
+      "Minimalist hardware-free exterior",
+      "Polished edge paint finish",
+      "Dual compartment internal dividers"
+    ],
+    specifications: [
+      { label: "Material", value: "Box Calfskin Leather" },
+      { label: "Lining", value: "Nappa Leather Interior" },
+      { label: "Dimensions", value: "28cm x 20cm x 11cm" }
+    ],
+    options: [
+      { id: "opt-bg4-crm", name: "Ivory Cream", stock: 5, inStock: true },
+      { id: "opt-bg4-blk", name: "Midnight Black", stock: 9, inStock: true }
+    ],
+    weight: { value: 720, unit: "g" },
+    warranty: "1-year warranty",
+    tax: { percentage: 18, inclusive: true },
+    materials: ["Box Calfskin"],
+    inDemandCount: 24,
+    stock: 14
+  },
+
+  // SHOES
+  {
+    id: "shoe-1",
+    name: "Pointed-Toe Leather Mules",
+    brand: "Mehra Designs",
+    sku: "MD-SH-001",
+    maker: "Mehra Designs Footwear",
+    price: 190.00,
+    originalPrice: 220.00,
+    discount: "14% off",
+    bestseller: true,
+    etsyPick: true,
+    freeShipping: true,
+    rating: 4.7,
+    reviewCount: 740,
+    category: "Shoes",
+    images: [
+      "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1535043934128-cf0b28d52f95?auto=format&fit=crop&w=1000&q=80"
+    ],
+    description: "Sleek pointed-toe leather slide mules crafted with cushioned leather footbed and kitten kitten heel for all-day elegance.",
+    itemDetails: [
+      "Soft lambskin leather upper",
+      "Cushioned memory foam footbed",
+      "Leather outsole with non-slip rubber heel cap",
+      "4.5cm comfortable heel height"
+    ],
+    features: [
+      "Hand-shaped pointed toe silhouette",
+      "Breathable leather lining",
+      "Anti-fatigue arch support"
+    ],
+    specifications: [
+      { label: "Upper", value: "100% Lambskin" },
+      { label: "Sole", value: "Genuine Leather Sole" },
+      { label: "Heel Height", value: "4.5 cm / 1.7 inches" }
+    ],
+    options: [
+      { id: "opt-sh1-37", name: "37 EU", stock: 4, inStock: true },
+      { id: "opt-sh1-38", name: "38 EU", stock: 9, inStock: true },
+      { id: "opt-sh1-39", name: "39 EU", stock: 7, inStock: true }
+    ],
+    weight: { value: 460, unit: "g" },
+    warranty: "14-day fit swap warranty",
+    tax: { percentage: 18, inclusive: true },
+    materials: ["Lambskin Leather"],
+    inDemandCount: 14,
+    stock: 20
+  },
+  {
+    id: "shoe-2",
+    name: "Strappy Silk Satin Heel Sandals",
+    brand: "Mehra Designs",
+    sku: "MD-SH-002",
+    maker: "Mehra Designs Footwear",
+    price: 225.00,
+    originalPrice: 265.00,
+    discount: "15% off",
+    bestseller: true,
+    etsyPick: true,
+    freeShipping: true,
+    rating: 4.9,
+    reviewCount: 910,
+    category: "Shoes",
+    images: [
+      "https://images.unsplash.com/photo-1560343776-97e7d202ff0e?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=1000&q=80"
+    ],
+    description: "Minimalist evening sandals with delicate crossover silk satin straps, crystal buckle ankle wrap, and 8.5cm stiletto heel.",
+    itemDetails: [
+      "Mulberry silk satin straps",
+      "Crystal-embellished ankle buckle",
+      "Lightweight stiletto heel stem",
+      "Cushioned leather sole"
+    ],
+    features: [
+      "Anti-slip forefoot rubber insert",
+      "Delicate thin crossover strap design",
+      "Reinforced steel heel pin"
+    ],
+    specifications: [
+      { label: "Upper", value: "Silk Satin" },
+      { label: "Heel Height", value: "8.5 cm / 3.3 inches" },
+      { label: "Care", value: "Spot Clean Satin Only" }
+    ],
+    options: [
+      { id: "opt-sh2-36", name: "36 EU", stock: 3, inStock: true },
+      { id: "opt-sh2-37", name: "37 EU", stock: 8, inStock: true },
+      { id: "opt-sh2-38", name: "38 EU", stock: 5, inStock: true }
+    ],
+    weight: { value: 420, unit: "g" },
+    warranty: "Complimentary heel tap replacements",
+    tax: { percentage: 18, inclusive: true },
+    materials: ["Silk Satin", "Leather"],
+    inDemandCount: 22,
+    stock: 16
+  },
+  {
+    id: "shoe-3",
+    name: "Artisanal Calfskin Loafers",
+    brand: "Mehra Designs",
+    sku: "MD-SH-003",
+    maker: "Mehra Designs Footwear",
+    price: 210.00,
+    originalPrice: 250.00,
+    discount: "16% off",
+    bestseller: false,
+    etsyPick: true,
+    freeShipping: true,
+    rating: 4.8,
+    reviewCount: 530,
+    category: "Shoes",
+    images: [
+      "https://images.unsplash.com/photo-1535043934128-cf0b28d52f95?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=1000&q=80"
+    ],
+    description: "Classic penny loafers hand-stitched from polished Italian calfskin with comfortable stacked leather heel.",
+    itemDetails: [
+      "Burnished Italian calfskin leather",
+      "Goodyear welt stitched construction",
+      "Stacked leather heel & sole",
+      "Traditional penny strap detail"
+    ],
+    features: [
+      "Molds to foot shape with wear",
+      "Resoleable welt construction",
+      "Breathable leather lining"
+    ],
+    specifications: [
+      { label: "Upper", value: "Italian Calfskin" },
+      { label: "Construction", value: "Goodyear Welted" },
+      { label: "Heel Height", value: "2.5 cm / 1 inch" }
+    ],
+    options: [
+      { id: "opt-sh3-38", name: "38 EU", stock: 6, inStock: true },
+      { id: "opt-sh3-39", name: "39 EU", stock: 11, inStock: true },
+      { id: "opt-sh3-40", name: "40 EU", stock: 5, inStock: true }
+    ],
+    weight: { value: 680, unit: "g" },
+    warranty: "1-year stitching warranty",
+    tax: { percentage: 18, inclusive: true },
+    materials: ["Italian Calfskin"],
+    inDemandCount: 10,
+    stock: 22
+  },
+  {
+    id: "shoe-4",
+    name: "Sculptural Block Heel Ankle Boots",
+    brand: "Mehra Designs",
+    sku: "MD-SH-004",
+    maker: "Mehra Designs Footwear",
+    price: 285.00,
+    originalPrice: 330.00,
+    discount: "14% off",
+    bestseller: true,
+    etsyPick: true,
+    freeShipping: true,
+    rating: 4.9,
+    reviewCount: 840,
+    category: "Shoes",
+    images: [
+      "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1560343776-97e7d202ff0e?auto=format&fit=crop&w=1000&q=80"
+    ],
+    description: "Sleek ankle boot in glove-soft Nappa leather featuring a architectural cylindrical block heel and side zip.",
+    itemDetails: [
+      "Butter-soft Nappa leather upper",
+      "Architectural 6.5cm block heel",
+      "Side YKK metal zipper",
+      "Square toe profile"
+    ],
+    features: [
+      "Cushioned memory foam footbed",
+      "Glove-like snug fit shaft",
+      "Durable leather outsole"
+    ],
+    specifications: [
+      { label: "Upper", value: "Nappa Leather" },
+      { label: "Heel Height", value: "6.5 cm / 2.5 inches" },
+      { label: "Care", value: "Leather Conditioning Cream" }
+    ],
+    options: [
+      { id: "opt-sh4-37", name: "37 EU", stock: 5, inStock: true },
+      { id: "opt-sh4-38", name: "38 EU", stock: 10, inStock: true },
+      { id: "opt-sh4-39", name: "39 EU", stock: 6, inStock: true }
+    ],
+    weight: { value: 750, unit: "g" },
+    warranty: "14-day return guarantee",
+    tax: { percentage: 18, inclusive: true },
+    materials: ["Nappa Leather"],
+    inDemandCount: 18,
+    stock: 21
+  },
+
+  // ACCESSORIES
+  {
+    id: "acc-1",
+    name: "Silk Printed Square Scarf",
+    brand: "Mehra Designs",
+    sku: "MD-AC-001",
+    maker: "Mehra Designs Accessories",
+    price: 75.00,
+    originalPrice: 95.00,
+    discount: "21% off",
+    bestseller: true,
+    etsyPick: true,
+    freeShipping: true,
+    rating: 4.9,
+    reviewCount: 1120,
+    category: "Accessories",
+    images: [
+      "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=1000&q=80"
+    ],
+    description: "Hand-rolled 100% silk twill square scarf featuring bespoke atelier artwork print and vibrant color palette.",
+    itemDetails: [
+      "100% Silk Twill heavy weave",
+      "Hand-rolled and sewn edges",
+      "Dimensions: 90cm x 90cm square",
+      "Bespoke painterly floral print"
+    ],
+    features: [
+      "Luminous silk sheen",
+      "Versatile neck, hair, or bag styling",
+      "Packaged in signature Mehra box"
+    ],
+    specifications: [
+      { label: "Fabric", value: "100% Silk Twill" },
+      { label: "Size", value: "90 x 90 cm" },
+      { label: "Care", value: "Dry Clean Only" }
+    ],
+    options: [
+      { id: "opt-ac1-fl", name: "Floral Botanical", stock: 14, inStock: true },
+      { id: "opt-ac1-geo", name: "Monogram Geo", stock: 9, inStock: true }
+    ],
+    weight: { value: 90, unit: "g" },
+    warranty: "30-day accessory exchange policy",
+    tax: { percentage: 18, inclusive: true },
+    materials: ["Silk Twill"],
+    inDemandCount: 17,
+    stock: 23
+  },
+  {
+    id: "acc-2",
+    name: "Hand-Forged 18k Gold Plated Cuff",
+    brand: "Mehra Designs",
+    sku: "MD-AC-002",
+    maker: "Mehra Designs Jewelry",
+    price: 120.00,
+    originalPrice: 145.00,
+    discount: "17% off",
+    bestseller: true,
+    etsyPick: true,
+    freeShipping: true,
+    rating: 5.0,
+    reviewCount: 890,
+    category: "Accessories",
+    images: [
+      "https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=1000&q=80"
+    ],
+    description: "Sculptural hammered wrist cuff hand-cast in recycled brass and dipped in thick 18k yellow gold polish.",
+    itemDetails: [
+      "Solid recycled brass core",
+      "Heavy 3-micron 18k gold plating",
+      "Adjustable open-cuff silhouette",
+      "Tarnish-resistant protective seal"
+    ],
+    features: [
+      "Organic hammered texture finish",
+      "Hypoallergenic nickel-free build",
+      "Stamped with Mehra hallmark"
+    ],
+    specifications: [
+      { label: "Material", value: "18k Gold Plated Brass" },
+      { label: "Finish", value: "Hammered Polish" },
+      { label: "Size", value: "One Size (Adjustable)" }
+    ],
+    options: [
+      { id: "opt-ac2-gld", name: "18k Yellow Gold", stock: 12, inStock: true },
+      { id: "opt-ac2-slv", name: "Sterling Silver", stock: 7, inStock: true }
+    ],
+    weight: { value: 110, unit: "g" },
+    warranty: "2-year anti-tarnish guarantee",
+    tax: { percentage: 18, inclusive: true },
+    materials: ["18k Gold Plated Brass"],
+    inDemandCount: 23,
+    stock: 19
+  },
+  {
+    id: "acc-3",
+    name: "Pearl & Crystal Statement Earrings",
+    brand: "Mehra Designs",
+    sku: "MD-AC-003",
+    maker: "Mehra Designs Jewelry",
+    price: 95.00,
+    originalPrice: 115.00,
+    discount: "17% off",
+    bestseller: false,
+    etsyPick: true,
+    freeShipping: true,
+    rating: 4.9,
+    reviewCount: 610,
+    category: "Accessories",
+    images: [
+      "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=1000&q=80"
+    ],
+    description: "Luminous baroque freshwater pearls paired with brilliant faceted cubic zirconia crystals on 18k gold posts.",
+    itemDetails: [
+      "Genuine freshwater baroque pearls",
+      "Faceted AAA cubic zirconia crystals",
+      "18k Gold-plated sterling silver posts",
+      "Butterfly friction back closure"
+    ],
+    features: [
+      "Every pearl has a unique organic shape",
+      "Lightweight comfortable drop wear",
+      "Packaged in velvet presentation box"
+    ],
+    specifications: [
+      { label: "Stone", value: "Freshwater Baroque Pearl" },
+      { label: "Metal", value: "18k Gold on 925 Silver" },
+      { label: "Drop Length", value: "4.8 cm" }
+    ],
+    options: [
+      { id: "opt-ac3-prl", name: "Natural Pearl", stock: 15, inStock: true }
+    ],
+    weight: { value: 45, unit: "g" },
+    warranty: "1-year jewelry warranty",
+    tax: { percentage: 18, inclusive: true },
+    materials: ["Freshwater Pearl", "18k Gold Plated Silver"],
+    inDemandCount: 16,
+    stock: 15
+  },
+  {
+    id: "acc-4",
+    name: "Italian Leather Slim Waist Belt",
+    brand: "Mehra Designs",
+    sku: "MD-AC-004",
+    maker: "Mehra Designs Leatherworks",
+    price: 110.00,
+    originalPrice: 135.00,
+    discount: "18% off",
+    bestseller: true,
+    etsyPick: false,
+    freeShipping: true,
+    rating: 4.8,
+    reviewCount: 780,
+    category: "Accessories",
+    images: [
+      "https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=1000&q=80"
+    ],
+    description: "Refined 2.5cm slim waist belt cut from full-grain Italian leather with a custom brushed gold horseshoe buckle.",
+    itemDetails: [
+      "Full-grain Italian smooth leather",
+      "Brushed 18k gold-finish buckle",
+      "Width: 2.5cm slim profile",
+      "5 adjustable size holes"
+    ],
+    features: [
+      "Feathered edge stitch construction",
+      "Ideal for cinching blazers and dresses",
+      "Natural vegetable tanned finish"
+    ],
+    specifications: [
+      { label: "Material", value: "Italian Calfskin" },
+      { label: "Buckle", value: "Brushed Brass" },
+      { label: "Width", value: "2.5 cm / 1 inch" }
+    ],
+    options: [
+      { id: "opt-ac4-s", name: "S (75cm)", stock: 8, inStock: true },
+      { id: "opt-ac4-m", name: "M (85cm)", stock: 12, inStock: true },
+      { id: "opt-ac4-l", name: "L (95cm)", stock: 6, inStock: true }
+    ],
+    weight: { value: 140, unit: "g" },
+    warranty: "Lifetime leather belt guarantee",
+    tax: { percentage: 18, inclusive: true },
+    materials: ["Italian Leather"],
+    inDemandCount: 14,
+    stock: 26
+  }
 ];

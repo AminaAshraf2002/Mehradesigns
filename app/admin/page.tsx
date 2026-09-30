@@ -130,50 +130,54 @@ export default function AdminDashboardPage() {
 
   return (
     <div
-      style={{ fontFamily: "'Montserrat', sans-serif" }}
-      className="flex flex-col gap-4 sm:gap-5 max-w-7xl mx-auto antialiased"
+      style={{ fontFamily: "var(--font-body, 'Plus Jakarta Sans', sans-serif)" }}
+      className="flex flex-col gap-4 sm:gap-5 max-w-7xl mx-auto antialiased font-body"
     >
-      {/* Luxury Noir Salon-Style Hero Command Header with Right-Side Fade Image */}
-      <div className="rounded-3xl bg-[#161619] p-6 sm:p-8 text-white shadow-xl border border-white/10 relative overflow-hidden flex flex-col justify-between gap-6 min-h-[190px]">
-        {/* Right-Side Photo with Seamless Noir Blend Gradient (matching reference screenshot) */}
-        <div className="absolute right-0 top-0 bottom-0 w-full sm:w-3/5 lg:w-1/2 pointer-events-none overflow-hidden select-none">
+      {/* Luxury Atelier Salon-Style Hero Command Header with Warm Beige/Mocha Gradient & Right-Side Fade Image */}
+      <div
+        className="rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-[#C5A880]/30 relative overflow-hidden flex flex-col justify-between gap-6 min-h-[190px]"
+        style={{
+          background: 'linear-gradient(135deg, #2A2118 0%, #3B2E21 42%, #52402E 75%, #6B553F 100%)',
+        }}
+      >
+        {/* Full Cover Photo with Seamless Left Blend Gradient for Text Legibility */}
+        <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden select-none">
           <img
-            src="/images/feng_shui_hero_banner.jpg"
-            alt="Miracle Feng Shui Sanctuary"
-            className="w-full h-full object-cover object-right brightness-[0.7] contrast-[1.08]"
+            src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1600&q=80"
+            alt="Mehra Designs Sanctuary"
+            className="w-full h-full object-cover object-center brightness-[0.72] contrast-[1.05]"
           />
-          {/* Seamless Left Fade Gradient */}
+          {/* Seamless Left-to-Right Blend: rich beige/mocha on the left where text is, softly revealing photo across middle and right */}
           <div
             className="absolute inset-0"
             style={{
-              background: 'linear-gradient(to right, #161619 0%, #161619 12%, rgba(22, 22, 25, 0.85) 42%, rgba(22, 22, 25, 0.25) 75%, transparent 100%)',
+              background: 'linear-gradient(to right, rgba(42, 33, 24, 0.97) 0%, rgba(42, 33, 24, 0.92) 28%, rgba(42, 33, 24, 0.62) 55%, rgba(42, 33, 24, 0.22) 85%, rgba(42, 33, 24, 0.12) 100%)',
             }}
           />
           {/* Subtle Top & Bottom Vignette */}
           <div
             className="absolute inset-0"
             style={{
-              background: 'linear-gradient(to bottom, rgba(22, 22, 25, 0.35) 0%, transparent 25%, transparent 75%, rgba(22, 22, 25, 0.5) 100%)',
+              background: 'linear-gradient(to bottom, rgba(42, 33, 24, 0.35) 0%, transparent 30%, transparent 70%, rgba(42, 33, 24, 0.5) 100%)',
             }}
           />
         </div>
 
-        {/* Top Header Row: Greeting & Functional Wink Search Pill */}
+        {/* Top Header Row: Greeting & Functional Search Pill */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 w-full relative z-10">
           <div>
-            {/* Date Pill Badge (matching reference screenshot) */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/[0.08] border border-white/15 text-white/90 text-[10.5px] font-mono tracking-[0.16em] uppercase font-semibold mb-2.5 shadow-2xs backdrop-blur-xs">
+            {/* Date Pill Badge */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-black/30 border border-[#C5A880]/40 text-[#FAF7F2] text-[10.5px] font-mono tracking-[0.16em] uppercase font-semibold mb-2.5 shadow-2xs backdrop-blur-xs">
               <span>{currentDateStr}</span>
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
             </div>
             <h1
-              style={{ fontFamily: "'Bebas Neue', 'Montserrat', sans-serif" }}
-              className="text-2xl sm:text-3xl lg:text-4xl font-normal tracking-tight text-white leading-tight"
+              style={{ fontFamily: "'Cormorant Garamond', Georgia, serif" }}
+              className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white leading-tight"
             >
-              Miracle Command Center
+              Mehra Designs Command Center
             </h1>
             <p
-              style={{ fontFamily: "'Montserrat', sans-serif" }}
               className="text-xs sm:text-sm text-white/70 mt-1 max-w-lg font-normal leading-relaxed"
             >
               Monitor store catalog, fulfill customer orders, and orchestrate homepage sections.
@@ -185,12 +189,12 @@ export default function AdminDashboardPage() {
             <div ref={searchContainerRef} className="relative">
               <form
                 onSubmit={handleSearchSubmit}
-                className="flex items-center bg-gray-100/80 hover:bg-gray-100 focus-within:bg-white focus-within:ring-2 focus-within:ring-black/15 transition-all border border-gray-200/80 rounded-full px-4 py-2 text-xs text-gray-900 placeholder-gray-400 w-56 sm:w-68 shadow-2xs"
+                className="flex items-center bg-[#FFFDFA] hover:bg-white focus-within:bg-white focus-within:ring-2 focus-within:ring-[#8C6C43]/30 transition-all border border-[#E6E0D4] rounded-full px-4 py-2 text-xs text-[#221D16] placeholder-[#8C6C43]/50 w-56 sm:w-68 shadow-2xs"
               >
                 <button
                   type="submit"
                   aria-label="Search catalog"
-                  className="text-gray-500 hover:text-black mr-2 cursor-pointer bg-transparent border-none p-0 flex items-center"
+                  className="text-[#8C6C43] hover:text-[#221D16] mr-2 cursor-pointer bg-transparent border-none p-0 flex items-center"
                 >
                   <i className="fa-solid fa-magnifying-glass text-xs" />
                 </button>
@@ -203,7 +207,7 @@ export default function AdminDashboardPage() {
                   }}
                   onFocus={() => setShowSearchDropdown(true)}
                   placeholder="Search catalog, orders..."
-                  className="bg-transparent border-none outline-hidden text-xs text-gray-900 placeholder-gray-400 w-full"
+                  className="bg-transparent border-none outline-hidden text-xs text-[#221D16] placeholder-[#8C6C43]/50 w-full"
                 />
                 {bannerSearchQuery && (
                   <button
@@ -212,7 +216,7 @@ export default function AdminDashboardPage() {
                       setBannerSearchQuery('');
                       setShowSearchDropdown(false);
                     }}
-                    className="text-gray-400 hover:text-black text-xs cursor-pointer ml-1 p-0.5"
+                    className="text-[#8C6C43]/60 hover:text-[#221D16] text-xs cursor-pointer ml-1 p-0.5"
                   >
                     <i className="fa-solid fa-xmark text-[11px]" />
                   </button>
@@ -332,7 +336,7 @@ export default function AdminDashboardPage() {
             </div>
 
             {/* User Profile Avatar */}
-            <div className="w-8 h-8 rounded-full bg-[#111111] text-white font-bold flex items-center justify-center text-xs shadow-xs">
+            <div className="w-8 h-8 rounded-full bg-[#FAF7F2] text-[#8C6C43] border border-[#C5A880]/60 font-bold flex items-center justify-center text-xs shadow-xs">
               A
             </div>
           </div>
@@ -359,14 +363,14 @@ export default function AdminDashboardPage() {
               >
                 <i
                   className={`fa-solid ${pg.icon} text-[11px] ${
-                    pg.active ? 'text-black' : 'text-white/80'
+                    pg.active ? 'text-black' : 'text-[#E6DDD4]'
                   }`}
                 />
                 <span>{pg.name}</span>
                 {pg.count && (
                   <span
                     className={`text-[10px] px-2 py-0.2 rounded-full font-bold ${
-                      pg.active ? 'bg-white/20 text-white' : 'bg-gray-100 text-gray-700'
+                      pg.active ? 'bg-[#8C6C43] text-white' : 'bg-[#FAF7F2] text-[#8C6C43]'
                     }`}
                   >
                     {pg.count}
@@ -381,13 +385,13 @@ export default function AdminDashboardPage() {
         </div>
       </div>
 
-      {/* Compact KPI Cards Grid with Minimalist Pastel Circles */}
+      {/* Compact KPI Cards Grid with Minimalist Beige Icon Containers */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {/* Total Sales with Real-Time Cash Flow Breakdown */}
         <div className="bg-white p-4 sm:p-4.5 rounded-2xl border border-gray-200/70 shadow-2xs hover:shadow-sm transition-all flex flex-col justify-between">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-gray-100 text-gray-500 flex items-center justify-center text-sm shrink-0 shadow-2xs border border-gray-200/50">
+              <div className="w-9 h-9 rounded-xl bg-[#FAF7F2] text-[#8C6C43] flex items-center justify-center text-sm shrink-0 shadow-2xs border border-[#E6DDD4]">
                 <i className="fa-solid fa-indian-rupee-sign" />
               </div>
               <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">
@@ -405,17 +409,17 @@ export default function AdminDashboardPage() {
             <div className="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight">
               ₹{totalOrderRevenue.toLocaleString('en-IN')}
             </div>
-            <span className="text-[10.5px] font-semibold text-gray-700 bg-gray-100 px-1.5 py-0.5 rounded-md border border-gray-200 flex items-center gap-1">
+            <span className="text-[10.5px] font-semibold text-[#8C6C43] bg-[#FAF7F2] px-1.5 py-0.5 rounded-md border border-[#E6DDD4] flex items-center gap-1">
               <span>₹{pendingBalance.toLocaleString('en-IN')} COD Due</span>
             </span>
           </div>
         </div>
 
-        {/* Customer Orders (Very Light Pastel Peach / Blush) */}
+        {/* Customer Orders */}
         <div className="bg-white p-4 sm:p-4.5 rounded-2xl border border-gray-200/70 shadow-2xs hover:shadow-sm transition-all flex flex-col justify-between">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-gray-100 text-gray-500 flex items-center justify-center text-sm shrink-0 shadow-2xs border border-gray-200/50">
+              <div className="w-9 h-9 rounded-xl bg-[#FAF7F2] text-[#8C6C43] flex items-center justify-center text-sm shrink-0 shadow-2xs border border-[#E6DDD4]">
                 <i className="fa-solid fa-bag-shopping" />
               </div>
               <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">
@@ -434,11 +438,11 @@ export default function AdminDashboardPage() {
           </div>
         </div>
 
-        {/* Active Products (Very Light Pastel Lavender) */}
+        {/* Active Products */}
         <div className="bg-white p-4 sm:p-4.5 rounded-2xl border border-gray-200/70 shadow-2xs hover:shadow-sm transition-all flex flex-col justify-between">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-gray-100 text-gray-500 flex items-center justify-center text-sm shrink-0 shadow-2xs border border-gray-200/50">
+              <div className="w-9 h-9 rounded-xl bg-[#FAF7F2] text-[#8C6C43] flex items-center justify-center text-sm shrink-0 shadow-2xs border border-[#E6DDD4]">
                 <i className="fa-solid fa-cubes" />
               </div>
               <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">
@@ -457,11 +461,11 @@ export default function AdminDashboardPage() {
           </div>
         </div>
 
-        {/* Layout Sections (Very Light Pastel Mint / Sage) */}
+        {/* Layout Sections */}
         <div className="bg-white p-4 sm:p-4.5 rounded-2xl border border-gray-200/70 shadow-2xs hover:shadow-sm transition-all flex flex-col justify-between">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-gray-100 text-gray-500 flex items-center justify-center text-sm shrink-0 shadow-2xs border border-gray-200/50">
+              <div className="w-9 h-9 rounded-xl bg-[#FAF7F2] text-[#8C6C43] flex items-center justify-center text-sm shrink-0 shadow-2xs border border-[#E6DDD4]">
                 <i className="fa-solid fa-sliders" />
               </div>
               <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">
@@ -527,54 +531,54 @@ export default function AdminDashboardPage() {
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              {/* Card 1: Very Light Pastel Amber */}
+              {/* Card 1: Hero Showcase */}
               <div className="bg-[#FAF9F6] hover:bg-[#F5F2EB] transition-colors p-3 rounded-xl border border-gray-200/60 flex flex-col items-center text-center">
-                <div className="w-9 h-9 rounded-xl bg-gray-100 text-gray-500 flex items-center justify-center text-base mb-1.5 shadow-2xs border border-gray-200/50">
+                <div className="w-9 h-9 rounded-xl bg-[#FAF7F2] text-[#8C6C43] flex items-center justify-center text-base mb-1.5 shadow-2xs border border-[#E6DDD4]">
                   <i className="fa-solid fa-star" />
                 </div>
                 <span className="text-xs font-bold text-gray-800 truncate w-full">
                   Hero Showcase
                 </span>
-                <span className="text-[9.5px] text-gray-400 font-semibold uppercase mt-0.5">
+                <span className="text-[9.5px] text-[#8C6C43] font-semibold uppercase mt-0.5">
                   ENABLED
                 </span>
               </div>
 
-              {/* Card 2: Very Light Pastel Peach / Blush */}
+              {/* Card 2: Signature Couture */}
               <div className="bg-[#FAF9F6] hover:bg-[#F5F2EB] transition-colors p-3 rounded-xl border border-gray-200/60 flex flex-col items-center text-center">
-                <div className="w-9 h-9 rounded-xl bg-gray-100 text-gray-500 flex items-center justify-center text-base mb-1.5 shadow-2xs border border-gray-200/50">
+                <div className="w-9 h-9 rounded-xl bg-[#FAF7F2] text-[#8C6C43] flex items-center justify-center text-base mb-1.5 shadow-2xs border border-[#E6DDD4]">
                   <i className="fa-solid fa-gem" />
                 </div>
                 <span className="text-xs font-bold text-gray-800 truncate w-full">
-                  Auspicious Finds
+                  Signature Couture
                 </span>
-                <span className="text-[9.5px] text-gray-400 font-semibold uppercase mt-0.5">
+                <span className="text-[9.5px] text-[#8C6C43] font-semibold uppercase mt-0.5">
                   ENABLED
                 </span>
               </div>
 
-              {/* Card 3: Very Light Pastel Lavender */}
+              {/* Card 3: Atelier Curation */}
               <div className="bg-[#FAF9F6] hover:bg-[#F5F2EB] transition-colors p-3 rounded-xl border border-gray-200/60 flex flex-col items-center text-center">
-                <div className="w-9 h-9 rounded-xl bg-gray-100 text-gray-500 flex items-center justify-center text-base mb-1.5 shadow-2xs border border-gray-200/50">
+                <div className="w-9 h-9 rounded-xl bg-[#FAF7F2] text-[#8C6C43] flex items-center justify-center text-base mb-1.5 shadow-2xs border border-[#E6DDD4]">
                   <i className="fa-solid fa-circle-nodes" />
                 </div>
                 <span className="text-xs font-bold text-gray-800 truncate w-full">
-                  Curated Interests
+                  Atelier Curation
                 </span>
-                <span className="text-[9.5px] text-gray-400 font-semibold uppercase mt-0.5">
+                <span className="text-[9.5px] text-[#8C6C43] font-semibold uppercase mt-0.5">
                   ENABLED
                 </span>
               </div>
 
-              {/* Card 4: Very Light Pastel Mint / Sage */}
+              {/* Card 4: Festive Luxe */}
               <div className="bg-[#FAF9F6] hover:bg-[#F5F2EB] transition-colors p-3 rounded-xl border border-gray-200/60 flex flex-col items-center text-center">
-                <div className="w-9 h-9 rounded-xl bg-gray-100 text-gray-500 flex items-center justify-center text-base mb-1.5 shadow-2xs border border-gray-200/50">
-                  <i className="fa-solid fa-gift" />
+                <div className="w-9 h-9 rounded-xl bg-[#FAF7F2] text-[#8C6C43] flex items-center justify-center text-base mb-1.5 shadow-2xs border border-[#E6DDD4]">
+                  <i className="fa-solid fa-sparkles" />
                 </div>
                 <span className="text-xs font-bold text-gray-800 truncate w-full">
-                  Prosperity Gifts
+                  Festive Luxe
                 </span>
-                <span className="text-[9.5px] text-gray-400 font-semibold uppercase mt-0.5">
+                <span className="text-[9.5px] text-[#8C6C43] font-semibold uppercase mt-0.5">
                   ENABLED
                 </span>
               </div>
@@ -678,16 +682,16 @@ export default function AdminDashboardPage() {
           <div className="bg-white rounded-2xl p-4 sm:p-5 border border-gray-200/70 shadow-2xs flex flex-col">
             <div className="flex items-center justify-between mb-3 pb-2.5 border-b border-gray-100">
               <h2 className="text-sm sm:text-base font-bold text-gray-900 tracking-tight">System Alerts</h2>
-              <div className="w-5 h-5 rounded-full bg-gray-100 text-gray-400 flex items-center justify-center text-[10px] border border-gray-200/60">
+              <div className="w-5 h-5 rounded-full bg-[#FAF7F2] text-[#8C6C43] flex items-center justify-center text-[10px] border border-[#E6DDD4]">
                 <i className="fa-solid fa-exclamation" />
               </div>
             </div>
 
             <div className="flex flex-col gap-2.5">
-              {/* Alert 1: Very Light Pastel Peach */}
+              {/* Alert 1 */}
               <div className="p-2.5 bg-gray-50/70 rounded-xl flex items-center justify-between border border-gray-200/60">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-lg bg-gray-100 text-gray-500 flex items-center justify-center text-xs shrink-0 border border-gray-200/50">
+                  <div className="w-8 h-8 rounded-lg bg-[#FAF7F2] text-[#8C6C43] flex items-center justify-center text-xs shrink-0 border border-[#E6DDD4]">
                     <i className="fa-solid fa-bolt" />
                   </div>
                   <div>
@@ -704,10 +708,10 @@ export default function AdminDashboardPage() {
                 </span>
               </div>
 
-              {/* Alert 2: Very Light Pastel Amber */}
+              {/* Alert 2 */}
               <div className="p-2.5 bg-gray-50/70 rounded-xl flex items-center justify-between border border-gray-200/60">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-lg bg-gray-100 text-gray-500 flex items-center justify-center text-xs shrink-0 border border-gray-200/50">
+                  <div className="w-8 h-8 rounded-lg bg-[#FAF7F2] text-[#8C6C43] flex items-center justify-center text-xs shrink-0 border border-[#E6DDD4]">
                     <i className="fa-solid fa-shield-halved" />
                   </div>
                   <div>
@@ -724,10 +728,10 @@ export default function AdminDashboardPage() {
                 </span>
               </div>
 
-              {/* Alert 3: Very Light Pastel Lavender */}
+              {/* Alert 3 */}
               <div className="p-2.5 bg-gray-50/70 rounded-xl flex items-center justify-between border border-gray-200/60">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-lg bg-gray-100 text-gray-500 flex items-center justify-center text-xs shrink-0 border border-gray-200/50">
+                  <div className="w-8 h-8 rounded-lg bg-[#FAF7F2] text-[#8C6C43] flex items-center justify-center text-xs shrink-0 border border-[#E6DDD4]">
                     <i className="fa-solid fa-box-open" />
                   </div>
                   <div>

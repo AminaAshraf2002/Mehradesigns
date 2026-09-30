@@ -3,13 +3,13 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Cancellation & Return Policy | Miracle Feng Shui',
+  title: 'Cancellation & Return Policy | Mehra Designs',
   description:
-    'Read our Cancellation, Return, and Refund Policy for consecrated Feng Shui cures, sacred talismans, and crystals at Miracle Feng Shui.',
+    'Read our Cancellation, Return, and Refund Policy for luxury apparel, bespoke couture, and designer accessories at Mehra Designs.',
 };
 
 export default function ReturnPolicyPage() {
-  const lastUpdated = 'September 16, 2026';
+  const lastUpdated = 'September 25, 2026';
 
   return (
     <div className="min-h-screen bg-[#FAF9F6] text-[#222222] py-12 px-4 sm:px-6 lg:px-8">
@@ -18,14 +18,14 @@ export default function ReturnPolicyPage() {
         <nav aria-label="Breadcrumb" className="mb-6">
           <ol className="flex items-center space-x-2 text-xs text-gray-500">
             <li>
-              <Link href="/" className="hover:text-[#3A1F62] transition-colors">
+              <Link href="/" className="hover:text-[#161338] transition-colors">
                 Home
               </Link>
             </li>
             <li>
               <span className="text-gray-400">/</span>
             </li>
-            <li className="text-[#3A1F62] font-semibold" aria-current="page">
+            <li className="text-[#161338] font-semibold" aria-current="page">
               Cancellation &amp; Return Policy
             </li>
           </ol>
@@ -33,17 +33,17 @@ export default function ReturnPolicyPage() {
 
         {/* Hero Header */}
         <div className="bg-white rounded-3xl p-8 sm:p-12 border border-[#E8E4DA] shadow-xs mb-10 relative overflow-hidden">
-          <div className="absolute -right-16 -top-16 w-64 h-64 bg-[#3A1F62]/5 rounded-full pointer-events-none blur-2xl" />
+          <div className="absolute -right-16 -top-16 w-64 h-64 bg-[#161338]/5 rounded-full pointer-events-none blur-2xl" />
           <div className="relative z-10">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#F3EEFC] text-[#3A1F62] text-xs font-bold uppercase tracking-wider mb-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#161338] text-[#d4af37] text-xs font-bold uppercase tracking-wider mb-4 border border-[#d4af37]/30">
               <i className="fa-solid fa-scale-balanced text-xs" />
-              <span>Sacred Living Policy</span>
+              <span>Customer Care Policy</span>
             </div>
-            <h1 className="text-3xl sm:text-4xl font-bold font-serif tracking-tight text-[#140D1F] mb-3">
+            <h1 className="text-3xl sm:text-4xl font-bold font-serif tracking-tight text-[#161338] mb-3">
               Cancellation, Return &amp; Refund Policy
             </h1>
             <p className="text-sm text-gray-600 max-w-2xl leading-relaxed">
-              At Miracle Feng Shui, every item is carefully curated, energy-cleansed, and consecrated for personal spiritual harmony. Please review our strict policy regarding cancellations, returns, refunds, and damaged transit replacements.
+              At Mehra Designs, every garment and luxury piece is crafted with meticulous attention to detail. Please review our policies regarding returns, exchanges, and customer support.
             </p>
             <div className="mt-4 pt-4 border-t border-gray-100 flex flex-wrap items-center gap-4 text-xs text-gray-500">
               <span>

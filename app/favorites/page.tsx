@@ -71,23 +71,9 @@ export default function FavoritesPage() {
         {/* EMPTY STATE */}
         {favorites.length === 0 ? (
           <div className="py-12 sm:py-16 text-center flex flex-col items-center justify-center">
-            {/* Jewelry Mannequin Bust Icon Silhouette */}
+            {/* Jewelry Gem Icon */}
             <div className="w-16 h-16 sm:w-20 sm:h-20 mb-3 flex items-center justify-center text-[#222222]">
-              <svg
-                viewBox="0 0 64 64"
-                className="w-14 h-14 sm:w-16 sm:h-16 stroke-current fill-none stroke-[2.2] stroke-linecap-round stroke-linejoin-round"
-              >
-                {/* Mannequin head oval */}
-                <ellipse cx="32" cy="14" rx="8" ry="9" />
-                {/* Neck */}
-                <path d="M29 23 L29 27 M35 23 L35 27" />
-                {/* Shoulders and chest contour */}
-                <path d="M20 30 C24 27 28 27 32 27 C36 27 40 27 44 30 L47 38 C47 43 43 46 32 46 C21 46 17 43 17 38 Z" />
-                {/* Torso stand pole */}
-                <path d="M32 46 L32 58" />
-                {/* Pedestal base */}
-                <path d="M24 58 L40 58" />
-              </svg>
+              <i className="fa-solid fa-gem text-4xl sm:text-5xl text-[#222222] opacity-85" />
             </div>
 
             <h2 className="text-[20px] sm:text-[21px] font-bold text-[#222222] mb-1.5 tracking-tight">

@@ -7,8 +7,23 @@ import { useCart } from '@/context/CartContext';
 import { useLocale } from '@/context/CurrencyContext';
 import { products } from '@/lib/placeholder-data';
 import { translateProductTitle } from '@/lib/translations';
+import {
+  Lock,
+  ShieldCheck,
+  Truck,
+  Heart,
+  Trash2,
+  Gift,
+  Tag,
+  ChevronDown,
+  Sparkles,
+  ShoppingBag,
+  ArrowRight,
+  Plus,
+  Minus,
+} from 'lucide-react';
 
-export default function MiracleCartPage() {
+export default function MehraCartPage() {
   const router = useRouter();
   const { items, removeItem, saveForLater, setQty, addItem, subtotal, count } =
     useCart();
@@ -34,32 +49,34 @@ export default function MiracleCartPage() {
     }
   };
 
-  const triggerAuth = (mode: 'signin' | 'register') => {
-    if (typeof window !== 'undefined') {
-      window.dispatchEvent(
-        new CustomEvent('open-auth-modal', { detail: { mode } })
-      );
-    }
-  };
-
   const relatedRecommendations = products.slice(1, 6);
 
   return (
-    <div className="bg-[#FAF9F5]/40 min-h-screen pb-24 text-[#222222] relative">
-      <div className="etsy-container py-6 sm:py-8 max-w-[1200px]">
-        {/* Page Title */}
-        <h1 className="text-[26px] sm:text-[30px] font-bold text-[#222222] mb-6 tracking-tight">
-          {t('cart.basket_title', 'Your basket')} {count > 0 && `(${count})`}
-        </h1>
+    <div className="bg-[#FAF9F5] min-h-screen pb-28 text-[#221D16] relative">
+      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        {/* Page Header */}
+        <div className="mb-8 sm:mb-10 text-left">
+          <span className="text-[10.5px] tracking-[0.25em] text-[#8C6C43] font-bold uppercase block mb-1">
+            HAUTE COUTURE SHOPPING BAG
+          </span>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-normal text-[#221D16] tracking-tight">
+            Your Basket{' '}
+            {count > 0 && (
+              <span className="text-base sm:text-lg font-sans font-normal text-[#7C7267] ml-2">
+                ({count} {count === 1 ? 'item' : 'items'})
+              </span>
+            )}
+          </h1>
+        </div>
 
         {/* Save for later toast notification */}
         {saveToast && (
-          <div className="bg-emerald-50 border border-emerald-200 text-emerald-900 px-4 py-3 rounded-xl flex items-center justify-between text-[13.5px] font-semibold mb-6 animate-in fade-in slide-in-from-top-1 shadow-xs">
+          <div className="bg-[#FAF8F3] border border-[#8C6C43]/40 text-[#221D16] px-4 py-3 rounded-2xl flex items-center justify-between text-xs font-semibold mb-6 animate-in fade-in slide-in-from-top-1 shadow-2xs">
             <span className="flex items-center gap-2">
-              <i className="fa-solid fa-bookmark text-emerald-600 text-[14px]" />
+              <Heart className="w-4 h-4 text-[#8C6C43] fill-[#8C6C43]" />
               {t('cart.saved_to_fav', 'Saved to your favourite items!')}
             </span>
-            <Link href="/favorites" className="underline hover:text-emerald-950 font-bold">
+            <Link href="/favorites" className="underline hover:text-[#8C6C43] font-bold">
               {t('cart.view_fav', 'View favourites')} →
             </Link>
           </div>
@@ -67,53 +84,58 @@ export default function MiracleCartPage() {
 
         {/* EMPTY BASKET STATE */}
         {items.length === 0 ? (
-          <div className="py-12 sm:py-16 text-center flex flex-col items-center">
-            <h2 className="text-[34px] sm:text-[42px] font-serif font-normal text-[#222222] my-10 tracking-tight">
-              {t('cart.basket_empty_title', 'Your basket is empty.')}
+          <div className="py-16 sm:py-24 text-center flex flex-col items-center bg-[#FFFDFA] border border-[#E6E0D4] rounded-[32px] p-8 sm:p-14 shadow-2xs max-w-3xl mx-auto my-6">
+            <div className="w-16 h-16 rounded-full bg-[#FAF8F3] border border-[#E6E0D4] flex items-center justify-center text-[#8C6C43] mb-6 shadow-2xs">
+              <ShoppingBag className="w-7 h-7 stroke-[1.5]" />
+            </div>
+
+            <h2 className="text-3xl sm:text-4xl font-serif font-normal text-[#221D16] mb-3 tracking-tight">
+              {t('cart.basket_empty_title', 'Your basket is currently empty.')}
             </h2>
+            <p className="text-xs sm:text-sm text-[#7C7267] max-w-md mx-auto mb-8 leading-relaxed">
+              Explore our curated runway releases, bespoke silks, and handcrafted signature pieces.
+            </p>
 
             <Link
               href="/shop"
-              style={{ backgroundColor: '#222222', color: '#FFFFFF' }}
-              className="bg-[#222222] hover:bg-black text-white font-bold text-[15px] px-8 py-3.5 rounded-full shadow-sm hover:shadow-md transition-all inline-block mb-16 no-underline"
+              style={{ color: '#FFFFFF' }}
+              className="bg-[#221D16] hover:bg-black !text-white text-white font-bold text-xs tracking-[0.18em] uppercase px-8 py-3.5 rounded-full shadow-sm hover:shadow-md transition-all inline-flex items-center gap-2 cursor-pointer"
             >
-              {t('cart.discover_finds', 'Discover Feng Shui finds')}
+              <span className="!text-white text-white">{t('cart.discover_finds', 'Discover Collections')}</span>
+              <ArrowRight className="w-4 h-4 !text-white text-white" />
             </Link>
 
             {/* Climate Note */}
-            <div className="flex items-center gap-2.5 text-[13px] text-[#595959]">
-              <i className="fa-solid fa-leaf text-[#0F6C34] text-[14px] shrink-0" />
-              <span>
-                Miracle feng shui invests in climate solutions like electric trucks and carbon offsets for every delivery.{' '}
-                <Link href="/shop" className="underline text-[#222222] hover:text-[#0F6C34]">
-                  See how
-                </Link>
-              </span>
+            <div className="flex items-center gap-2 text-xs text-[#7C7267] mt-10 pt-8 border-t border-[#E6E0D4] w-full max-w-md justify-center">
+              <Sparkles className="w-3.5 h-3.5 text-[#8C6C43]" />
+              <span>Complimentary insured shipping &amp; bespoke gift packaging included.</span>
             </div>
           </div>
         ) : (
-          /* FILLED BASKET LAYOUT (MATCHING EXACT SCREENSHOT 3) */
+          /* FILLED BASKET LAYOUT */
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
             {/* LEFT: BASKET ITEMS (8 Columns) */}
             <div className="lg:col-span-8 space-y-6">
-              <div className="bg-white border border-[#E1E3DF] rounded-2xl shadow-xs overflow-hidden">
+              <div className="bg-[#FFFDFA] border border-[#E6E0D4] rounded-[28px] shadow-xs overflow-hidden">
                 {/* Line Items List */}
-                <div className="divide-y divide-[#E1E3DF]/70">
+                <div className="divide-y divide-[#E6E0D4]">
                   {items.map((item) => (
-                    <div key={item.id} className="p-4 sm:p-5">
-                      <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 items-start justify-between">
+                    <div key={item.id} className="p-5 sm:p-7">
+                      <div className="flex flex-col sm:flex-row gap-5 items-start justify-between">
                         {/* Thumbnail & Info */}
-                        <div className="flex gap-4">
-                          <img
-                            src={item.product.images[0]}
-                            alt={translateProductTitle(item.product.name, language, item.product.id)}
-                            className="w-24 h-24 sm:w-28 sm:h-28 rounded-xl object-cover border border-[#E1E3DF] shrink-0"
-                          />
+                        <div className="flex gap-4 sm:gap-5 flex-1">
+                          <Link href={`/product/${item.product.id}`} className="shrink-0 group">
+                            <img
+                              src={item.product.images[0]}
+                              alt={translateProductTitle(item.product.name, language, item.product.id)}
+                              className="w-24 h-24 sm:w-32 sm:h-32 rounded-2xl object-cover border border-[#E6E0D4] bg-[#FAF8F3] group-hover:opacity-95 transition-opacity"
+                            />
+                          </Link>
 
-                          <div className="space-y-1.5">
+                          <div className="space-y-2 flex-1 text-left">
                             <Link
                               href={`/product/${item.product.id}`}
-                              className="text-[14px] sm:text-[15px] font-medium text-[#222222] hover:underline line-clamp-2 leading-snug"
+                              className="font-serif text-base sm:text-lg font-semibold text-[#221D16] hover:text-[#8C6C43] line-clamp-2 leading-snug transition-colors"
                             >
                               {translateProductTitle(item.product.name, language, item.product.id)}
                             </Link>
@@ -122,7 +144,10 @@ export default function MiracleCartPage() {
                             {item.selectedVariations && Object.keys(item.selectedVariations).length > 0 ? (
                               <div className="flex flex-wrap gap-1.5 pt-0.5">
                                 {Object.entries(item.selectedVariations).map(([k, v]) => (
-                                  <span key={k} className="text-[11.5px] text-[#595959] bg-[#F5F5F1] px-2 py-0.5 rounded-md border border-[#E1E3DF]">
+                                  <span
+                                    key={k}
+                                    className="text-[11px] font-semibold text-[#221D16] bg-[#F5F2EB] px-2.5 py-0.5 rounded-full border border-[#E6E0D4]"
+                                  >
                                     {k}: {v}
                                   </span>
                                 ))}
@@ -130,7 +155,10 @@ export default function MiracleCartPage() {
                             ) : item.product.materials && item.product.materials.length > 0 ? (
                               <div className="flex flex-wrap gap-1.5 pt-0.5">
                                 {item.product.materials.slice(0, 2).map((mat) => (
-                                  <span key={mat} className="text-[11.5px] text-[#595959] bg-[#F5F5F1] px-2 py-0.5 rounded-md border border-[#E1E3DF]">
+                                  <span
+                                    key={mat}
+                                    className="text-[11px] font-semibold text-[#221D16] bg-[#F5F2EB] px-2.5 py-0.5 rounded-full border border-[#E6E0D4]"
+                                  >
                                     {mat}
                                   </span>
                                 ))}
@@ -139,69 +167,86 @@ export default function MiracleCartPage() {
 
                             {/* Personalization if provided */}
                             {item.personalizationText && (
-                              <p className="text-[11.5px] text-[#595959] italic pt-0.5">
-                                Dedication: &quot;{item.personalizationText}&quot;
+                              <p className="text-[11.5px] text-[#7C7267] italic">
+                                Monogram: &quot;{item.personalizationText}&quot;
                               </p>
                             )}
 
-                            {/* Dynamic Urgency / Demand Indicator (only if product has inDemandCount or bestseller) */}
+                            {/* Demand / Bestseller Badge */}
                             {item.product.inDemandCount && item.product.inDemandCount > 0 ? (
-                              <p className="text-[12px] text-[#A82218] font-medium pt-0.5 flex items-center gap-1.5">
-                                <i className="fa-solid fa-fire text-[11px]" />
-                                <span>In {item.product.inDemandCount} people&apos;s baskets right now</span>
+                              <p className="text-xs text-[#8C6C43] font-semibold flex items-center gap-1.5">
+                                <Sparkles className="w-3.5 h-3.5" />
+                                <span>High Demand: In {item.product.inDemandCount} clients&apos; baskets</span>
                               </p>
                             ) : item.product.bestseller ? (
-                              <p className="text-[12px] text-emerald-700 font-medium pt-0.5 flex items-center gap-1.5">
-                                <i className="fa-solid fa-star text-[11px]" />
-                                <span>Bestselling consecrated cure</span>
+                              <p className="text-xs text-[#8C6C43] font-semibold flex items-center gap-1.5">
+                                <Sparkles className="w-3.5 h-3.5" />
+                                <span>Bestselling Signature Creation</span>
                               </p>
                             ) : null}
 
                             {/* Actions row: Quantity selector + Edit + Save for later + Remove */}
-                            <div className="flex flex-wrap items-center gap-3 pt-3">
-                              {/* Quantity Dropdown */}
-                              <div className="relative">
-                                <select
-                                  value={item.quantity}
-                                  onChange={(e) => setQty(item.id, Number(e.target.value))}
-                                  className="appearance-none bg-white border border-[#CCCCCC] hover:border-[#222222] rounded-lg pl-3 pr-7 py-1 text-[13px] font-semibold text-[#222222] focus:outline-none focus:ring-1 focus:ring-[#F1641E] cursor-pointer"
+                            <div className="flex flex-wrap items-center gap-4 pt-3">
+                              {/* Quantity Stepper (Minus / Count / Plus) */}
+                              <div className="flex items-center border border-[#E6E0D4] rounded-full bg-white px-2 py-0.5 shadow-2xs">
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    if (item.quantity > 1) {
+                                      setQty(item.id, item.quantity - 1);
+                                    } else {
+                                      removeItem(item.id);
+                                    }
+                                  }}
+                                  className="w-6 h-6 rounded-full flex items-center justify-center text-[#221D16] hover:bg-[#F5F2EB] active:scale-95 transition-all cursor-pointer"
+                                  aria-label="Decrease quantity"
                                 >
-                                  {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
-                                    <option key={num} value={num}>
-                                      {num}
-                                    </option>
-                                  ))}
-                                </select>
-                                <i className="fa-solid fa-chevron-down text-[10px] text-gray-500 absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none" />
+                                  <Minus className="w-3 h-3 stroke-[2.5]" />
+                                </button>
+                                <span className="px-3 text-xs font-bold text-[#221D16] min-w-[24px] text-center select-none">
+                                  {item.quantity}
+                                </span>
+                                <button
+                                  type="button"
+                                  onClick={() => setQty(item.id, item.quantity + 1)}
+                                  className="w-6 h-6 rounded-full flex items-center justify-center text-[#221D16] hover:bg-[#F5F2EB] active:scale-95 transition-all cursor-pointer"
+                                  aria-label="Increase quantity"
+                                >
+                                  <Plus className="w-3 h-3 stroke-[2.5]" />
+                                </button>
                               </div>
 
                               <Link
                                 href={`/product/${item.product.id}`}
-                                className="text-[13px] font-semibold text-[#222222] hover:underline"
+                                className="text-xs font-semibold text-[#7C7267] hover:text-[#221D16] transition-colors"
                               >
-                                Edit
+                                Edit Size
                               </Link>
+
                               <button
                                 type="button"
                                 onClick={() => handleSaveForLater(item.id)}
-                                className="text-[13px] font-semibold text-[#222222] hover:underline cursor-pointer"
+                                className="text-xs font-semibold text-[#7C7267] hover:text-[#8C6C43] flex items-center gap-1 cursor-pointer transition-colors"
                               >
-                                Save for later
+                                <Heart className="w-3 h-3" />
+                                <span>Save for later</span>
                               </button>
+
                               <button
                                 type="button"
                                 onClick={() => removeItem(item.id)}
-                                className="text-[13px] font-semibold text-[#222222] hover:underline cursor-pointer"
+                                className="text-xs font-semibold text-rose-600 hover:text-rose-700 flex items-center gap-1 cursor-pointer transition-colors"
                               >
-                                Remove
+                                <Trash2 className="w-3 h-3" />
+                                <span>Remove</span>
                               </button>
                             </div>
                           </div>
                         </div>
 
                         {/* Price */}
-                        <div className="text-right sm:self-start shrink-0">
-                          <span className="text-[17px] sm:text-[18px] font-bold text-[#222222]">
+                        <div className="text-right sm:self-start shrink-0 pt-1">
+                          <span className="font-serif text-lg sm:text-xl font-bold text-[#221D16]">
                             {formatPrice(item.product.price * item.quantity)}
                           </span>
                         </div>
@@ -211,20 +256,27 @@ export default function MiracleCartPage() {
                 </div>
 
                 {/* Postage / Delivery Strip */}
-                <div className="bg-[#FAF9F5] border-t border-[#E1E3DF] px-5 py-3 text-[13px] text-[#222222] flex items-center justify-between">
-                  <span>
-                    <strong>{t('cart.shipping', 'Delivery')}:</strong> {t('cart.free', 'FREE')} ({country === 'UAE' ? 'Express Air Delivery to UAE' : 'Express Insured Delivery across India'})
+                <div className="bg-[#FAF8F3] border-t border-[#E6E0D4] px-6 py-4 text-xs text-[#221D16] flex items-center justify-between">
+                  <span className="flex items-center gap-2">
+                    <Truck className="w-4 h-4 text-[#8C6C43]" />
+                    <span>
+                      <strong>{t('cart.shipping', 'Delivery')}:</strong> {t('cart.free', 'FREE')}{' '}
+                      ({country === 'UAE' ? 'Express Air Delivery to UAE' : 'Express Insured Delivery across India'})
+                    </span>
+                  </span>
+                  <span className="text-[11px] font-bold text-[#8C6C43] uppercase tracking-wider hidden sm:inline-block">
+                    Insured Courier
                   </span>
                 </div>
               </div>
 
-              {/* Climate Note */}
-              <div className="flex items-center gap-2 text-[13px] text-[#595959] pt-1">
-                <i className="fa-solid fa-leaf text-[#0F6C34] text-[13px] shrink-0" />
+              {/* Sustainable Luxury Note */}
+              <div className="flex items-center gap-2.5 text-xs text-[#7C7267] pt-1">
+                <Sparkles className="w-4 h-4 text-[#8C6C43] shrink-0" />
                 <span>
-                  Miracle feng shui invests in climate solutions like electric trucks and carbon offsets for every delivery.{' '}
-                  <Link href="/shop" className="underline text-[#222222] hover:text-[#0F6C34]">
-                    See how
+                  Mehra Designs invests in sustainable fashion, eco-conscious luxury packaging, and carbon-neutral delivery.{' '}
+                  <Link href="/shop" className="underline text-[#221D16] hover:text-[#8C6C43] font-medium">
+                    Learn more
                   </Link>
                 </span>
               </div>
@@ -232,54 +284,68 @@ export default function MiracleCartPage() {
 
             {/* RIGHT: ORDER SUMMARY (4 Columns) */}
             <div className="lg:col-span-4 space-y-4">
-              <div className="bg-white border border-[#E1E3DF] rounded-2xl p-5 sm:p-6 shadow-xs space-y-4">
+              <div className="bg-[#FFFDFA] border border-[#E6E0D4] rounded-[28px] p-6 sm:p-7 shadow-xs space-y-5 sticky top-24 text-left">
+                {/* Header */}
+                <h2 className="font-serif text-lg font-bold text-[#221D16] pb-3 border-b border-[#E6E0D4]">
+                  Order Summary
+                </h2>
+
                 {/* Item(s) total */}
-                <div className="flex justify-between items-center text-[15px] text-[#222222]">
-                  <span>{t('cart.subtotal', 'Item(s) total')}</span>
-                  <span className="font-bold">
-                    {formatPrice(subtotal)}
-                  </span>
+                <div className="flex justify-between items-center text-sm text-[#221D16]">
+                  <span className="text-[#595959]">{t('cart.subtotal', 'Item(s) total')}</span>
+                  <span className="font-bold">{formatPrice(subtotal)}</span>
                 </div>
 
-                {/* Purchase Protection */}
-                <div className="flex items-start gap-2 text-[13px] text-[#222222]">
-                  <div className="w-4 h-4 rounded-full bg-[#222222] text-white flex items-center justify-center shrink-0 mt-0.5">
-                    <i className="fa-solid fa-check text-[10px]" />
+                {/* Purchase Protection Guarantee */}
+                <div className="bg-[#FAF8F3] border border-[#E6E0D4] p-3.5 rounded-2xl flex items-start gap-3 text-xs">
+                  <div className="w-5 h-5 rounded-full bg-[#8C6C43] text-white flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
+                    <ShieldCheck className="w-3.5 h-3.5" />
                   </div>
-                  <div className="leading-snug text-[13px] text-[#222222]">
+                  <div className="leading-snug text-[#221D16]">
                     <span>You&apos;re covered with </span>
-                    <span className="font-semibold text-[#111111] underline underline-offset-2 decoration-gray-400 hover:text-[#F1641E] cursor-pointer">
-                      Miracle Feng Shui Purchase Protection
+                    <span className="font-semibold text-[#8C6C43] underline underline-offset-2 decoration-[#8C6C43]/40 hover:text-[#221D16] cursor-pointer">
+                      Mehra Designs Client Guarantee
                     </span>
                   </div>
                 </div>
 
                 {/* Delivery */}
-                <div className="flex justify-between items-center text-[13.5px] text-[#222222]">
+                <div className="flex justify-between items-center text-xs text-[#221D16]">
                   <div>
-                    <span>{t('cart.shipping', 'Delivery')}</span>
-                    <span className="text-[12px] text-[#595959] block">(To {country === 'UAE' ? 'UAE' : 'India'})</span>
+                    <span className="font-medium text-[#595959]">{t('cart.shipping', 'Delivery')}</span>
+                    <span className="text-[11px] text-[#7C7267] block">
+                      (To {country === 'UAE' ? 'United Arab Emirates' : 'India'})
+                    </span>
                   </div>
-                  <span className="font-semibold text-[#0F6C34]">{t('cart.free', 'FREE')}</span>
+                  <span className="font-bold text-[#8C6C43] uppercase tracking-wider">{t('cart.free', 'FREE')}</span>
                 </div>
 
                 {/* Total */}
-                <div className="flex justify-between items-baseline text-[17px] font-bold text-[#222222] pt-2 border-t border-[#E1E3DF]">
-                  <span>{t('product.total', 'Total')} ({count} {count === 1 ? 'item' : 'items'})</span>
-                  <span>{formatPrice(subtotal)}</span>
+                <div className="flex justify-between items-baseline pt-4 border-t border-[#E6E0D4]">
+                  <div>
+                    <span className="font-serif text-base font-bold text-[#221D16] block">
+                      {t('product.total', 'Total')}
+                    </span>
+                    <span className="text-[11px] text-[#7C7267]">
+                      ({count} {count === 1 ? 'item' : 'items'}, pre-tax)
+                    </span>
+                  </div>
+                  <span className="font-serif text-2xl font-bold text-[#221D16]">
+                    {formatPrice(subtotal)}
+                  </span>
                 </div>
 
                 {/* Mark as Gift Checkbox */}
-                <div className="pt-2">
-                  <label className="flex items-center gap-2 text-[13px] text-[#222222] cursor-pointer">
+                <div className="pt-1">
+                  <label className="flex items-center gap-2.5 text-xs text-[#221D16] cursor-pointer select-none">
                     <input
                       type="checkbox"
                       checked={isGift}
                       onChange={(e) => setIsGift(e.target.checked)}
-                      className="w-4 h-4 rounded border-[#CCCCCC] text-[#222222] focus:ring-[#F1641E]"
+                      className="w-4 h-4 rounded border-[#E6E0D4] text-[#221D16] focus:ring-[#8C6C43] cursor-pointer accent-[#221D16]"
                     />
-                    <span>Mark order as a gift</span>
-                    <span className="text-[12px] underline text-[#595959] ml-1">Learn more</span>
+                    <Gift className="w-3.5 h-3.5 text-[#8C6C43]" />
+                    <span>Complimentary Gift Packaging &amp; Ribbon</span>
                   </label>
                 </div>
 
@@ -287,82 +353,69 @@ export default function MiracleCartPage() {
                 <button
                   type="button"
                   onClick={() => router.push('/checkout')}
-                  style={{ backgroundColor: '#222222', color: '#ffffff' }}
-                  className="w-full bg-[#222222] hover:bg-black text-white font-bold text-[14.5px] py-3.5 px-6 rounded-full transition-all shadow-sm hover:shadow-md flex items-center justify-center gap-2 cursor-pointer"
+                  style={{ color: '#FFFFFF' }}
+                  className="w-full bg-[#221D16] hover:bg-black !text-white text-white font-bold text-xs tracking-[0.16em] uppercase py-4 px-6 rounded-full transition-all shadow-sm hover:shadow-md flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  <i className="fa-solid fa-lock text-[12px]" />
-                  <span>{t('cart.proceed_to_checkout', 'Proceed to checkout')}</span>
+                  <Lock className="w-3.5 h-3.5 text-[#B99465]" />
+                  <span className="!text-white text-white">{t('cart.proceed_to_checkout', 'Proceed to Checkout')}</span>
                 </button>
 
                 {/* Secure options */}
-                <div className="space-y-2 pt-1 border-t border-[#E1E3DF]/70 text-left">
-                  <div className="flex items-center gap-1.5 text-[12.5px] font-semibold text-[#222222]">
-                    <i className="fa-solid fa-lock text-[12px]" />
-                    <span>Secure options in checkout</span>
+                <div className="space-y-2 pt-2 border-t border-[#E6E0D4]">
+                  <div className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-[#7C7267]">
+                    <Lock className="w-3 h-3 text-[#8C6C43]" />
+                    <span>Guaranteed Safe &amp; Secure Checkout</span>
                   </div>
 
-                  <div className="flex items-center gap-2 pt-0.5">
-                    <span className="px-2 py-0.5 bg-[#F5F5F1] rounded text-[10px] font-bold text-[#1A1F71] border border-[#E1E3DF]">
-                      VISA
-                    </span>
-                    <span className="px-2 py-0.5 bg-[#F5F5F1] rounded text-[10px] font-bold text-[#EB001B] border border-[#E1E3DF]">
-                      mastercard
-                    </span>
-                    <span className="px-2 py-0.5 bg-[#F5F5F1] rounded text-[10px] font-bold text-[#006FCF] border border-[#E1E3DF]">
-                      AMEX
-                    </span>
-                    <span className="px-2 py-0.5 bg-[#F5F5F1] rounded text-[10px] font-bold text-[#004B8D] border border-[#E1E3DF]">
-                      Diners Club
-                    </span>
-                    <span className="px-2 py-0.5 bg-[#F5F5F1] rounded text-[10px] font-bold text-[#0F6C34] border border-[#E1E3DF]">
-                      UPI
-                    </span>
+                  <div className="flex items-center gap-1.5 pt-0.5 flex-wrap">
+                    {['VISA', 'Mastercard', 'AMEX', 'UPI', 'NetBanking'].map((badge) => (
+                      <span
+                        key={badge}
+                        className="px-2.5 py-1 bg-[#FAF8F3] rounded-md text-[10px] font-bold text-[#221D16] border border-[#E6E0D4] tracking-wider"
+                      >
+                        {badge}
+                      </span>
+                    ))}
                   </div>
                 </div>
 
                 {/* Coupon Code */}
-                <div className="pt-2 border-t border-[#E1E3DF]/70">
+                <div className="pt-2 border-t border-[#E6E0D4]">
                   {!showCouponInput ? (
                     <button
                       type="button"
                       onClick={() => setShowCouponInput(true)}
-                      className="flex items-center gap-1.5 text-[13px] font-bold text-[#0F6C34] hover:underline cursor-pointer"
+                      className="flex items-center gap-2 text-xs font-semibold text-[#8C6C43] hover:text-[#221D16] cursor-pointer transition-colors"
                     >
-                      <i className="fa-solid fa-tag text-[12px]" />
-                      <span>Apply coupon code</span>
+                      <Tag className="w-3.5 h-3.5" />
+                      <span>Have a promotional atelier code?</span>
                     </button>
                   ) : (
                     <form onSubmit={handleApplyCoupon} className="space-y-2">
                       <div className="flex items-center gap-2">
                         <input
                           type="text"
-                          placeholder="Coupon code"
+                          placeholder="Enter Promo Code"
                           value={couponCode}
                           onChange={(e) => setCouponCode(e.target.value)}
-                          className="w-full px-3 py-1.5 text-[13px] border border-[#E1E3DF] rounded-xl focus:outline-none focus:ring-1 focus:ring-[#F1641E]"
+                          className="w-full px-3 py-2 text-xs border border-[#E6E0D4] bg-white rounded-xl focus:outline-none focus:ring-1 focus:ring-[#8C6C43] text-[#221D16]"
                         />
                         <button
                           type="submit"
-                          className="px-3 py-1.5 bg-[#222222] text-white font-bold text-[12px] rounded-xl cursor-pointer"
+                          style={{ color: '#FFFFFF' }}
+                          className="px-4 py-2 bg-[#221D16] !text-white text-white font-bold text-xs rounded-xl cursor-pointer hover:bg-black transition-colors"
                         >
                           Apply
                         </button>
                       </div>
                       {couponApplied && (
-                        <p className="text-[12px] text-[#0F6C34] font-semibold">
-                          ✓ 10% discount coupon applied!
+                        <p className="text-xs text-[#8C6C43] font-semibold flex items-center gap-1">
+                          <Sparkles className="w-3.5 h-3.5" />
+                          <span>10% luxury boutique discount applied!</span>
                         </p>
                       )}
                     </form>
                   )}
-                </div>
-
-                {/* Tax Disclaimers */}
-                <div className="text-[11.5px] text-[#595959] space-y-1 pt-1 leading-relaxed">
-                  <p>Local taxes included (where applicable)</p>
-                  <p>
-                    * Learn more about additional taxes, duties, and fees that may apply
-                  </p>
                 </div>
               </div>
             </div>
@@ -370,61 +423,111 @@ export default function MiracleCartPage() {
         )}
 
         {/* RELATED ITEMS YOU MAY LIKE */}
-        <div className="mt-16 pt-10 border-t border-[#E1E3DF]">
-          <div className="flex items-baseline justify-between mb-6">
-            <h2 className="text-[20px] sm:text-[22px] font-bold text-[#222222]">
-              Related items you may like{' '}
-              <span className="text-[12px] font-normal text-[#595959] ml-1">
-                Including ads ⓘ
+        <div className="mt-20 pt-12 border-t border-[#E6E0D4]">
+          <div className="flex items-baseline justify-between mb-8 text-left">
+            <div>
+              <span className="text-[10px] tracking-[0.25em] text-[#8C6C43] font-bold uppercase block mb-1">
+                CURATED COMPLEMENTS
               </span>
-            </h2>
+              <h2 className="text-2xl sm:text-3xl font-serif font-normal text-[#221D16]">
+                You May Also Admire
+              </h2>
+            </div>
+            <Link
+              href="/shop"
+              className="text-xs font-bold uppercase tracking-wider text-[#8C6C43] hover:text-[#221D16] underline underline-offset-4 transition-colors hidden sm:inline-block"
+            >
+              Explore All Collections →
+            </Link>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-5">
-            {relatedRecommendations.map((prod) => (
-              <div
-                key={prod.id}
-                className="bg-white border border-[#E1E3DF] rounded-2xl overflow-hidden p-3 hover:shadow-md transition-shadow flex flex-col justify-between group"
-              >
-                <div>
-                  <div className="aspect-square rounded-xl overflow-hidden bg-[#F5F5F1] mb-2.5 relative">
-                    <img
-                      src={prod.images[0]}
-                      alt={translateProductTitle(prod.name, language, prod.id)}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                  <Link
-                    href={`/product/${prod.id}`}
-                    className="text-[13px] font-medium text-[#222222] hover:underline line-clamp-2 leading-snug"
-                  >
-                    {translateProductTitle(prod.name, language, prod.id)}
-                  </Link>
-                  <p className="text-[11px] text-[#595959] mt-0.5">
-                    ✿ Ad by Miracle feng shui seller
-                  </p>
-                  <div className="flex items-baseline gap-1.5 mt-2">
-                    <span className="text-[14px] font-bold text-[#222222]">
-                      {formatPrice(prod.price)}
-                    </span>
-                    {prod.originalPrice && (
-                      <span className="text-[11px] text-[#757575] line-through">
-                        {formatPrice(prod.originalPrice)}
-                      </span>
-                    )}
-                  </div>
-                </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6">
+            {relatedRecommendations.map((prod) => {
+              const existingCartItem = items.find((item) => item.product.id === prod.id);
+              const countInBag = existingCartItem ? existingCartItem.quantity : 0;
 
-                <button
-                  type="button"
-                  onClick={() => addItem(prod, 1)}
-                  className="mt-3 w-full border border-[#222222] hover:bg-[#F5F5F1] text-[#222222] font-semibold text-[12px] py-1.5 px-2 rounded-full transition-colors flex items-center justify-center gap-1 cursor-pointer"
+              return (
+                <div
+                  key={prod.id}
+                  className="bg-[#FFFDFA] border border-[#E6E0D4] rounded-2xl overflow-hidden p-3.5 hover:shadow-md transition-all flex flex-col justify-between group"
                 >
-                  <i className="fa-solid fa-plus text-[12px]" />
-                  <span>Add to basket</span>
-                </button>
-              </div>
-            ))}
+                  <div>
+                    <div className="aspect-square rounded-xl overflow-hidden bg-[#FAF8F3] mb-3 relative">
+                      <img
+                        src={prod.images[0]}
+                        alt={translateProductTitle(prod.name, language, prod.id)}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    </div>
+                    <Link
+                      href={`/product/${prod.id}`}
+                      className="font-serif text-sm font-semibold text-[#221D16] hover:text-[#8C6C43] line-clamp-2 leading-snug transition-colors text-left block"
+                    >
+                      {translateProductTitle(prod.name, language, prod.id)}
+                    </Link>
+                    <p className="text-[10.5px] text-[#8C6C43] font-medium mt-1 text-left">
+                      ✦ Handcrafted by Mehra Designs Studio
+                    </p>
+                    <div className="flex items-baseline gap-2 mt-2 text-left">
+                      <span className="font-serif text-sm font-bold text-[#221D16]">
+                        {formatPrice(prod.price)}
+                      </span>
+                      {prod.originalPrice && (
+                        <span className="text-xs text-gray-400 line-through">
+                          {formatPrice(prod.originalPrice)}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+
+                  {countInBag > 0 && existingCartItem ? (
+                    <div className="mt-4 w-full bg-[#221D16] text-white rounded-full py-1.5 px-3 flex items-center justify-between shadow-xs select-none">
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          if (existingCartItem.quantity > 1) {
+                            setQty(existingCartItem.id, existingCartItem.quantity - 1);
+                          } else {
+                            removeItem(existingCartItem.id);
+                          }
+                        }}
+                        aria-label="Decrease quantity"
+                        className="w-6 h-6 rounded-full flex items-center justify-center hover:bg-white/20 active:scale-95 text-white transition-all cursor-pointer"
+                      >
+                        <Minus className="w-3.5 h-3.5 stroke-[2.5]" />
+                      </button>
+
+                      <span className="text-xs font-bold tracking-wider !text-white text-white flex items-center gap-1">
+                        <span className="text-sm font-bold">{countInBag}</span>
+                        <span className="text-[10px] uppercase text-white/80 font-medium">in Bag</span>
+                      </span>
+
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setQty(existingCartItem.id, existingCartItem.quantity + 1);
+                        }}
+                        aria-label="Increase quantity"
+                        className="w-6 h-6 rounded-full flex items-center justify-center hover:bg-white/20 active:scale-95 text-white transition-all cursor-pointer"
+                      >
+                        <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
+                      </button>
+                    </div>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => addItem(prod, 1)}
+                      className="mt-4 w-full border border-[#221D16] hover:bg-[#221D16] hover:text-white text-[#221D16] font-bold text-[11px] tracking-wider uppercase py-2 px-2 rounded-full transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                    >
+                      <Plus className="w-3.5 h-3.5" />
+                      <span>Add to Bag</span>
+                    </button>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

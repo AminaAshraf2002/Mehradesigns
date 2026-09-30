@@ -77,4 +77,15 @@ export const adminController = {
     const sections = await adminService.updateHomepageSections(input);
     return apiResponse.ok(sections);
   },
+
+  async getSingleHomepageSection(params: { sectionKey: string }) {
+    const section = await adminService.getHomepageSectionByKey(params.sectionKey);
+    return apiResponse.ok(section);
+  },
+
+  async updateSingleHomepageSection(req: NextRequest, params: { sectionKey: string }) {
+    const body = await req.json();
+    const section = await adminService.updateSingleHomepageSection(params.sectionKey, body);
+    return apiResponse.ok(section);
+  },
 };

@@ -9,6 +9,13 @@ import {
 
 export type HomeSectionId =
   | 'hero'
+  | 'category_circles'
+  | 'curated_collections'
+  | 'promo_banners'
+  | 'most_loved_picks'
+  | 'features_strip'
+  | 'category_grid'
+  | 'social_gallery'
   | 'featured_interests'
   | 'auspicious_collections'
   | 'prosperity_gifts'
@@ -26,13 +33,22 @@ export interface HomeSectionConfig {
   ctaText?: string;
   ctaLink?: string;
   badge?: string;
+  order?: number;
+  config?: any;
 }
 
-// 1. HERO SLIDES & RIGHT CARD
+// 1. HERO SLIDES
 export interface HeroSlideItem {
   id: string;
-  image: string;
-  alt: string;
+  eyebrow?: string;
+  headlineLine1?: string;
+  headlineLine2?: string;
+  subtext?: string;
+  buttonText?: string;
+  buttonLink?: string;
+  imageSrc?: string;
+  image?: string;
+  alt?: string;
 }
 
 export interface HeroRightCard {
@@ -48,45 +64,87 @@ export interface HeroBannerData {
   ctaText: string;
   ctaLink: string;
   slides: HeroSlideItem[];
-  rightCard: HeroRightCard;
+  rightCard?: HeroRightCard;
 }
 
-// 2. PROSPERITY HERO CATEGORY CARDS
-export interface ProsperityHeroCard {
-  id: string;
-  title: string;
-  slug: string;
-  image: string;
-}
-
-// 3. SPECIAL GIFTS
-export interface SpecialGiftItem {
+// 2. CATEGORY CIRCLES HIGHLIGHTS
+export interface CategoryCircleItem {
   id: string;
   name: string;
+  badge?: string;
+  image: string;
   slug: string;
+  isSaleCard?: boolean;
+}
+
+// 3. CURATED COLLECTIONS / NEW ARRIVALS
+export interface CuratedProductItem {
+  id: string;
+  name: string;
+  price: number;
+  image: string;
+  link: string;
+  colors?: string[];
+}
+
+export interface CuratedCollectionsData {
+  title: string;
+  subtitle: string;
+  items: CuratedProductItem[];
+}
+
+// 4. PROMO BANNERS
+export interface PromoBannerCard {
+  badge: string;
+  title: string;
+  buttonText: string;
+  buttonLink: string;
   image: string;
 }
 
-// 4. ENERGY & HARMONY GUIDE (CURATED STYLE & CHI)
-export interface GuideCardItem {
-  id: string;
-  title: string;
-  slug: string;
-  image: string;
-  videoUrl?: string;
-  tag?: string;
+export interface PromoBannersData {
+  leftBanner: PromoBannerCard;
+  rightBanner: PromoBannerCard;
 }
 
-// 5. SACRED KNOWLEDGE / BLOG POSTS
-export interface BlogPostItem {
+// 5. FEATURES STRIP
+export interface FeaturesStripItem {
   id: string;
+  iconName: string;
   title: string;
-  category: string;
-  summary: string;
-  slug: string;
-  image: string;
-  collage?: string[];
+  description: string;
 }
+
+// 6. CATEGORY GRID
+export interface CategoryGridData {
+  headline: string;
+  subtext: string;
+  largeCard: {
+    title: string;
+    subtitle: string;
+    buttonText: string;
+    link: string;
+    image: string;
+  };
+  gridCards: Array<{
+    title: string;
+    link: string;
+    image: string;
+  }>;
+}
+
+// 7. SOCIAL GALLERY (INSTAGRAM)
+export interface SocialGalleryItem {
+  id: string;
+  imgUrl: string;
+  link: string;
+}
+
+// Legacy compatibility types
+export interface ProsperityHeroCard { id: string; title: string; slug: string; image: string; }
+export interface SpecialGiftItem { id: string; name: string; slug: string; image: string; }
+export interface GuideCardItem { id: string; title: string; slug: string; image: string; videoUrl?: string; tag?: string; }
+export interface BlogPostItem { id: string; title: string; category: string; summary: string; slug: string; image: string; collage?: string[]; }
 
 export type OrderStatus = 'Pending' | 'Processing' | 'Shipped' | 'Delivered' | 'Cancelled';
 
@@ -116,266 +174,323 @@ export interface StoreOrder {
 export const defaultSections: HomeSectionConfig[] = [
   {
     id: 'hero',
-    name: 'Hero Promotional Banner',
+    name: 'Hero Carousel',
     enabled: true,
-    title: 'Invite wealth, peace & positive energy home',
-    subtitle: 'Taoist master-blessed authentic talismans, consecrated jewelry, and handcrafted Feng Shui cures.',
-    ctaText: 'Shop Feng Shui',
-    ctaLink: '/shop?q=feng+shui',
-    badge: 'Conscious Craftsmanship',
+    title: 'Find Yours. Feel Beautiful.',
+    subtitle: 'Bespoke couture and designer gowns tailored for everyday elegance.',
+    ctaText: 'Shop Dresses',
+    ctaLink: '/shop?category=Dresses',
+    badge: 'NEW ARRIVALS',
   },
   {
-    id: 'featured_interests',
-    name: 'Jump into Featured Interests',
+    id: 'category_circles',
+    name: 'Category Highlights',
     enabled: true,
-    title: 'Jump into featured interests',
-    subtitle: 'Explore authentic Feng Shui cures, jewelry, candles, and meditation crystals.',
+    title: 'Shop by Category',
+    subtitle: 'Explore our latest luxury arrivals and curated essentials.',
   },
   {
-    id: 'auspicious_collections',
-    name: 'Auspicious Collections',
+    id: 'curated_collections',
+    name: 'Curated Collections',
     enabled: true,
-    title: 'Discover our most auspicious collections',
-    subtitle: 'Hand-picked talismans aligned with Bagua energy sectors.',
+    title: 'Curated Collections',
+    subtitle: 'Signature Edit',
+    ctaText: 'View All New Arrivals',
+    ctaLink: '/shop',
   },
   {
-    id: 'prosperity_gifts',
-    name: 'Prosperity Gifts & Thumbnail Picks',
+    id: 'promo_banners',
+    name: 'Promotional Banners',
     enabled: true,
-    title: 'Miracle feng shui-special gifts for prosperity',
-    subtitle: 'Consciously crafted prosperity essentials and customer favorites.',
-    ctaText: 'Get inspired',
-    ctaLink: '/shop?category=Feng%20Shui%20Decor',
+    title: 'Spring Sale & New Season',
+    subtitle: 'Limited-time special offers on signature pieces.',
   },
   {
-    id: 'special_gifts',
-    name: 'Gifts As Special As They Are',
+    id: 'most_loved_picks',
+    name: 'Most Loved Picks',
     enabled: true,
-    title: 'Gifts as special as they are',
-    subtitle: 'Curated sets for new beginnings, housewarming, and protection.',
+    title: 'Our Most Loved Picks',
+    subtitle: 'Discover iconic wardrobe staples curated by Mehra Designs stylists.',
+    badge: 'BEST SELLERS',
+    ctaText: 'View All Products',
+    ctaLink: '/shop',
   },
   {
-    id: 'todays_deals',
-    name: "Today's Auspicious Deals",
+    id: 'features_strip',
+    name: 'Features & Guarantees',
     enabled: true,
-    title: "Today's auspicious deals",
-    subtitle: 'Special blessing discounts ending tonight.',
-    badge: 'Limited-time Chi Boost',
+    title: 'Why Choose Mehra Designs',
+    subtitle: 'Heirloom craftsmanship, global delivery, and personal atelier care.',
   },
   {
-    id: 'fashion_guide',
-    name: 'Energy & Harmony Visual Guide',
+    id: 'category_grid',
+    name: 'Category Grid Showcase',
     enabled: true,
-    title: "Miracle feng shui's Guide to Energy & Harmony",
-    subtitle: 'From sacred brass talismans to handcrafted healing crystals, everything you need to balance your home and spirit.',
-    badge: 'Curated Style & Chi',
-    ctaText: 'Shop these sacred finds',
-    ctaLink: '/shop?category=Feng%20Shui%20Decor',
+    title: 'Explore The Wardrobe',
+    subtitle: 'Handmade luxury pieces crafted with passion.',
   },
   {
-    id: 'sacred_knowledge',
-    name: 'Sacred Knowledge & Articles',
+    id: 'social_gallery',
+    name: 'Social Gallery (Instagram)',
     enabled: true,
-    title: 'From our Feng Shui Masters & Curators',
-    subtitle: 'Ancient wisdom and modern placement tips for high Chi living.',
+    title: 'Follow @MehraDesigns on Instagram',
+    subtitle: 'Share your look with #MehraDesigns for a chance to be featured.',
+  },
+];
+
+export const defaultHeroSlides: HeroSlideItem[] = [
+  {
+    id: 'slide-1',
+    eyebrow: 'NEW ARRIVALS',
+    headlineLine1: 'Find Yours.',
+    headlineLine2: 'Feel Beautiful.',
+    subtext: 'Bespoke couture and designer gowns tailored for everyday elegance.',
+    buttonText: 'Shop Dresses',
+    buttonLink: '/shop?category=Dresses',
+    imageSrc: '/hero1.png?v=7',
+    image: '/hero1.png?v=7',
+    alt: 'New dress collection',
+  },
+  {
+    id: 'slide-2',
+    eyebrow: 'SUMMER EDIT',
+    headlineLine1: 'Light Fabrics.',
+    headlineLine2: 'Golden Evenings.',
+    subtext: 'Breezy linen and Italian silks for daytime celebrations.',
+    buttonText: 'Shop Summer Dresses',
+    buttonLink: '/shop?category=Women',
+    imageSrc: '/hero2.png?v=7',
+    image: '/hero2.png?v=7',
+    alt: 'Summer dress collection',
+  },
+  {
+    id: 'slide-3',
+    eyebrow: 'EVENING WEAR',
+    headlineLine1: 'Evening Elegance.',
+    headlineLine2: 'Pure Glamour.',
+    subtext: 'Handcrafted gowns cut with precision and timeless refinement.',
+    buttonText: 'Explore Evening Dresses',
+    buttonLink: '/shop?category=Clothing',
+    imageSrc: '/hero.png?v=7',
+    image: '/hero.png?v=7',
+    alt: 'Evening dress collection',
   },
 ];
 
 export const defaultHeroBanner: HeroBannerData = {
-  title: 'Invite wealth, peace & positive energy home',
-  ctaText: 'Shop Feng Shui',
-  ctaLink: '/shop?q=feng+shui',
-  slides: [
-    {
-      id: 'slide-1',
-      image: '/images/feng_shui_hero_banner.jpg',
-      alt: 'Feng Shui Prosperity Bonsai Tree & Brass Dragon Turtle',
-    },
-    {
-      id: 'slide-2',
-      image: 'https://i.etsystatic.com/61062687/r/il/8c215d/7104788870/il_794xN.7104788870_shv6.jpg',
-      alt: 'Taoist Master Blessed Five Emperor Coins',
-    },
-    {
-      id: 'slide-3',
-      image: 'https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=600&q=80',
-      alt: 'Citrine Crystal Bonsai Money Tree',
-    },
-    {
-      id: 'slide-4',
-      image: 'https://images.unsplash.com/photo-1606744837616-56c9a5c6a6eb?auto=format&fit=crop&w=600&q=80',
-      alt: 'Brass Dragon Turtle',
-    },
+  title: 'Find Yours. Feel Beautiful.',
+  ctaText: 'Shop Dresses',
+  ctaLink: '/shop?category=Dresses',
+  slides: defaultHeroSlides,
+};
+
+export const defaultCategoryCircles: CategoryCircleItem[] = [
+  { id: 'cat-new', name: 'NEW IN', badge: 'NEW', image: '/images/cat_women.jpg?v=200', slug: 'New%20Arrivals' },
+  { id: 'cat-clothing', name: 'CLOTHING', image: '/images/cat_clothing_rack.jpg?v=200', slug: 'Clothing' },
+  { id: 'cat-dresses', name: 'DRESSES', image: '/images/cat_dresses_rack.jpg?v=200', slug: 'Dresses' },
+  { id: 'cat-tops', name: 'TOPS', image: '/images/cat_tops_rack.jpg?v=200', slug: 'Tops' },
+  { id: 'cat-bottoms', name: 'BOTTOMS', image: '/images/cat_bottoms_rack.jpg?v=200', slug: 'Bottoms' },
+  { id: 'cat-bags', name: 'BAGS', image: '/images/cat_bags.jpg?v=200', slug: 'Bags' },
+  { id: 'cat-shoes', name: 'SHOES', image: '/images/cat_shoes.jpg?v=200', slug: 'Shoes' },
+  { id: 'cat-accessories', name: 'ACCESSORIES', image: '/images/cat_accessories.jpg?v=200', slug: 'Accessories' },
+];
+
+export const defaultCuratedCollections: CuratedCollectionsData = {
+  title: 'Curated Collections',
+  subtitle: 'Signature Edit',
+  items: [
+    { id: 'na-1', name: 'Ribbed Knit Tank Top', price: 69, image: '/images/cat_women.jpg?v=3', link: '/shop?category=Tops', colors: ['#FFFFFF', '#F6F1E9', '#111111'] },
+    { id: 'na-2', name: 'Satin Slip Dress', price: 89, image: '/images/cat_dresses.jpg?v=3', link: '/shop?category=Dresses', colors: ['#FFFFFF', '#E9D8CC', '#111111'] },
+    { id: 'na-3', name: 'Relaxed Tailored Blazer', price: 129, image: '/images/cat_clothing.jpg?v=3', link: '/shop?category=Clothing', colors: ['#D8C3AD'] },
+    { id: 'na-4', name: 'High Waist Wide Leg Pants', price: 79, image: '/images/cat_bags.jpg?v=3', link: '/shop?category=Bottoms', colors: ['#FFFFFF', '#F6F1E9', '#111111'] },
   ],
-  rightCard: {
-    badge: 'Harmonious Living',
-    title: 'Sacred Feng Shui Finds',
-    subtitle: 'Explore energy decor',
-    link: '/shop?category=Feng%20Shui%20Decor',
-    image: '/images/feng_shui_sacred_finds.jpg',
+};
+
+export const defaultPromoBanners: PromoBannersData = {
+  leftBanner: {
+    badge: 'LIMITED TIME OFFER',
+    title: 'Spring Sale \n Up to 50% Off',
+    buttonText: 'Shop The Sale',
+    buttonLink: '/shop?category=Sale',
+    image: '/images/cat_women.jpg',
+  },
+  rightBanner: {
+    badge: 'NEW ARRIVALS',
+    title: 'New Season \n Luxury Essentials',
+    buttonText: 'Discover More',
+    buttonLink: '/shop?category=New%20Arrivals',
+    image: '/images/cat_dresses.jpg',
   },
 };
+
+export const defaultFeaturesStrip: FeaturesStripItem[] = [
+  { id: 'f-1', iconName: 'Truck', title: 'Complimentary Shipping', description: 'On orders over ₹1,999 / 100 AED' },
+  { id: 'f-2', iconName: 'RotateCcw', title: 'Seamless Returns', description: '15-day return and exchange policy' },
+  { id: 'f-3', iconName: 'ShieldCheck', title: 'Bespoke Atelier Quality', description: 'Handcrafted heirloom finishes' },
+  { id: 'f-4', iconName: 'Headphones', title: 'Private Styling Support', description: 'Personal stylist consultation' },
+];
+
+export const defaultCategoryGrid: CategoryGridData = {
+  headline: 'Explore The Wardrobe',
+  subtext: 'Handmade luxury pieces crafted with passion',
+  largeCard: {
+    title: 'Evening Dresses',
+    subtitle: 'Sophisticated allure for memorable nights.',
+    buttonText: 'Shop now',
+    link: '/shop?category=Dresses',
+    image: '/grid1.png',
+  },
+  gridCards: [
+    { title: 'Tops & Blouses', link: '/shop?category=Tops', image: '/grid2.png' },
+    { title: 'Bespoke Outerwear', link: '/shop?category=Clothing', image: '/grid3.png' },
+    { title: 'Tailored Bottoms', link: '/shop?category=Bottoms', image: '/grid4.png' },
+  ],
+};
+
+export const defaultSocialGallery: SocialGalleryItem[] = [
+  { id: 'soc-1', imgUrl: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=400&q=80', link: 'https://instagram.com' },
+  { id: 'soc-2', imgUrl: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=400&q=80', link: 'https://instagram.com' },
+  { id: 'soc-3', imgUrl: 'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=400&q=80', link: 'https://instagram.com' },
+  { id: 'soc-4', imgUrl: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=400&q=80', link: 'https://instagram.com' },
+  { id: 'soc-5', imgUrl: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=400&q=80', link: 'https://instagram.com' },
+  { id: 'soc-6', imgUrl: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=400&q=80', link: 'https://instagram.com' },
+];
 
 export const defaultProsperityCards: ProsperityHeroCard[] = [
   {
     id: 'prosp-1',
-    title: 'Feng Shui Wealth Corner Starter Kits',
-    slug: 'Feng Shui Decor',
-    image: 'https://i.etsystatic.com/61062687/r/il/8c215d/7104788870/il_794xN.7104788870_shv6.jpg',
+    title: 'Evening Silk Slip Dress',
+    slug: 'Dresses',
+    image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=600&q=80',
   },
   {
     id: 'prosp-2',
-    title: 'Cinnabar & Obsidian Talismans',
-    slug: 'Feng Shui Jewelry',
-    image: 'https://i.etsystatic.com/58154797/r/il/827b49/7627716971/il_fullxfull.7627716971_ctfy.jpg',
+    title: 'Polo with Contrast Trims',
+    slug: 'Tops',
+    image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=600&q=80',
   },
   {
     id: 'prosp-3',
-    title: 'Natural Citrine & Amethyst Money Trees',
-    slug: 'Crystals & Trees',
-    image: 'https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=600&q=80',
+    title: 'Minimalist Structured Tote',
+    slug: 'Bags',
+    image: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=600&q=80',
   },
 ];
 
 export const defaultSpecialGifts: SpecialGiftItem[] = [
   {
     id: 'sg-1',
-    name: 'Protection Mirrors & Charms',
-    slug: 'Feng Shui Jewelry',
-    image: 'https://i.etsystatic.com/27864554/r/il/32250d/5943360949/il_fullxfull.5943360949_g433.jpg',
+    name: 'Evening Dresses',
+    slug: 'Dresses',
+    image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=600&q=80',
   },
   {
+    name: 'Everyday Tops',
     id: 'sg-2',
-    name: 'Abundance Candles',
-    slug: 'Feng Shui Candles',
-    image: 'https://i.etsystatic.com/59148376/r/il/5c6a68/7037517033/il_fullxfull.7037517033_rp73.jpg',
+    slug: 'Tops',
+    image: 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=600&q=80',
   },
   {
     id: 'sg-3',
-    name: 'Pixiu Luck Bracelets',
-    slug: 'Feng Shui Jewelry',
-    image: 'https://i.etsystatic.com/65398995/r/il/637ebb/7994749201/il_1080xN.7994749201_tjcq.jpg',
+    name: 'Coats & Outerwear',
+    slug: 'Outerwear',
+    image: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=600&q=80',
   },
   {
     id: 'sg-4',
-    name: 'Cinnabar Protection',
-    slug: 'Feng Shui Jewelry',
-    image: 'https://i.etsystatic.com/58154797/r/il/827b49/7627716971/il_fullxfull.7627716971_ctfy.jpg',
+    name: 'Leather Handbags',
+    slug: 'Bags',
+    image: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=600&q=80',
   },
   {
     id: 'sg-5',
-    name: 'Wealth Coins & Charms',
-    slug: 'Feng Shui Decor',
-    image: 'https://i.etsystatic.com/61062687/r/il/8c215d/7104788870/il_794xN.7104788870_shv6.jpg',
+    name: 'Footwear Collection',
+    slug: 'Shoes',
+    image: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=600&q=80',
   },
   {
     id: 'sg-6',
-    name: 'Tibetan Sound Bowls',
-    slug: 'Zen & Meditation',
-    image: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=500&q=80',
+    name: 'Silk & Gold Accessories',
+    slug: 'Accessories',
+    image: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=600&q=80',
   },
 ];
 
 export const defaultGuideCards: GuideCardItem[] = [
   {
     id: 'gc-1',
-    title: 'Brass Bagua Pendant Necklace | Feng Shui I Ching',
-    slug: 'Feng Shui Jewelry',
-    image: 'https://i.etsystatic.com/27864554/r/il/32250d/5943360949/il_fullxfull.5943360949_g433.jpg',
-    videoUrl: '/videos/fashion-craft-3.mp4',
-    tag: 'Video Cure',
+    title: 'Silk Printed Square Scarf',
+    slug: 'Accessories',
+    image: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=800&q=80',
+    tag: 'Silk Accessory',
   },
   {
     id: 'gc-2',
-    title: 'Feng Shui 2026 28 Hums Safety Talisman Keychain',
-    slug: 'Feng Shui Jewelry',
-    image: 'https://i.etsystatic.com/18528884/r/il/4255ed/7574072434/il_fullxfull.7574072434_8ebu.jpg',
-    videoUrl: '/videos/fashion-craft-2.mp4',
-    tag: 'Video Protection',
+    title: 'Minimalist Structured Tote',
+    slug: 'Bags',
+    image: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=800&q=80',
+    tag: 'Italian Leather',
   },
   {
     id: 'gc-3',
-    title: 'S925 Pixiu Ring, Feng Shui Wealth Luck Amulet',
-    slug: 'Feng Shui Jewelry',
-    image: 'https://i.etsystatic.com/65398995/r/il/637ebb/7994749201/il_1080xN.7994749201_tjcq.jpg',
-    tag: 'Wealth Amulet',
+    title: 'Polo with Contrast Trims',
+    slug: 'Tops',
+    image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80',
+    tag: 'Cotton Piqué',
   },
   {
     id: 'gc-4',
-    title: 'Blackwood Feng Shui Amulet Necklace: Tree of Life',
-    slug: 'Feng Shui Jewelry',
-    image: 'https://i.etsystatic.com/28306871/r/il/791365/7159126948/il_fullxfull.7159126948_ebgf.jpg',
-    tag: 'Tree of Life',
+    title: 'Loose Fit Hoodie',
+    slug: 'Tops',
+    image: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=800&q=80',
+    tag: 'Cotton Blend',
   },
   {
     id: 'gc-5',
-    title: 'Taoist Master Blessed Five Emperor Coins',
-    slug: 'Feng Shui Decor',
-    image: 'https://i.etsystatic.com/61062687/r/il/8c215d/7104788870/il_794xN.7104788870_shv6.jpg',
-    tag: 'Prosperity Coins',
+    title: 'Evening Silk Slip Dress',
+    slug: 'Dresses',
+    image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=800&q=80',
+    tag: 'Mulberry Silk',
   },
   {
     id: 'gc-6',
-    title: 'Feng Shui Lucky Dragon Incense Burner, Vintage',
-    slug: 'Feng Shui Candles',
-    image: 'https://i.etsystatic.com/60335618/r/il/5e079c/7435054325/il_1080xN.7435054325_s37u.jpg',
-    videoUrl: '/videos/fashion-craft-1.mp4',
-    tag: 'Dragon Censer',
+    title: 'Striped Trench Jacket',
+    slug: 'Outerwear',
+    image: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=800&q=80',
+    tag: 'Tailored Cut',
   },
 ];
 
 export const defaultBlogPosts: BlogPostItem[] = [
   {
     id: 'blog-1',
-    category: 'Shopping Guides',
-    title: "How to activate your home's southeast wealth corner with Feng Shui",
+    category: 'Style Guides',
+    title: 'Mastering Minimalist Layering for Autumn & Winter',
     summary:
-      "Discover the exact placements for water elements, citrine crystals, and dragon censers to amplify your home's prosperity.",
-    slug: '/shop?category=Feng%20Shui%20Decor',
+      'Discover how to pair oversized knitwear, tailored outerwear, and silk scarves for effortless sophistication.',
+    slug: '/shop?category=Outerwear',
     image:
-      'https://i.etsystatic.com/19246526/r/il/35c642/6558547910/il_fullxfull.6558547910_qiy1.jpg',
-    collage: [
-      'https://i.etsystatic.com/61062687/r/il/8c215d/7104788870/il_794xN.7104788870_shv6.jpg',
-      'https://i.etsystatic.com/58154797/r/il/827b49/7627716971/il_fullxfull.7627716971_ctfy.jpg',
-      'https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=400&q=80',
-      'https://images.unsplash.com/photo-1606744837616-56c9a5c6a6eb?auto=format&fit=crop&w=400&q=80',
-    ],
+      'https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 'blog-2',
-    category: 'Energy Balance',
-    title: 'The secret sacred power of Tibetan Singing Bowls for grounding space',
+    category: 'Fabric Care',
+    title: 'The Ultimate Care Guide for Pure Silk & Fine Wool',
     summary:
-      'Harness sound resonance to dissipate stagnant energy, clear negative vibes, and restore tranquility across your living sanctuary.',
-    slug: '/shop?category=Zen%20%26%20Meditation',
+      'Essential tips to preserve the soft luster, drape, and longevity of your luxury investment wardrobe.',
+    slug: '/shop?category=Dresses',
     image:
-      'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=500&q=80',
-  },
-  {
-    id: 'blog-3',
-    category: 'Sacred Decor',
-    title: '5 Master rules for placing water fountains and wealth mirrors',
-    summary:
-      'Avoid common chi flow errors and create magnetic wealth channels through proper elemental orientation and balance.',
-    slug: '/shop?category=Feng%20Shui%20Decor',
-    image:
-      'https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=800&q=80',
-    collage: [
-      'https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=400&q=80',
-      'https://i.etsystatic.com/65398995/r/il/637ebb/7994749201/il_1080xN.7994749201_tjcq.jpg',
-      'https://i.etsystatic.com/60335618/r/il/5e079c/7435054325/il_1080xN.7435054325_s37u.jpg',
-      'https://i.etsystatic.com/27864554/r/il/32250d/5943360949/il_fullxfull.5943360949_g433.jpg',
-    ],
+      'https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=800&q=80',
   },
 ];
 
 const sampleOrders: StoreOrder[] = [
   {
     id: 'ord-1001',
-    orderNumber: 'MFS-82914',
+    orderNumber: 'MD-82914',
     date: '2026-09-14 14:32',
-    customerName: 'Aarav Sharma',
-    email: 'aarav.sharma@example.com',
+    customerName: 'Ananya Sharma',
+    email: 'ananya.sharma@example.com',
     phone: '+91 98765 43210',
     address: 'Flat 402, Lotus Towers, Andheri West',
     city: 'Mumbai',
@@ -383,30 +498,30 @@ const sampleOrders: StoreOrder[] = [
     pincode: '400053',
     items: [
       {
-        productId: 'j4',
-        productName: 'Temple Blessed 2027 Tai Sui Protection Bracelet',
-        price: 1464,
+        productId: 'na-2',
+        productName: 'Satin Silk Evening Slip Dress',
+        price: 4999,
         quantity: 1,
-        image: 'https://i.etsystatic.com/58154797/r/il/827b49/7627716971/il_fullxfull.7627716971_ctfy.jpg',
+        image: '/images/cat_dresses.jpg',
       },
       {
-        productId: 'd1',
-        productName: 'Taoist Master Blessed Five Emperor Coins',
-        price: 4008,
+        productId: 'na-3',
+        productName: 'Relaxed Tailored Blazer',
+        price: 6499,
         quantity: 1,
-        image: 'https://i.etsystatic.com/61062687/r/il/8c215d/7104788870/il_794xN.7104788870_shv6.jpg',
+        image: '/images/cat_clothing.jpg',
       },
     ],
-    totalAmount: 5472,
+    totalAmount: 11498,
     paymentMethod: 'UPI / Online Payment',
     status: 'Shipped',
   },
   {
     id: 'ord-1002',
-    orderNumber: 'MFS-82915',
+    orderNumber: 'MD-82915',
     date: '2026-09-15 10:15',
-    customerName: 'Priya Patel',
-    email: 'priya.patel@example.com',
+    customerName: 'Kavita Patel',
+    email: 'kavita.patel@example.com',
     phone: '+91 98234 56789',
     address: 'B-12, Shanti Niketan Society, Satellite',
     city: 'Ahmedabad',
@@ -414,14 +529,21 @@ const sampleOrders: StoreOrder[] = [
     pincode: '380015',
     items: [
       {
-        productId: 'j2',
-        productName: 'S925 Pixiu Ring, Wealth Luck Amulet',
-        price: 3462,
+        productId: 'na-1',
+        productName: 'Ribbed Knit Tank Top',
+        price: 2499,
         quantity: 1,
-        image: 'https://i.etsystatic.com/65398995/r/il/637ebb/7994749201/il_1080xN.7994749201_tjcq.jpg',
+        image: '/images/cat_women.jpg',
+      },
+      {
+        productId: 'na-4',
+        productName: 'High Waist Wide Leg Pants',
+        price: 3899,
+        quantity: 1,
+        image: '/images/cat_bags.jpg',
       },
     ],
-    totalAmount: 3462,
+    totalAmount: 6398,
     paymentMethod: 'Cash on Delivery',
     status: 'Pending',
   },
@@ -474,6 +596,25 @@ interface StoreContextType {
   updateBlogPost: (id: string, post: Partial<BlogPostItem>) => void;
   deleteBlogPost: (id: string) => void;
 
+  // Mehra Designs Luxury Homepage Sections
+  heroSlides: HeroSlideItem[];
+  setHeroSlides: React.Dispatch<React.SetStateAction<HeroSlideItem[]>>;
+  updateHeroSlides: (slides: HeroSlideItem[]) => void;
+  categoryCircles: CategoryCircleItem[];
+  setCategoryCircles: React.Dispatch<React.SetStateAction<CategoryCircleItem[]>>;
+  updateCategoryCircles: (items: CategoryCircleItem[]) => void;
+  curatedCollections: CuratedCollectionsData;
+  updateCuratedCollections: (data: Partial<CuratedCollectionsData>) => void;
+  promoBanners: PromoBannersData;
+  updatePromoBanners: (data: Partial<PromoBannersData>) => void;
+  featuresStrip: FeaturesStripItem[];
+  updateFeaturesStrip: (items: FeaturesStripItem[]) => void;
+  categoryGrid: CategoryGridData;
+  updateCategoryGrid: (data: Partial<CategoryGridData>) => void;
+  socialGallery: SocialGalleryItem[];
+  updateSocialGallery: (items: SocialGalleryItem[]) => void;
+  saveHomepageSection: (sectionKey: string, payload: any) => Promise<any>;
+
   // Global Reset for Homepage Content
   resetHomepageContent: () => void;
 
@@ -518,6 +659,13 @@ const SPECIAL_GIFTS_KEY = 'mfs_special_gifts_v2';
 const GUIDE_CARDS_KEY = 'mfs_guide_cards_v2';
 const BLOG_POSTS_KEY = 'mfs_blog_posts_v2';
 const SECTIONS_KEY = 'mfs_sections_v2';
+const HERO_SLIDES_KEY = 'md_hero_slides_v1';
+const CATEGORY_CIRCLES_KEY = 'md_category_circles_v1';
+const CURATED_COLLECTIONS_KEY = 'md_curated_collections_v1';
+const PROMO_BANNERS_KEY = 'md_promo_banners_v1';
+const FEATURES_STRIP_KEY = 'md_features_strip_v1';
+const CATEGORY_GRID_KEY = 'md_category_grid_v1';
+const SOCIAL_GALLERY_KEY = 'md_social_gallery_v1';
 
 export function StoreProvider({ children }: { children: React.ReactNode }) {
   const [products, setProducts] = useState<Product[]>(initialProducts);
@@ -544,14 +692,39 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   const [guideCards, setGuideCards] = useState<GuideCardItem[]>(defaultGuideCards);
   const [blogPosts, setBlogPosts] = useState<BlogPostItem[]>(defaultBlogPosts);
 
+  // Mehra Designs Luxury Homepage Sections State
+  const [heroSlides, setHeroSlides] = useState<HeroSlideItem[]>(defaultHeroSlides);
+  const [categoryCircles, setCategoryCircles] = useState<CategoryCircleItem[]>(defaultCategoryCircles);
+  const [curatedCollections, setCuratedCollections] = useState<CuratedCollectionsData>(defaultCuratedCollections);
+  const [promoBanners, setPromoBanners] = useState<PromoBannersData>(defaultPromoBanners);
+  const [featuresStrip, setFeaturesStrip] = useState<FeaturesStripItem[]>(defaultFeaturesStrip);
+  const [categoryGrid, setCategoryGrid] = useState<CategoryGridData>(defaultCategoryGrid);
+  const [socialGallery, setSocialGallery] = useState<SocialGalleryItem[]>(defaultSocialGallery);
+
   const refreshCategories = async () => {
     try {
       const res = await fetch('/api/categories');
       if (res.ok) {
         const data = await res.json();
         if (data.success && Array.isArray(data.data) && data.data.length > 0) {
-          setCategoriesList(data.data);
-          const names = ['All', ...data.data.map((c: any) => c.name)];
+          const legacyKeywords = [
+            'feng shui',
+            'wealth',
+            'zen',
+            'crystals',
+            'protection',
+            'charms',
+            'amulet',
+            'talisman',
+            'candles',
+          ];
+          const cleanCats = data.data.filter((c: any) => {
+            const name = (c?.name || '').toLowerCase();
+            const slug = (c?.slug || '').toLowerCase();
+            return !legacyKeywords.some((kw) => name.includes(kw) || slug.includes(kw));
+          });
+          setCategoriesList(cleanCats);
+          const names = ['All', ...cleanCats.map((c: any) => c.name)];
           setCategoriesState(names);
         }
       }
@@ -560,13 +733,61 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+const filterFashionProducts = (items: any[]) => {
+  const legacyKeywords = [
+    'feng shui',
+    'wealth',
+    'riches',
+    'attraction',
+    'poster',
+    'bracelet',
+    'candle',
+    'fortune',
+    'chinese',
+    'talisman',
+    'amulet',
+    'censer',
+    'incense',
+    'brass bell',
+    'singing bowl',
+    'cure',
+    'consecrated',
+    'tai sui',
+    'pixiu',
+    'buddha',
+    'mantra',
+    'tibetan',
+    'chakra',
+    'orgonite',
+    'pyramid',
+    'generator',
+    'energy',
+    'crystal',
+    'statue',
+    'god',
+    'goddess',
+    'sacred',
+  ];
+  return items.filter((item: any) => {
+    const name = (item?.name || item?.title || '').toLowerCase();
+    const cat = (item?.category?.name || item?.category || '').toLowerCase();
+    const desc = (item?.description || '').toLowerCase();
+    return !legacyKeywords.some(
+      (kw) => name.includes(kw) || cat.includes(kw) || desc.includes(kw)
+    );
+  });
+};
+
   const refreshProducts = async () => {
     try {
       const res = await fetch('/api/products?pageSize=100');
       if (res.ok) {
         const data = await res.json();
         if (data.success && Array.isArray(data.data?.items) && data.data.items.length > 0) {
-          setProducts(data.data.items);
+          const sanitized = filterFashionProducts(data.data.items);
+          if (sanitized.length > 0) {
+            setProducts(sanitized);
+          }
         }
       }
     } catch (e) {
@@ -598,17 +819,26 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
         const savedHero = localStorage.getItem(HERO_KEY);
         if (savedHero) setHeroBanner(JSON.parse(savedHero));
 
-        const savedProsperity = localStorage.getItem(PROSPERITY_KEY);
-        if (savedProsperity) setProsperityCards(JSON.parse(savedProsperity));
+        const savedHeroSlides = localStorage.getItem(HERO_SLIDES_KEY);
+        if (savedHeroSlides) setHeroSlides(JSON.parse(savedHeroSlides));
 
-        const savedSpecial = localStorage.getItem(SPECIAL_GIFTS_KEY);
-        if (savedSpecial) setSpecialGifts(JSON.parse(savedSpecial));
+        const savedCatCircles = localStorage.getItem(CATEGORY_CIRCLES_KEY);
+        if (savedCatCircles) setCategoryCircles(JSON.parse(savedCatCircles));
 
-        const savedGuide = localStorage.getItem(GUIDE_CARDS_KEY);
-        if (savedGuide) setGuideCards(JSON.parse(savedGuide));
+        const savedCurated = localStorage.getItem(CURATED_COLLECTIONS_KEY);
+        if (savedCurated) setCuratedCollections(JSON.parse(savedCurated));
 
-        const savedBlog = localStorage.getItem(BLOG_POSTS_KEY);
-        if (savedBlog) setBlogPosts(JSON.parse(savedBlog));
+        const savedPromo = localStorage.getItem(PROMO_BANNERS_KEY);
+        if (savedPromo) setPromoBanners(JSON.parse(savedPromo));
+
+        const savedFeatures = localStorage.getItem(FEATURES_STRIP_KEY);
+        if (savedFeatures) setFeaturesStrip(JSON.parse(savedFeatures));
+
+        const savedCatGrid = localStorage.getItem(CATEGORY_GRID_KEY);
+        if (savedCatGrid) setCategoryGrid(JSON.parse(savedCatGrid));
+
+        const savedSocial = localStorage.getItem(SOCIAL_GALLERY_KEY);
+        if (savedSocial) setSocialGallery(JSON.parse(savedSocial));
 
         const savedSections = localStorage.getItem(SECTIONS_KEY);
         if (savedSections) setSections(JSON.parse(savedSections));
@@ -625,26 +855,40 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
           if (res.ok) {
             const data = await res.json();
             if (data.success && Array.isArray(data.data?.items) && data.data.items.length > 0) {
-              if (isMounted) setProducts(data.data.items);
+              const sanitized = filterFashionProducts(data.data.items);
+              if (isMounted && sanitized.length > 0) {
+                setProducts(sanitized);
+              }
             }
           }
         } catch (e) {
           console.warn('Could not fetch products from API:', e);
         }
 
-        // Only fetch protected admin endpoints if browsing the /admin portal
-        if (typeof window !== 'undefined' && window.location.pathname.startsWith('/admin')) {
-          try {
-            const res = await fetch('/api/admin/homepage');
-            if (res.ok) {
-              const data = await res.json();
-              if (data.success && Array.isArray(data.data) && data.data.length > 0) {
-                if (isMounted) setSections(data.data);
+        // Fetch homepage sections (public GET)
+        try {
+          const res = await fetch('/api/admin/homepage');
+          if (res.ok) {
+            const data = await res.json();
+            if (data.success && Array.isArray(data.data) && data.data.length > 0) {
+              if (isMounted) {
+                setSections(data.data);
+                data.data.forEach((sec: any) => {
+                  if (!sec.config) return;
+                  if (sec.sectionKey === 'hero' && sec.config.slides) setHeroSlides(sec.config.slides);
+                  if (sec.sectionKey === 'category_circles' && sec.config.items) setCategoryCircles(sec.config.items);
+                  if (sec.sectionKey === 'curated_collections') setCuratedCollections((prev) => ({ ...prev, ...sec.config }));
+                  if (sec.sectionKey === 'promo_banners') setPromoBanners((prev) => ({ ...prev, ...sec.config }));
+                  if (sec.sectionKey === 'features_strip' && sec.config.items) setFeaturesStrip(sec.config.items);
+                  if (sec.sectionKey === 'category_grid') setCategoryGrid((prev) => ({ ...prev, ...sec.config }));
+                  if (sec.sectionKey === 'social_gallery' && sec.config.images) setSocialGallery(sec.config.images);
+                });
               }
             }
-          } catch (e) {
-            // ignore admin unauthorized on guest pages
           }
+        } catch (e) {
+          // ignore
+        }
 
           try {
             const res = await fetch('/api/admin/orders');
@@ -657,7 +901,6 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
           } catch (e) {
             // ignore admin unauthorized on guest pages
           }
-        }
 
         try {
           await refreshCategories();
@@ -691,13 +934,15 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   // 1. HERO BANNER ACTIONS
   const updateHeroBanner = (data: Partial<HeroBannerData>) => {
     setHeroBanner((prev) => {
-      const updated = {
+      const updated: HeroBannerData = {
         ...prev,
         ...data,
-        rightCard: {
-          ...prev.rightCard,
-          ...(data.rightCard || {}),
-        },
+        rightCard: prev.rightCard
+          ? {
+              ...prev.rightCard,
+              ...(data.rightCard || {}),
+            }
+          : data.rightCard,
       };
       saveToStorage(HERO_KEY, updated);
       return updated;
@@ -709,7 +954,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
       const newSlide: HeroSlideItem = {
         id: slide.id || `slide-${Date.now()}`,
         image: slide.image,
-        alt: slide.alt || 'Feng Shui Hero Artwork',
+        alt: slide.alt || 'Mehra Designs Fashion Hero',
       };
       const updated = { ...prev, slides: [...prev.slides, newSlide] };
       saveToStorage(HERO_KEY, updated);
@@ -745,7 +990,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
       const newCard: ProsperityHeroCard = {
         id: card.id || `prosp-${Date.now()}`,
         title: card.title,
-        slug: card.slug || 'Feng Shui Decor',
+        slug: card.slug || 'Dresses',
         image: card.image,
       };
       const updated = [...prev, newCard];
@@ -776,7 +1021,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
       const newGift: SpecialGiftItem = {
         id: gift.id || `sg-${Date.now()}`,
         name: gift.name,
-        slug: gift.slug || 'Feng Shui Jewelry',
+        slug: gift.slug || 'Accessories',
         image: gift.image,
       };
       const updated = [...prev, newGift];
@@ -807,7 +1052,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
       const newCard: GuideCardItem = {
         id: card.id || `gc-${Date.now()}`,
         title: card.title,
-        slug: card.slug || 'Feng Shui Jewelry',
+        slug: card.slug || 'Accessories',
         image: card.image,
         videoUrl: card.videoUrl,
         tag: card.tag,
@@ -895,8 +1140,8 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
       id: tempId,
       rating: newProd.rating ?? 5.0,
       reviewCount: newProd.reviewCount ?? 1,
-      itemDetails: newProd.itemDetails?.length ? newProd.itemDetails : ['Temple blessed authentic talisman'],
-      maker: newProd.maker || 'Miracle Feng Shui Studio',
+      itemDetails: newProd.itemDetails?.length ? newProd.itemDetails : ['Handcrafted luxury apparel'],
+      maker: newProd.maker || 'Mehra Designs',
     };
     setProducts((prev) => [fullProd, ...prev]);
 
@@ -906,10 +1151,10 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           title: newProd.name,
-          description: newProd.description || 'Authentic blessed talisman',
+          description: newProd.description || 'Luxury fashion piece',
           price: newProd.price,
           comparePrice: newProd.originalPrice,
-          categoryId: newProd.category || 'Feng Shui Decor',
+          categoryId: newProd.category || 'Dresses',
           images: newProd.images?.length
             ? newProd.images
             : ['https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=800&q=80'],
@@ -1015,6 +1260,74 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  // Mehra Designs Luxury Homepage Actions
+  const saveHomepageSection = async (sectionKey: string, payload: any) => {
+    try {
+      const res = await fetch(`/api/admin/homepage/${sectionKey}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (res.ok) {
+        const json = await res.json();
+        return json?.data;
+      }
+    } catch (e) {
+      console.warn(`Could not save section ${sectionKey} to API:`, e);
+    }
+  };
+
+  const updateHeroSlides = (slides: HeroSlideItem[]) => {
+    setHeroSlides(slides);
+    saveToStorage(HERO_SLIDES_KEY, slides);
+    saveHomepageSection('hero', { config: { slides } });
+  };
+
+  const updateCategoryCircles = (items: CategoryCircleItem[]) => {
+    setCategoryCircles(items);
+    saveToStorage(CATEGORY_CIRCLES_KEY, items);
+    saveHomepageSection('category_circles', { config: { items } });
+  };
+
+  const updateCuratedCollections = (data: Partial<CuratedCollectionsData>) => {
+    setCuratedCollections((prev) => {
+      const next = { ...prev, ...data };
+      saveToStorage(CURATED_COLLECTIONS_KEY, next);
+      saveHomepageSection('curated_collections', { config: next });
+      return next;
+    });
+  };
+
+  const updatePromoBanners = (data: Partial<PromoBannersData>) => {
+    setPromoBanners((prev) => {
+      const next = { ...prev, ...data };
+      saveToStorage(PROMO_BANNERS_KEY, next);
+      saveHomepageSection('promo_banners', { config: next });
+      return next;
+    });
+  };
+
+  const updateFeaturesStrip = (items: FeaturesStripItem[]) => {
+    setFeaturesStrip(items);
+    saveToStorage(FEATURES_STRIP_KEY, items);
+    saveHomepageSection('features_strip', { config: { items } });
+  };
+
+  const updateCategoryGrid = (data: Partial<CategoryGridData>) => {
+    setCategoryGrid((prev) => {
+      const next = { ...prev, ...data };
+      saveToStorage(CATEGORY_GRID_KEY, next);
+      saveHomepageSection('category_grid', { config: next });
+      return next;
+    });
+  };
+
+  const updateSocialGallery = (items: SocialGalleryItem[]) => {
+    setSocialGallery(items);
+    saveToStorage(SOCIAL_GALLERY_KEY, items);
+    saveHomepageSection('social_gallery', { config: { images: items } });
+  };
+
   // Order Actions
   const updateOrderStatus = async (orderId: string, status: OrderStatus) => {
     setOrders((prev) =>
@@ -1117,6 +1430,24 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
         updateBlogPost,
         deleteBlogPost,
         resetHomepageContent,
+        // Mehra Designs Luxury Sections
+        heroSlides,
+        setHeroSlides,
+        updateHeroSlides,
+        categoryCircles,
+        setCategoryCircles,
+        updateCategoryCircles,
+        curatedCollections,
+        updateCuratedCollections,
+        promoBanners,
+        updatePromoBanners,
+        featuresStrip,
+        updateFeaturesStrip,
+        categoryGrid,
+        updateCategoryGrid,
+        socialGallery,
+        updateSocialGallery,
+        saveHomepageSection,
         // Orders & Fulfillment
         orders,
         updateOrderStatus,

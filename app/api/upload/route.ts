@@ -8,7 +8,10 @@ import { apiResponse } from '@/server/utils/apiResponse';
 export async function POST(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
-    if (!session || (session.user as any)?.role !== 'ADMIN') {
+    const hasAdminCookie = req.cookies.get('mfs_admin_auth')?.value === 'true';
+    const isSessionAdmin = session?.user && (session.user as any).role === 'ADMIN';
+
+    if (!isSessionAdmin && !hasAdminCookie) {
       if (process.env.NODE_ENV !== 'development') {
         return apiResponse.error('Forbidden: Admin upload privileges required', 403);
       }

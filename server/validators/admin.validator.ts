@@ -23,7 +23,7 @@ export const createProductSchema = z.object({
   category: z.string().optional(), // alias for categoryId
   stock: z.coerce.number().int().min(0).default(10),
   images: z.array(z.string()).min(1, 'At least one product image is required'),
-  maker: z.string().optional().default('Miracle Feng Shui Studio'),
+  maker: z.string().optional().default('Mehra Designs Studio'),
   makerLocation: z.string().optional(),
   makerAvatar: z.string().optional(),
   makerSales: z.coerce.number().int().optional().default(0),
@@ -75,8 +75,23 @@ export const updateHomepageSectionSchema = z.object({
       badge: z.string().nullable().optional(),
       order: z.number().int().optional(),
       enabled: z.boolean().optional(),
+      config: z.any().optional(),
     })
   ),
 });
 
 export type UpdateHomepageSectionInput = z.infer<typeof updateHomepageSectionSchema>;
+
+export const singleHomepageSectionSchema = z.object({
+  name: z.string().optional(),
+  title: z.string().optional(),
+  subtitle: z.string().nullable().optional(),
+  ctaText: z.string().nullable().optional(),
+  ctaLink: z.string().nullable().optional(),
+  badge: z.string().nullable().optional(),
+  order: z.number().int().optional(),
+  enabled: z.boolean().optional(),
+  config: z.any().optional(),
+});
+
+export type SingleHomepageSectionInput = z.infer<typeof singleHomepageSectionSchema>;

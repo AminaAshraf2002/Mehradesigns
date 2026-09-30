@@ -287,8 +287,9 @@ function OrderConfirmationContent() {
   }));
 
   const totalItemCount = items.reduce((acc, curr) => acc + curr.quantity, 0);
-  const gstAmount = Math.round((totalAmount * 18) / 118);
-  const subtotalAmount = totalAmount - gstAmount;
+  const itemsSubtotal = items.reduce((acc, curr) => acc + (curr.price * curr.quantity), 0);
+  const gstAmount = Math.round(itemsSubtotal * 0.18);
+  const finalPaidTotal = totalAmount >= (itemsSubtotal + gstAmount) ? totalAmount : (itemsSubtotal + gstAmount);
 
   const invoiceData: TaxInvoiceData = {
     orderId,
@@ -299,7 +300,7 @@ function OrderConfirmationContent() {
     deliveryAddress,
     paymentMethod,
     paymentStatus,
-    totalAmount,
+    totalAmount: finalPaidTotal,
     items,
   };
 
@@ -405,9 +406,19 @@ function OrderConfirmationContent() {
               <span className="font-semibold text-emerald-700">{paymentStatus}</span>
             </div>
 
-            <div className="pt-2 border-t border-gray-200/80 flex justify-between items-center text-[14px]">
-              <span className="font-bold text-[#111111]">Total Paid:</span>
-              <span className="font-bold text-[#111111] text-[16px]">{formatPrice(totalAmount)}</span>
+            <div className="pt-2 border-t border-gray-200/80 space-y-1.5">
+              <div className="flex justify-between items-center text-[12.5px]">
+                <span className="text-gray-500">Subtotal (Pre-Tax):</span>
+                <span className="font-medium text-[#111111]">{formatPrice(itemsSubtotal)}</span>
+              </div>
+              <div className="flex justify-between items-center text-[12.5px]">
+                <span className="text-gray-500">Estimated GST (18%):</span>
+                <span className="font-medium text-[#111111]">{formatPrice(gstAmount)}</span>
+              </div>
+              <div className="flex justify-between items-center text-[14px] pt-1.5 border-t border-gray-200/60">
+                <span className="font-bold text-[#111111]">Total Paid:</span>
+                <span className="font-bold text-[#111111] text-[16px]">{formatPrice(finalPaidTotal)}</span>
+              </div>
             </div>
           </div>
         </div>

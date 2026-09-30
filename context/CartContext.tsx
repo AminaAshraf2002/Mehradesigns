@@ -54,9 +54,23 @@ interface CartContextType {
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-const CART_STORAGE_KEY = 'miracle_feng_shui_cart_v1';
-const FAV_STORAGE_KEY = 'miracle_feng_shui_favorites_v1';
-const USER_STORAGE_KEY = 'miracle_feng_shui_user_v1';
+const CART_STORAGE_KEY = 'mehra_designs_cart_v2';
+const FAV_STORAGE_KEY = 'mehra_designs_favorites_v2';
+const USER_STORAGE_KEY = 'mehra_designs_user_v2';
+
+const isLegacyFengShuiProduct = (item: any) => {
+  const name = (item?.product?.name || item?.productName || item?.name || item?.title || '').toLowerCase();
+  return (
+    name.includes('feng shui') ||
+    name.includes('tai sui') ||
+    name.includes('pixiu') ||
+    name.includes('talisman') ||
+    name.includes('censer') ||
+    name.includes('incense') ||
+    name.includes('brass bell') ||
+    name.includes('singing bowl')
+  );
+};
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const { data: session, status } = useSession();
@@ -66,65 +80,22 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const [guestToast, setGuestToast] = useState<ToastInfo | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Sync NextAuth session with local user status
-  useEffect(() => {
-    if (status === 'loading') return; // Don't clear anything during session hydration
-    if (status === 'authenticated' && session?.user) {
-      setUserLoggedInState(true);
-      try {
-        localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(true));
-      } catch (e) {
-        console.error(e);
-      }
-    } else if (status === 'unauthenticated') {
-      // Only clear if we were previously logged in (explicit logout)
-      const prevAuth = (() => { try { return localStorage.getItem(USER_STORAGE_KEY) === 'true'; } catch { return false; } })();
-      if (prevAuth) {
-        setUserLoggedInState(false);
-        setItems([]);
-        setFavorites([]);
-        try {
-          localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(false));
-          localStorage.removeItem(CART_STORAGE_KEY);
-          localStorage.removeItem(FAV_STORAGE_KEY);
-        } catch (e) {
-          console.error(e);
-        }
-      }
-    }
-  }, [status, session]);
+  // Identify logged in customer
+  const isCustomer =
+    status === 'authenticated' &&
+    session?.user &&
+    (session.user as any).role === 'CUSTOMER' &&
+    session.user.email !== 'admin@mehradesigns.com';
 
-  // Load from localStorage on mount ONLY if user was logged in
-  useEffect(() => {
-    try {
-      const savedUser = localStorage.getItem(USER_STORAGE_KEY);
-      const isUserSaved = savedUser ? JSON.parse(savedUser) : false;
-      if (isUserSaved) {
-        setUserLoggedInState(true);
-        const savedCart = localStorage.getItem(CART_STORAGE_KEY);
-        if (savedCart) {
-          setItems(JSON.parse(savedCart));
-        }
-        const savedFavs = localStorage.getItem(FAV_STORAGE_KEY);
-        if (savedFavs) {
-          setFavorites(JSON.parse(savedFavs));
-        }
-      } else {
-        setUserLoggedInState(false);
-        setItems([]);
-        setFavorites([]);
-      }
-    } catch (e) {
-      console.error('Failed to load storage:', e);
-    } finally {
-      setIsLoaded(true);
-    }
-  }, []);
+  const currentUserId = isCustomer
+    ? (session?.user as any)?.id || session?.user?.email
+    : null;
 
   // Deduplicate and consolidate cart items helper
   const consolidateItems = (rawItems: CartItem[]): CartItem[] => {
     const map = new Map<string, CartItem>();
     for (const item of rawItems) {
+      if (isLegacyFengShuiProduct(item)) continue;
       const prodId = item.product?.id || item.productId || item.id;
       const varKey = item.selectedVariations
         ? Object.entries(item.selectedVariations)
@@ -148,14 +119,69 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     return Array.from(map.values());
   };
 
-  // Fetch persisted cart and favorites from DB when authenticated
+  // Sync session and isolate cart & favorites per logged-in user
   useEffect(() => {
-    if (status === 'authenticated' || userLoggedIn) {
+    if (status === 'loading') return;
+
+    if (isCustomer && currentUserId) {
+      setUserLoggedInState(true);
+      try {
+        localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(true));
+        // Restore user's specific cart from localStorage
+        const userCartKey = `mehra_cart_${currentUserId}`;
+        const savedCart = localStorage.getItem(userCartKey) || localStorage.getItem(CART_STORAGE_KEY);
+        if (savedCart) {
+          try {
+            const parsed = JSON.parse(savedCart);
+            if (Array.isArray(parsed) && parsed.length > 0) {
+              setItems(parsed.filter((it: any) => !isLegacyFengShuiProduct(it)));
+            }
+          } catch (e) {
+            console.error('Failed to parse user cart storage:', e);
+          }
+        }
+        // Restore user's specific favorites from localStorage
+        const userFavsKey = `mehra_favs_${currentUserId}`;
+        const savedFavs = localStorage.getItem(userFavsKey) || localStorage.getItem(FAV_STORAGE_KEY);
+        if (savedFavs) {
+          try {
+            const parsedFavs = JSON.parse(savedFavs);
+            if (Array.isArray(parsedFavs) && parsedFavs.length > 0) {
+              setFavorites(parsedFavs.filter((it: any) => !isLegacyFengShuiProduct(it)));
+            }
+          } catch (e) {
+            console.error('Failed to parse user favorites storage:', e);
+          }
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    } else {
+      // Unauthenticated, Guest, or Logged Out:
+      // Clear cart and favorites immediately so previous user's items are never shown to another person!
+      setUserLoggedInState(false);
+      setItems([]);
+      setFavorites([]);
+      try {
+        localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(false));
+        localStorage.removeItem(CART_STORAGE_KEY);
+        localStorage.removeItem(FAV_STORAGE_KEY);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    setIsLoaded(true);
+  }, [status, isCustomer, currentUserId]);
+
+  // Fetch persisted cart and favorites from DB ONLY when customer is authenticated
+  useEffect(() => {
+    if (isCustomer && currentUserId) {
       fetch('/api/cart')
         .then((res) => (res.ok ? res.json() : null))
         .then((resData) => {
           if (resData?.data?.items && Array.isArray(resData.data.items)) {
-            setItems(consolidateItems(resData.data.items));
+            const filtered = resData.data.items.filter((it: any) => !isLegacyFengShuiProduct(it));
+            setItems(consolidateItems(filtered));
           }
         })
         .catch(() => {});
@@ -164,34 +190,35 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         .then((res) => (res.ok ? res.json() : null))
         .then((resData) => {
           if (resData?.data && Array.isArray(resData.data)) {
-            setFavorites(resData.data);
+            const filteredFavs = resData.data.filter((it: any) => !isLegacyFengShuiProduct(it));
+            setFavorites(filteredFavs);
           }
         })
         .catch(() => {});
     }
-  }, [status, userLoggedIn]);
+  }, [isCustomer, currentUserId]);
 
-  // Save cart to localStorage only when user is logged in
+  // Save cart to localStorage only for the active logged-in user
   useEffect(() => {
-    if (!isLoaded) return;
-    if (!userLoggedIn && status !== 'authenticated') return;
+    if (!isLoaded || !isCustomer || !currentUserId) return;
     try {
+      localStorage.setItem(`mehra_cart_${currentUserId}`, JSON.stringify(items));
       localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
     } catch (e) {
       console.error('Failed to save cart:', e);
     }
-  }, [items, isLoaded, userLoggedIn, status]);
+  }, [items, isLoaded, isCustomer, currentUserId]);
 
-  // Save favorites to localStorage only when user is logged in
+  // Save favorites to localStorage only for the active logged-in user
   useEffect(() => {
-    if (!isLoaded) return;
-    if (!userLoggedIn && status !== 'authenticated') return;
+    if (!isLoaded || !isCustomer || !currentUserId) return;
     try {
+      localStorage.setItem(`mehra_favs_${currentUserId}`, JSON.stringify(favorites));
       localStorage.setItem(FAV_STORAGE_KEY, JSON.stringify(favorites));
     } catch (e) {
       console.error('Failed to save favorites:', e);
     }
-  }, [favorites, isLoaded, userLoggedIn, status]);
+  }, [favorites, isLoaded, isCustomer, currentUserId]);
 
   const setUserLoggedIn = useCallback((val: boolean) => {
     setUserLoggedInState(val);
@@ -255,13 +282,18 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   ): boolean => {
     if (quantity <= 0) return false;
 
-    const isAuthed = status === 'authenticated' || userLoggedIn;
-    if (!isAuthed) {
+    // Only logged in customer can add to basket
+    if (!isCustomer || !userLoggedIn) {
       showGuestToast(
-        "Don't lose this item!",
-        'to add to your basket.',
+        "Sign in to add to your basket!",
+        'to start shopping and save your items.',
         'cart'
       );
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(
+          new CustomEvent('open-auth-modal', { detail: { mode: 'signin' } })
+        );
+      }
       return false;
     }
 
@@ -337,7 +369,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       });
 
     return true;
-  }, [status, userLoggedIn, showGuestToast]);
+  }, [isCustomer, userLoggedIn, showGuestToast]);
 
   const removeItem = useCallback((itemId: string) => {
     setItems((prev) =>
@@ -404,13 +436,18 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const addFavorite = useCallback((product: Product): boolean => {
-    const isAuthed = status === 'authenticated' || userLoggedIn;
-    if (!isAuthed) {
+    // Only logged in customer can add to wishlist
+    if (!isCustomer || !userLoggedIn) {
       showGuestToast(
-        "Don't lose this favourite!",
-        'to add to your wishlist.',
+        "Sign in to add to your wishlist!",
+        'to save your favourite designer pieces.',
         'favorite'
       );
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(
+          new CustomEvent('open-auth-modal', { detail: { mode: 'signin' } })
+        );
+      }
       return false;
     }
 
@@ -429,13 +466,12 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     });
 
     return true;
-  }, [status, userLoggedIn, showGuestToast]);
+  }, [isCustomer, userLoggedIn, showGuestToast]);
 
   const removeFavorite = useCallback((productId: string) => {
     setFavorites((prev) => prev.filter((p) => p.id !== productId));
 
-    const isAuthed = status === 'authenticated' || userLoggedIn;
-    if (isAuthed) {
+    if (isCustomer) {
       fetch('/api/favorites', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -444,20 +480,24 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         console.error('Failed to sync favorite removal to DB:', err);
       });
     }
-  }, [status, userLoggedIn]);
+  }, [isCustomer]);
 
   const isFavorite = useCallback((productId: string) => {
     return favorites.some((p) => p.id === productId);
   }, [favorites]);
 
   const saveForLater = useCallback((itemId: string): boolean => {
-    const isAuthed = status === 'authenticated' || userLoggedIn;
-    if (!isAuthed) {
+    if (!isCustomer || !userLoggedIn) {
       showGuestToast(
-        "Don't lose this favourite!",
-        'to add to your wishlist.',
+        "Sign in to add to your wishlist!",
+        'to save your favourite designer pieces.',
         'favorite'
       );
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(
+          new CustomEvent('open-auth-modal', { detail: { mode: 'signin' } })
+        );
+      }
       return false;
     }
 
@@ -482,10 +522,15 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }).catch(() => {});
 
     return true;
-  }, [status, userLoggedIn, showGuestToast]);
+  }, [isCustomer, userLoggedIn, showGuestToast]);
 
   const clearCart = useCallback(() => {
     setItems([]);
+    try {
+      localStorage.removeItem(CART_STORAGE_KEY);
+    } catch (e) {
+      console.error('Failed to clear cart in localStorage:', e);
+    }
 
     const isAuthed = status === 'authenticated' || userLoggedIn;
     if (isAuthed) {

@@ -65,83 +65,87 @@ export default function AdminOrdersPage() {
 
   return (
     <div
-      style={{ fontFamily: "'Montserrat', sans-serif" }}
-      className="flex flex-col gap-6"
+      style={{ fontFamily: "var(--font-body, 'Plus Jakarta Sans', sans-serif)" }}
+      className="flex flex-col gap-6 font-body"
     >
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 bg-[#111111] text-white px-5 py-3 rounded-2xl shadow-xl flex items-center gap-3 border border-white/20 animate-in fade-in slide-in-from-bottom-3 duration-200">
-          <i className="fa-solid fa-circle-check text-emerald-400 text-base" />
+        <div className="fixed bottom-6 right-6 z-50 bg-[#221D16] text-[#FFFDFA] px-5 py-3 rounded-full shadow-2xl flex items-center gap-3 border border-[#C5A880]/50 animate-in fade-in slide-in-from-bottom-3 duration-200">
+          <i className="fa-solid fa-circle-check text-[#C5A880] text-base" />
           <span className="text-xs font-semibold">{toastMessage}</span>
         </div>
       )}
 
-      {/* Search Bar Only */}
-      <div className="bg-white px-4 sm:px-5 py-3 sm:py-3.5 rounded-2xl sm:rounded-full border border-gray-200/80 shadow-xs flex items-center gap-3 text-xs">
-        <div className="relative w-full sm:w-72">
-          <i className="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-xs" />
+      {/* Search Bar */}
+      <div className="bg-[#FFFDFA] px-4 sm:px-5 py-3 sm:py-3.5 rounded-2xl sm:rounded-full border border-[#E6E0D4] shadow-xs flex items-center gap-3 text-xs">
+        <div className="relative w-full sm:w-80">
+          <i className="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-[#8C6C43] text-xs pointer-events-none" />
           <input
             type="text"
             placeholder="Search orders, customer, city..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-3.5 py-1.5 text-xs rounded-full border border-gray-200 bg-gray-50/70 focus:bg-white focus:outline-hidden focus:border-black transition-all"
+            className="w-full pl-9 pr-3.5 py-2 text-xs rounded-full border border-[#E6E0D4] bg-[#FAF7F2] focus:bg-white focus:outline-none focus:border-[#8C6C43] text-[#221D16] transition-all"
           />
         </div>
       </div>
 
-      {/* Luxury Noir Salon-Style Hero Page Banner with Right-Side Fade Image */}
-      <div className="rounded-2xl sm:rounded-3xl bg-[#161619] p-5 sm:p-7 md:p-8 text-white shadow-xl border border-white/10 relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-5 min-h-[160px] sm:min-h-[190px]">
-        {/* Right-Side Photo with Seamless Noir Blend Gradient */}
-        <div className="absolute right-0 top-0 bottom-0 w-full sm:w-3/5 lg:w-1/2 pointer-events-none overflow-hidden select-none">
+      {/* Luxury Atelier Salon-Style Hero Page Banner with Warm Beige/Mocha Gradient & Right-Side Fade Image */}
+      <div
+        className="rounded-2xl sm:rounded-3xl p-5 sm:p-7 md:p-8 text-white shadow-xl border border-[#C5A880]/30 relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-5 min-h-[160px] sm:min-h-[190px]"
+        style={{
+          background: 'linear-gradient(135deg, #2A2118 0%, #3B2E21 42%, #52402E 75%, #6B553F 100%)',
+        }}
+      >
+        {/* Full Cover Photo with Seamless Left Blend Gradient for Text Legibility */}
+        <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden select-none">
           <img
-            src="/images/feng_shui_hero_banner.jpg"
-            alt="Miracle Orders Sanctuary"
-            className="w-full h-full object-cover object-right brightness-[0.7] contrast-[1.08]"
+            src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1600&q=80"
+            alt="Mehra Designs Orders Sanctuary"
+            className="w-full h-full object-cover object-center brightness-[0.72] contrast-[1.05]"
           />
-          {/* Seamless Left Fade Gradient */}
+          {/* Seamless Left-to-Right Blend: rich beige/mocha on the left where text is, softly revealing photo across middle and right */}
           <div
             className="absolute inset-0"
             style={{
-              background: 'linear-gradient(to right, #161619 0%, #161619 12%, rgba(22, 22, 25, 0.85) 42%, rgba(22, 22, 25, 0.25) 75%, transparent 100%)',
+              background: 'linear-gradient(to right, rgba(42, 33, 24, 0.97) 0%, rgba(42, 33, 24, 0.92) 28%, rgba(42, 33, 24, 0.62) 55%, rgba(42, 33, 24, 0.22) 85%, rgba(42, 33, 24, 0.12) 100%)',
             }}
           />
           {/* Subtle Top & Bottom Vignette */}
           <div
             className="absolute inset-0"
             style={{
-              background: 'linear-gradient(to bottom, rgba(22, 22, 25, 0.35) 0%, transparent 25%, transparent 75%, rgba(22, 22, 25, 0.5) 100%)',
+              background: 'linear-gradient(to bottom, rgba(42, 33, 24, 0.35) 0%, transparent 30%, transparent 70%, rgba(42, 33, 24, 0.5) 100%)',
             }}
           />
         </div>
 
         <div className="relative z-10">
           {/* Date Pill Badge */}
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.08] border border-white/15 text-white/90 text-[10px] sm:text-[10.5px] font-mono tracking-[0.14em] uppercase font-semibold mb-2 shadow-2xs backdrop-blur-xs">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/30 border border-[#C5A880]/40 text-[#FAF7F2] text-[10px] sm:text-[10.5px] font-mono tracking-[0.14em] uppercase font-semibold mb-2 shadow-2xs backdrop-blur-xs">
             <span>{new Date().toLocaleDateString('en-US', { month: 'long', day: '2-digit', year: 'numeric' }).toUpperCase()}</span>
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
           </div>
           <h1
-            style={{ fontFamily: "'Bebas Neue', 'Montserrat', sans-serif" }}
-            className="text-2xl sm:text-3xl lg:text-4xl font-normal tracking-tight text-white leading-tight"
+            style={{ fontFamily: "'Cormorant Garamond', Georgia, serif" }}
+            className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white leading-tight"
           >
             Orders Management
           </h1>
           <p
-            style={{ fontFamily: "'Montserrat', sans-serif" }}
             className="text-xs sm:text-sm text-white/70 mt-1 max-w-xl font-normal leading-relaxed"
           >
             Track customer deliveries, manage warehouse dispatch, and inspect live COD &amp; online balances.
           </p>
         </div>
 
-        {/* Horizontal Navigation Pills with Icons on the Black Banner */}
+        {/* Horizontal Navigation Pills with Icons on the Luxury Banner */}
         <div className="relative z-10 flex items-center gap-2 overflow-x-auto no-scrollbar pb-1 md:pb-0">
           <a
             href="/admin"
-            className="px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full border border-white/20 bg-white/10 hover:bg-white/20 backdrop-blur-xs text-white text-[11px] sm:text-xs font-semibold flex items-center gap-1.5 sm:gap-2 transition-all no-underline shadow-2xs whitespace-nowrap"
+            className="px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full border border-white/20 bg-white/10 hover:bg-white/20 backdrop-blur-xs text-[#FAF7F2] text-[11px] sm:text-xs font-semibold flex items-center gap-1.5 sm:gap-2 transition-all no-underline shadow-2xs whitespace-nowrap"
           >
-            <i className="fa-regular fa-user text-xs text-white/80" />
+            <i className="fa-regular fa-user text-xs text-[#E6DDD4]" />
             <span>Dashboard</span>
           </a>
 
@@ -156,25 +160,25 @@ export default function AdminOrdersPage() {
 
           <a
             href="/admin/products"
-            className="px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full border border-white/20 bg-white/10 hover:bg-white/20 backdrop-blur-xs text-white text-[11px] sm:text-xs font-semibold flex items-center gap-1.5 sm:gap-2 transition-all no-underline shadow-2xs whitespace-nowrap"
+            className="px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full border border-white/20 bg-white/10 hover:bg-white/20 backdrop-blur-xs text-[#FAF7F2] text-[11px] sm:text-xs font-semibold flex items-center gap-1.5 sm:gap-2 transition-all no-underline shadow-2xs whitespace-nowrap"
           >
-            <i className="fa-solid fa-boxes-stacked text-xs text-white/80" />
+            <i className="fa-solid fa-boxes-stacked text-xs text-[#E6DDD4]" />
             <span>Catalog</span>
           </a>
 
           <a
             href="/admin/categories"
-            className="px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full border border-white/20 bg-white/10 hover:bg-white/20 backdrop-blur-xs text-white text-[11px] sm:text-xs font-semibold flex items-center gap-1.5 sm:gap-2 transition-all no-underline shadow-2xs whitespace-nowrap"
+            className="px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full border border-white/20 bg-white/10 hover:bg-white/20 backdrop-blur-xs text-[#FAF7F2] text-[11px] sm:text-xs font-semibold flex items-center gap-1.5 sm:gap-2 transition-all no-underline shadow-2xs whitespace-nowrap"
           >
-            <i className="fa-solid fa-tags text-xs text-white/80" />
+            <i className="fa-solid fa-tags text-xs text-[#E6DDD4]" />
             <span>Categories</span>
           </a>
 
           <a
             href="/admin/homepage"
-            className="px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full border border-white/20 bg-white/10 hover:bg-white/20 backdrop-blur-xs text-white text-[11px] sm:text-xs font-semibold flex items-center gap-1.5 sm:gap-2 transition-all no-underline shadow-2xs whitespace-nowrap"
+            className="px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full border border-white/20 bg-white/10 hover:bg-white/20 backdrop-blur-xs text-[#FAF7F2] text-[11px] sm:text-xs font-semibold flex items-center gap-1.5 sm:gap-2 transition-all no-underline shadow-2xs whitespace-nowrap"
           >
-            <i className="fa-solid fa-layer-group text-xs text-white/80" />
+            <i className="fa-solid fa-layer-group text-xs text-[#E6DDD4]" />
             <span>Sections</span>
           </a>
         </div>
@@ -238,16 +242,16 @@ export default function AdminOrdersPage() {
                     }`}
                   >
                     <div className="flex items-center gap-2">
-                      <i className={`${statusIcon} text-xs ${isSel ? 'text-white' : 'text-gray-400'}`} />
+                      <i className={`${statusIcon} text-xs ${isSel ? 'text-[#C5A880]' : 'text-[#8C6C43]'}`} />
                       <span className="font-semibold">{label}</span>
                     </div>
                     <span
                       style={
                         isSel
                           ? { backgroundColor: '#FFFFFF', color: '#111111' }
-                          : { backgroundColor: '#F3F4F6', color: '#4B5563' }
+                          : { backgroundColor: '#FAF7F2', color: '#8C6C43' }
                       }
-                      className="w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold shrink-0"
+                      className="w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold shrink-0 border border-[#E6DDD4]/60"
                     >
                       {count}
                     </span>
@@ -259,31 +263,31 @@ export default function AdminOrdersPage() {
 
           {/* Financial Summary: 2-col on mobile, stacked on desktop */}
           <div className="bg-white p-3.5 sm:p-4 rounded-2xl sm:rounded-3xl border border-gray-200/80 shadow-xs flex flex-col gap-2.5 sm:gap-3">
-            <span className="text-[10px] sm:text-[10.5px] font-bold text-gray-400 uppercase tracking-wider px-1 sm:px-2">
+            <span className="text-[10px] sm:text-[10.5px] font-bold text-[#8C6C43] uppercase tracking-wider px-1 sm:px-2">
               Financial Summary
             </span>
 
             <div className="grid grid-cols-2 lg:grid-cols-1 gap-2.5">
-              <div className="bg-gray-50/70 p-3 sm:p-3.5 rounded-xl sm:rounded-2xl border border-gray-100">
+              <div className="bg-[#FAF7F2] p-3 sm:p-3.5 rounded-xl sm:rounded-2xl border border-[#E6DDD4]">
                 <span className="text-[9.5px] sm:text-[10.5px] font-semibold text-emerald-700 block uppercase tracking-wider">
                   Settled (In-Hand)
                 </span>
                 <div className="text-base sm:text-lg font-bold text-gray-900 mt-0.5 truncate">
                   ₹{settledBalance.toLocaleString('en-IN')}
                 </div>
-                <span className="text-[9.5px] sm:text-[10px] text-gray-400 block mt-0.5 truncate">
+                <span className="text-[9.5px] sm:text-[10px] text-[#8C6C43] block mt-0.5 truncate">
                   Delivered + Online
                 </span>
               </div>
 
-              <div className="bg-gray-50/70 p-3 sm:p-3.5 rounded-xl sm:rounded-2xl border border-gray-100">
-                <span className="text-[9.5px] sm:text-[10.5px] font-semibold text-gray-500 block uppercase tracking-wider">
+              <div className="bg-[#FAF7F2] p-3 sm:p-3.5 rounded-xl sm:rounded-2xl border border-[#E6DDD4]">
+                <span className="text-[9.5px] sm:text-[10.5px] font-semibold text-[#8C6C43] block uppercase tracking-wider">
                   Pending COD
                 </span>
                 <div className="text-base sm:text-lg font-bold text-gray-900 mt-0.5 truncate">
                   ₹{pendingBalance.toLocaleString('en-IN')}
                 </div>
-                <span className="text-[9.5px] sm:text-[10px] text-gray-400 block mt-0.5 truncate">
+                <span className="text-[9.5px] sm:text-[10px] text-[#8C6C43]/70 block mt-0.5 truncate">
                   Awaiting delivery
                 </span>
               </div>
@@ -295,7 +299,7 @@ export default function AdminOrdersPage() {
         <div className="lg:col-span-9 flex flex-col gap-4">
           {filteredOrders.length === 0 ? (
             <div className="bg-white rounded-2xl sm:rounded-3xl p-8 sm:p-12 text-center border border-gray-200/80 shadow-xs">
-              <div className="w-12 h-12 rounded-full bg-gray-100 text-gray-400 flex items-center justify-center mx-auto mb-3">
+              <div className="w-12 h-12 rounded-full bg-[#FAF7F2] text-[#8C6C43] border border-[#E6DDD4] flex items-center justify-center mx-auto mb-3">
                 <i className="fa-solid fa-box-open text-lg" />
               </div>
               <h3 className="font-bold text-base text-gray-900">No orders found</h3>

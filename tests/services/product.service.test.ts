@@ -28,13 +28,13 @@ describe('ProductService', () => {
       items: [
         {
           id: 'prod-1',
-          title: 'Citrine Money Tree',
-          slug: 'citrine-money-tree',
-          price: 2400,
-          comparePrice: 2800,
+          title: 'Silk Slip Evening Dress',
+          slug: 'silk-slip-evening-dress',
+          price: 4999,
+          comparePrice: 5999,
           ratingAvg: 4.9,
           ratingCount: 15,
-          category: { name: 'Crystals', slug: 'crystals' },
+          category: { name: 'Dresses', slug: 'dresses' },
         } as any,
       ],
       total: 1,
@@ -48,7 +48,7 @@ describe('ProductService', () => {
 
     expect(result.total).toBe(1);
     expect(result.items.length).toBe(1);
-    expect(result.items[0].name).toBe('Citrine Money Tree');
+    expect(result.items[0].name).toBe('Silk Slip Evening Dress');
   });
 
   it('should throw ApiError if product not found by slug', async () => {

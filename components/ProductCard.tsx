@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { Heart, Star } from 'lucide-react';
 import { Product } from '@/lib/placeholder-data';
 import { useCart } from '@/context/CartContext';
 import { useLocale } from '@/context/CurrencyContext';
@@ -9,17 +10,33 @@ import { translateProductTitle } from '@/lib/translations';
 
 interface ProductCardProps {
   product: Product;
+  delayIndex?: number;
 }
 
-export function ProductCard({ product }: ProductCardProps) {
-  const { isFavorite, addFavorite, removeFavorite } = useCart();
-  const { formatPrice, t, language } = useLocale();
+export function ProductCard({ product, delayIndex = 0 }: ProductCardProps) {
+  const { isFavorite, addFavorite, removeFavorite, userLoggedIn, showGuestToast } = useCart();
+  const { formatPrice, language } = useLocale();
   const favorited = isFavorite(product.id);
   const localizedTitle = translateProductTitle(product.name, language, product.id);
 
-  const toggleFavorite = (e: React.MouseEvent) => {
+  const toggleWishlist = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
+
+    if (!userLoggedIn) {
+      showGuestToast(
+        "Sign in to add to your wishlist!",
+        'to save your favourite designer pieces.',
+        'favorite'
+      );
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(
+          new CustomEvent('open-auth-modal', { detail: { mode: 'signin' } })
+        );
+      }
+      return;
+    }
+
     if (favorited) {
       removeFavorite(product.id);
     } else {
@@ -27,131 +44,93 @@ export function ProductCard({ product }: ProductCardProps) {
     }
   };
 
-  const mainImage = product.images[0];
+  const mainImage =
+    product.images[0] ||
+    'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80';
+
+  const badgeText = product.bestseller
+    ? 'BESTSELLER'
+    : (product as any).isNew || product.etsyPick
+    ? 'NEW'
+    : null;
 
   return (
     <Link
       href={`/product/${product.id}`}
-      className="group flex flex-col no-underline text-inherit hover:-translate-y-1 transition-all duration-200"
+      data-aos="fade-up"
+      data-aos-delay={delayIndex * 50}
+      className="group flex flex-col h-full cursor-pointer no-underline text-inherit"
     >
-      {/* 1. Image Area with Badges & Favorite Heart */}
-      <div className="relative aspect-square w-full overflow-hidden rounded-lg bg-etsy-bg-soft border border-etsy-border/60">
+      {/* 1. Image Container (Decreased height on mobile aspect-[4/5], square-cornered, overflow-hidden) */}
+      <div className="relative aspect-[4/5] sm:aspect-[3/4] bg-[#EFEBE5] rounded-none overflow-hidden shrink-0">
         <img
           src={mainImage}
           alt={localizedTitle}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+          className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
           loading="lazy"
-          onError={(e) => {
-            const target = e.currentTarget;
-            if (!target.src.includes('photo-1518895949257')) {
-              target.src = 'https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=600&q=80';
-            }
-          }}
         />
 
-        {/* Overlay Badges */}
-        <div className="absolute top-2.5 left-2.5 flex flex-col gap-1 z-10 pointer-events-none">
-          {product.stock !== undefined && product.stock > 0 && product.stock < 10 && (
-            <span className="bg-[#C2410C] text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full tracking-wide shadow-xs flex items-center gap-1">
-              <i className="fa-solid fa-fire text-[9px]" />
-              Only {product.stock} left
-            </span>
-          )}
-          {product.stock === 0 && (
-            <span className="bg-red-700 text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full tracking-wide shadow-xs">
-              Out of stock
-            </span>
-          )}
-          {product.bestseller && (
-            <span className="bg-black/85 text-white text-[10px] font-semibold px-2.5 py-0.5 rounded-full tracking-wide shadow-xs backdrop-blur-xs">
-              {t('badge.bestseller', 'Bestseller')}
-            </span>
-          )}
-          {product.etsyPick && !product.bestseller && (
-            <span className="bg-white/95 text-[#111111] border border-black/10 text-[10px] font-semibold px-2.5 py-0.5 rounded-full tracking-wide shadow-xs backdrop-blur-xs">
-              {t('badge.miracle_pick', 'Miracle Pick')}
-            </span>
-          )}
-        </div>
+        {/* Small Square Tag at top-left (#221D16 bg, white text) */}
+        {badgeText && (
+          <span className="absolute top-2 left-2 bg-[#221D16] text-white text-[9.5px] sm:text-[10px] font-semibold px-1.5 sm:px-2 py-0.5 uppercase tracking-wider rounded-none z-10 select-none">
+            {badgeText}
+          </span>
+        )}
 
-        {/* Floating Heart Button */}
+        {/* Outlined Heart Icon top-right (No background circle) */}
         <button
           type="button"
-          aria-label={favorited ? 'Remove from favorites' : 'Save to favorites'}
-          onMouseDown={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-          }}
-          onClick={toggleFavorite}
-          className="absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-white shadow-md flex items-center justify-center transition-all duration-200 z-10 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 hover:scale-110 active:scale-95 cursor-pointer"
+          onClick={toggleWishlist}
+          aria-label={favorited ? 'Remove from favorites' : 'Add to favorites'}
+          className="absolute top-2 right-2 p-1 text-[#221D16] transition-transform hover:scale-110 cursor-pointer z-10"
         >
-          <i
-            className={`text-[13px] transition-colors ${
+          <Heart
+            className={`w-4 h-4 stroke-[1.5] transition-colors ${
               favorited
-                ? 'fa-solid fa-heart text-[#F1641E]'
-                : 'fa-regular fa-heart text-[#111111] hover:text-[#F1641E]'
+                ? 'fill-[#8C6C43] text-[#8C6C43]'
+                : 'text-[#221D16] hover:text-[#8C6C43]'
             }`}
           />
         </button>
       </div>
 
-      {/* 2. Card Body */}
-      <div className="pt-2.5 flex flex-col flex-grow">
-        {/* Title */}
-        <h3 style={{ fontWeight: 400 }} className="text-[13.5px] font-normal text-etsy-dark leading-snug line-clamp-2 no-underline">
-          {localizedTitle}
-        </h3>
-
-        {/* Rating & Review Count */}
-        <div className="flex items-center gap-1.5 mt-1.5">
-          <div className="flex items-center gap-0.5 text-[#E59819]">
-            {[...Array(5)].map((_, i) => (
-              <i key={i} className="fa-solid fa-star text-[11px] leading-none" />
-            ))}
-          </div>
-          <span className="text-[12px] text-etsy-gray font-normal">
-            ({product.reviewCount > 1000 ? `${(product.reviewCount / 1000).toFixed(1)}k` : product.reviewCount})
-          </span>
+      {/* 2. Product Details - Strict Uniform Height for Perfect Horizontal Alignment */}
+      <div className="pt-2 flex flex-col justify-between flex-1">
+        {/* Name (Fixed 2-line height container so every card title aligns on exact same line) */}
+        <div className="h-8 sm:h-9 overflow-hidden flex items-start">
+          <h3 className="text-[11px] sm:text-xs md:text-sm font-medium text-[#221D16] leading-[1.25] sm:leading-snug line-clamp-2 group-hover:text-[#8C6C43] transition-colors">
+            {localizedTitle}
+          </h3>
         </div>
 
-        {/* Price & Discounts */}
-        <div className="flex items-baseline flex-wrap gap-1.5 mt-1.5">
-          <span className="text-[16px] font-bold text-etsy-dark">
+        {/* Price + Struck-through Old Price (Fixed height so price is always on exact same line) */}
+        <div className="h-5 flex items-baseline gap-1.5 sm:gap-2 mt-1 overflow-hidden">
+          <span className="text-xs sm:text-sm font-bold text-[#221D16] whitespace-nowrap">
             {formatPrice(product.price)}
           </span>
-          {product.originalPrice && (
-            <span className="text-[13px] text-etsy-gray line-through">
+          {product.originalPrice && product.originalPrice > product.price && (
+            <span className="text-[10px] sm:text-xs text-[#71717A] line-through font-normal whitespace-nowrap">
               {formatPrice(product.originalPrice)}
             </span>
           )}
-          {product.discount && (
-            <span className="text-[12px] font-semibold text-etsy-green">
-              ({product.discount})
-            </span>
-          )}
         </div>
 
-        {/* Free Shipping Tag */}
-        {product.freeShipping && (
-          <div className="text-[12px] font-semibold text-etsy-green mt-0.5 flex items-center gap-1">
-            <i className="fa-solid fa-truck-fast text-[11px]" />
-            <span>{t('badge.free_delivery', 'FREE delivery')}</span>
-          </div>
-        )}
-
-        {/* Low Stock Indicator (< 10 products left) */}
-        {product.stock !== undefined && product.stock > 0 && product.stock < 10 && (
-          <div className="text-[11.5px] font-bold text-[#C2410C] mt-1 flex items-center gap-1">
-            <i className="fa-solid fa-fire text-[#EA580C] text-[10.5px]" />
-            <span>Only {product.stock} left in stock — order soon!</span>
-          </div>
-        )}
-        {product.stock === 0 && (
-          <div className="text-[11.5px] font-bold text-red-600 mt-1 flex items-center gap-1">
-            <i className="fa-solid fa-circle-xmark text-[10.5px]" />
-            <span>Out of stock</span>
-          </div>
-        )}
+        {/* 5 Stars in #8C6C43 + Review Count in parentheses (Fixed height) */}
+        <div className="h-4 flex items-center gap-0.5 mt-0.5 text-[#8C6C43] overflow-hidden">
+          {[...Array(5)].map((_, i) => (
+            <Star
+              key={i}
+              className={`w-2.5 h-2.5 sm:w-3 sm:h-3 ${
+                i < Math.floor(product.rating || 4.5)
+                  ? 'fill-[#8C6C43] text-[#8C6C43]'
+                  : 'fill-none text-[#8C6C43]'
+              }`}
+            />
+          ))}
+          <span className="text-[9.5px] sm:text-xs text-[#71717A] font-medium ml-1 whitespace-nowrap">
+            ({product.reviewCount || 48})
+          </span>
+        </div>
       </div>
     </Link>
   );

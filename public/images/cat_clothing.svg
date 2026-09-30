@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+    <defs>
+      <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#FAF6F0"/>
+        <stop offset="50%" stop-color="#EFE6D5"/>
+        <stop offset="100%" stop-color="#DECFAF"/>
+      </linearGradient>
+      <radialGradient id="spotlight" cx="35%" cy="30%" r="65%">
+        <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.6"/>
+        <stop offset="100%" stop-color="#FAF6F0" stop-opacity="0"/>
+      </radialGradient>
+      <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#F4D068"/>
+        <stop offset="50%" stop-color="#B99465"/>
+        <stop offset="100%" stop-color="#7A5C34"/>
+      </linearGradient>
+      <filter id="shadow" x="-10%" y="-10%" width="130%" height="130%">
+        <feDropShadow dx="0" dy="12" stdDeviation="15" flood-color="#221D16" flood-opacity="0.25"/>
+      </filter>
+    </defs>
+    <!-- Background wall -->
+    <rect width="500" height="500" fill="url(#bgGrad)"/>
+    <rect width="500" height="500" fill="url(#spotlight)"/>
+    
+    <!-- Floor Line & Soft Shadow -->
+    <ellipse cx="250" cy="420" rx="140" ry="25" fill="#221D16" opacity="0.15" filter="url(#shadow)"/>
+
+    <!-- High-Fashion Beige Blazer Outfit Studio Cutout -->
+    <g filter="url(#shadow)">
+      <!-- Head / Hair Silhouette -->
+      <path d="M230 110 C230 85 270 85 270 110 C270 135 240 145 230 110 Z" fill="#221D16"/>
+      <!-- Neck -->
+      <rect x="242" y="130" width="16" height="25" fill="#EAD9C1"/>
+      <!-- Inner Black Top -->
+      <path d="M235 150 L265 150 L260 210 L240 210 Z" fill="#1C1814"/>
+      <!-- Beige Blazer Jacket -->
+      <path d="M210 155 Q250 145 290 158 L282 310 L250 310 L250 220 L240 220 L240 310 L212 310 Z" fill="#D6C4A5" stroke="#C2AF8F" stroke-width="2"/>
+      <!-- Lapels & Details -->
+      <path d="M225 155 L245 220 L250 190 L235 155 Z" fill="#1C1814"/>
+      <path d="M275 158 L255 220 L250 190 L265 158 Z" fill="#1C1814"/>
+      <circle cx="252" cy="235" r="4" fill="url(#gold)"/>
+      <!-- Trousers -->
+      <path d="M212 310 L240 310 L242 430 L216 430 Z" fill="#CBB696"/>
+      <path d="M250 310 L282 310 L278 430 L252 430 Z" fill="#CBB696"/>
+      <!-- Pointed Black Leather Shoes -->
+      <path d="M214 430 L238 430 L242 445 L208 445 Z" fill="#1C1814"/>
+      <path d="M254 430 L278 430 L284 445 L250 445 Z" fill="#1C1814"/>
+    </g>
+  </svg>

@@ -12,23 +12,30 @@ function slugify(text: string): string {
 }
 
 async function main() {
-  console.log('🌱 Starting Miracle Feng Shui database seeding...');
+  console.log('🌱 Starting Mehra Designs database seeding...');
+
+  // 0. Clean up legacy products & categories
+  console.log('🧹 Cleaning legacy database entries...');
+  await prisma.review.deleteMany({}).catch(() => {});
+  await prisma.product.deleteMany({}).catch(() => {});
+  await prisma.category.deleteMany({}).catch(() => {});
+  console.log('✅ Cleaned up old database entries.');
 
   // 1. Seed Users (Admin + Customer)
   const adminPasswordHash = await bcrypt.hash('admin', 12);
   const customerPasswordHash = await bcrypt.hash('customer123', 12);
 
   const admin = await prisma.user.upsert({
-    where: { email: 'admin@miraclefengshui.com' },
+    where: { email: 'admin@mehradesigns.com' },
     update: {
       passwordHash: adminPasswordHash,
       role: 'ADMIN',
-      name: 'Miracle Admin',
+      name: 'Mehra Designs Admin',
     },
     create: {
-      email: 'admin@miraclefengshui.com',
+      email: 'admin@mehradesigns.com',
       passwordHash: adminPasswordHash,
-      name: 'Miracle Admin',
+      name: 'Mehra Designs Admin',
       role: 'ADMIN',
       phone: '+91 98765 43210',
     },
@@ -47,7 +54,7 @@ async function main() {
       create: {
         name: catName,
         slug: catSlug,
-        description: `Authentic consecrated ${catName} cures, blessings, and sacred items.`,
+        description: `Handcrafted luxury ${catName} designed with timeless elegance, modern silhouettes, and premium fabrics.`,
       },
     });
     categoryMap.set(catName, category.id);
@@ -104,7 +111,7 @@ async function main() {
         stock: 50,
         categoryId,
         tags: [prod.category, prod.maker],
-        maker: prod.maker || 'Miracle Feng Shui Studio',
+        maker: prod.maker || 'Mehra Designs Studio',
         makerAvatar: prod.makerAvatar || null,
         makerSales: prod.makerSales || 1200,
         starSeller: prod.starSeller || false,
@@ -134,7 +141,7 @@ async function main() {
         stock: 50,
         categoryId,
         tags: [prod.category, prod.maker],
-        maker: prod.maker || 'Miracle Feng Shui Studio',
+        maker: prod.maker || 'Mehra Designs Studio',
         makerAvatar: prod.makerAvatar || null,
         makerSales: prod.makerSales || 1200,
         starSeller: prod.starSeller || false,
@@ -173,8 +180,8 @@ async function main() {
         userId: admin.id,
         productId: firstProd.id,
         rating: 5,
-        comment: 'Breathtaking quality and powerful positive Chi energy! Arrived in auspicious packaging.',
-        productVariation: 'Standard Size',
+        comment: 'Breathtaking drape and luxurious fabric feel! Arrived in signature luxury Mehra Designs packaging.',
+        productVariation: 'Medium',
       },
     });
   }
@@ -191,7 +198,7 @@ async function main() {
         userId: admin.id,
         productId: secondProd.id,
         rating: 5,
-        comment: 'Master blessed authentic item. Highly recommended for prosperity corner.',
+        comment: 'Impeccable tailoring and finish. Fits true to size and feels like high couture.',
       },
     });
   }

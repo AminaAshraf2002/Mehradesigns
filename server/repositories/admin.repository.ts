@@ -14,6 +14,7 @@ export const adminRepository = {
         where: {
           OR: [
             { orderNumber: 'MFS-82914' },
+            { user: { email: 'admin@mehradesigns.com' } },
             { user: { email: 'admin@miraclefengshui.com' } },
           ],
         },
@@ -177,7 +178,7 @@ export const adminRepository = {
         comparePrice: data.comparePrice ?? data.originalPrice ?? null,
         stock: data.stock,
         images: data.images,
-        maker: data.maker || 'Miracle Feng Shui Studio',
+        maker: data.maker || 'Mehra Designs Studio',
         makerSales: data.makerSales ?? data.salesCount ?? 0,
         starSeller: data.starSeller ?? false,
         bestseller: data.bestseller ?? false,
@@ -323,11 +324,13 @@ export const adminRepository = {
       badge?: string | null;
       order?: number;
       enabled?: boolean;
+      config?: any;
     }[]
   ) {
     return prisma.$transaction(
       sections.map((sec, idx) => {
         const order = sec.order !== undefined ? sec.order : idx;
+        const configData = sec.config !== undefined ? (sec.config ?? Prisma.JsonNull) : undefined;
         return prisma.homepageSection.upsert({
           where: {
             sectionKey: sec.sectionKey || sec.id,
@@ -341,6 +344,7 @@ export const adminRepository = {
             badge: sec.badge,
             order,
             enabled: sec.enabled !== undefined ? sec.enabled : true,
+            ...(configData !== undefined ? { config: configData } : {}),
           },
           create: {
             sectionKey: sec.sectionKey || sec.id,
@@ -352,9 +356,59 @@ export const adminRepository = {
             badge: sec.badge,
             order,
             enabled: sec.enabled !== undefined ? sec.enabled : true,
+            config: configData ?? Prisma.JsonNull,
           },
         });
       })
     );
+  },
+
+  async getHomepageSectionByKey(sectionKey: string) {
+    return prisma.homepageSection.findUnique({
+      where: { sectionKey },
+    });
+  },
+
+  async upsertHomepageSection(
+    sectionKey: string,
+    data: {
+      name?: string;
+      title?: string;
+      subtitle?: string | null;
+      ctaText?: string | null;
+      ctaLink?: string | null;
+      badge?: string | null;
+      order?: number;
+      enabled?: boolean;
+      config?: any;
+    }
+  ) {
+    const configData = data.config !== undefined ? (data.config ?? Prisma.JsonNull) : undefined;
+    return prisma.homepageSection.upsert({
+      where: { sectionKey },
+      update: {
+        ...(data.name ? { name: data.name } : {}),
+        ...(data.title ? { title: data.title } : {}),
+        ...(data.subtitle !== undefined ? { subtitle: data.subtitle } : {}),
+        ...(data.ctaText !== undefined ? { ctaText: data.ctaText } : {}),
+        ...(data.ctaLink !== undefined ? { ctaLink: data.ctaLink } : {}),
+        ...(data.badge !== undefined ? { badge: data.badge } : {}),
+        ...(data.order !== undefined ? { order: data.order } : {}),
+        ...(data.enabled !== undefined ? { enabled: data.enabled } : {}),
+        ...(configData !== undefined ? { config: configData } : {}),
+      },
+      create: {
+        sectionKey,
+        name: data.name || data.title || sectionKey,
+        title: data.title || sectionKey,
+        subtitle: data.subtitle ?? null,
+        ctaText: data.ctaText ?? null,
+        ctaLink: data.ctaLink ?? null,
+        badge: data.badge ?? null,
+        order: data.order ?? 0,
+        enabled: data.enabled ?? true,
+        config: configData ?? Prisma.JsonNull,
+      },
+    });
   },
 };

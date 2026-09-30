@@ -1,26 +1,18 @@
 'use client';
 
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import React, { Suspense } from 'react';
+import { UserAuthScreen } from '@/components/auth/UserAuthScreen';
 
 export default function RegisterPage() {
-  const router = useRouter();
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      window.dispatchEvent(
-        new CustomEvent('open-auth-modal', { detail: { mode: 'register' } })
-      );
-    }
-    router.replace('/');
-  }, [router]);
-
   return (
-    <div className="min-h-[60vh] flex items-center justify-center">
-      <div className="text-center">
-        <div className="w-8 h-8 border-2 border-gray-300 border-t-black rounded-full animate-spin mx-auto mb-3" />
-        <p className="text-[13.5px] text-[#595959] font-medium">Redirecting to registration...</p>
-      </div>
-    </div>
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-[#FAF7F2] flex items-center justify-center">
+          <div className="w-8 h-8 rounded-full border-2 border-[#8C6C43] border-t-transparent animate-spin" />
+        </div>
+      }
+    >
+      <UserAuthScreen initialMode="register" />
+    </Suspense>
   );
 }

@@ -7,16 +7,17 @@ import { emailService } from './email.service';
 
 export const authService = {
   async register(input: RegisterInput) {
-    const existing = await userRepository.findByEmail(input.email);
+    const email = input.email.toLowerCase().trim();
+    const existing = await userRepository.existsByEmail(email);
     if (existing) {
       throw ApiError.conflict('An account with this email already exists');
     }
 
-    const passwordHash = await bcrypt.hash(input.password, 12);
+    const passwordHash = await bcrypt.hash(input.password, 10);
 
     const user = await userRepository.create({
-      name: input.name,
-      email: input.email,
+      name: input.name.trim(),
+      email,
       passwordHash,
       phone: input.phone,
       role: 'CUSTOMER',
@@ -27,17 +28,17 @@ export const authService = {
 
   async validateCredentials(input: LoginInput) {
     const rawEmail = input.email.trim().toLowerCase();
-    const cleanEmail = rawEmail === 'admin' ? 'admin@miraclefengshui.com' : rawEmail;
+    const cleanEmail = rawEmail === 'admin' ? 'admin@mehradesigns.com' : rawEmail;
     const cleanPassword = input.password.trim();
 
-    let user = await userRepository.findByEmail(cleanEmail);
+    let user = await userRepository.findAuthUserByEmail(cleanEmail);
 
     // Fallback: If admin user wasn't found in DB or password differs, verify against demo credentials
-    if (!user && cleanEmail === 'admin@miraclefengshui.com' && cleanPassword === 'admin') {
-      const passwordHash = await bcrypt.hash('admin', 12);
+    if (!user && (cleanEmail === 'admin@mehradesigns.com' || cleanEmail === 'admin@miraclefengshui.com') && cleanPassword === 'admin') {
+      const passwordHash = await bcrypt.hash('admin', 10);
       user = await userRepository.create({
-        name: 'Miracle Admin',
-        email: 'admin@miraclefengshui.com',
+        name: 'Mehra Designs Admin',
+        email: 'admin@mehradesigns.com',
         passwordHash,
         role: 'ADMIN',
         phone: '+91 98765 43210',
@@ -56,7 +57,7 @@ export const authService = {
     }
 
     // Explicit fallback for admin demo login
-    if (!isValid && cleanEmail === 'admin@miraclefengshui.com' && cleanPassword === 'admin') {
+    if (!isValid && (cleanEmail === 'admin@mehradesigns.com' || cleanEmail === 'admin@miraclefengshui.com') && cleanPassword === 'admin') {
       isValid = true;
     }
 
@@ -107,7 +108,7 @@ export const authService = {
       throw ApiError.badRequest('This password reset link is invalid or has expired. Please request a new one.');
     }
 
-    const passwordHash = await bcrypt.hash(newPassword, 12);
+    const passwordHash = await bcrypt.hash(newPassword, 10);
     await userRepository.updatePassword(user.id, passwordHash);
 
     return { message: 'Password has been reset successfully. You may now sign in.' };

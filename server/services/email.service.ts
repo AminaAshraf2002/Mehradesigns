@@ -1,5 +1,6 @@
 import nodemailer from 'nodemailer';
 import { invoiceService } from './invoice.service';
+import { calculateOrderTax } from '../../lib/tax';
 
 export interface OrderEmailItem {
   id?: string;
@@ -60,9 +61,21 @@ class EmailService {
       return { success: false };
     }
 
-    const from = process.env.EMAIL_FROM || process.env.SMTP_USER || 'Miracle Feng Shui <care@miraclefengshui.com>';
-    const subject = `Order Confirmed: #${order.orderNumber} - Miracle Feng Shui`;
+    const from = process.env.EMAIL_FROM || process.env.SMTP_USER || 'Mehra Designs <care@mehradesigns.com>';
+    const subject = `Order Confirmed: #${order.orderNumber} - Mehra Designs`;
     const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
+
+    const taxBreakdown = calculateOrderTax(
+      order.items.map((it) => ({
+        name: it.title || it.productName || 'Item',
+        price: it.price,
+        quantity: it.quantity,
+      })),
+      {
+        country: order.address?.toLowerCase().includes('uae') || order.address?.toLowerCase().includes('dubai') ? 'AE' : 'IN',
+        address: order.address,
+      }
+    );
 
     const itemsRows = order.items
       .map(
@@ -75,7 +88,7 @@ class EmailService {
                 : ''
             }
             <span style="font-weight: 600; color: #222222; font-size: 14px; vertical-align: middle;">
-              ${it.title || it.productName || 'Feng Shui Sacred Item'}
+              ${it.title || it.productName || 'Mehra Designs Couture Piece'}
             </span>
           </td>
           <td style="padding: 12px; border-bottom: 1px solid #eeeeee; text-align: center; color: #555555; font-size: 14px;">
@@ -102,10 +115,10 @@ class EmailService {
           <!-- Header Banner -->
           <div style="background-color: #170E22; padding: 28px 24px; text-align: center; border-bottom: 3px solid #D4AF37;">
             <h1 style="color: #ffffff; margin: 0; font-size: 22px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;">
-              Miracle Feng Shui
+              Mehra Designs
             </h1>
             <p style="color: #E9D5FF; margin: 6px 0 0 0; font-size: 12.5px; letter-spacing: 0.5px;">
-              Sacred Living &bull; Energy Cures &bull; Consecrated Treasures
+              Haute Couture &bull; Luxury Apparel &bull; Atelier Collections
             </p>
           </div>
 
@@ -166,16 +179,20 @@ class EmailService {
             <div style="border-top: 1px solid #E1E3DF; padding-top: 12px; margin-bottom: 24px;">
               <table style="width: 100%; font-size: 14px;">
                 <tr>
+                  <td style="padding: 4px 0; color: #666666;">Subtotal (Pre-Tax):</td>
+                  <td style="padding: 4px 0; text-align: right; color: #333333; font-weight: 600;">₹${taxBreakdown.totalTaxableAmount.toLocaleString('en-IN')}</td>
+                </tr>
+                <tr>
                   <td style="padding: 4px 0; color: #666666;">Delivery:</td>
                   <td style="padding: 4px 0; text-align: right; color: #15803d; font-weight: 600;">FREE</td>
                 </tr>
                 <tr>
-                  <td style="padding: 4px 0; color: #666666;">GST:</td>
-                  <td style="padding: 4px 0; text-align: right; color: #666666;">Included</td>
+                  <td style="padding: 4px 0; color: #666666;">${taxBreakdown.taxTitle}:</td>
+                  <td style="padding: 4px 0; text-align: right; color: #333333; font-weight: 600;">₹${taxBreakdown.totalTaxAmount.toLocaleString('en-IN')}</td>
                 </tr>
                 <tr style="font-size: 16px; font-weight: 700; color: #111111; border-top: 1px solid #E1E3DF;">
                   <td style="padding: 10px 0;">Grand Total:</td>
-                  <td style="padding: 10px 0; text-align: right; color: #111111;">₹${order.totalAmount.toLocaleString('en-IN')}</td>
+                  <td style="padding: 10px 0; text-align: right; color: #111111;">₹${(taxBreakdown.totalGrossAmount || order.totalAmount).toLocaleString('en-IN')}</td>
                 </tr>
               </table>
             </div>
@@ -193,15 +210,15 @@ class EmailService {
             <!-- CTA Action Button -->
             <div style="text-align: center; margin-bottom: 12px;">
               <a href="${baseUrl}/my-orders" style="display: inline-block; background-color: #111111; color: #ffffff; text-decoration: none; padding: 13px 28px; border-radius: 10px; font-size: 14px; font-weight: 700; letter-spacing: 0.5px;">
-                View Order Status &bull; Miracle Feng Shui
+                View Order Status &bull; Mehra Designs
               </a>
             </div>
           </div>
 
           <!-- Footer -->
           <div style="background-color: #F8F6F2; padding: 20px 24px; text-align: center; font-size: 11.5px; color: #777777; border-top: 1px solid #E1E3DF;">
-            <p style="margin: 0 0 4px 0;">Need assistance? Reach our customer care team at <a href="mailto:care@miraclefengshui.com" style="color: #3A1F62; font-weight: 600;">care@miraclefengshui.com</a></p>
-            <p style="margin: 0;">&copy; 2026 Miracle Feng Shui Pvt. Ltd. All rights reserved.</p>
+            <p style="margin: 0 0 4px 0;">Need assistance? Reach our customer care team at <a href="mailto:care@mehradesigns.com" style="color: #8C6C43; font-weight: 600;">care@mehradesigns.com</a></p>
+            <p style="margin: 0;">&copy; 2026 Mehra Designs Pvt. Ltd. All rights reserved.</p>
           </div>
 
         </div>
@@ -261,8 +278,8 @@ class EmailService {
       return { success: false };
     }
 
-    const from = process.env.EMAIL_FROM || process.env.SMTP_USER || 'Miracle Feng Shui <care@miraclefengshui.com>';
-    const subject = 'Reset Your Password - Miracle Feng Shui';
+    const from = process.env.EMAIL_FROM || process.env.SMTP_USER || 'Mehra Designs <care@mehradesigns.com>';
+    const subject = 'Reset Your Password - Mehra Designs';
 
     const htmlContent = `
       <!DOCTYPE html>
@@ -277,16 +294,16 @@ class EmailService {
           <!-- Header Banner -->
           <div style="background-color: #170E22; padding: 26px 20px; text-align: center; border-bottom: 3px solid #D4AF37;">
             <h1 style="color: #ffffff; margin: 0; font-size: 20px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;">
-              Miracle Feng Shui
+              Mehra Designs
             </h1>
             <p style="color: #E9D5FF; margin: 5px 0 0 0; font-size: 12px; letter-spacing: 0.5px;">
-              Account Security &bull; Sanctuary Access
+              Account Security &bull; Atelier Access
             </p>
           </div>
 
           <!-- Main Message -->
           <div style="padding: 32px 28px; text-align: center;">
-            <div style="display: inline-block; width: 52px; height: 52px; border-radius: 50%; background-color: #F3EEFC; color: #3A1F62; font-size: 22px; line-height: 52px; text-align: center; margin-bottom: 16px;">
+            <div style="display: inline-block; width: 52px; height: 52px; border-radius: 50%; background-color: #FAF7F2; color: #8C6C43; font-size: 22px; line-height: 52px; text-align: center; margin-bottom: 16px; border: 1px solid #E6E0D4;">
               🔒
             </div>
             
@@ -295,8 +312,8 @@ class EmailService {
             </h2>
             
             <p style="color: #555555; font-size: 14px; margin: 0 0 24px 0; line-height: 1.6;">
-              Hello ${data.name || 'Seeker'},<br />
-              We received a request to reset the password for your Miracle Feng Shui account. Click the button below to choose a new password.
+              Hello ${data.name || 'Valued Customer'},<br />
+              We received a request to reset the password for your Mehra Designs account. Click the button below to choose a new password.
             </p>
 
             <!-- Reset Button -->
@@ -315,13 +332,13 @@ class EmailService {
             <!-- Direct URL fallback -->
             <p style="color: #999999; font-size: 11px; margin: 0; word-break: break-all; border-top: 1px solid #F0EFEA; padding-top: 16px;">
               Button not working? Copy and paste this URL into your browser:<br />
-              <a href="${data.resetUrl}" style="color: #C2410C;">${data.resetUrl}</a>
+              <a href="${data.resetUrl}" style="color: #8C6C43;">${data.resetUrl}</a>
             </p>
           </div>
 
           <!-- Footer -->
           <div style="background-color: #F8F6F2; padding: 18px 20px; text-align: center; font-size: 11.5px; color: #777777; border-top: 1px solid #E1E3DF;">
-            <p style="margin: 0;">&copy; 2026 Miracle Feng Shui Pvt. Ltd. All rights reserved.</p>
+            <p style="margin: 0;">&copy; 2026 Mehra Designs Pvt. Ltd. All rights reserved.</p>
           </div>
 
         </div>
