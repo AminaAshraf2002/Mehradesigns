@@ -8,7 +8,7 @@ import {
   buildMetaPixelSnippet,
   buildGoogleAnalyticsSnippet,
   buildGoogleTagManagerSnippet,
-} from '@/lib/tracking';
+} from '@/lib/tracking/snippets';
 
 export default function AdminTrackingPage() {
   const [config, setConfig] = useState<TrackingConfig>(DEFAULT_TRACKING_CONFIG);
