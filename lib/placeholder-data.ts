@@ -110,32 +110,32 @@ export const circularCategories: CategoryCircleInfo[] = [
   {
     name: 'Evening Dresses',
     slug: 'Dresses',
-    image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=600&q=80',
+    image: '/images/2.png',
   },
   {
     name: 'Luxury Tops',
     slug: 'Tops',
-    image: 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=600&q=80',
+    image: '/images/5.png',
   },
   {
-    name: 'Coats & Outerwear',
-    slug: 'Outerwear',
-    image: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=600&q=80',
+    name: 'Party Co-ords',
+    slug: 'Clothing',
+    image: '/images/1.png',
   },
   {
-    name: 'Artisanal Bags',
-    slug: 'Bags',
-    image: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=600&q=80',
+    name: 'Festive Skirts',
+    slug: 'Bottoms',
+    image: '/images/4.png',
   },
   {
-    name: 'Designer Shoes',
-    slug: 'Shoes',
-    image: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=600&q=80',
+    name: 'New In Sets',
+    slug: 'New Arrivals',
+    image: '/images/3.png',
   },
   {
-    name: 'Fine Accessories',
-    slug: 'Accessories',
-    image: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=600&q=80',
+    name: 'Silk Ensembles',
+    slug: 'Dresses',
+    image: '/images/7.png',
   },
 ];
 
@@ -143,71 +143,71 @@ export const summerCollections: CategoryCircleInfo[] = [
   {
     name: 'Summer Refresh',
     slug: 'Dresses',
-    image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80',
+    image: '/images/1.png',
   },
   {
-    name: 'Monochrome Luxe',
+    name: 'Pastel Luxe',
     slug: 'Tops',
-    image: 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=800&q=80',
+    image: '/images/5.png',
   },
   {
-    name: 'Resort Wear',
+    name: 'Festive Twirl',
     slug: 'Dresses',
-    image: 'https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=800&q=80',
+    image: '/images/2.png',
   },
   {
     name: 'Tailored Essentials',
-    slug: 'Outerwear',
-    image: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=800&q=80',
+    slug: 'Clothing',
+    image: '/images/7.png',
   },
 ];
 
 export const birthdayHeroCards = [
   {
-    title: 'New Season Evening Dresses',
+    title: 'Festive Tiered Skirt Sets',
     slug: 'Dresses',
-    image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=600&q=80',
+    image: '/images/2.png',
   },
   {
-    title: 'Minimalist Cotton & Silk Tops',
+    title: 'Delicate Peplum & Flounce Tops',
     slug: 'Tops',
-    image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=600&q=80',
+    image: '/images/5.png',
   },
   {
-    title: 'Handcrafted Leather Bags',
-    slug: 'Bags',
-    image: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=600&q=80',
+    title: 'Handcrafted Party Ensembles',
+    slug: 'New Arrivals',
+    image: '/images/1.png',
   },
 ];
 
 export const birthdayProductPicks = [
   {
-    id: 'top-1',
-    title: 'Loose Fit Hoodie',
-    price: 24.99,
-    originalPrice: 35.00,
-    image: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=800&q=80',
+    id: 'prod-1',
+    title: 'Peach Blossom Ruffle Peplum & Flared Skirt Set',
+    price: 2899,
+    originalPrice: 3499,
+    image: '/images/1.png',
   },
   {
-    id: 'top-3',
-    title: 'Polo with Contrast Trims',
-    price: 212.00,
-    originalPrice: 242.00,
-    image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80',
+    id: 'prod-2',
+    title: 'Canary Sunlight Tiered Frill Top & Twirl Skirt Set',
+    price: 3199,
+    originalPrice: 3899,
+    image: '/images/2.png',
   },
   {
-    id: 'out-1',
-    title: 'Striped Trench Jacket',
-    price: 120.00,
-    originalPrice: 160.00,
-    image: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=800&q=80',
+    id: 'prod-3',
+    title: 'Rose Petal Embroidered Organza Top & Skirt Set',
+    price: 3499,
+    originalPrice: 4299,
+    image: '/images/3.png',
   },
   {
-    id: 'dress-1',
-    title: 'Evening Silk Slip Dress',
-    price: 280.00,
-    originalPrice: 350.00,
-    image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=800&q=80',
+    id: 'prod-5',
+    title: 'Mint Whisper Pastel Silk Peplum & Pleated Skirt Set',
+    price: 3299,
+    originalPrice: 3999,
+    image: '/images/5.png',
   },
 ];
 
@@ -215,63 +215,63 @@ export const specialGiftCategories = [
   {
     name: 'Evening Dresses',
     slug: 'Dresses',
-    image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=600&q=80',
+    image: '/images/2.png',
   },
   {
     name: 'Everyday Tops',
     slug: 'Tops',
-    image: 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=600&q=80',
+    image: '/images/5.png',
   },
   {
-    name: 'Statement Outerwear',
-    slug: 'Outerwear',
-    image: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=600&q=80',
+    name: 'Party Co-ords',
+    slug: 'Clothing',
+    image: '/images/1.png',
   },
   {
-    name: 'Leather Handbags',
-    slug: 'Bags',
-    image: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=600&q=80',
+    name: 'Occasion Ensembles',
+    slug: 'New Arrivals',
+    image: '/images/3.png',
   },
   {
-    name: 'Footwear Collection',
-    slug: 'Shoes',
-    image: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=600&q=80',
+    name: 'Twirling Skirts',
+    slug: 'Bottoms',
+    image: '/images/4.png',
   },
   {
-    name: 'Silk & Gold Accessories',
-    slug: 'Accessories',
-    image: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=600&q=80',
+    name: 'Festive Brocades',
+    slug: 'Dresses',
+    image: '/images/7.png',
   },
 ];
 
 export const todaysDeals = [
   {
-    id: 'top-1',
-    title: 'Loose Fit Hoodie',
-    price: 24.99,
-    originalPrice: 35.00,
-    image: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=800&q=80',
+    id: 'prod-1',
+    title: 'Peach Blossom Ruffle Peplum & Flared Skirt Set',
+    price: 2899,
+    originalPrice: 3499,
+    image: '/images/1.png',
   },
   {
-    id: 'top-3',
-    title: 'Polo with Contrast Trims',
-    price: 212.00,
-    originalPrice: 242.00,
-    image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80',
+    id: 'prod-2',
+    title: 'Canary Sunlight Tiered Frill Top & Twirl Skirt Set',
+    price: 3199,
+    originalPrice: 3899,
+    image: '/images/2.png',
   },
   {
-    id: 'out-1',
-    title: 'Striped Trench Jacket',
-    price: 120.00,
-    originalPrice: 160.00,
-    image: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=800&q=80',
+    id: 'prod-7',
+    title: 'Golden Radiance Brocade Crop Top & Festive Skirt Set',
+    price: 3799,
+    originalPrice: 4699,
+    image: '/images/7.png',
   },
   {
-    id: 'dress-1',
-    title: 'Evening Silk Slip Dress',
-    price: 280.00,
-    originalPrice: 350.00,
-    image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=800&q=80',
+    id: 'prod-4',
+    title: 'Lilac Sparkle Embellished Crop Top & Tulle Skirt Set',
+    price: 2999,
+    originalPrice: 3699,
+    image: '/images/4.png',
   },
 ];
 
@@ -279,34 +279,34 @@ export const fashionGuideData = {
   title: "Mehra Designs Style Guide",
   subtitle: "Explore timeless silhouettes, luxury fabrics, and essential wardrobe pieces tailored to perfection.",
   sweatshirts: {
-    title: 'Loose Fit Hoodie',
-    image: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=800&q=80',
-    slug: 'Tops',
+    title: 'Peach Blossom Ruffle Peplum & Flared Skirt Set',
+    image: '/images/1.png',
+    slug: 'New Arrivals',
   },
   mensOvershirt: {
-    title: 'Polo with Contrast Trims',
-    image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80',
-    slug: 'Tops',
-  },
-  toteBag: {
-    title: 'Minimalist Structured Leather Tote',
-    image: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=800&q=80',
-    slug: 'Bags',
-  },
-  linenBlouse: {
-    title: 'Sculptural Linen Midi Dress',
-    image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=800&q=80',
+    title: 'Canary Sunlight Tiered Frill Top & Twirl Skirt Set',
+    image: '/images/2.png',
     slug: 'Dresses',
   },
+  toteBag: {
+    title: 'Rose Petal Embroidered Organza Top & Skirt Set',
+    image: '/images/3.png',
+    slug: 'New Arrivals',
+  },
+  linenBlouse: {
+    title: 'Mint Whisper Pastel Silk Peplum & Pleated Skirt Set',
+    image: '/images/5.png',
+    slug: 'Tops',
+  },
   metallicHeart: {
-    title: 'Striped Trench Jacket',
-    image: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=800&q=80',
-    slug: 'Outerwear',
+    title: 'Golden Radiance Brocade Crop Top & Festive Skirt Set',
+    image: '/images/7.png',
+    slug: 'Dresses',
   },
   spiralEarrings: {
-    title: 'Silk Printed Square Scarf',
-    image: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=800&q=80',
-    slug: 'Accessories',
+    title: 'Lilac Sparkle Embellished Crop Top & Tulle Skirt Set',
+    image: '/images/4.png',
+    slug: 'Bottoms',
   },
 };
 
@@ -314,1560 +314,563 @@ export const blogPosts = [
   {
     id: 'blog-1',
     category: 'Style Guides',
-    title: 'Mastering Minimalist Layering for Autumn & Winter',
-    summary: 'Discover how to pair oversized knitwear, tailored outerwear, and silk scarves for effortless sophistication.',
-    slug: '/shop?category=Outerwear',
-    image: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=800&q=80',
+    title: 'Crafting Modern Elegance: Heirloom Embroideries & Silks',
+    summary: 'Discover how artisanal ruffles, pure cotton linings, and delicate threadwork create unforgettable festive moments.',
+    slug: '/shop?category=Dresses',
+    image: '/images/1.png',
   },
   {
     id: 'blog-2',
     category: 'Fabric Care',
-    title: 'The Ultimate Care Guide for Pure Silk & Fine Wool',
+    title: 'The Ultimate Care Guide for Pure Silk & Fine Fabrics',
     summary: 'Essential tips to preserve the soft luster, drape, and longevity of your luxury investment wardrobe.',
-    slug: '/shop?category=Dresses',
-    image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=800&q=80',
+    slug: '/shop?category=New Arrivals',
+    image: '/images/2.png',
   },
 ];
 
 export const products: Product[] = [
-  // NEW ARRIVALS
   {
-    id: "new-1",
-    name: "Resort Silk Halter Maxi Dress",
+    id: "prod-1",
+    name: "Peach Blossom Ruffle Peplum & Flared Skirt Set",
     brand: "Mehra Designs",
-    sku: "MD-NA-001",
+    sku: "MD-SKT-001",
     maker: "Mehra Designs Couture",
-    price: 310.00,
-    originalPrice: 380.00,
-    discount: "20% off",
-    bestseller: true,
-    etsyPick: true,
-    freeShipping: true,
-    rating: 5.0,
-    reviewCount: 430,
-    category: "New Arrivals",
-    images: [
-      "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=1000&q=80"
-    ],
-    description: "Statement summer halterneck maxi dress crafted from fluid mulberry silk with back tie detail and cascading hemline.",
-    itemDetails: [
-      "100% Mulberry silk satin",
-      "Adjustable halterneck tie",
-      "Flattering open back silhouette",
-      "Floor-length bias-cut hem"
-    ],
-    features: [
-      "100% Pure Mulberry silk weave",
-      "Hand-finished French inner seams",
-      "Signature back tassel detailing"
-    ],
-    specifications: [
-      { label: "Fabric", value: "Mulberry Silk Satin" },
-      { label: "Fit", value: "Fluid Maxi Fit" },
-      { label: "Care", value: "Dry Clean Only" }
-    ],
-    options: [
-      { id: "opt-n1-xs", name: "XS", stock: 4, inStock: true },
-      { id: "opt-n1-s", name: "S", stock: 10, inStock: true },
-      { id: "opt-n1-m", name: "M", stock: 8, inStock: true }
-    ],
-    weight: { value: 310, unit: "g" },
-    warranty: "14-day luxury returns",
-    tax: { percentage: 18, inclusive: true },
-    materials: ["Mulberry Silk"],
-    inDemandCount: 28,
-    stock: 22
-  },
-  {
-    id: "new-2",
-    name: "Bespoke Cashmere Ribbed Cardigan",
-    brand: "Mehra Designs",
-    sku: "MD-NA-002",
-    maker: "Mehra Designs Atelier",
-    price: 245.00,
-    originalPrice: 295.00,
+    price: 2899,
+    originalPrice: 3499,
     discount: "17% off",
     bestseller: true,
     etsyPick: true,
     freeShipping: true,
-    rating: 4.9,
-    reviewCount: 310,
+    rating: 5.0,
+    reviewCount: 142,
     category: "New Arrivals",
-    images: [
-      "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?auto=format&fit=crop&w=1000&q=80"
-    ],
-    description: "Ultra-soft 2-ply Mongolian cashmere cardigan featuring horn buttons, relaxed drop shoulders, and ribbed trims.",
+    images: ["/images/1.png"],
+    description: "Exquisite two-piece ensemble featuring a multi-tiered ruffle peplum crop top with fine floral embroidery and a cascading full-volume flared skirt. Crafted with hypoallergenic, breathable pure cotton inner lining for all-day festive comfort.",
     itemDetails: [
-      "100% Grade-A Mongolian Cashmere",
-      "Natural horn button fastening",
-      "Ribbed cuffs and hem",
-      "Relaxed cozy silhouette"
+      "Set includes: Peplum Crop Top & Voluminous Flared Skirt",
+      "Fabric: Premium Georgette & Organza Silk",
+      "Lining: 100% Breathable Pure Cotton",
+      "Waistband: Elasticated with custom drawstring tie",
+      "Care: Gentle hand wash or dry clean recommended"
     ],
+    materials: ["Georgette", "Organza Silk", "Pure Cotton Lining"],
     features: [
-      "2-ply long-staple cashmere yarn",
-      "Pilling-resistant finish",
-      "Naturally insulating & lightweight"
+      "Ultra-soft breathable cotton lining for delicate skin",
+      "Cascading tiered micro-ruffles with hand-finished hem",
+      "High-volume flared skirt designed for twirling",
+      "Concealed zipper and comfort elastic back"
     ],
     specifications: [
-      { label: "Fabric", value: "100% Cashmere" },
-      { label: "Fit", value: "Relaxed Fit" },
-      { label: "Care", value: "Hand Wash Cold / Dry Flat" }
+      { label: "Fabric", value: "Georgette with Organza Accents" },
+      { label: "Lining", value: "100% Hypoallergenic Cotton" },
+      { label: "Closure", value: "Concealed Zip & Drawstring" },
+      { label: "Occasion", value: "Festive, Birthday, Family Weddings" }
     ],
     options: [
-      { id: "opt-n2-s", name: "S", stock: 8, inStock: true },
-      { id: "opt-n2-m", name: "M", stock: 12, inStock: true },
-      { id: "opt-n2-l", name: "L", stock: 6, inStock: true }
-    ],
-    weight: { value: 340, unit: "g" },
-    warranty: "1-year cashmere care guarantee",
-    tax: { percentage: 18, inclusive: true },
-    materials: ["100% Cashmere"],
-    inDemandCount: 19,
-    stock: 26
-  },
-  {
-    id: "new-3",
-    name: "Crocodile Embossed Leather Clutch",
-    brand: "Mehra Designs",
-    sku: "MD-NA-003",
-    maker: "Mehra Designs Leatherworks",
-    price: 275.00,
-    originalPrice: 320.00,
-    discount: "14% off",
-    bestseller: false,
-    etsyPick: true,
-    freeShipping: true,
-    rating: 4.8,
-    reviewCount: 185,
-    category: "New Arrivals",
-    images: [
-      "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=1000&q=80"
-    ],
-    description: "Structured evening clutch in crocodile-embossed Italian calfskin leather with detachable gold chain strap.",
-    itemDetails: [
-      "Italian croc-embossed calfskin",
-      "Polished 18k gold-plated hardware",
-      "Internal suede lining with card slots",
-      "Magnetic flap closure"
-    ],
-    features: [
-      "Hand-polished leather edges",
-      "Detachable shoulder chain strap",
-      "Dual internal compartment design"
-    ],
-    specifications: [
-      { label: "Material", value: "Calfskin Leather" },
-      { label: "Lining", value: "Microfiber Suede" },
-      { label: "Dimensions", value: "26cm x 15cm x 5cm" }
-    ],
-    options: [
-      { id: "opt-n3-blk", name: "Onyx Black", stock: 9, inStock: true },
-      { id: "opt-n3-brn", name: "Chestnut Brown", stock: 5, inStock: true }
-    ],
-    weight: { value: 480, unit: "g" },
-    warranty: "Lifetime leather craftsmanship warranty",
-    tax: { percentage: 18, inclusive: true },
-    materials: ["Italian Calfskin"],
-    inDemandCount: 14,
-    stock: 14
-  },
-  {
-    id: "new-4",
-    name: "Pleated Satin Asymmetric Skirt",
-    brand: "Mehra Designs",
-    sku: "MD-NA-004",
-    maker: "Mehra Designs Studio",
-    price: 185.00,
-    originalPrice: 220.00,
-    discount: "16% off",
-    bestseller: true,
-    etsyPick: false,
-    freeShipping: true,
-    rating: 4.9,
-    reviewCount: 240,
-    category: "New Arrivals",
-    images: [
-      "https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=1000&q=80"
-    ],
-    description: "Fluid accordion-pleated midi skirt featuring an asymmetrical handkerchief hemline and comfortable elastic waistband.",
-    itemDetails: [
-      "Silky high-luster satin drape",
-      "Sharp permanent knife pleating",
-      "Asymmetric handkerchief hem",
-      "Concealed elasticated waistband"
-    ],
-    features: [
-      "Non-crease satin fabric",
-      "Dynamic movement pleat design",
-      "Fully lined skirt body"
-    ],
-    specifications: [
-      { label: "Fabric", value: "Satin Crepe" },
-      { label: "Fit", value: "High-Waisted A-Line" },
-      { label: "Care", value: "Gentle Machine Wash" }
-    ],
-    options: [
-      { id: "opt-n4-s", name: "S", stock: 11, inStock: true },
-      { id: "opt-n4-m", name: "M", stock: 14, inStock: true },
-      { id: "opt-n4-l", name: "L", stock: 7, inStock: true }
-    ],
-    weight: { value: 320, unit: "g" },
-    warranty: "14-day easy return policy",
-    tax: { percentage: 18, inclusive: true },
-    materials: ["Satin Crepe"],
-    inDemandCount: 16,
-    stock: 32
-  },
-
-  // DRESSES
-  {
-    id: "dress-1",
-    name: "Evening Silk Slip Dress",
-    brand: "Mehra Designs",
-    sku: "MD-DR-001",
-    maker: "Mehra Designs Couture",
-    price: 280.00,
-    originalPrice: 350.00,
-    discount: "20% off",
-    bestseller: true,
-    etsyPick: true,
-    freeShipping: true,
-    rating: 4.9,
-    reviewCount: 1540,
-    category: "Dresses",
-    images: [
-      "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1000&q=80"
-    ],
-    description: "Elegant bias-cut silk midi dress featuring delicate shoulder straps and a flattering cowl neckline.",
-    itemDetails: [
-      "100% Mulberry silk satin",
-      "Adjustable spaghetti straps",
-      "Fluid bias cut silhouette",
-      "Subtle side slit detail"
-    ],
-    features: [
-      "Pure 100% Mulberry silk satin weave",
-      "Bias cut draping for effortless silhouette",
-      "Hand-finished French inner seams"
-    ],
-    specifications: [
-      { label: "Fabric", value: "Mulberry Silk Satin" },
-      { label: "Fit", value: "Fluid Bias Fit" },
-      { label: "Care", value: "Dry Clean Only" }
-    ],
-    options: [
-      { id: "opt-d1-xs", name: "XS", stock: 5, inStock: true },
-      { id: "opt-d1-s", name: "S", stock: 12, inStock: true },
-      { id: "opt-d1-m", name: "M", stock: 8, inStock: true },
-      { id: "opt-d1-l", name: "L", stock: 2, inStock: true }
-    ],
-    weight: { value: 240, unit: "g" },
-    warranty: "Lifetime seam finish guarantee",
-    tax: { percentage: 18, inclusive: true },
-    materials: ["Mulberry Silk"],
-    inDemandCount: 22,
-    stock: 27
-  },
-  {
-    id: "dress-2",
-    name: "Sculptural Linen Midi Dress",
-    brand: "Mehra Designs",
-    sku: "MD-DR-002",
-    maker: "Mehra Designs Atelier",
-    price: 195.00,
-    originalPrice: 230.00,
-    discount: "15% off",
-    bestseller: true,
-    etsyPick: true,
-    freeShipping: true,
-    rating: 4.8,
-    reviewCount: 890,
-    category: "Dresses",
-    images: [
-      "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=1000&q=80"
-    ],
-    description: "Breathable pure European linen dress with a waist-cinching tie belt, notched collar, and side split hemline.",
-    itemDetails: [
-      "100% European Flax Linen",
-      "Detachable self-fabric waist belt",
-      "Concealed back zip closure",
-      "Deep side pockets"
-    ],
-    features: [
-      "Natural European flax woven linen",
-      "Cinched waist tie belt included",
-      "Side slit hemline for movement"
-    ],
-    specifications: [
-      { label: "Fabric", value: "Flax Linen" },
-      { label: "Fit", value: "Tailored Waist Fit" },
-      { label: "Care", value: "Machine Wash Cold" }
-    ],
-    options: [
-      { id: "opt-d2-s", name: "S", stock: 10, inStock: true },
-      { id: "opt-d2-m", name: "M", stock: 15, inStock: true },
-      { id: "opt-d2-l", name: "L", stock: 6, inStock: true }
+      { id: "sz-2-3y-1", name: "2-3 Years", stock: 15, inStock: true },
+      { id: "sz-4-5y-1", name: "4-5 Years", stock: 20, inStock: true },
+      { id: "sz-6-7y-1", name: "6-7 Years", stock: 18, inStock: true },
+      { id: "sz-8-9y-1", name: "8-9 Years", stock: 12, inStock: true },
+      { id: "sz-10-12y-1", name: "10-12 Years", stock: 10, inStock: true }
     ],
     weight: { value: 380, unit: "g" },
-    warranty: "14-day luxury exchange policy",
-    tax: { percentage: 18, inclusive: true },
-    materials: ["Linen"],
-    inDemandCount: 15,
-    stock: 31
+    warranty: "Guaranteed authentic Mehra Designs craftsmanship",
+    tax: { percentage: 12, inclusive: true },
+    stock: 75,
+    inDemandCount: 22
   },
   {
-    id: "dress-3",
-    name: "Velvet Off-Shoulder Gown",
+    id: "prod-2",
+    name: "Canary Sunlight Tiered Frill Top & Twirl Skirt Set",
     brand: "Mehra Designs",
-    sku: "MD-DR-003",
+    sku: "MD-SKT-002",
     maker: "Mehra Designs Couture",
-    price: 390.00,
-    originalPrice: 450.00,
-    discount: "13% off",
+    price: 3199,
+    originalPrice: 3899,
+    discount: "18% off",
+    bestseller: true,
+    etsyPick: true,
+    freeShipping: true,
+    rating: 4.9,
+    reviewCount: 98,
+    category: "Dresses",
+    images: ["/images/2.png"],
+    description: "Vibrant canary yellow festive coordinate featuring tiered flutter frills, delicate zari trim accents, and a billowy twirl skirt designed for celebratory sparkle and joyful occasions.",
+    itemDetails: [
+      "Set includes: Flutter Sleeve Frill Top & Flared Maxi Skirt",
+      "Fabric: Chiffon & Shimmer Tissue",
+      "Lining: Soft Cotton Cambric",
+      "Closure: Back button keyhole & elasticated skirt",
+      "Care: Dry clean recommended"
+    ],
+    materials: ["Chiffon", "Tissue Silk", "Cotton Cambric"],
+    features: [
+      "Multi-layered butterfly sleeves for playful movement",
+      "Delicate gold zari border detailing",
+      "Flared twirl silhouette with crinoline volume",
+      "Gentle elastic waistband with embellished tassels"
+    ],
+    specifications: [
+      { label: "Fabric", value: "Fine Chiffon & Silk Blend" },
+      { label: "Lining", value: "Soft Cotton Cambric" },
+      { label: "Sleeve Type", value: "Tiered Flutter Sleeve" },
+      { label: "Occasion", value: "Haldi, Sangeet, Festive Celebrations" }
+    ],
+    options: [
+      { id: "sz-2-3y-2", name: "2-3 Years", stock: 12, inStock: true },
+      { id: "sz-4-5y-2", name: "4-5 Years", stock: 16, inStock: true },
+      { id: "sz-6-7y-2", name: "6-7 Years", stock: 15, inStock: true },
+      { id: "sz-8-9y-2", name: "8-9 Years", stock: 9, inStock: true },
+      { id: "sz-10-12y-2", name: "10-12 Years", stock: 8, inStock: true }
+    ],
+    weight: { value: 390, unit: "g" },
+    warranty: "Guaranteed authentic Mehra Designs craftsmanship",
+    tax: { percentage: 12, inclusive: true },
+    stock: 60,
+    inDemandCount: 19
+  },
+  {
+    id: "prod-3",
+    name: "Rose Petal Embroidered Organza Top & Layered Skirt Set",
+    brand: "Mehra Designs",
+    sku: "MD-SKT-003",
+    maker: "Mehra Designs Couture",
+    price: 3499,
+    originalPrice: 4299,
+    discount: "19% off",
     bestseller: false,
     etsyPick: true,
     freeShipping: true,
     rating: 5.0,
-    reviewCount: 520,
-    category: "Dresses",
-    images: [
-      "https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=1000&q=80"
-    ],
-    description: "Opulent silk-blend velvet evening gown with off-the-shoulder neckline, corseted internal bodice, and subtle train.",
+    reviewCount: 114,
+    category: "New Arrivals",
+    images: ["/images/3.png"],
+    description: "Glamorous fuchsia rose skirt & top set adorned with hand-stitched floral resham work, sheer organza flutter sleeves, and a grand multi-layered flair skirt.",
     itemDetails: [
-      "Silk-rayon plush velvet",
-      "Internal boned corsetry support",
-      "Concealed back zip with hook closure",
-      "Floor-sweeping skirt line"
+      "Set includes: Embroidered Crop Blouse & Tiered Organza Skirt",
+      "Fabric: Sheer Organza & Raw Silk",
+      "Lining: 100% Breathable Cotton",
+      "Embellishment: Hand resham embroidery and sequins",
+      "Care: Dry clean only"
     ],
+    materials: ["Organza", "Raw Silk", "Cotton Lining"],
     features: [
-      "Rich deep-tone silk velvet finish",
-      "Built-in structure for flawless fit",
-      "Luxurious stretch satin lining"
+      "Handcrafted resham floral embroidery",
+      "Multi-tiered layered organza ruffle flares",
+      "Padded soft inner waistband for comfortable fit",
+      "Hand-finished beaded pearl edge detailing"
     ],
     specifications: [
-      { label: "Fabric", value: "Silk Velvet" },
-      { label: "Silhouette", value: "Form-Fitting Gown" },
-      { label: "Care", value: "Professional Dry Clean" }
+      { label: "Fabric", value: "Pure Organza & Silk" },
+      { label: "Lining", value: "100% Pure Cotton" },
+      { label: "Embroidery", value: "Resham & Sequins" },
+      { label: "Occasion", value: "Weddings, Reception, Diwali" }
     ],
     options: [
-      { id: "opt-d3-s", name: "S", stock: 5, inStock: true },
-      { id: "opt-d3-m", name: "M", stock: 7, inStock: true },
-      { id: "opt-d3-l", name: "L", stock: 3, inStock: true }
+      { id: "sz-2-3y-3", name: "2-3 Years", stock: 10, inStock: true },
+      { id: "sz-4-5y-3", name: "4-5 Years", stock: 14, inStock: true },
+      { id: "sz-6-7y-3", name: "6-7 Years", stock: 20, inStock: true },
+      { id: "sz-8-9y-3", name: "8-9 Years", stock: 11, inStock: true },
+      { id: "sz-10-12y-3", name: "10-12 Years", stock: 6, inStock: true }
     ],
-    weight: { value: 620, unit: "g" },
-    warranty: "Complimentary luxury alterations",
-    tax: { percentage: 18, inclusive: true },
-    materials: ["Silk Velvet"],
-    inDemandCount: 31,
-    stock: 15
+    weight: { value: 420, unit: "g" },
+    warranty: "Guaranteed authentic Mehra Designs craftsmanship",
+    tax: { percentage: 12, inclusive: true },
+    stock: 61,
+    inDemandCount: 16
   },
   {
-    id: "dress-4",
-    name: "Tiered Georgette Wrap Dress",
+    id: "prod-4",
+    name: "Lilac Sparkle Embellished Crop Top & Tulle Skirt Set",
     brand: "Mehra Designs",
-    sku: "MD-DR-004",
-    maker: "Mehra Designs Studio",
-    price: 210.00,
-    originalPrice: 250.00,
-    discount: "16% off",
+    sku: "MD-SKT-004",
+    maker: "Mehra Designs Couture",
+    price: 2999,
+    originalPrice: 3699,
+    discount: "19% off",
     bestseller: true,
     etsyPick: false,
     freeShipping: true,
-    rating: 4.7,
-    reviewCount: 680,
-    category: "Dresses",
-    images: [
-      "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=1000&q=80"
-    ],
-    description: "Romantic floral printed georgette wrap dress with ruffle-trimmed tiered skirt and sheer puff sleeves.",
-    itemDetails: [
-      "Breathable silk georgette fabric",
-      "Functional wrap waistband tie",
-      "Tiered ruffle skirt design",
-      "Semi-sheer sleeve cuffs"
-    ],
-    features: [
-      "Exclusive artisanal botanical print",
-      "Flattering V-neckline drape",
-      "Includes matching slip dress"
-    ],
-    specifications: [
-      { label: "Fabric", value: "Silk Georgette" },
-      { label: "Fit", value: "Adjustable Wrap Fit" },
-      { label: "Care", value: "Dry Clean Only" }
-    ],
-    options: [
-      { id: "opt-d4-s", name: "S", stock: 9, inStock: true },
-      { id: "opt-d4-m", name: "M", stock: 14, inStock: true },
-      { id: "opt-d4-l", name: "L", stock: 8, inStock: true }
-    ],
-    weight: { value: 310, unit: "g" },
-    warranty: "14-day return policy",
-    tax: { percentage: 18, inclusive: true },
-    materials: ["Silk Georgette"],
-    inDemandCount: 18,
-    stock: 31
-  },
-
-  // TOPS
-  {
-    id: "top-1",
-    name: "Loose Fit French Terry Hoodie",
-    brand: "Mehra Designs",
-    sku: "MD-TP-001",
-    maker: "Mehra Designs Atelier",
-    price: 24.99,
-    originalPrice: 35.00,
-    discount: "30% off",
-    bestseller: true,
-    etsyPick: true,
-    freeShipping: true,
-    rating: 4.9,
-    reviewCount: 2840,
-    category: "Tops",
-    images: [
-      "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1509967419530-da38b4704bc6?auto=format&fit=crop&w=1000&q=80"
-    ],
-    description: "Loose-fit hoodie in medium weight cotton-blend fabric. Jersey-lined drawstring hood, dropped shoulders, and kangaroo front pocket.",
-    itemDetails: [
-      "Medium weight cotton-blend french terry",
-      "Jersey-lined hood with adjustable drawstrings",
-      "Ribbed cuffs and hem line",
-      "Kangaroo pocket front"
-    ],
-    features: [
-      "Soft brushed interior fleece",
-      "Reinforced double-stitched seams",
-      "Pre-shrunk organic cotton yarn"
-    ],
-    specifications: [
-      { label: "Fabric", value: "80% Organic Cotton, 20% Poly" },
-      { label: "Fit", value: "Relaxed Loose Fit" },
-      { label: "Care", value: "Machine Wash Warm" }
-    ],
-    options: [
-      { id: "opt-t1-s", name: "S", stock: 15, inStock: true },
-      { id: "opt-t1-m", name: "M", stock: 20, inStock: true },
-      { id: "opt-t1-l", name: "L", stock: 12, inStock: true }
-    ],
-    weight: { value: 450, unit: "g" },
-    warranty: "30-day standard returns",
-    tax: { percentage: 18, inclusive: true },
-    materials: ["Organic Cotton"],
-    inDemandCount: 24,
-    stock: 47
-  },
-  {
-    id: "top-2",
-    name: "Gradient Silk Touch Graphic Tee",
-    brand: "Mehra Designs",
-    sku: "MD-TP-002",
-    maker: "Mehra Designs Studio",
-    price: 145.00,
-    originalPrice: 175.00,
-    discount: "17% off",
-    bestseller: true,
-    etsyPick: true,
-    freeShipping: true,
     rating: 4.8,
-    reviewCount: 420,
-    category: "Tops",
-    images: [
-      "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=1000&q=80"
-    ],
-    description: "Modern relaxed silhouette t-shirt crafted from 100% organic combed cotton featuring a subtle gradient tone artwork on the chest.",
+    reviewCount: 86,
+    category: "Bottoms",
+    images: ["/images/4.png"],
+    description: "Enchanting lavender two-piece set featuring subtle sequin embellishments on a tailored bodice paired with a whimsical soft-tulle pleated flared skirt.",
     itemDetails: [
-      "100% Organic combed cotton",
-      "Reinforced rib crewneck collar",
-      "Pre-shrunk fabric finish"
+      "Set includes: Sleeveless Embellished Bodice & Pleated Tulle Skirt",
+      "Fabric: French Tulle & Satin Crepe",
+      "Lining: Lightweight Cotton Voile",
+      "Closure: Concealed side zip with back stretch panel",
+      "Care: Gentle hand wash cold"
     ],
+    materials: ["French Tulle", "Satin Crepe", "Cotton Voile"],
     features: [
-      "Ultra-soft silk-touch handfeel",
-      "Bespoke chest graphic embroidery",
-      "Breathable lightweight weave"
+      "Delicate micro-sequin sparkles that won't scratch",
+      "Airy pleated tulle skirt with cotton petticoat",
+      "Comfortable wide waistband with elasticated back",
+      "Ideal for birthday parties and photo shoots"
     ],
     specifications: [
-      { label: "Fabric", value: "100% Organic Combed Cotton" },
-      { label: "Fit", value: "Modern Relaxed Fit" },
-      { label: "Care", value: "Machine Wash Cold" }
+      { label: "Fabric", value: "Soft Tulle & Satin" },
+      { label: "Lining", value: "Cotton Voile" },
+      { label: "Closure", value: "Side Concealed Zipper" },
+      { label: "Occasion", value: "Birthdays, Fairy Tale Themes, Parties" }
     ],
     options: [
-      { id: "opt-t2-s", name: "S", stock: 8, inStock: true },
-      { id: "opt-t2-m", name: "M", stock: 16, inStock: true },
-      { id: "opt-t2-l", name: "L", stock: 10, inStock: true }
+      { id: "sz-2-3y-4", name: "2-3 Years", stock: 14, inStock: true },
+      { id: "sz-4-5y-4", name: "4-5 Years", stock: 18, inStock: true },
+      { id: "sz-6-7y-4", name: "6-7 Years", stock: 12, inStock: true },
+      { id: "sz-8-9y-4", name: "8-9 Years", stock: 8, inStock: true },
+      { id: "sz-10-12y-4", name: "10-12 Years", stock: 7, inStock: true }
     ],
-    weight: { value: 210, unit: "g" },
-    warranty: "14-day exchange warranty",
-    tax: { percentage: 18, inclusive: true },
-    materials: ["Combed Cotton"],
-    inDemandCount: 12,
-    stock: 34
+    weight: { value: 340, unit: "g" },
+    warranty: "Guaranteed authentic Mehra Designs craftsmanship",
+    tax: { percentage: 12, inclusive: true },
+    stock: 59,
+    inDemandCount: 14
   },
   {
-    id: "top-3",
-    name: "Mercerized Polo with Contrast Trims",
+    id: "prod-5",
+    name: "Mint Whisper Pastel Silk Peplum & Pleated Skirt Set",
     brand: "Mehra Designs",
-    sku: "MD-TP-003",
-    maker: "Mehra Designs Line",
-    price: 212.00,
-    originalPrice: 242.00,
-    discount: "12% off",
-    bestseller: true,
-    etsyPick: true,
-    freeShipping: true,
-    rating: 4.8,
-    reviewCount: 950,
-    category: "Tops",
-    images: [
-      "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=1000&q=80"
-    ],
-    description: "Classic piqué polo knit with refined contrast trim detail on the collar and sleeve cuffs. Designed for a tailored modern fit.",
-    itemDetails: [
-      "Premium cotton piqué weave",
-      "Mother-of-pearl buttons",
-      "Contrast edge tipping"
-    ],
-    features: [
-      "Mercerized luster sheen",
-      "Anti-pilling treatment",
-      "Split side hem detail"
-    ],
-    specifications: [
-      { label: "Fabric", value: "100% Mercerized Cotton" },
-      { label: "Fit", value: "Tailored Fit" },
-      { label: "Care", value: "Dry Clean / Delicate Wash" }
-    ],
-    options: [
-      { id: "opt-t3-s", name: "S", stock: 6, inStock: true },
-      { id: "opt-t3-m", name: "M", stock: 14, inStock: true },
-      { id: "opt-t3-l", name: "L", stock: 9, inStock: true }
-    ],
-    weight: { value: 260, unit: "g" },
-    warranty: "14-day warranty",
-    tax: { percentage: 18, inclusive: true },
-    materials: ["Mercerized Cotton"],
-    inDemandCount: 16,
-    stock: 29
-  },
-  {
-    id: "top-4",
-    name: "Silk Chiffon Pintuck Blouse",
-    brand: "Mehra Designs",
-    sku: "MD-TP-004",
-    maker: "Mehra Designs Studio",
-    price: 135.00,
-    originalPrice: 160.00,
-    discount: "15% off",
-    bestseller: true,
-    etsyPick: true,
-    freeShipping: true,
-    rating: 4.8,
-    reviewCount: 710,
-    category: "Tops",
-    images: [
-      "https://images.unsplash.com/photo-1564257631407-4deb1f99d992?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=1000&q=80"
-    ],
-    description: "Featherlight silk chiffon blouse with fine pintuck pleats, mother-of-pearl buttons, and gathered balloon sleeves.",
-    itemDetails: [
-      "100% Pure silk chiffon",
-      "Mother-of-pearl front buttons",
-      "Relaxed elegant fit",
-      "Gathered cuff detailing"
-    ],
-    features: [
-      "Pin-tucked chest panel",
-      "Gathered balloon cuffs",
-      "Lightweight semi-sheer fabric"
-    ],
-    specifications: [
-      { label: "Fabric", value: "Silk Chiffon" },
-      { label: "Fit", value: "Relaxed Fit" },
-      { label: "Care", value: "Dry Clean Only" }
-    ],
-    options: [
-      { id: "opt-t4-s", name: "S", stock: 14, inStock: true },
-      { id: "opt-t4-m", name: "M", stock: 10, inStock: true },
-      { id: "opt-t4-l", name: "L", stock: 7, inStock: true }
-    ],
-    weight: { value: 160, unit: "g" },
-    warranty: "14-day return guarantee",
-    tax: { percentage: 18, inclusive: true },
-    materials: ["Silk Chiffon"],
-    inDemandCount: 12,
-    stock: 31
-  },
-
-  // OUTERWEAR
-  {
-    id: "out-1",
-    name: "Tailored Double-Breasted Wool Blazer",
-    brand: "Mehra Designs",
-    sku: "MD-OW-001",
-    maker: "Mehra Designs Tailoring",
-    price: 240.00,
-    originalPrice: 290.00,
-    discount: "17% off",
-    bestseller: true,
-    etsyPick: true,
-    freeShipping: true,
-    rating: 5.0,
-    reviewCount: 3120,
-    category: "Outerwear",
-    images: [
-      "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?auto=format&fit=crop&w=1000&q=80"
-    ],
-    description: "Sharp double-breasted blazer tailored from premium crepe wool blend with padded shoulders and satin lapels.",
-    itemDetails: [
-      "Wool crepe blend fabric",
-      "Peak lapels & tortoiseshell buttons",
-      "Fully lined interior with flap pockets",
-      "Back center vent"
-    ],
-    features: [
-      "Structure-retaining internal interfacing",
-      "Dual interior jet pockets",
-      "Silk satin inner sleeve lining"
-    ],
-    specifications: [
-      { label: "Fabric", value: "Wool Crepe Blend" },
-      { label: "Fit", value: "Structured Tailored Fit" },
-      { label: "Care", value: "Dry Clean Only" }
-    ],
-    options: [
-      { id: "opt-o1-s", name: "S", stock: 7, inStock: true },
-      { id: "opt-o1-m", name: "M", stock: 14, inStock: true },
-      { id: "opt-o1-l", name: "L", stock: 5, inStock: true }
-    ],
-    weight: { value: 650, unit: "g" },
-    warranty: "Lifetime button replacement guarantee",
-    tax: { percentage: 18, inclusive: true },
-    materials: ["Wool", "Viscose"],
-    inDemandCount: 30,
-    stock: 26
-  },
-  {
-    id: "out-2",
-    name: "Belted Oversized Trench Coat",
-    brand: "Mehra Designs",
-    sku: "MD-OW-002",
-    maker: "Mehra Designs Outerwear",
-    price: 320.00,
-    originalPrice: 380.00,
-    discount: "16% off",
-    bestseller: true,
-    etsyPick: true,
-    freeShipping: true,
-    rating: 4.9,
-    reviewCount: 1420,
-    category: "Outerwear",
-    images: [
-      "https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=1000&q=80"
-    ],
-    description: "Iconic double-breasted trench coat crafted from water-repellent cotton gabardine with adjustable waist belt and storm flap.",
-    itemDetails: [
-      "100% Water-repellent cotton gabardine",
-      "Leather-buckled waist and cuff straps",
-      "Back rain shield storm flap",
-      "Signature checked inner lining"
-    ],
-    features: [
-      "Weather-resistant tightly woven gabardine",
-      "Deep slant welt pockets",
-      "Reinforced collar latch hook"
-    ],
-    specifications: [
-      { label: "Fabric", value: "Cotton Gabardine" },
-      { label: "Fit", value: "Oversized Trench Fit" },
-      { label: "Care", value: "Specialist Dry Clean" }
-    ],
-    options: [
-      { id: "opt-o2-s", name: "S", stock: 6, inStock: true },
-      { id: "opt-o2-m", name: "M", stock: 11, inStock: true },
-      { id: "opt-o2-l", name: "L", stock: 4, inStock: true }
-    ],
-    weight: { value: 920, unit: "g" },
-    warranty: "2-year garment warranty",
-    tax: { percentage: 18, inclusive: true },
-    materials: ["Cotton Gabardine"],
-    inDemandCount: 22,
-    stock: 21
-  },
-  {
-    id: "out-3",
-    name: "Cropped Shearling Leather Jacket",
-    brand: "Mehra Designs",
-    sku: "MD-OW-003",
-    maker: "Mehra Designs Leatherworks",
-    price: 450.00,
-    originalPrice: 520.00,
-    discount: "13% off",
-    bestseller: false,
-    etsyPick: true,
-    freeShipping: true,
-    rating: 5.0,
-    reviewCount: 380,
-    category: "Outerwear",
-    images: [
-      "https://images.unsplash.com/photo-1520975954732-35dd22299614?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=1000&q=80"
-    ],
-    description: "Edgy cropped jacket crafted from supple lambskin leather with lush plush shearling collar and silver hardware zippers.",
-    itemDetails: [
-      "Genuine lambskin leather exterior",
-      "100% Australian shearling collar",
-      "Asymmetric front zipper closure",
-      "Zippered expandable cuffs"
-    ],
-    features: [
-      "Heavyweight thermal warmth",
-      "Polished metal hardware zippers",
-      "Adjustable buckled hemline belt"
-    ],
-    specifications: [
-      { label: "Exterior", value: "Lambskin Leather" },
-      { label: "Collar", value: "Australian Shearling" },
-      { label: "Care", value: "Leather Specialist Clean" }
-    ],
-    options: [
-      { id: "opt-o3-s", name: "S", stock: 3, inStock: true },
-      { id: "opt-o3-m", name: "M", stock: 5, inStock: true }
-    ],
-    weight: { value: 1100, unit: "g" },
-    warranty: "Lifetime leather care support",
-    tax: { percentage: 18, inclusive: true },
-    materials: ["Lambskin", "Shearling"],
-    inDemandCount: 19,
-    stock: 8
-  },
-  {
-    id: "out-4",
-    name: "Handstitched Cashmere Wrap Coat",
-    brand: "Mehra Designs",
-    sku: "MD-OW-004",
+    sku: "MD-SKT-005",
     maker: "Mehra Designs Couture",
-    price: 480.00,
-    originalPrice: 560.00,
-    discount: "14% off",
-    bestseller: true,
-    etsyPick: true,
-    freeShipping: true,
-    rating: 4.9,
-    reviewCount: 650,
-    category: "Outerwear",
-    images: [
-      "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=1000&q=80"
-    ],
-    description: "Sumptuous double-faced virgin wool and cashmere wrap coat finished with hand-stitched pick seams and a self-tie belt.",
-    itemDetails: [
-      "90% Virgin Wool, 10% Cashmere",
-      "Unlined double-face construction",
-      "Hand-sewn pick stitch detailing",
-      "Kimono style wide sleeves"
-    ],
-    features: [
-      "Ultra-lightweight yet warm double weave",
-      "Exaggerated shawl lapel collar",
-      "Seamless patch pockets"
-    ],
-    specifications: [
-      { label: "Fabric", value: "Wool & Cashmere Blend" },
-      { label: "Fit", value: "Fluid Wrap Fit" },
-      { label: "Care", value: "Dry Clean Only" }
-    ],
-    options: [
-      { id: "opt-o4-s", name: "S", stock: 4, inStock: true },
-      { id: "opt-o4-m", name: "M", stock: 8, inStock: true },
-      { id: "opt-o4-l", name: "L", stock: 3, inStock: true }
-    ],
-    weight: { value: 880, unit: "g" },
-    warranty: "Complimentary storage garment bag included",
-    tax: { percentage: 18, inclusive: true },
-    materials: ["Virgin Wool", "Cashmere"],
-    inDemandCount: 27,
-    stock: 15
-  },
-
-  // BOTTOMS
-  {
-    id: "bot-1",
-    name: "High-Waisted Wide-Leg Trousers",
-    brand: "Mehra Designs",
-    sku: "MD-BT-001",
-    maker: "Mehra Designs Tailoring",
-    price: 165.00,
-    originalPrice: 195.00,
-    discount: "15% off",
-    bestseller: true,
-    etsyPick: true,
-    freeShipping: true,
-    rating: 4.9,
-    reviewCount: 940,
-    category: "Bottoms",
-    images: [
-      "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?auto=format&fit=crop&w=1000&q=80"
-    ],
-    description: "Tailored high-waisted wide-leg trousers crafted from fluid wool-crepe blend with sharp front pleats and press creases.",
-    itemDetails: [
-      "Wool-crepe blend fabric",
-      "Concealed hook and bar closure",
-      "Side slant pockets & back welt pockets",
-      "Full-length wide leg line"
-    ],
-    features: [
-      "High waist cinching waistband",
-      "Crease-resistant tailoring fabric",
-      "Generous 4cm turn-up hem allowance"
-    ],
-    specifications: [
-      { label: "Fabric", value: "Wool Crepe Blend" },
-      { label: "Fit", value: "High-Waisted Wide-Leg" },
-      { label: "Care", value: "Dry Clean Only" }
-    ],
-    options: [
-      { id: "opt-b1-s", name: "S", stock: 6, inStock: true },
-      { id: "opt-b1-m", name: "M", stock: 12, inStock: true },
-      { id: "opt-b1-l", name: "L", stock: 4, inStock: true }
-    ],
-    weight: { value: 420, unit: "g" },
-    warranty: "14-day return policy",
-    tax: { percentage: 18, inclusive: true },
-    materials: ["Wool", "Crepe"],
-    inDemandCount: 16,
-    stock: 22
-  },
-  {
-    id: "bot-2",
-    name: "Tailored Cigarette Ankle Pants",
-    brand: "Mehra Designs",
-    sku: "MD-BT-002",
-    maker: "Mehra Designs Tailoring",
-    price: 145.00,
-    originalPrice: 175.00,
-    discount: "17% off",
-    bestseller: false,
-    etsyPick: true,
-    freeShipping: true,
-    rating: 4.8,
-    reviewCount: 510,
-    category: "Bottoms",
-    images: [
-      "https://images.unsplash.com/photo-1509551388413-e18d0ac5d495?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=1000&q=80"
-    ],
-    description: "Sleek cropped cigarette pants in stretch cotton-twill featuring crisp center creases and a clean tab closure waist.",
-    itemDetails: [
-      "Stretch cotton-twill stretch weave",
-      "Ankle grazing cropped length",
-      "Side jetted slant pockets",
-      "Belt loops at waistband"
-    ],
-    features: [
-      "Comfort stretch recovery fabric",
-      "Slim flattering leg taper",
-      "Non-gap curved waistband"
-    ],
-    specifications: [
-      { label: "Fabric", value: "97% Cotton, 3% Elastane" },
-      { label: "Fit", value: "Slim Cigarette Fit" },
-      { label: "Care", value: "Machine Wash Delicate" }
-    ],
-    options: [
-      { id: "opt-b2-s", name: "S", stock: 8, inStock: true },
-      { id: "opt-b2-m", name: "M", stock: 15, inStock: true },
-      { id: "opt-b2-l", name: "L", stock: 7, inStock: true }
-    ],
-    weight: { value: 360, unit: "g" },
-    warranty: "14-day exchange warranty",
-    tax: { percentage: 18, inclusive: true },
-    materials: ["Cotton Twill"],
-    inDemandCount: 11,
-    stock: 30
-  },
-  {
-    id: "bot-3",
-    name: "Silk Satin Bias Cut Midi Skirt",
-    brand: "Mehra Designs",
-    sku: "MD-BT-003",
-    maker: "Mehra Designs Atelier",
-    price: 170.00,
-    originalPrice: 200.00,
-    discount: "15% off",
-    bestseller: true,
-    etsyPick: true,
-    freeShipping: true,
-    rating: 4.9,
-    reviewCount: 1180,
-    category: "Bottoms",
-    images: [
-      "https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1000&q=80"
-    ],
-    description: "Flowing silk satin midi skirt cut on the bias to hug curves elegantly before cascading into a fluted hemline.",
-    itemDetails: [
-      "100% Heavyweight silk satin",
-      "Concealed elastic waistband",
-      "Bias cut fluid drape",
-      "Midi length coverage"
-    ],
-    features: [
-      "Luminous luster finish",
-      "Smooth interior touch",
-      "Versatile day-to-night styling"
-    ],
-    specifications: [
-      { label: "Fabric", value: "100% Silk Satin" },
-      { label: "Fit", value: "Bias Cut Slim Fit" },
-      { label: "Care", value: "Dry Clean Only" }
-    ],
-    options: [
-      { id: "opt-b3-xs", name: "XS", stock: 5, inStock: true },
-      { id: "opt-b3-s", name: "S", stock: 12, inStock: true },
-      { id: "opt-b3-m", name: "M", stock: 9, inStock: true }
-    ],
-    weight: { value: 210, unit: "g" },
-    warranty: "14-day warranty",
-    tax: { percentage: 18, inclusive: true },
-    materials: ["Silk Satin"],
-    inDemandCount: 20,
-    stock: 26
-  },
-  {
-    id: "bot-4",
-    name: "Raw Selvedge Denim Straight Jeans",
-    brand: "Mehra Designs",
-    sku: "MD-BT-004",
-    maker: "Mehra Designs Studio",
-    price: 155.00,
-    originalPrice: 185.00,
-    discount: "16% off",
-    bestseller: false,
-    etsyPick: true,
-    freeShipping: true,
-    rating: 4.7,
-    reviewCount: 640,
-    category: "Bottoms",
-    images: [
-      "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1509551388413-e18d0ac5d495?auto=format&fit=crop&w=1000&q=80"
-    ],
-    description: "Premium 14oz Japanese raw selvedge denim jeans featuring a high-rise straight leg cut and branded copper rivets.",
-    itemDetails: [
-      "14oz Japanese cotton selvedge denim",
-      "Button fly closure",
-      "Five-pocket classic construction",
-      "Red line selvedge cuff detail"
-    ],
-    features: [
-      "Unwashed indigo raw denim",
-      "Develops custom fading over time",
-      "Reinforced stress points"
-    ],
-    specifications: [
-      { label: "Fabric", value: "100% Cotton Selvedge Denim" },
-      { label: "Fit", value: "High-Rise Straight Leg" },
-      { label: "Care", value: "Wash Inside Out Cold / Hang Dry" }
-    ],
-    options: [
-      { id: "opt-b4-26", name: "26 Waist", stock: 4, inStock: true },
-      { id: "opt-b4-28", name: "28 Waist", stock: 10, inStock: true },
-      { id: "opt-b4-30", name: "30 Waist", stock: 6, inStock: true }
-    ],
-    weight: { value: 650, unit: "g" },
-    warranty: "Lifetime seam durability pledge",
-    tax: { percentage: 18, inclusive: true },
-    materials: ["Japanese Selvedge Denim"],
-    inDemandCount: 13,
-    stock: 20
-  },
-
-  // BAGS
-  {
-    id: "bag-1",
-    name: "Minimalist Structured Leather Tote",
-    brand: "Mehra Designs",
-    sku: "MD-BG-001",
-    maker: "Mehra Designs Leatherworks",
-    price: 290.00,
-    originalPrice: 340.00,
-    discount: "15% off",
-    bestseller: true,
-    etsyPick: true,
-    freeShipping: true,
-    rating: 4.9,
-    reviewCount: 1950,
-    category: "Bags",
-    images: [
-      "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=1000&q=80"
-    ],
-    description: "Handcrafted full-grain Italian leather tote with spacious interior, protective metal feet, and padded laptop sleeve.",
-    itemDetails: [
-      "Full-grain Italian calfskin leather",
-      "Fits up to 15\" laptop",
-      "Magnetic snap closure & zippered inner pocket",
-      "Reinforced double top shoulder handles"
-    ],
-    features: [
-      "Scratch-resistant pebbled leather",
-      "Soft brushed suede interior lining",
-      "Polished metal bottom feet"
-    ],
-    specifications: [
-      { label: "Material", value: "Full-Grain Calfskin" },
-      { label: "Lining", value: "Microfiber Suede" },
-      { label: "Dimensions", value: "38cm x 28cm x 14cm" }
-    ],
-    options: [
-      { id: "opt-bg1-tan", name: "Tan Leather", stock: 8, inStock: true },
-      { id: "opt-bg1-blk", name: "Onyx Black", stock: 15, inStock: true }
-    ],
-    weight: { value: 850, unit: "g" },
-    warranty: "Lifetime leather craftsmanship warranty",
-    tax: { percentage: 18, inclusive: true },
-    materials: ["Calfskin Leather"],
-    inDemandCount: 25,
-    stock: 23
-  },
-  {
-    id: "bag-2",
-    name: "Quilted Lambskin Crossbody Bag",
-    brand: "Mehra Designs",
-    sku: "MD-BG-002",
-    maker: "Mehra Designs Leatherworks",
-    price: 260.00,
-    originalPrice: 310.00,
-    discount: "16% off",
-    bestseller: true,
-    etsyPick: true,
-    freeShipping: true,
-    rating: 4.9,
-    reviewCount: 1620,
-    category: "Bags",
-    images: [
-      "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=1000&q=80"
-    ],
-    description: "Timeless diamond-quilted lambskin handbag with interwoven leather chain strap and polished twist lock clasp.",
-    itemDetails: [
-      "Supple butter-soft lambskin",
-      "Gold-finish chain link strap",
-      "Signature turn-lock front clasp",
-      "Rear slip exterior pocket"
-    ],
-    features: [
-      "Hand-quilted diamond stitching",
-      "Dual convertible chain length",
-      "Burgundy leather interior lining"
-    ],
-    specifications: [
-      { label: "Material", value: "Lambskin Leather" },
-      { label: "Hardware", value: "18k Gold Plated Brass" },
-      { label: "Dimensions", value: "24cm x 16cm x 7cm" }
-    ],
-    options: [
-      { id: "opt-bg2-blk", name: "Black Gold", stock: 10, inStock: true },
-      { id: "opt-bg2-nude", name: "Blush Beige", stock: 6, inStock: true }
-    ],
-    weight: { value: 540, unit: "g" },
-    warranty: "1-year hardware & seam warranty",
-    tax: { percentage: 18, inclusive: true },
-    materials: ["Lambskin"],
-    inDemandCount: 21,
-    stock: 16
-  },
-  {
-    id: "bag-3",
-    name: "Handwoven Leather Shoulder Hobo",
-    brand: "Mehra Designs",
-    sku: "MD-BG-003",
-    maker: "Mehra Designs Leatherworks",
-    price: 310.00,
-    originalPrice: 360.00,
-    discount: "14% off",
-    bestseller: false,
-    etsyPick: true,
-    freeShipping: true,
-    rating: 4.8,
-    reviewCount: 470,
-    category: "Bags",
-    images: [
-      "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=1000&q=80"
-    ],
-    description: "Slouchy shoulder hobo bag intricately handwoven using supple leather strips with top zip closure.",
-    itemDetails: [
-      "Intrecciato handwoven Nappa leather",
-      "Seamless ergonomic shoulder strap",
-      "Top main zip closure",
-      "Spacious expandable interior"
-    ],
-    features: [
-      "Artisanal woven construction",
-      "Lightweight slouched silhouette",
-      "Internal phone & key zip pockets"
-    ],
-    specifications: [
-      { label: "Material", value: "Nappa Calfskin" },
-      { label: "Closure", value: "YKK Metal Zipper" },
-      { label: "Dimensions", value: "35cm x 26cm x 10cm" }
-    ],
-    options: [
-      { id: "opt-bg3-brn", name: "Saddle Tan", stock: 7, inStock: true },
-      { id: "opt-bg3-olv", name: "Olive Green", stock: 4, inStock: true }
-    ],
-    weight: { value: 680, unit: "g" },
-    warranty: "Lifetime leather weave warranty",
-    tax: { percentage: 18, inclusive: true },
-    materials: ["Nappa Leather"],
-    inDemandCount: 15,
-    stock: 11
-  },
-  {
-    id: "bag-4",
-    name: "Architectural Top-Handle Bag",
-    brand: "Mehra Designs",
-    sku: "MD-BG-004",
-    maker: "Mehra Designs Leatherworks",
-    price: 340.00,
-    originalPrice: 395.00,
-    discount: "14% off",
-    bestseller: true,
-    etsyPick: true,
-    freeShipping: true,
-    rating: 5.0,
-    reviewCount: 780,
-    category: "Bags",
-    images: [
-      "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=1000&q=80"
-    ],
-    description: "Sculptural geometric handbag with curved top handle, hidden magnetic clasp, and detachable crossbody strap.",
-    itemDetails: [
-      "Smooth box calf leather finish",
-      "Rigid architectural frame",
-      "Removable leather crossbody strap",
-      "Concealed magnetic lock closure"
-    ],
-    features: [
-      "Minimalist hardware-free exterior",
-      "Polished edge paint finish",
-      "Dual compartment internal dividers"
-    ],
-    specifications: [
-      { label: "Material", value: "Box Calfskin Leather" },
-      { label: "Lining", value: "Nappa Leather Interior" },
-      { label: "Dimensions", value: "28cm x 20cm x 11cm" }
-    ],
-    options: [
-      { id: "opt-bg4-crm", name: "Ivory Cream", stock: 5, inStock: true },
-      { id: "opt-bg4-blk", name: "Midnight Black", stock: 9, inStock: true }
-    ],
-    weight: { value: 720, unit: "g" },
-    warranty: "1-year warranty",
-    tax: { percentage: 18, inclusive: true },
-    materials: ["Box Calfskin"],
-    inDemandCount: 24,
-    stock: 14
-  },
-
-  // SHOES
-  {
-    id: "shoe-1",
-    name: "Pointed-Toe Leather Mules",
-    brand: "Mehra Designs",
-    sku: "MD-SH-001",
-    maker: "Mehra Designs Footwear",
-    price: 190.00,
-    originalPrice: 220.00,
-    discount: "14% off",
-    bestseller: true,
-    etsyPick: true,
-    freeShipping: true,
-    rating: 4.7,
-    reviewCount: 740,
-    category: "Shoes",
-    images: [
-      "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1535043934128-cf0b28d52f95?auto=format&fit=crop&w=1000&q=80"
-    ],
-    description: "Sleek pointed-toe leather slide mules crafted with cushioned leather footbed and kitten kitten heel for all-day elegance.",
-    itemDetails: [
-      "Soft lambskin leather upper",
-      "Cushioned memory foam footbed",
-      "Leather outsole with non-slip rubber heel cap",
-      "4.5cm comfortable heel height"
-    ],
-    features: [
-      "Hand-shaped pointed toe silhouette",
-      "Breathable leather lining",
-      "Anti-fatigue arch support"
-    ],
-    specifications: [
-      { label: "Upper", value: "100% Lambskin" },
-      { label: "Sole", value: "Genuine Leather Sole" },
-      { label: "Heel Height", value: "4.5 cm / 1.7 inches" }
-    ],
-    options: [
-      { id: "opt-sh1-37", name: "37 EU", stock: 4, inStock: true },
-      { id: "opt-sh1-38", name: "38 EU", stock: 9, inStock: true },
-      { id: "opt-sh1-39", name: "39 EU", stock: 7, inStock: true }
-    ],
-    weight: { value: 460, unit: "g" },
-    warranty: "14-day fit swap warranty",
-    tax: { percentage: 18, inclusive: true },
-    materials: ["Lambskin Leather"],
-    inDemandCount: 14,
-    stock: 20
-  },
-  {
-    id: "shoe-2",
-    name: "Strappy Silk Satin Heel Sandals",
-    brand: "Mehra Designs",
-    sku: "MD-SH-002",
-    maker: "Mehra Designs Footwear",
-    price: 225.00,
-    originalPrice: 265.00,
-    discount: "15% off",
-    bestseller: true,
-    etsyPick: true,
-    freeShipping: true,
-    rating: 4.9,
-    reviewCount: 910,
-    category: "Shoes",
-    images: [
-      "https://images.unsplash.com/photo-1560343776-97e7d202ff0e?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=1000&q=80"
-    ],
-    description: "Minimalist evening sandals with delicate crossover silk satin straps, crystal buckle ankle wrap, and 8.5cm stiletto heel.",
-    itemDetails: [
-      "Mulberry silk satin straps",
-      "Crystal-embellished ankle buckle",
-      "Lightweight stiletto heel stem",
-      "Cushioned leather sole"
-    ],
-    features: [
-      "Anti-slip forefoot rubber insert",
-      "Delicate thin crossover strap design",
-      "Reinforced steel heel pin"
-    ],
-    specifications: [
-      { label: "Upper", value: "Silk Satin" },
-      { label: "Heel Height", value: "8.5 cm / 3.3 inches" },
-      { label: "Care", value: "Spot Clean Satin Only" }
-    ],
-    options: [
-      { id: "opt-sh2-36", name: "36 EU", stock: 3, inStock: true },
-      { id: "opt-sh2-37", name: "37 EU", stock: 8, inStock: true },
-      { id: "opt-sh2-38", name: "38 EU", stock: 5, inStock: true }
-    ],
-    weight: { value: 420, unit: "g" },
-    warranty: "Complimentary heel tap replacements",
-    tax: { percentage: 18, inclusive: true },
-    materials: ["Silk Satin", "Leather"],
-    inDemandCount: 22,
-    stock: 16
-  },
-  {
-    id: "shoe-3",
-    name: "Artisanal Calfskin Loafers",
-    brand: "Mehra Designs",
-    sku: "MD-SH-003",
-    maker: "Mehra Designs Footwear",
-    price: 210.00,
-    originalPrice: 250.00,
-    discount: "16% off",
-    bestseller: false,
-    etsyPick: true,
-    freeShipping: true,
-    rating: 4.8,
-    reviewCount: 530,
-    category: "Shoes",
-    images: [
-      "https://images.unsplash.com/photo-1535043934128-cf0b28d52f95?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=1000&q=80"
-    ],
-    description: "Classic penny loafers hand-stitched from polished Italian calfskin with comfortable stacked leather heel.",
-    itemDetails: [
-      "Burnished Italian calfskin leather",
-      "Goodyear welt stitched construction",
-      "Stacked leather heel & sole",
-      "Traditional penny strap detail"
-    ],
-    features: [
-      "Molds to foot shape with wear",
-      "Resoleable welt construction",
-      "Breathable leather lining"
-    ],
-    specifications: [
-      { label: "Upper", value: "Italian Calfskin" },
-      { label: "Construction", value: "Goodyear Welted" },
-      { label: "Heel Height", value: "2.5 cm / 1 inch" }
-    ],
-    options: [
-      { id: "opt-sh3-38", name: "38 EU", stock: 6, inStock: true },
-      { id: "opt-sh3-39", name: "39 EU", stock: 11, inStock: true },
-      { id: "opt-sh3-40", name: "40 EU", stock: 5, inStock: true }
-    ],
-    weight: { value: 680, unit: "g" },
-    warranty: "1-year stitching warranty",
-    tax: { percentage: 18, inclusive: true },
-    materials: ["Italian Calfskin"],
-    inDemandCount: 10,
-    stock: 22
-  },
-  {
-    id: "shoe-4",
-    name: "Sculptural Block Heel Ankle Boots",
-    brand: "Mehra Designs",
-    sku: "MD-SH-004",
-    maker: "Mehra Designs Footwear",
-    price: 285.00,
-    originalPrice: 330.00,
-    discount: "14% off",
-    bestseller: true,
-    etsyPick: true,
-    freeShipping: true,
-    rating: 4.9,
-    reviewCount: 840,
-    category: "Shoes",
-    images: [
-      "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1560343776-97e7d202ff0e?auto=format&fit=crop&w=1000&q=80"
-    ],
-    description: "Sleek ankle boot in glove-soft Nappa leather featuring a architectural cylindrical block heel and side zip.",
-    itemDetails: [
-      "Butter-soft Nappa leather upper",
-      "Architectural 6.5cm block heel",
-      "Side YKK metal zipper",
-      "Square toe profile"
-    ],
-    features: [
-      "Cushioned memory foam footbed",
-      "Glove-like snug fit shaft",
-      "Durable leather outsole"
-    ],
-    specifications: [
-      { label: "Upper", value: "Nappa Leather" },
-      { label: "Heel Height", value: "6.5 cm / 2.5 inches" },
-      { label: "Care", value: "Leather Conditioning Cream" }
-    ],
-    options: [
-      { id: "opt-sh4-37", name: "37 EU", stock: 5, inStock: true },
-      { id: "opt-sh4-38", name: "38 EU", stock: 10, inStock: true },
-      { id: "opt-sh4-39", name: "39 EU", stock: 6, inStock: true }
-    ],
-    weight: { value: 750, unit: "g" },
-    warranty: "14-day return guarantee",
-    tax: { percentage: 18, inclusive: true },
-    materials: ["Nappa Leather"],
-    inDemandCount: 18,
-    stock: 21
-  },
-
-  // ACCESSORIES
-  {
-    id: "acc-1",
-    name: "Silk Printed Square Scarf",
-    brand: "Mehra Designs",
-    sku: "MD-AC-001",
-    maker: "Mehra Designs Accessories",
-    price: 75.00,
-    originalPrice: 95.00,
-    discount: "21% off",
-    bestseller: true,
-    etsyPick: true,
-    freeShipping: true,
-    rating: 4.9,
-    reviewCount: 1120,
-    category: "Accessories",
-    images: [
-      "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=1000&q=80"
-    ],
-    description: "Hand-rolled 100% silk twill square scarf featuring bespoke atelier artwork print and vibrant color palette.",
-    itemDetails: [
-      "100% Silk Twill heavy weave",
-      "Hand-rolled and sewn edges",
-      "Dimensions: 90cm x 90cm square",
-      "Bespoke painterly floral print"
-    ],
-    features: [
-      "Luminous silk sheen",
-      "Versatile neck, hair, or bag styling",
-      "Packaged in signature Mehra box"
-    ],
-    specifications: [
-      { label: "Fabric", value: "100% Silk Twill" },
-      { label: "Size", value: "90 x 90 cm" },
-      { label: "Care", value: "Dry Clean Only" }
-    ],
-    options: [
-      { id: "opt-ac1-fl", name: "Floral Botanical", stock: 14, inStock: true },
-      { id: "opt-ac1-geo", name: "Monogram Geo", stock: 9, inStock: true }
-    ],
-    weight: { value: 90, unit: "g" },
-    warranty: "30-day accessory exchange policy",
-    tax: { percentage: 18, inclusive: true },
-    materials: ["Silk Twill"],
-    inDemandCount: 17,
-    stock: 23
-  },
-  {
-    id: "acc-2",
-    name: "Hand-Forged 18k Gold Plated Cuff",
-    brand: "Mehra Designs",
-    sku: "MD-AC-002",
-    maker: "Mehra Designs Jewelry",
-    price: 120.00,
-    originalPrice: 145.00,
-    discount: "17% off",
-    bestseller: true,
-    etsyPick: true,
-    freeShipping: true,
-    rating: 5.0,
-    reviewCount: 890,
-    category: "Accessories",
-    images: [
-      "https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=1000&q=80"
-    ],
-    description: "Sculptural hammered wrist cuff hand-cast in recycled brass and dipped in thick 18k yellow gold polish.",
-    itemDetails: [
-      "Solid recycled brass core",
-      "Heavy 3-micron 18k gold plating",
-      "Adjustable open-cuff silhouette",
-      "Tarnish-resistant protective seal"
-    ],
-    features: [
-      "Organic hammered texture finish",
-      "Hypoallergenic nickel-free build",
-      "Stamped with Mehra hallmark"
-    ],
-    specifications: [
-      { label: "Material", value: "18k Gold Plated Brass" },
-      { label: "Finish", value: "Hammered Polish" },
-      { label: "Size", value: "One Size (Adjustable)" }
-    ],
-    options: [
-      { id: "opt-ac2-gld", name: "18k Yellow Gold", stock: 12, inStock: true },
-      { id: "opt-ac2-slv", name: "Sterling Silver", stock: 7, inStock: true }
-    ],
-    weight: { value: 110, unit: "g" },
-    warranty: "2-year anti-tarnish guarantee",
-    tax: { percentage: 18, inclusive: true },
-    materials: ["18k Gold Plated Brass"],
-    inDemandCount: 23,
-    stock: 19
-  },
-  {
-    id: "acc-3",
-    name: "Pearl & Crystal Statement Earrings",
-    brand: "Mehra Designs",
-    sku: "MD-AC-003",
-    maker: "Mehra Designs Jewelry",
-    price: 95.00,
-    originalPrice: 115.00,
-    discount: "17% off",
+    price: 3299,
+    originalPrice: 3999,
+    discount: "18% off",
     bestseller: false,
     etsyPick: true,
     freeShipping: true,
     rating: 4.9,
-    reviewCount: 610,
-    category: "Accessories",
-    images: [
-      "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=1000&q=80"
-    ],
-    description: "Luminous baroque freshwater pearls paired with brilliant faceted cubic zirconia crystals on 18k gold posts.",
+    reviewCount: 92,
+    category: "Tops",
+    images: ["/images/5.png"],
+    description: "Refreshing pastel mint co-ord set with tailored peplum silhouette, scalloped neckline borders, and a graceful floor-sweeping pleated skirt.",
     itemDetails: [
-      "Genuine freshwater baroque pearls",
-      "Faceted AAA cubic zirconia crystals",
-      "18k Gold-plated sterling silver posts",
-      "Butterfly friction back closure"
+      "Set includes: Peplum Top with Scallop Detailing & Pleated Skirt",
+      "Fabric: Raw Mulberry Silk & Chanderi",
+      "Lining: 100% Breathable Cotton",
+      "Care: Dry clean recommended"
     ],
+    materials: ["Mulberry Silk", "Chanderi", "Cotton Lining"],
     features: [
-      "Every pearl has a unique organic shape",
-      "Lightweight comfortable drop wear",
-      "Packaged in velvet presentation box"
+      "Tailored fit-and-flare peplum cut",
+      "Hand-finished scalloped edge details",
+      "Box-pleated skirt creating grand volume",
+      "Handmade latkan tassels on drawstring"
     ],
     specifications: [
-      { label: "Stone", value: "Freshwater Baroque Pearl" },
-      { label: "Metal", value: "18k Gold on 925 Silver" },
-      { label: "Drop Length", value: "4.8 cm" }
+      { label: "Fabric", value: "Chanderi Silk Blend" },
+      { label: "Lining", value: "Pure Cotton" },
+      { label: "Silhouette", value: "Peplum Top & Pleated Skirt" },
+      { label: "Occasion", value: "Mehendi, Eid, Festive Gatherings" }
     ],
     options: [
-      { id: "opt-ac3-prl", name: "Natural Pearl", stock: 15, inStock: true }
+      { id: "sz-2-3y-5", name: "2-3 Years", stock: 10, inStock: true },
+      { id: "sz-4-5y-5", name: "4-5 Years", stock: 15, inStock: true },
+      { id: "sz-6-7y-5", name: "6-7 Years", stock: 14, inStock: true },
+      { id: "sz-8-9y-5", name: "8-9 Years", stock: 10, inStock: true },
+      { id: "sz-10-12y-5", name: "10-12 Years", stock: 5, inStock: true }
     ],
-    weight: { value: 45, unit: "g" },
-    warranty: "1-year jewelry warranty",
-    tax: { percentage: 18, inclusive: true },
-    materials: ["Freshwater Pearl", "18k Gold Plated Silver"],
-    inDemandCount: 16,
-    stock: 15
+    weight: { value: 370, unit: "g" },
+    warranty: "Guaranteed authentic Mehra Designs craftsmanship",
+    tax: { percentage: 12, inclusive: true },
+    stock: 54,
+    inDemandCount: 17
   },
   {
-    id: "acc-4",
-    name: "Italian Leather Slim Waist Belt",
+    id: "prod-6",
+    name: "Sky Cerulean Ruffle Blouse & Flounce Skirt Set",
     brand: "Mehra Designs",
-    sku: "MD-AC-004",
-    maker: "Mehra Designs Leatherworks",
-    price: 110.00,
-    originalPrice: 135.00,
+    sku: "MD-SKT-006",
+    maker: "Mehra Designs Couture",
+    price: 2799,
+    originalPrice: 3399,
     discount: "18% off",
     bestseller: true,
     etsyPick: false,
     freeShipping: true,
-    rating: 4.8,
-    reviewCount: 780,
-    category: "Accessories",
-    images: [
-      "https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=1000&q=80"
-    ],
-    description: "Refined 2.5cm slim waist belt cut from full-grain Italian leather with a custom brushed gold horseshoe buckle.",
+    rating: 5.0,
+    reviewCount: 167,
+    category: "New Arrivals",
+    images: ["/images/6.png"],
+    description: "Airy sky blue silhouette crafted with layered shoulder flounces and an artisanal circular-cut skirt with comfortable inner lining.",
     itemDetails: [
-      "Full-grain Italian smooth leather",
-      "Brushed 18k gold-finish buckle",
-      "Width: 2.5cm slim profile",
-      "5 adjustable size holes"
+      "Set includes: Shoulder Flounce Blouse & Circular Skirt",
+      "Fabric: Light Poly-Silk Georgette",
+      "Lining: Soft Cotton",
+      "Care: Machine wash gentle cycle in mesh bag"
     ],
+    materials: ["Georgette", "Silk Blend", "Cotton Lining"],
     features: [
-      "Feathered edge stitch construction",
-      "Ideal for cinching blazers and dresses",
-      "Natural vegetable tanned finish"
+      "Dramatic tiered ruffle sleeves",
+      "Full circular flair for fluid rotation",
+      "Gentle skin-friendly elastic waistband",
+      "Fade-resistant pastel hue"
     ],
     specifications: [
-      { label: "Material", value: "Italian Calfskin" },
-      { label: "Buckle", value: "Brushed Brass" },
-      { label: "Width", value: "2.5 cm / 1 inch" }
+      { label: "Fabric", value: "Light Georgette" },
+      { label: "Lining", value: "100% Cotton" },
+      { label: "Sleeve", value: "Shoulder Flounce" },
+      { label: "Occasion", value: "Cocktail, Parties, Daytime Events" }
     ],
     options: [
-      { id: "opt-ac4-s", name: "S (75cm)", stock: 8, inStock: true },
-      { id: "opt-ac4-m", name: "M (85cm)", stock: 12, inStock: true },
-      { id: "opt-ac4-l", name: "L (95cm)", stock: 6, inStock: true }
+      { id: "sz-2-3y-6", name: "2-3 Years", stock: 18, inStock: true },
+      { id: "sz-4-5y-6", name: "4-5 Years", stock: 22, inStock: true },
+      { id: "sz-6-7y-6", name: "6-7 Years", stock: 16, inStock: true },
+      { id: "sz-8-9y-6", name: "8-9 Years", stock: 12, inStock: true },
+      { id: "sz-10-12y-6", name: "10-12 Years", stock: 9, inStock: true }
     ],
-    weight: { value: 140, unit: "g" },
-    warranty: "Lifetime leather belt guarantee",
-    tax: { percentage: 18, inclusive: true },
-    materials: ["Italian Leather"],
-    inDemandCount: 14,
-    stock: 26
+    weight: { value: 350, unit: "g" },
+    warranty: "Guaranteed authentic Mehra Designs craftsmanship",
+    tax: { percentage: 12, inclusive: true },
+    stock: 77,
+    inDemandCount: 25
+  },
+  {
+    id: "prod-7",
+    name: "Golden Radiance Brocade Crop Top & Festive Skirt Set",
+    brand: "Mehra Designs",
+    sku: "MD-SKT-007",
+    maker: "Mehra Designs Couture",
+    price: 3799,
+    originalPrice: 4699,
+    discount: "19% off",
+    bestseller: true,
+    etsyPick: true,
+    freeShipping: true,
+    rating: 5.0,
+    reviewCount: 204,
+    category: "Dresses",
+    images: ["/images/7.png"],
+    description: "Regal ceremonial set in shimmering gold and honey hues. Features gold gota patti detailing, back drawstring tassels, and heavy kalidar skirt flare.",
+    itemDetails: [
+      "Set includes: Banarasi Brocade Crop Top & Kalidar Skirt",
+      "Fabric: Banarasi Brocade & Art Silk",
+      "Lining: Premium Cotton Santoon",
+      "Care: Dry clean only"
+    ],
+    materials: ["Brocade Silk", "Zari", "Cotton Santoon"],
+    features: [
+      "Opulent gold zari weave pattern",
+      "Handmade pom-pom tassels on side tie",
+      "Voluminous umbrella flare with inner can-can support",
+      "Soft Santoon lining prevents itching"
+    ],
+    specifications: [
+      { label: "Fabric", value: "Banarasi Silk Brocade" },
+      { label: "Lining", value: "Cotton Santoon" },
+      { label: "Work", value: "Zari & Gota Patti" },
+      { label: "Occasion", value: "Weddings, Diwali, Grand Occasions" }
+    ],
+    options: [
+      { id: "sz-2-3y-7", name: "2-3 Years", stock: 10, inStock: true },
+      { id: "sz-4-5y-7", name: "4-5 Years", stock: 12, inStock: true },
+      { id: "sz-6-7y-7", name: "6-7 Years", stock: 15, inStock: true },
+      { id: "sz-8-9y-7", name: "8-9 Years", stock: 8, inStock: true },
+      { id: "sz-10-12y-7", name: "10-12 Years", stock: 6, inStock: true }
+    ],
+    weight: { value: 450, unit: "g" },
+    warranty: "Guaranteed authentic Mehra Designs craftsmanship",
+    tax: { percentage: 12, inclusive: true },
+    stock: 51,
+    inDemandCount: 30
+  },
+  {
+    id: "prod-8",
+    name: "Ruby Crimson Peplum Blouse & Royal Flare Skirt Set",
+    brand: "Mehra Designs",
+    sku: "MD-SKT-008",
+    maker: "Mehra Designs Couture",
+    price: 3599,
+    originalPrice: 4499,
+    discount: "20% off",
+    bestseller: false,
+    etsyPick: true,
+    freeShipping: true,
+    rating: 4.9,
+    reviewCount: 78,
+    category: "Tops",
+    images: ["/images/8.png"],
+    description: "Deep scarlet red festive two-piece crafted with rich silk-blend fabrics, detailed threadwork border, and voluminous tiered gathers.",
+    itemDetails: [
+      "Set includes: Peplum Blouse with Thread Work & Tiered Skirt",
+      "Fabric: Chanderi Silk & Georgette",
+      "Lining: 100% Pure Cotton",
+      "Care: Dry clean only"
+    ],
+    materials: ["Chanderi Silk", "Georgette", "Pure Cotton Lining"],
+    features: [
+      "Rich ruby crimson jewel tone",
+      "Exquisite embroidered hemline borders",
+      "Tiered gather flared skirt with high swirl effect",
+      "Comfort-fit neckline with concealed closure"
+    ],
+    specifications: [
+      { label: "Fabric", value: "Silk Chanderi & Georgette" },
+      { label: "Lining", value: "100% Breathable Cotton" },
+      { label: "Pattern", value: "Peplum with Tiered Flair" },
+      { label: "Occasion", value: "Festivals, Family Functions, Pooja" }
+    ],
+    options: [
+      { id: "sz-2-3y-8", name: "2-3 Years", stock: 8, inStock: true },
+      { id: "sz-4-5y-8", name: "4-5 Years", stock: 14, inStock: true },
+      { id: "sz-6-7y-8", name: "6-7 Years", stock: 12, inStock: true },
+      { id: "sz-8-9y-8", name: "8-9 Years", stock: 9, inStock: true },
+      { id: "sz-10-12y-8", name: "10-12 Years", stock: 7, inStock: true }
+    ],
+    weight: { value: 410, unit: "g" },
+    warranty: "Guaranteed authentic Mehra Designs craftsmanship",
+    tax: { percentage: 12, inclusive: true },
+    stock: 50,
+    inDemandCount: 15
+  },
+  {
+    id: "prod-9",
+    name: "Blush Champagne Cascading Frill Crop & High-Low Skirt Set",
+    brand: "Mehra Designs",
+    sku: "MD-SKT-009",
+    maker: "Mehra Designs Couture",
+    price: 3199,
+    originalPrice: 3999,
+    discount: "20% off",
+    bestseller: true,
+    etsyPick: true,
+    freeShipping: true,
+    rating: 4.9,
+    reviewCount: 110,
+    category: "New Arrivals",
+    images: ["/images/9.jpeg"],
+    description: "Romantic blush champagne designer set featuring sculptured organza frills on an asymmetric top paired with a voluminous party-wear skirt.",
+    itemDetails: [
+      "Set includes: Asymmetric Frill Top & High-Low Volume Skirt",
+      "Fabric: Textured Organza & Soft Tulle",
+      "Lining: 100% Soft Cotton",
+      "Care: Gentle hand wash or dry clean"
+    ],
+    materials: ["Textured Organza", "Soft Tulle", "Cotton"],
+    features: [
+      "Modern high-low silhouette with fairy flare",
+      "Layered cascade frills across bodice",
+      "Gentle elastic waistband with ribbon tie",
+      "Breathable hypoallergenic cotton lining"
+    ],
+    specifications: [
+      { label: "Fabric", value: "Organza & Soft Tulle" },
+      { label: "Lining", value: "Hypoallergenic Cotton" },
+      { label: "Cut", value: "Cascading Asymmetric High-Low" },
+      { label: "Occasion", value: "Birthday, Evening Parties, Galas" }
+    ],
+    options: [
+      { id: "sz-2-3y-9", name: "2-3 Years", stock: 15, inStock: true },
+      { id: "sz-4-5y-9", name: "4-5 Years", stock: 18, inStock: true },
+      { id: "sz-6-7y-9", name: "6-7 Years", stock: 14, inStock: true },
+      { id: "sz-8-9y-9", name: "8-9 Years", stock: 10, inStock: true },
+      { id: "sz-10-12y-9", name: "10-12 Years", stock: 8, inStock: true }
+    ],
+    weight: { value: 360, unit: "g" },
+    warranty: "Guaranteed authentic Mehra Designs craftsmanship",
+    tax: { percentage: 12, inclusive: true },
+    stock: 65,
+    inDemandCount: 21
+  },
+  {
+    id: "prod-10",
+    name: "Coral Sunset Puff-Sleeve Peplum Top & Maxi Skirt Set",
+    brand: "Mehra Designs",
+    sku: "MD-SKT-010",
+    maker: "Mehra Designs Couture",
+    price: 2999,
+    originalPrice: 3599,
+    discount: "17% off",
+    bestseller: false,
+    etsyPick: true,
+    freeShipping: true,
+    rating: 4.8,
+    reviewCount: 95,
+    category: "Bottoms",
+    images: ["/images/10.jpeg"],
+    description: "Radiant coral-peach coordinated set featuring statement puff sleeves, tailored empire waist, and an airy twirling skirt with drawstring tie.",
+    itemDetails: [
+      "Set includes: Puff Sleeve Peplum Top & Flared Maxi Skirt",
+      "Fabric: Premium Chiffon Crepe",
+      "Lining: Breathable Cotton Voile",
+      "Care: Hand wash cold"
+    ],
+    materials: ["Chiffon Crepe", "Cotton Voile"],
+    features: [
+      "Voluminous puffed sleeves with soft elastic hems",
+      "Flattering empire peplum cut",
+      "Drawstring tie-up with matching decorative tassels",
+      "Full coverage twirl-friendly skirt"
+    ],
+    specifications: [
+      { label: "Fabric", value: "Chiffon Crepe" },
+      { label: "Lining", value: "Cotton Voile" },
+      { label: "Sleeve", value: "Romantic Statement Puff Sleeve" },
+      { label: "Occasion", value: "Festive Lunches, Weddings, Gatherings" }
+    ],
+    options: [
+      { id: "sz-2-3y-10", name: "2-3 Years", stock: 11, inStock: true },
+      { id: "sz-4-5y-10", name: "4-5 Years", stock: 16, inStock: true },
+      { id: "sz-6-7y-10", name: "6-7 Years", stock: 15, inStock: true },
+      { id: "sz-8-9y-10", name: "8-9 Years", stock: 9, inStock: true },
+      { id: "sz-10-12y-10", name: "10-12 Years", stock: 7, inStock: true }
+    ],
+    weight: { value: 375, unit: "g" },
+    warranty: "Guaranteed authentic Mehra Designs craftsmanship",
+    tax: { percentage: 12, inclusive: true },
+    stock: 58,
+    inDemandCount: 18
+  },
+  {
+    id: "prod-11",
+    name: "Lilac Bloom Handcrafted Embroidered Blouse & Swirl Skirt Set",
+    brand: "Mehra Designs",
+    sku: "MD-SKT-011",
+    maker: "Mehra Designs Couture",
+    price: 3399,
+    originalPrice: 4199,
+    discount: "19% off",
+    bestseller: true,
+    etsyPick: true,
+    freeShipping: true,
+    rating: 5.0,
+    reviewCount: 132,
+    category: "Dresses",
+    images: ["/images/11.jpeg"],
+    description: "Masterfully crafted lilac festive ensemble with delicate floral motif embroidery, scalloped hemline, and maximum flare for graceful movement.",
+    itemDetails: [
+      "Set includes: Hand-Embroidered Blouse & Full Swirl Skirt",
+      "Fabric: Raw Silk & Net",
+      "Lining: 100% Pure Cotton",
+      "Care: Dry clean recommended"
+    ],
+    materials: ["Raw Silk", "Fine Net", "Pure Cotton Lining"],
+    features: [
+      "Artisan floral embroidery across neckline and hem",
+      "High flare circle skirt with twirl motion",
+      "Back zip closure with secure hook",
+      "Featherlight lining suitable for warm celebrations"
+    ],
+    specifications: [
+      { label: "Fabric", value: "Raw Silk & Fine Net" },
+      { label: "Lining", value: "Pure Cotton" },
+      { label: "Work", value: "Artisanal Floral Threadwork" },
+      { label: "Occasion", value: "Festivals, Weddings, Anniversaries" }
+    ],
+    options: [
+      { id: "sz-2-3y-11", name: "2-3 Years", stock: 12, inStock: true },
+      { id: "sz-4-5y-11", name: "4-5 Years", stock: 14, inStock: true },
+      { id: "sz-6-7y-11", name: "6-7 Years", stock: 16, inStock: true },
+      { id: "sz-8-9y-11", name: "8-9 Years", stock: 11, inStock: true },
+      { id: "sz-10-12y-11", name: "10-12 Years", stock: 8, inStock: true }
+    ],
+    weight: { value: 395, unit: "g" },
+    warranty: "Guaranteed authentic Mehra Designs craftsmanship",
+    tax: { percentage: 12, inclusive: true },
+    stock: 61,
+    inDemandCount: 20
   }
 ];

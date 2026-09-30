@@ -83,16 +83,16 @@ export default function AdminHomepageManager() {
   // 4. PROMO BANNER STATE
   const [promoForm, setPromoForm] = useState({
     leftBadge: promoBanners?.leftBanner?.badge || 'LIMITED TIME OFFER',
-    leftTitle: promoBanners?.leftBanner?.title || 'Spring Sale \n Up to 50% Off',
+    leftTitle: promoBanners?.leftBanner?.title || 'Festive Season \n Up to 20% Off',
     leftButtonText: promoBanners?.leftBanner?.buttonText || 'Shop The Sale',
-    leftButtonLink: promoBanners?.leftBanner?.buttonLink || '/shop?category=Sale',
-    leftImage: promoBanners?.leftBanner?.image || '/images/cat_women.jpg',
+    leftButtonLink: promoBanners?.leftBanner?.buttonLink || '/shop?category=New%20Arrivals',
+    leftImage: promoBanners?.leftBanner?.image || '/images/9.jpeg',
 
     rightBadge: promoBanners?.rightBanner?.badge || 'NEW ARRIVALS',
-    rightTitle: promoBanners?.rightBanner?.title || 'New Season \n Luxury Essentials',
+    rightTitle: promoBanners?.rightBanner?.title || 'Designer Skirt & Top \n Luxury Co-Ords',
     rightButtonText: promoBanners?.rightBanner?.buttonText || 'Discover More',
-    rightButtonLink: promoBanners?.rightBanner?.buttonLink || '/shop?category=New%20Arrivals',
-    rightImage: promoBanners?.rightBanner?.image || '/images/cat_dresses.jpg',
+    rightButtonLink: promoBanners?.rightBanner?.buttonLink || '/shop?category=Dresses',
+    rightImage: promoBanners?.rightBanner?.image || '/images/10.jpeg',
   });
 
   // 5. FEATURES STRIP MODAL STATE
@@ -104,23 +104,23 @@ export default function AdminHomepageManager() {
 
   // 6. CATEGORY GRID FORM STATE
   const [gridForm, setGridForm] = useState({
-    largeTitle: categoryGrid?.largeCard?.title || 'Evening Dresses',
+    largeTitle: categoryGrid?.largeCard?.title || 'Evening & Festive Sets',
     largeSubtitle: categoryGrid?.largeCard?.subtitle || 'Sophisticated allure for memorable nights.',
     largeButtonText: categoryGrid?.largeCard?.buttonText || 'Shop now',
     largeLink: categoryGrid?.largeCard?.link || '/shop?category=Dresses',
-    largeImage: categoryGrid?.largeCard?.image || '/grid1.png',
+    largeImage: categoryGrid?.largeCard?.image || '/images/1.png',
 
-    card1Title: categoryGrid?.gridCards?.[0]?.title || 'Dresses for Every Day',
-    card1Link: categoryGrid?.gridCards?.[0]?.link || '/shop?category=Dresses',
-    card1Image: categoryGrid?.gridCards?.[0]?.image || '/grid2.png',
+    card1Title: categoryGrid?.gridCards?.[0]?.title || 'Tops & Peplums',
+    card1Link: categoryGrid?.gridCards?.[0]?.link || '/shop?category=Tops',
+    card1Image: categoryGrid?.gridCards?.[0]?.image || '/images/2.png',
 
-    card2Title: categoryGrid?.gridCards?.[1]?.title || 'Accessories',
-    card2Link: categoryGrid?.gridCards?.[1]?.link || '/shop?category=Accessories',
-    card2Image: categoryGrid?.gridCards?.[1]?.image || '/grid3.png',
+    card2Title: categoryGrid?.gridCards?.[1]?.title || 'Bespoke Ensembles',
+    card2Link: categoryGrid?.gridCards?.[1]?.link || '/shop?category=Clothing',
+    card2Image: categoryGrid?.gridCards?.[1]?.image || '/images/3.png',
 
-    card3Title: categoryGrid?.gridCards?.[2]?.title || 'Up to 30% off',
-    card3Link: categoryGrid?.gridCards?.[2]?.link || '/shop?category=Sale',
-    card3Image: categoryGrid?.gridCards?.[2]?.image || '/grid4.png',
+    card3Title: categoryGrid?.gridCards?.[2]?.title || 'Twirl-Worthy Skirts',
+    card3Link: categoryGrid?.gridCards?.[2]?.link || '/shop?category=Bottoms',
+    card3Image: categoryGrid?.gridCards?.[2]?.image || '/images/4.png',
   });
 
   // 7. SOCIAL GALLERY MODAL STATE
@@ -171,7 +171,7 @@ export default function AdminHomepageManager() {
         id: `cat_${Date.now()}`,
         name: item.name || 'NEW CATEGORY',
         badge: item.badge || '',
-        image: item.image || '/images/cat_women.jpg',
+        image: item.image || '/images/1.png',
         slug: item.slug || 'Dresses',
         isSaleCard: Boolean(item.isSaleCard),
       };
@@ -202,8 +202,8 @@ export default function AdminHomepageManager() {
       const newItem = {
         id: `na-${Date.now()}`,
         name: item.name || 'Bespoke Luxury Item',
-        price: Number(item.price) || 99,
-        image: item.image || '/images/cat_women.jpg',
+        price: Number(item.price) || 2899,
+        image: item.image || '/images/1.png',
         link: item.link || '/shop',
         colors: item.colors || ['#FFFFFF', '#111111'],
       };
@@ -313,7 +313,7 @@ export default function AdminHomepageManager() {
     if (socialModal.isNew) {
       const newItem: SocialGalleryItem = {
         id: `soc_${Date.now()}`,
-        imgUrl: item.imgUrl || 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=400&q=80',
+        imgUrl: item.imgUrl || '/images/1.png',
         link: item.link || 'https://instagram.com',
       };
       updated = [...socialGallery, newItem];
@@ -563,7 +563,7 @@ export default function AdminHomepageManager() {
                   isNew: true,
                   item: {
                     name: 'CLOTHING',
-                    image: '/images/cat_women.jpg',
+                    image: '/images/1.png',
                     slug: 'Clothing',
                     badge: '',
                     isSaleCard: false,
@@ -592,7 +592,7 @@ export default function AdminHomepageManager() {
                     </div>
                   ) : (
                     <img
-                      src={cat.image || '/images/cat_women.jpg'}
+                      src={cat.image || '/images/1.png'}
                       alt={cat.name}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />
@@ -659,11 +659,11 @@ export default function AdminHomepageManager() {
                   isOpen: true,
                   isNew: true,
                   item: {
-                    name: 'Ribbed Knit Tank Top',
-                    price: 2499,
-                    image: '/images/cat_women.jpg',
-                    link: '/shop?category=Tops',
-                    colors: ['#FFFFFF', '#111111'],
+                    name: 'Peach Blossom Ruffle Peplum & Flared Skirt Set',
+                    price: 2899,
+                    image: '/images/1.png',
+                    link: '/product/prod-1',
+                    colors: ['#F7D7C4', '#111111'],
                   },
                 })
               }
@@ -682,7 +682,7 @@ export default function AdminHomepageManager() {
               >
                 <div className="relative aspect-[3/4] bg-[#EFE9E1] overflow-hidden">
                   <img
-                    src={item.image || '/images/cat_women.jpg'}
+                    src={item.image || '/images/1.png'}
                     alt={item.name}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
@@ -1111,7 +1111,7 @@ export default function AdminHomepageManager() {
                   isOpen: true,
                   isNew: true,
                   item: {
-                    imgUrl: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=400&q=80',
+                    imgUrl: '/images/1.png',
                     link: 'https://instagram.com',
                   },
                 })

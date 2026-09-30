@@ -12,18 +12,18 @@ export function PromoBannersRow() {
     {
       id: 'banner-1',
       tag: 'LIMITED TIME OFFER',
-      title: 'Spring Sale\nUp to 50% Off',
+      title: 'Festive Season\nUp to 20% Off',
       buttonText: 'Shop The Sale',
-      link: '/shop?category=Sale',
-      image: '/images/cat_women.jpg',
+      link: '/shop?category=New%20Arrivals',
+      image: '/images/9.jpeg',
     },
     {
       id: 'banner-2',
       tag: 'NEW ARRIVALS',
-      title: 'Fresh Styles\nJust Landed',
+      title: 'Designer Skirt & Top\nLuxury Co-Ords',
       buttonText: 'Explore Now',
-      link: '/shop?category=New%20Arrivals',
-      image: '/images/cat_clothing_rack.jpg',
+      link: '/shop?category=Dresses',
+      image: '/images/10.jpeg',
     },
   ];
 
@@ -34,18 +34,18 @@ export function PromoBannersRow() {
           {
             id: 'banner-left',
             tag: promoBanners.leftBanner.badge || 'LIMITED TIME OFFER',
-            title: promoBanners.leftBanner.title || 'Spring Sale \n Up to 50% Off',
+            title: promoBanners.leftBanner.title || 'Festive Season \n Up to 20% Off',
             buttonText: promoBanners.leftBanner.buttonText || 'Shop The Sale',
-            link: promoBanners.leftBanner.buttonLink || '/shop?category=Sale',
-            image: promoBanners.leftBanner.image || '/images/cat_women.jpg',
+            link: promoBanners.leftBanner.buttonLink || '/shop?category=New%20Arrivals',
+            image: promoBanners.leftBanner.image || '/images/9.jpeg',
           },
           {
             id: 'banner-right',
             tag: promoBanners.rightBanner.badge || 'NEW ARRIVALS',
-            title: promoBanners.rightBanner.title || 'Fresh Styles \n Just Landed',
+            title: promoBanners.rightBanner.title || 'Designer Skirt & Top \n Luxury Co-Ords',
             buttonText: promoBanners.rightBanner.buttonText || 'Explore Now',
-            link: promoBanners.rightBanner.buttonLink || '/shop?category=New%20Arrivals',
-            image: promoBanners.rightBanner.image || '/images/cat_clothing_rack.jpg',
+            link: promoBanners.rightBanner.buttonLink || '/shop?category=Dresses',
+            image: promoBanners.rightBanner.image || '/images/10.jpeg',
           },
         ]
       : defaultBanners;

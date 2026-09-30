@@ -285,41 +285,41 @@ export const defaultHeroBanner: HeroBannerData = {
 };
 
 export const defaultCategoryCircles: CategoryCircleItem[] = [
-  { id: 'cat-new', name: 'NEW IN', badge: 'NEW', image: '/images/cat_women.jpg?v=200', slug: 'New%20Arrivals' },
-  { id: 'cat-clothing', name: 'CLOTHING', image: '/images/cat_clothing_rack.jpg?v=200', slug: 'Clothing' },
-  { id: 'cat-dresses', name: 'DRESSES', image: '/images/cat_dresses_rack.jpg?v=200', slug: 'Dresses' },
-  { id: 'cat-tops', name: 'TOPS', image: '/images/cat_tops_rack.jpg?v=200', slug: 'Tops' },
-  { id: 'cat-bottoms', name: 'BOTTOMS', image: '/images/cat_bottoms_rack.jpg?v=200', slug: 'Bottoms' },
-  { id: 'cat-bags', name: 'BAGS', image: '/images/cat_bags.jpg?v=200', slug: 'Bags' },
-  { id: 'cat-shoes', name: 'SHOES', image: '/images/cat_shoes.jpg?v=200', slug: 'Shoes' },
-  { id: 'cat-accessories', name: 'ACCESSORIES', image: '/images/cat_tops_rack.jpg?v=200', slug: 'Accessories' },
+  { id: 'cat-new', name: 'NEW IN', badge: 'NEW', image: '/images/1.png', slug: 'New%20Arrivals' },
+  { id: 'cat-clothing', name: 'CLOTHING', image: '/images/2.png', slug: 'Clothing' },
+  { id: 'cat-dresses', name: 'DRESSES', image: '/images/3.png', slug: 'Dresses' },
+  { id: 'cat-tops', name: 'TOPS', image: '/images/5.png', slug: 'Tops' },
+  { id: 'cat-bottoms', name: 'BOTTOMS', image: '/images/4.png', slug: 'Bottoms' },
+  { id: 'cat-bags', name: 'BAGS', image: '/images/6.png', slug: 'Bags' },
+  { id: 'cat-shoes', name: 'SHOES', image: '/images/7.png', slug: 'Shoes' },
+  { id: 'cat-accessories', name: 'ACCESSORIES', image: '/images/8.png', slug: 'Accessories' },
 ];
 
 export const defaultCuratedCollections: CuratedCollectionsData = {
   title: 'Curated Collections',
   subtitle: 'Signature Edit',
   items: [
-    { id: 'na-1', name: 'Ribbed Knit Tank Top', price: 69, image: '/images/cat_women.jpg?v=3', link: '/shop?category=Tops', colors: ['#FFFFFF', '#F6F1E9', '#111111'] },
-    { id: 'na-2', name: 'Satin Slip Dress', price: 89, image: '/images/cat_dresses.jpg?v=3', link: '/shop?category=Dresses', colors: ['#FFFFFF', '#E9D8CC', '#111111'] },
-    { id: 'na-3', name: 'Relaxed Tailored Blazer', price: 129, image: '/images/cat_clothing.jpg?v=3', link: '/shop?category=Clothing', colors: ['#D8C3AD'] },
-    { id: 'na-4', name: 'High Waist Wide Leg Pants', price: 79, image: '/images/cat_bags.jpg?v=3', link: '/shop?category=Bottoms', colors: ['#FFFFFF', '#F6F1E9', '#111111'] },
+    { id: 'prod-1', name: 'Peach Blossom Ruffle Peplum & Flared Skirt Set', price: 2899, image: '/images/1.png', link: '/product/prod-1', colors: ['#F7D7C4', '#F6F1E9', '#E8B4A2'] },
+    { id: 'prod-2', name: 'Canary Sunlight Tiered Frill Top & Twirl Skirt Set', price: 3199, image: '/images/2.png', link: '/product/prod-2', colors: ['#F6D04D', '#FFF1C5', '#E5B826'] },
+    { id: 'prod-3', name: 'Rose Petal Embroidered Organza Top & Skirt Set', price: 3499, image: '/images/3.png', link: '/product/prod-3', colors: ['#E35B88', '#FADADD', '#B83260'] },
+    { id: 'prod-5', name: 'Mint Whisper Pastel Silk Peplum & Pleated Skirt Set', price: 3299, image: '/images/5.png', link: '/product/prod-5', colors: ['#B8E0D2', '#D6EADF', '#95C5B5'] },
   ],
 };
 
 export const defaultPromoBanners: PromoBannersData = {
   leftBanner: {
     badge: 'LIMITED TIME OFFER',
-    title: 'Spring Sale \n Up to 50% Off',
+    title: 'Festive Season \n Up to 20% Off',
     buttonText: 'Shop The Sale',
-    buttonLink: '/shop?category=Sale',
-    image: '/images/cat_women.jpg',
+    buttonLink: '/shop?category=New%20Arrivals',
+    image: '/images/9.jpeg',
   },
   rightBanner: {
     badge: 'NEW ARRIVALS',
-    title: 'New Season \n Luxury Essentials',
+    title: 'Designer Skirt & Top \n Luxury Co-Ords',
     buttonText: 'Discover More',
-    buttonLink: '/shop?category=New%20Arrivals',
-    image: '/images/cat_dresses.jpg',
+    buttonLink: '/shop?category=Dresses',
+    image: '/images/10.jpeg',
   },
 };
 
@@ -334,26 +334,26 @@ export const defaultCategoryGrid: CategoryGridData = {
   headline: 'Explore The Wardrobe',
   subtext: 'Handmade luxury pieces crafted with passion',
   largeCard: {
-    title: 'Evening Dresses',
-    subtitle: 'Sophisticated allure for memorable nights.',
+    title: 'Evening & Festive Sets',
+    subtitle: 'Sophisticated allure for memorable celebration nights.',
     buttonText: 'Shop now',
     link: '/shop?category=Dresses',
-    image: '/grid1.png',
+    image: '/images/1.png',
   },
   gridCards: [
-    { title: 'Tops & Blouses', link: '/shop?category=Tops', image: '/grid2.png' },
-    { title: 'Bespoke Outerwear', link: '/shop?category=Clothing', image: '/grid3.png' },
-    { title: 'Tailored Bottoms', link: '/shop?category=Bottoms', image: '/grid4.png' },
+    { title: 'Tops & Peplums', link: '/shop?category=Tops', image: '/images/2.png' },
+    { title: 'Bespoke Ensembles', link: '/shop?category=Clothing', image: '/images/3.png' },
+    { title: 'Twirl-Worthy Skirts', link: '/shop?category=Bottoms', image: '/images/4.png' },
   ],
 };
 
 export const defaultSocialGallery: SocialGalleryItem[] = [
-  { id: 'soc-1', imgUrl: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=400&q=80', link: 'https://instagram.com' },
-  { id: 'soc-2', imgUrl: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=400&q=80', link: 'https://instagram.com' },
-  { id: 'soc-3', imgUrl: 'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=400&q=80', link: 'https://instagram.com' },
-  { id: 'soc-4', imgUrl: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=400&q=80', link: 'https://instagram.com' },
-  { id: 'soc-5', imgUrl: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=400&q=80', link: 'https://instagram.com' },
-  { id: 'soc-6', imgUrl: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=400&q=80', link: 'https://instagram.com' },
+  { id: 'soc-1', imgUrl: '/images/1.png', link: 'https://instagram.com' },
+  { id: 'soc-2', imgUrl: '/images/2.png', link: 'https://instagram.com' },
+  { id: 'soc-3', imgUrl: '/images/3.png', link: 'https://instagram.com' },
+  { id: 'soc-4', imgUrl: '/images/5.png', link: 'https://instagram.com' },
+  { id: 'soc-5', imgUrl: '/images/6.png', link: 'https://instagram.com' },
+  { id: 'soc-6', imgUrl: '/images/7.png', link: 'https://instagram.com' },
 ];
 
 export const defaultProsperityCards: ProsperityHeroCard[] = [
@@ -660,12 +660,12 @@ const GUIDE_CARDS_KEY = 'md_guide_cards_v2';
 const BLOG_POSTS_KEY = 'md_blog_posts_v2';
 const SECTIONS_KEY = 'md_sections_v2';
 const HERO_SLIDES_KEY = 'md_hero_slides_v2';
-const CATEGORY_CIRCLES_KEY = 'md_category_circles_v2';
-const CURATED_COLLECTIONS_KEY = 'md_curated_collections_v2';
-const PROMO_BANNERS_KEY = 'md_promo_banners_v2';
-const FEATURES_STRIP_KEY = 'md_features_strip_v2';
-const CATEGORY_GRID_KEY = 'md_category_grid_v2';
-const SOCIAL_GALLERY_KEY = 'md_social_gallery_v2';
+const CATEGORY_CIRCLES_KEY = 'md_category_circles_v3';
+const CURATED_COLLECTIONS_KEY = 'md_curated_collections_v3';
+const PROMO_BANNERS_KEY = 'md_promo_banners_v3';
+const FEATURES_STRIP_KEY = 'md_features_strip_v3';
+const CATEGORY_GRID_KEY = 'md_category_grid_v3';
+const SOCIAL_GALLERY_KEY = 'md_social_gallery_v3';
 
 export const isLegacyHeroSlide = (s: any): boolean => {
   if (!s) return true;
@@ -850,11 +850,17 @@ const filterFashionProducts = (items: any[]) => {
           'mfs_sections_v2',
           'md_hero_slides_v1',
           'md_category_circles_v1',
+          'md_category_circles_v2',
           'md_curated_collections_v1',
+          'md_curated_collections_v2',
           'md_promo_banners_v1',
+          'md_promo_banners_v2',
           'md_features_strip_v1',
+          'md_features_strip_v2',
           'md_category_grid_v1',
+          'md_category_grid_v2',
           'md_social_gallery_v1',
+          'md_social_gallery_v2',
         ];
         oldKeys.forEach((k) => {
           try { localStorage.removeItem(k); } catch {}

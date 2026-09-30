@@ -390,7 +390,7 @@ export default function AdminCategoriesPage() {
               </thead>
               <tbody className="divide-y divide-[#E6E0D4]/70 text-xs">
                 {filteredCategories.map((cat) => {
-                  const imageSrc = cat.imageUrl || cat.image || `/images/cat_${cat.slug}.jpg`;
+                  const imageSrc = cat.imageUrl || cat.image || '/images/1.png';
                   return (
                     <tr key={cat.id} className="hover:bg-[#FAF7F2]/60 transition-colors">
                       {/* Name + Thumbnail */}
@@ -402,7 +402,7 @@ export default function AdminCategoriesPage() {
                               alt={cat.name}
                               className="w-full h-full object-cover"
                               onError={(e) => {
-                                (e.target as HTMLImageElement).src = '/images/cat_clothing.jpg';
+                                (e.target as HTMLImageElement).src = '/images/1.png';
                               }}
                             />
                           </div>

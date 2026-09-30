@@ -358,7 +358,7 @@ export default function AdminProductsPage() {
            ══════════════════════════════════════════════════════════════════════ */
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5">
           {filteredProducts.map((p) => {
-            const mainImg = p.images?.[0] || '/images/cat_clothing.jpg';
+            const mainImg = p.images?.[0] || '/images/1.png';
             const inStock = (p.stock || 0) > 0;
 
             return (
@@ -467,7 +467,7 @@ export default function AdminProductsPage() {
               </thead>
               <tbody className="divide-y divide-[#E6E0D4]/70 text-xs">
                 {filteredProducts.map((p) => {
-                  const mainImg = p.images?.[0] || '/images/cat_clothing.jpg';
+                  const mainImg = p.images?.[0] || '/images/1.png';
                   const inStock = (p.stock || 0) > 0;
 
                   return (
