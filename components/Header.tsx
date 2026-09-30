@@ -453,7 +453,7 @@ export function Header() {
                 href="/"
                 className="flex items-center hover:opacity-90 transition-opacity"
               >
-                <MehraLogo size="md" className="[&_img]:h-8 [&_img]:max-w-[140px] [&_img]:scale-[1.1] origin-left" />
+                <MehraLogo size="md" className="[&_img]:h-7 [&_img]:max-w-[120px] origin-left" />
               </Link>
             </div>
           </div>
@@ -466,7 +466,7 @@ export function Header() {
             >
               <MehraLogo
                 size="md"
-                className="[&_img]:h-11 sm:[&_img]:h-13 md:[&_img]:h-14 lg:[&_img]:h-15 xl:[&_img]:h-18 2xl:[&_img]:h-20 [&_img]:max-w-[280px] sm:[&_img]:max-w-[340px] md:[&_img]:max-w-[420px] lg:[&_img]:max-w-[460px] xl:[&_img]:max-w-[540px] 2xl:[&_img]:max-w-[620px] [&_img]:scale-[1.14] sm:[&_img]:scale-[1.18] xl:[&_img]:scale-[1.24] 2xl:[&_img]:scale-[1.3] origin-center"
+                className="[&_img]:h-8.5 sm:[&_img]:h-9.5 md:[&_img]:h-10 lg:[&_img]:h-10.5 xl:[&_img]:h-11.5 2xl:[&_img]:h-12.5 [&_img]:max-w-[190px] sm:[&_img]:max-w-[220px] md:[&_img]:max-w-[260px] lg:[&_img]:max-w-[300px] xl:[&_img]:max-w-[340px] 2xl:[&_img]:max-w-[380px] origin-center"
               />
             </Link>
           </div>
@@ -687,7 +687,7 @@ export function Header() {
                 <img
                   src="/logo.png"
                   alt="Mehra Designs Logo"
-                  className="h-8 sm:h-9 w-auto object-contain scale-[1.35] origin-center"
+                  className="h-7 sm:h-8 w-auto object-contain origin-center"
                 />
               </div>
               <button
@@ -700,9 +700,9 @@ export function Header() {
               </button>
             </div>
 
-            {/* Menu Navigation Categories - Centered and compact to fit all heights */}
-            <div className="px-3.5 sm:px-5 py-2.5 sm:py-3.5 flex-1 flex flex-col justify-center space-y-0.5 sm:space-y-1 overflow-y-auto scrollbar-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-              <p className="text-[10px] sm:text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-1 px-3">Explore Collections</p>
+            {/* Menu Navigation Categories - Centered and nicely proportioned to fit without scroll */}
+            <div className="px-4 sm:px-6 py-4 sm:py-6 flex-1 flex flex-col justify-center space-y-1 sm:space-y-1.5 overflow-y-auto scrollbar-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+              <p className="text-[10px] sm:text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-1.5 px-3">Explore Collections</p>
               {[
                 { name: 'All Collections', href: '/shop' },
                 { name: 'New In', href: '/shop?category=New%20In' },
@@ -712,10 +712,10 @@ export function Header() {
                   key={link.name}
                   href={link.href}
                   onClick={handleCloseDrawer}
-                  className="drawer-nav-item flex items-center justify-between px-3 py-1.5 sm:py-2 rounded-lg hover:bg-[#F6F1E9] text-xs sm:text-sm font-medium text-[#221D16] transition-colors"
+                  className="drawer-nav-item flex items-center justify-between px-3.5 py-2.5 sm:py-3 rounded-xl hover:bg-[#F6F1E9] text-[13px] sm:text-[14px] font-medium text-[#221D16] transition-colors"
                 >
-                  <span>{link.name}</span>
-                  <ChevronRight className="w-3.5 h-3.5 text-gray-400" />
+                  <span className="tracking-wide">{link.name}</span>
+                  <ChevronRight className="w-4 h-4 text-gray-400" />
                 </Link>
               ))}
             </div>
@@ -725,7 +725,7 @@ export function Header() {
               <Link
                 href="/favorites"
                 onClick={handleCloseDrawer}
-                className="drawer-nav-item flex items-center justify-between px-3 py-1.5 sm:py-2 rounded-lg hover:bg-[#F6F1E9]"
+                className="drawer-nav-item flex items-center justify-between px-3.5 py-2 sm:py-2.5 rounded-lg hover:bg-[#F6F1E9]"
               >
                 <span className="flex items-center gap-2.5">
                   <Heart className="w-4 h-4 text-gray-500" />
@@ -741,7 +741,7 @@ export function Header() {
               <Link
                 href="/cart"
                 onClick={handleCloseDrawer}
-                className="drawer-nav-item flex items-center justify-between px-3 py-1.5 sm:py-2 rounded-lg hover:bg-[#F6F1E9]"
+                className="drawer-nav-item flex items-center justify-between px-3.5 py-2 sm:py-2.5 rounded-lg hover:bg-[#F6F1E9]"
               >
                 <span className="flex items-center gap-2.5">
                   <ShoppingBag className="w-4 h-4 text-gray-500" />
