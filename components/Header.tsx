@@ -406,7 +406,7 @@ export function Header() {
   return (
     <>
       {/* 1. ANNOUNCEMENT BAR */}
-      <div className="bg-[#221D16] text-[#FFFDFA] py-2 xl:py-2.5 2xl:py-3.5 border-b border-white/10 select-none w-full">
+      <div className="bg-[#221D16] text-[#FFFDFA] py-1.5 sm:py-2 xl:py-2 2xl:py-2.5 border-b border-white/10 select-none w-full">
         <div className="site-container flex items-center justify-between w-full">
           <button
             type="button"
@@ -434,7 +434,7 @@ export function Header() {
 
       {/* 2. HEADER MAIN ROW */}
       <header className="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-[#E6E0D4] shadow-xs select-none">
-        <div className="site-container py-2 sm:py-2.5 md:py-3 xl:py-4 2xl:py-5 flex items-center justify-between gap-2 sm:gap-4 xl:gap-6 2xl:gap-8">
+        <div className="site-container py-2 sm:py-2 md:py-2.5 xl:py-2.5 2xl:py-3 flex items-center justify-between gap-2 sm:gap-4 xl:gap-6 2xl:gap-8">
           {/* Left: Menu Hamburger Button + Mobile Brand Logo (placed near menu on mobile) */}
           <div className="flex items-center gap-2 sm:gap-3 xl:gap-4 shrink-0">
             <button
