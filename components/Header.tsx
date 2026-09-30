@@ -676,28 +676,30 @@ export function Header() {
           {/* Drawer Content */}
           <div
             ref={drawerRef}
-            className="fixed inset-y-0 left-0 max-w-sm xl:max-w-md 2xl:max-w-lg w-full bg-[#FFFDFA] shadow-2xl z-50 flex flex-col p-6 xl:p-8 2xl:p-10 overflow-y-auto border-r border-[#E6E0D4] will-change-transform"
+            className="fixed inset-y-0 left-0 max-w-[340px] sm:max-w-sm xl:max-w-[400px] w-full bg-[#FFFDFA] shadow-2xl z-50 flex flex-col justify-between border-r border-[#E6E0D4] overflow-hidden select-none will-change-transform"
           >
             {/* Drawer Header with Logo & Brand Name */}
-            <div className="relative flex items-center justify-center h-16 xl:h-20 2xl:h-24 border-b border-[#E6E0D4] shrink-0">
-              <img
-                src="/logo.png"
-                alt="Mehra Designs Logo"
-                className="h-9 xl:h-12 2xl:h-14 w-auto object-contain scale-[1.6] xl:scale-[1.8] 2xl:scale-[2.0] origin-center"
-              />
+            <div className="relative flex items-center justify-between px-5 sm:px-6 h-14 sm:h-16 border-b border-[#E6E0D4] shrink-0">
+              <div className="flex-1 flex items-center justify-center">
+                <img
+                  src="/logo.png"
+                  alt="Mehra Designs Logo"
+                  className="h-8 sm:h-9 w-auto object-contain scale-[1.35] origin-center"
+                />
+              </div>
               <button
                 type="button"
                 onClick={handleCloseDrawer}
-                className="absolute right-0 top-1/2 -translate-y-1/2 p-1.5 xl:p-2 rounded-full hover:bg-black/5 text-[#221D16] transition-colors cursor-pointer"
+                className="absolute right-4 top-1/2 -translate-y-1/2 p-1.5 rounded-full hover:bg-black/5 text-[#221D16] transition-colors cursor-pointer shrink-0"
                 aria-label="Close menu"
               >
-                <X className="w-5 h-5 xl:w-6 xl:h-6 2xl:w-7 2xl:h-7" />
+                <X className="w-5 h-5" />
               </button>
             </div>
 
-            {/* Menu Navigation Categories */}
-            <div className="py-6 xl:py-8 space-y-1.5 xl:space-y-2.5 flex-1">
-              <p className="text-[11px] xl:text-xs 2xl:text-sm font-bold text-gray-400 uppercase tracking-wider mb-3 xl:mb-4 2xl:mb-5 px-3 xl:px-4">Explore Collections</p>
+            {/* Menu Navigation Categories - Centered and compact to fit all heights */}
+            <div className="px-3.5 sm:px-5 py-2.5 sm:py-3.5 flex-1 flex flex-col justify-center space-y-0.5 sm:space-y-1 overflow-y-auto scrollbar-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+              <p className="text-[10px] sm:text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-1 px-3">Explore Collections</p>
               {[
                 { name: 'New In', href: '/shop?category=New%20Arrivals' },
                 { name: 'Clothing', href: '/shop?category=Clothing' },
@@ -712,27 +714,27 @@ export function Header() {
                   key={link.name}
                   href={link.href}
                   onClick={handleCloseDrawer}
-                  className="drawer-nav-item flex items-center justify-between px-3 xl:px-4 py-2.5 xl:py-3.5 2xl:py-4 rounded-md hover:bg-[#F6F1E9] text-sm xl:text-base 2xl:text-lg font-medium text-[#221D16] transition-colors"
+                  className="drawer-nav-item flex items-center justify-between px-3 py-1.5 sm:py-2 rounded-lg hover:bg-[#F6F1E9] text-xs sm:text-sm font-medium text-[#221D16] transition-colors"
                 >
                   <span>{link.name}</span>
-                  <ChevronRight className="w-4 h-4 xl:w-5 xl:h-5 2xl:w-6 2xl:h-6 text-gray-400" />
+                  <ChevronRight className="w-3.5 h-3.5 text-gray-400" />
                 </Link>
               ))}
             </div>
 
-            {/* Quick Actions Footer */}
-            <div className="pt-4 xl:pt-6 2xl:pt-8 border-t border-[#E6E0D4] space-y-2 xl:space-y-3 text-xs xl:text-sm 2xl:text-base font-semibold text-[#221D16]">
+            {/* Quick Actions Footer - Compact and pinned to bottom */}
+            <div className="p-3.5 sm:p-4 border-t border-[#E6E0D4] space-y-1 text-xs font-semibold text-[#221D16] shrink-0 bg-[#FFFDFA]">
               <Link
                 href="/favorites"
                 onClick={handleCloseDrawer}
-                className="drawer-nav-item flex items-center justify-between px-3 xl:px-4 py-2.5 xl:py-3.5 2xl:py-4 rounded-md hover:bg-[#F6F1E9]"
+                className="drawer-nav-item flex items-center justify-between px-3 py-1.5 sm:py-2 rounded-lg hover:bg-[#F6F1E9]"
               >
-                <span className="flex items-center gap-2.5 xl:gap-3">
-                  <Heart className="w-4.5 h-4.5 xl:w-5.5 xl:h-5.5 2xl:w-6 2xl:h-6 text-gray-500" />
+                <span className="flex items-center gap-2.5">
+                  <Heart className="w-4 h-4 text-gray-500" />
                   <span>Wishlist</span>
                 </span>
                 {favorites.length > 0 && (
-                  <span className="bg-[#221D16] text-white text-[10px] xl:text-xs px-2 py-0.5 xl:px-2.5 xl:py-1 rounded-full">
+                  <span className="bg-[#221D16] text-white text-[10px] px-2 py-0.5 rounded-full">
                     {favorites.length}
                   </span>
                 )}
@@ -741,14 +743,14 @@ export function Header() {
               <Link
                 href="/cart"
                 onClick={handleCloseDrawer}
-                className="drawer-nav-item flex items-center justify-between px-3 xl:px-4 py-2.5 xl:py-3.5 2xl:py-4 rounded-md hover:bg-[#F6F1E9]"
+                className="drawer-nav-item flex items-center justify-between px-3 py-1.5 sm:py-2 rounded-lg hover:bg-[#F6F1E9]"
               >
-                <span className="flex items-center gap-2.5 xl:gap-3">
-                  <ShoppingBag className="w-4.5 h-4.5 xl:w-5.5 xl:h-5.5 2xl:w-6 2xl:h-6 text-gray-500" />
+                <span className="flex items-center gap-2.5">
+                  <ShoppingBag className="w-4 h-4 text-gray-500" />
                   <span>Shopping Cart</span>
                 </span>
                 {count > 0 && (
-                  <span className="bg-[#221D16] text-white text-[10px] xl:text-xs px-2 py-0.5 xl:px-2.5 xl:py-1 rounded-full">
+                  <span className="bg-[#221D16] text-white text-[10px] px-2 py-0.5 rounded-full">
                     {count}
                   </span>
                 )}
