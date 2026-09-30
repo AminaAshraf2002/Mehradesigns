@@ -85,9 +85,17 @@ function EtsyShopContent() {
 
     // Category filter
     if (currentCategory && currentCategory !== 'All') {
-      result = result.filter(
-        (p) => p.category.toLowerCase() === currentCategory.toLowerCase()
-      );
+      const target = currentCategory.toLowerCase();
+      const isAllSet =
+        target === 'new in' ||
+        target === 'new arrivals' ||
+        target.includes('skirt') ||
+        target.includes('top');
+      if (!isAllSet) {
+        result = result.filter(
+          (p) => p.category.toLowerCase() === target
+        );
+      }
     }
 
     // Free shipping

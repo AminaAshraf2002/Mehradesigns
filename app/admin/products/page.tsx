@@ -25,17 +25,16 @@ export default function AdminProductsPage() {
 
   // Only display valid Mehra Categories
   const mehraCategories = useMemo(() => {
-    const valid = ['All', 'New Arrivals', 'Dresses', 'Tops', 'Outerwear', 'Bottoms', 'Bags', 'Shoes', 'Accessories'];
-    return categories.filter((c) => valid.includes(c) || c === 'All');
-  }, [categories]);
+    return ['All', 'New In', 'Top & Skirt'];
+  }, []);
 
-  // Product Counts per category
+  // Product Counts per category (all 11 products belong to both New In and Top & Skirt)
   const categoryCounts = useMemo(() => {
-    const counts: Record<string, number> = {};
-    products.forEach((p) => {
-      counts[p.category] = (counts[p.category] || 0) + 1;
-    });
-    return counts;
+    return {
+      'All': products.length,
+      'New In': products.length,
+      'Top & Skirt': products.length,
+    };
   }, [products]);
 
   // Stock summary
@@ -61,8 +60,12 @@ export default function AdminProductsPage() {
       }
 
       // Category filter
-      if (selectedCategory !== 'All' && p.category !== selectedCategory) {
-        return false;
+      if (selectedCategory !== 'All') {
+        const sel = selectedCategory.toLowerCase();
+        const isAllSet = sel === 'top & skirt' || sel === 'top and skirt' || sel === 'new in' || sel === 'new arrivals';
+        if (!isAllSet && p.category?.toLowerCase() !== sel) {
+          return false;
+        }
       }
 
       // Stock filter
@@ -290,7 +293,7 @@ export default function AdminProductsPage() {
         <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pt-1">
           {mehraCategories.map((catName) => {
             const isSelected = selectedCategory === catName;
-            const count = catName === 'All' ? products.length : categoryCounts[catName] || 0;
+            const count = catName === 'All' ? products.length : (categoryCounts as Record<string, number>)[catName] || 0;
             return (
               <button
                 key={catName}

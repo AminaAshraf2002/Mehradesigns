@@ -34,14 +34,16 @@ export const translations: Record<Language, Record<string, string>> = {
 
     // Categories
     'cat.All': 'All',
-    'cat.New Arrivals': 'New Arrivals',
-    'cat.Dresses': 'Dresses',
-    'cat.Tops': 'Tops',
-    'cat.Outerwear': 'Outerwear',
-    'cat.Bottoms': 'Bottoms',
-    'cat.Bags': 'Bags',
-    'cat.Shoes': 'Shoes',
-    'cat.Accessories': 'Accessories',
+    'cat.New In': 'New In',
+    'cat.Top & Skirt': 'Top & Skirt',
+    'cat.New Arrivals': 'New In',
+    'cat.Dresses': 'Top & Skirt',
+    'cat.Tops': 'Top & Skirt',
+    'cat.Outerwear': 'Top & Skirt',
+    'cat.Bottoms': 'Top & Skirt',
+    'cat.Bags': 'Top & Skirt',
+    'cat.Shoes': 'Top & Skirt',
+    'cat.Accessories': 'Top & Skirt',
     
     // Legacy fallback category mappings to keep old URLs working
     'cat.Feng Shui Decor': 'Outerwear',
@@ -240,14 +242,16 @@ export const translations: Record<Language, Record<string, string>> = {
 
     // Categories
     'cat.All': 'الكل',
+    'cat.New In': 'وصلنا حديثاً',
+    'cat.Top & Skirt': 'أطقم توب وجيبة',
     'cat.New Arrivals': 'وصلنا حديثاً',
-    'cat.Dresses': 'فساتين',
-    'cat.Tops': 'بلوزات وتوب',
-    'cat.Outerwear': 'معاطف وجاكيتات',
-    'cat.Bottoms': 'بنطلونات وتنانير',
-    'cat.Bags': 'حقائب',
-    'cat.Shoes': 'أحذية',
-    'cat.Accessories': 'إكسسوارات',
+    'cat.Dresses': 'أطقم توب وجيبة',
+    'cat.Tops': 'أطقم توب وجيبة',
+    'cat.Outerwear': 'أطقم توب وجيبة',
+    'cat.Bottoms': 'أطقم توب وجيبة',
+    'cat.Bags': 'أطقم توب وجيبة',
+    'cat.Shoes': 'أطقم توب وجيبة',
+    'cat.Accessories': 'أطقم توب وجيبة',
 
     'cat.Feng Shui Decor': 'معاطف وجاكيتات',
     'cat.Feng Shui Jewelry': 'إكسسوارات',

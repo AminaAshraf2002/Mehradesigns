@@ -49,13 +49,39 @@ export default function AdminCategoriesPage() {
       if (res.ok) {
         const data = await res.json();
         if (data.success && Array.isArray(data.data)) {
-          // Strictly filter out any legacy feng shui categories
-          const fengKeywords = ['feng shui', 'wealth', 'amulet', 'coins', 'pixiu', 'zen', 'buddha', 'censer', 'incense', 'chakra', 'orgonite', 'pyramid', 'statue', 'bell', 'candle', 'talisman', 'tai sui', 'crystals', 'protection', 'charms'];
+          // Strictly keep only current Mehra brand categories: New In and Top & Skirt
+          const allowedCategories = ['new in', 'top & skirt', 'top and skirt', 'top-skirt', 'top-and-skirt'];
           const mehraOnly = data.data.filter((c: CategoryItem) => {
             const text = `${c.name} ${c.slug}`.toLowerCase();
-            return !fengKeywords.some((kw) => text.includes(kw));
+            return (
+              allowedCategories.some((kw) => text.includes(kw)) ||
+              (text.includes('skirt') && text.includes('top'))
+            );
           });
-          setCategories(mehraOnly);
+          if (mehraOnly.length > 0) {
+            setCategories(mehraOnly);
+          } else {
+            setCategories([
+              {
+                id: 'cat-1',
+                name: 'New In',
+                slug: 'new-in',
+                image: '/images/1.png',
+                imageUrl: '/images/1.png',
+                description: 'Bespoke luxury New In collection handcrafted for memorable celebrations.',
+                productCount: 11,
+              },
+              {
+                id: 'cat-2',
+                name: 'Top & Skirt',
+                slug: 'top-skirt',
+                image: '/images/1.png',
+                imageUrl: '/images/1.png',
+                description: 'Bespoke luxury Top & Skirt collection handcrafted for memorable celebrations.',
+                productCount: 11,
+              },
+            ]);
+          }
         }
       }
     } catch (err) {

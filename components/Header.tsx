@@ -434,9 +434,9 @@ export function Header() {
 
       {/* 2. HEADER MAIN ROW */}
       <header className="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-[#E6E0D4] shadow-xs select-none">
-        <div className="site-container py-2 sm:py-2 md:py-2.5 xl:py-2.5 2xl:py-3 flex items-center justify-between gap-2 sm:gap-4 xl:gap-6 2xl:gap-8">
+        <div className="site-container relative py-1.5 sm:py-2 md:py-2 xl:py-2 2xl:py-2.5 flex items-center justify-between min-h-[58px] sm:min-h-[62px] md:min-h-[66px] xl:min-h-[72px] 2xl:min-h-[76px]">
           {/* Left: Menu Hamburger Button + Mobile Brand Logo (placed near menu on mobile) */}
-          <div className="flex items-center gap-2 sm:gap-3 xl:gap-4 shrink-0">
+          <div className="flex items-center gap-2 sm:gap-3 xl:gap-4 shrink-0 z-20">
             <button
               type="button"
               onClick={() => setMobileMenuOpen(true)}
@@ -453,23 +453,26 @@ export function Header() {
                 href="/"
                 className="flex items-center hover:opacity-90 transition-opacity"
               >
-                <MehraLogo size="md" />
+                <MehraLogo size="md" className="[&_img]:h-8 [&_img]:max-w-[140px] [&_img]:scale-[1.1] origin-left" />
               </Link>
             </div>
           </div>
 
-          {/* Desktop Center: Luxury Brand Logo */}
-          <div className="hidden sm:flex items-center justify-center shrink-0 min-w-0">
+          {/* Desktop Center: Luxury Brand Logo (Mathematically Centered in Screen) */}
+          <div className="hidden sm:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center justify-center pointer-events-auto z-10">
             <Link
               href="/"
-              className="flex items-center hover:opacity-90 transition-opacity"
+              className="flex items-center justify-center hover:opacity-90 transition-opacity"
             >
-              <MehraLogo size="md" className="xl:[&_img]:h-16 xl:[&_img]:max-w-[420px] 2xl:[&_img]:h-20 2xl:[&_img]:max-w-[500px]" />
+              <MehraLogo
+                size="md"
+                className="[&_img]:h-11 sm:[&_img]:h-13 md:[&_img]:h-14 lg:[&_img]:h-15 xl:[&_img]:h-18 2xl:[&_img]:h-20 [&_img]:max-w-[280px] sm:[&_img]:max-w-[340px] md:[&_img]:max-w-[420px] lg:[&_img]:max-w-[460px] xl:[&_img]:max-w-[540px] 2xl:[&_img]:max-w-[620px] [&_img]:scale-[1.14] sm:[&_img]:scale-[1.18] xl:[&_img]:scale-[1.24] 2xl:[&_img]:scale-[1.3] origin-center"
+              />
             </Link>
           </div>
 
           {/* Right: Action Icons (Search, Account, Wishlist, Cart) */}
-          <div className="flex items-center gap-2 sm:gap-3.5 md:gap-5 xl:gap-6 2xl:gap-7 shrink-0 text-[#221D16]">
+          <div className="flex items-center gap-2 sm:gap-3.5 md:gap-5 xl:gap-6 2xl:gap-7 shrink-0 text-[#221D16] z-20">
             {/* Search Trigger Button */}
             <button
               type="button"
@@ -701,14 +704,9 @@ export function Header() {
             <div className="px-3.5 sm:px-5 py-2.5 sm:py-3.5 flex-1 flex flex-col justify-center space-y-0.5 sm:space-y-1 overflow-y-auto scrollbar-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
               <p className="text-[10px] sm:text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-1 px-3">Explore Collections</p>
               {[
-                { name: 'New In', href: '/shop?category=New%20Arrivals' },
-                { name: 'Clothing', href: '/shop?category=Clothing' },
-                { name: 'Dresses', href: '/shop?category=Dresses' },
-                { name: 'Tops', href: '/shop?category=Tops' },
-                { name: 'Bottoms', href: '/shop?category=Bottoms' },
-                { name: 'Bags', href: '/shop?category=Bags' },
-                { name: 'Shoes', href: '/shop?category=Shoes' },
-                { name: 'Accessories', href: '/shop?category=Accessories' },
+                { name: 'All Collections', href: '/shop' },
+                { name: 'New In', href: '/shop?category=New%20In' },
+                { name: 'Top & Skirt', href: '/shop?category=Top%20%26%20Skirt' },
               ].map((link) => (
                 <Link
                   key={link.name}

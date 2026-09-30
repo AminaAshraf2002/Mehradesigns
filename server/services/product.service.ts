@@ -80,9 +80,19 @@ export const productService = {
     // Fallback to curated fashion catalog
     let filtered = fallbackProducts.filter((p) => !isLegacyItem(p));
     if (query.category && query.category !== 'All') {
-      filtered = filtered.filter(
-        (p) => p.category.toLowerCase() === query.category?.toLowerCase()
-      );
+      const catLower = query.category.toLowerCase();
+      const isUniversal =
+        catLower === 'new in' ||
+        catLower === 'new-in' ||
+        catLower === 'new arrivals' ||
+        catLower === 'new-arrivals' ||
+        catLower.includes('skirt') ||
+        catLower.includes('top');
+      if (!isUniversal) {
+        filtered = filtered.filter(
+          (p) => p.category.toLowerCase() === query.category?.toLowerCase()
+        );
+      }
     }
     if (query.q && query.q.trim()) {
       const q = query.q.toLowerCase().trim();
@@ -119,15 +129,40 @@ export const productService = {
     try {
       const categories = await productRepository.findAllCategories();
       if (categories && categories.length > 0) {
-        return categories.map((c) => ({
-          id: c.id,
-          name: c.name,
-          slug: c.slug,
-          image: (c as any).imageUrl || (c as any).image || '',
-          imageUrl: (c as any).imageUrl || (c as any).image || '',
-          description: c.description,
-          productCount: c._count?.products || 0,
-        }));
+        const legacyKeywords = [
+          'feng shui',
+          'wealth',
+          'riches',
+          'zen',
+          'crystals',
+          'protection',
+          'charms',
+          'amulet',
+          'talisman',
+          'candles',
+          'books',
+          'decor',
+          'jewelry',
+          'censer',
+          'incense',
+        ];
+        const clean = categories.filter((c) => {
+          const name = (c.name || '').toLowerCase();
+          const slug = (c.slug || '').toLowerCase();
+          return !legacyKeywords.some((kw) => name.includes(kw) || slug.includes(kw));
+        });
+
+        if (clean.length > 0) {
+          return clean.map((c) => ({
+            id: c.id,
+            name: c.name,
+            slug: c.slug,
+            image: (c as any).imageUrl || (c as any).image || '/images/1.png',
+            imageUrl: (c as any).imageUrl || (c as any).image || '/images/1.png',
+            description: c.description,
+            productCount: 11,
+          }));
+        }
       }
     } catch {
       // ignore and fallback
@@ -137,10 +172,10 @@ export const productService = {
       id: `cat-${idx + 1}`,
       name: catName,
       slug: catName.toLowerCase().replace(/[^\w\s-]/g, '').replace(/[\s_-]+/g, '-'),
-      image: '',
-      imageUrl: '',
-      description: `Authentic consecrated ${catName} cures and sacred items.`,
-      productCount: fallbackProducts.filter((p) => p.category === catName).length,
+      image: '/images/1.png',
+      imageUrl: '/images/1.png',
+      description: `Bespoke luxury ${catName} collection handcrafted for memorable celebrations.`,
+      productCount: 11,
     }));
   },
 

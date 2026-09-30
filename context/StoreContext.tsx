@@ -285,14 +285,14 @@ export const defaultHeroBanner: HeroBannerData = {
 };
 
 export const defaultCategoryCircles: CategoryCircleItem[] = [
-  { id: 'cat-new', name: 'NEW IN', badge: 'NEW', image: '/images/1.png', slug: 'New%20Arrivals' },
-  { id: 'cat-clothing', name: 'CLOTHING', image: '/images/2.png', slug: 'Clothing' },
-  { id: 'cat-dresses', name: 'DRESSES', image: '/images/3.png', slug: 'Dresses' },
-  { id: 'cat-tops', name: 'TOPS', image: '/images/5.png', slug: 'Tops' },
-  { id: 'cat-bottoms', name: 'BOTTOMS', image: '/images/4.png', slug: 'Bottoms' },
-  { id: 'cat-bags', name: 'BAGS', image: '/images/6.png', slug: 'Bags' },
-  { id: 'cat-shoes', name: 'SHOES', image: '/images/7.png', slug: 'Shoes' },
-  { id: 'cat-accessories', name: 'ACCESSORIES', image: '/images/8.png', slug: 'Accessories' },
+  { id: 'cat-new', name: 'NEW IN', badge: 'NEW', image: '/images/1.png', slug: 'New%20In' },
+  { id: 'cat-top-skirt', name: 'TOP & SKIRT', badge: 'HOT', image: '/images/2.png', slug: 'Top%20%26%20Skirt' },
+  { id: 'cat-party', name: 'PARTY WEAR', image: '/images/3.png', slug: 'Top%20%26%20Skirt' },
+  { id: 'cat-twirl', name: 'TWIRL SETS', image: '/images/4.png', slug: 'Top%20%26%20Skirt' },
+  { id: 'cat-festive', name: 'FESTIVE EDITS', image: '/images/7.png', slug: 'Top%20%26%20Skirt' },
+  { id: 'cat-pastels', name: 'PASTEL EDITS', image: '/images/5.png', slug: 'Top%20%26%20Skirt' },
+  { id: 'cat-all', name: 'ALL PIECES', image: '/images/6.png', slug: 'All' },
+  { id: 'cat-sale', name: 'SALE', badge: '20% OFF', image: '', slug: 'Top%20%26%20Skirt', isSaleCard: true },
 ];
 
 export const defaultCuratedCollections: CuratedCollectionsData = {
@@ -660,7 +660,7 @@ const GUIDE_CARDS_KEY = 'md_guide_cards_v2';
 const BLOG_POSTS_KEY = 'md_blog_posts_v2';
 const SECTIONS_KEY = 'md_sections_v2';
 const HERO_SLIDES_KEY = 'md_hero_slides_v2';
-const CATEGORY_CIRCLES_KEY = 'md_category_circles_v3';
+const CATEGORY_CIRCLES_KEY = 'md_category_circles_v4';
 const CURATED_COLLECTIONS_KEY = 'md_curated_collections_v3';
 const PROMO_BANNERS_KEY = 'md_promo_banners_v3';
 const FEATURES_STRIP_KEY = 'md_features_strip_v3';
@@ -851,6 +851,7 @@ const filterFashionProducts = (items: any[]) => {
           'md_hero_slides_v1',
           'md_category_circles_v1',
           'md_category_circles_v2',
+          'md_category_circles_v3',
           'md_curated_collections_v1',
           'md_curated_collections_v2',
           'md_promo_banners_v1',

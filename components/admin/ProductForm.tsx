@@ -33,14 +33,8 @@ import { useStore } from '@/context/StoreContext';
 import { useLocale } from '@/context/CurrencyContext';
 
 const MEHRA_CATEGORIES = [
-  "Women's Wear",
-  "Men's Couture",
-  "Bridal & Festive",
-  "Luxury Handbags",
-  "Footwear",
-  "Signature Jewellery",
-  "Fine Accessories",
-  "Atelier Scents",
+  "Top & Skirt",
+  "New In",
 ];
 
 const COUTURE_PRESETS = [

@@ -10,12 +10,22 @@ export const productRepository = {
     };
 
     if (query.category && query.category !== 'All') {
-      where.category = {
-        OR: [
-          { name: { equals: query.category, mode: 'insensitive' } },
-          { slug: { equals: query.category, mode: 'insensitive' } },
-        ],
-      };
+      const catLower = query.category.toLowerCase();
+      const isUniversal =
+        catLower === 'new in' ||
+        catLower === 'new-in' ||
+        catLower === 'new arrivals' ||
+        catLower === 'new-arrivals' ||
+        catLower.includes('skirt') ||
+        catLower.includes('top');
+      if (!isUniversal) {
+        where.category = {
+          OR: [
+            { name: { equals: query.category, mode: 'insensitive' } },
+            { slug: { equals: query.category, mode: 'insensitive' } },
+          ],
+        };
+      }
     }
 
     if (query.q && query.q.trim()) {

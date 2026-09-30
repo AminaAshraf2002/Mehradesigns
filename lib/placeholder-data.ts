@@ -90,14 +90,8 @@ export type Product = {
 
 export const categories = [
   'All',
-  'New Arrivals',
-  'Dresses',
-  'Tops',
-  'Outerwear',
-  'Bottoms',
-  'Bags',
-  'Shoes',
-  'Accessories',
+  'New In',
+  'Top & Skirt',
 ] as const;
 
 export type CategoryCircleInfo = {
@@ -108,33 +102,33 @@ export type CategoryCircleInfo = {
 
 export const circularCategories: CategoryCircleInfo[] = [
   {
-    name: 'Evening Dresses',
-    slug: 'Dresses',
-    image: '/images/2.png',
-  },
-  {
-    name: 'Luxury Tops',
-    slug: 'Tops',
-    image: '/images/5.png',
-  },
-  {
-    name: 'Party Co-ords',
-    slug: 'Clothing',
+    name: 'New In',
+    slug: 'New In',
     image: '/images/1.png',
   },
   {
-    name: 'Festive Skirts',
-    slug: 'Bottoms',
-    image: '/images/4.png',
+    name: 'Top & Skirt',
+    slug: 'Top & Skirt',
+    image: '/images/2.png',
   },
   {
-    name: 'New In Sets',
-    slug: 'New Arrivals',
+    name: 'Party Sets',
+    slug: 'Top & Skirt',
     image: '/images/3.png',
   },
   {
-    name: 'Silk Ensembles',
-    slug: 'Dresses',
+    name: 'Twirl Skirts',
+    slug: 'Top & Skirt',
+    image: '/images/4.png',
+  },
+  {
+    name: 'Pastel Edits',
+    slug: 'Top & Skirt',
+    image: '/images/5.png',
+  },
+  {
+    name: 'Festive Brocades',
+    slug: 'Top & Skirt',
     image: '/images/7.png',
   },
 ];
@@ -344,7 +338,7 @@ export const products: Product[] = [
     freeShipping: true,
     rating: 5.0,
     reviewCount: 142,
-    category: "New Arrivals",
+    category: "Top & Skirt",
     images: ["/images/1.png"],
     description: "Exquisite two-piece ensemble featuring a multi-tiered ruffle peplum crop top with fine floral embroidery and a cascading full-volume flared skirt. Crafted with hypoallergenic, breathable pure cotton inner lining for all-day festive comfort.",
     itemDetails: [
@@ -394,7 +388,7 @@ export const products: Product[] = [
     freeShipping: true,
     rating: 4.9,
     reviewCount: 98,
-    category: "Dresses",
+    category: "Top & Skirt",
     images: ["/images/2.png"],
     description: "Vibrant canary yellow festive coordinate featuring tiered flutter frills, delicate zari trim accents, and a billowy twirl skirt designed for celebratory sparkle and joyful occasions.",
     itemDetails: [
@@ -444,7 +438,7 @@ export const products: Product[] = [
     freeShipping: true,
     rating: 5.0,
     reviewCount: 114,
-    category: "New Arrivals",
+    category: "Top & Skirt",
     images: ["/images/3.png"],
     description: "Glamorous fuchsia rose skirt & top set adorned with hand-stitched floral resham work, sheer organza flutter sleeves, and a grand multi-layered flair skirt.",
     itemDetails: [
@@ -494,7 +488,7 @@ export const products: Product[] = [
     freeShipping: true,
     rating: 4.8,
     reviewCount: 86,
-    category: "Bottoms",
+    category: "Top & Skirt",
     images: ["/images/4.png"],
     description: "Enchanting lavender two-piece set featuring subtle sequin embellishments on a tailored bodice paired with a whimsical soft-tulle pleated flared skirt.",
     itemDetails: [
@@ -544,7 +538,7 @@ export const products: Product[] = [
     freeShipping: true,
     rating: 4.9,
     reviewCount: 92,
-    category: "Tops",
+    category: "Top & Skirt",
     images: ["/images/5.png"],
     description: "Refreshing pastel mint co-ord set with tailored peplum silhouette, scalloped neckline borders, and a graceful floor-sweeping pleated skirt.",
     itemDetails: [
@@ -593,7 +587,7 @@ export const products: Product[] = [
     freeShipping: true,
     rating: 5.0,
     reviewCount: 167,
-    category: "New Arrivals",
+    category: "Top & Skirt",
     images: ["/images/6.png"],
     description: "Airy sky blue silhouette crafted with layered shoulder flounces and an artisanal circular-cut skirt with comfortable inner lining.",
     itemDetails: [
@@ -642,7 +636,7 @@ export const products: Product[] = [
     freeShipping: true,
     rating: 5.0,
     reviewCount: 204,
-    category: "Dresses",
+    category: "Top & Skirt",
     images: ["/images/7.png"],
     description: "Regal ceremonial set in shimmering gold and honey hues. Features gold gota patti detailing, back drawstring tassels, and heavy kalidar skirt flare.",
     itemDetails: [
@@ -691,7 +685,7 @@ export const products: Product[] = [
     freeShipping: true,
     rating: 4.9,
     reviewCount: 78,
-    category: "Tops",
+    category: "Top & Skirt",
     images: ["/images/8.png"],
     description: "Deep scarlet red festive two-piece crafted with rich silk-blend fabrics, detailed threadwork border, and voluminous tiered gathers.",
     itemDetails: [
@@ -740,7 +734,7 @@ export const products: Product[] = [
     freeShipping: true,
     rating: 4.9,
     reviewCount: 110,
-    category: "New Arrivals",
+    category: "Top & Skirt",
     images: ["/images/9.jpeg"],
     description: "Romantic blush champagne designer set featuring sculptured organza frills on an asymmetric top paired with a voluminous party-wear skirt.",
     itemDetails: [
@@ -789,7 +783,7 @@ export const products: Product[] = [
     freeShipping: true,
     rating: 4.8,
     reviewCount: 95,
-    category: "Bottoms",
+    category: "Top & Skirt",
     images: ["/images/10.jpeg"],
     description: "Radiant coral-peach coordinated set featuring statement puff sleeves, tailored empire waist, and an airy twirling skirt with drawstring tie.",
     itemDetails: [
@@ -838,7 +832,7 @@ export const products: Product[] = [
     freeShipping: true,
     rating: 5.0,
     reviewCount: 132,
-    category: "Dresses",
+    category: "Top & Skirt",
     images: ["/images/11.jpeg"],
     description: "Masterfully crafted lilac festive ensemble with delicate floral motif embroidery, scalloped hemline, and maximum flare for graceful movement.",
     itemDetails: [
