@@ -112,10 +112,10 @@ export function CuratedCollections() {
   };
 
   return (
-    <section className="bg-[#FFFDFA] pt-6 sm:pt-8 pb-10 sm:pb-16 border-b border-[#E6E0D4] select-none" data-aos="fade-up">
+    <section className="bg-[#FFFDFA] pt-4 sm:pt-6 pb-6 sm:pb-8 border-b border-[#E6E0D4] select-none" data-aos="fade-up">
       <div className="max-w-[1220px] mx-auto px-4 sm:px-8">
         {/* Centered heading */}
-        <div className="text-center mb-4 sm:mb-6" data-aos="fade-up" data-aos-delay="100">
+        <div className="text-center mb-3 sm:mb-4" data-aos="fade-up" data-aos-delay="100">
           <span className="text-[10px] sm:text-[11px] font-semibold tracking-[0.2em] uppercase text-[#8C6C43] block mb-1.5">
             {sectionSubtitle}
           </span>
@@ -190,12 +190,12 @@ export function CuratedCollections() {
         </div>
 
         {/* View all button */}
-        <div className="flex justify-center mt-8 sm:mt-10">
+        <div className="flex justify-center mt-5 sm:mt-6">
           <Link
             href="/shop?category=New%20Arrivals"
             onMouseEnter={() => setBtnHover(true)}
             onMouseLeave={() => setBtnHover(false)}
-            className="inline-flex items-center justify-center border border-[#221D16]/70 text-[10px] sm:text-[11px] font-medium tracking-[0.12em] uppercase px-8 py-2.5 transition-colors"
+            className="inline-flex items-center justify-center border border-[#221D16]/70 text-[10px] sm:text-[11px] font-medium tracking-[0.12em] uppercase px-7 py-2 transition-colors"
             style={{
               backgroundColor: btnHover ? '#221D16' : 'transparent',
               color: btnHover ? '#FFFFFF' : '#221D16',

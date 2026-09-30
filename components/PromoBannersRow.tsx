@@ -51,7 +51,7 @@ export function PromoBannersRow() {
       : defaultBanners;
 
   return (
-    <section className="bg-[#FFFDFA] py-6 sm:py-8 border-b border-[#E6E0D4] select-none" data-aos="fade-up">
+    <section className="bg-[#FFFDFA] py-4 sm:py-5 lg:py-6 border-b border-[#E6E0D4] select-none" data-aos="fade-up">
       <div className="max-w-[1220px] mx-auto px-4 sm:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
           {banners.map((b, idx) => (

@@ -79,10 +79,10 @@ export function CategoryCirclesRow() {
   const items = categoryCircles && categoryCircles.length > 0 ? categoryCircles : CATEGORY_ITEMS;
 
   return (
-    <section className="bg-[#FFFDFA] py-8 sm:py-10 border-b border-[#E6E0D4] select-none relative overflow-hidden" data-aos="fade-up">
+    <section className="bg-[#FFFDFA] py-4 sm:py-5 lg:py-6 border-b border-[#E6E0D4] select-none relative overflow-hidden" data-aos="fade-up">
       <div className="max-w-[1240px] mx-auto px-4 sm:px-8">
         {/* Heading */}
-        <div className="text-center mb-4 sm:mb-5" data-aos="fade-up" data-aos-delay="100">
+        <div className="text-center mb-2.5 sm:mb-3.5" data-aos="fade-up" data-aos-delay="100">
           <h2
             className="text-2xl sm:text-3xl lg:text-4xl font-serif font-semibold text-[#221D16] tracking-wide"
             style={{ fontFamily: "'Cormorant Garamond', Georgia, serif" }}
@@ -92,7 +92,7 @@ export function CategoryCirclesRow() {
         </div>
 
         {/* Category circles */}
-        <div className="flex items-start justify-start lg:justify-center gap-4 sm:gap-6 overflow-x-auto no-scrollbar pt-3 sm:pt-4 pb-1 px-2">
+        <div className="flex items-start justify-start lg:justify-center gap-4 sm:gap-6 overflow-x-auto no-scrollbar pt-1.5 sm:pt-2 pb-1 px-2">
           {items.map((item, idx) => (
             <Link
               key={item.id}

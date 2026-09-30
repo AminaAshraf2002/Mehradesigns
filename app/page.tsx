@@ -84,8 +84,8 @@ export default function MehraDesignsHomePage() {
       <CategoryGrid />
 
       {/* 10. INSTAGRAM / SOCIAL GRID */}
-      <section className="py-10 sm:py-14 border-b border-[rgba(34,29,22,0.14)]" data-aos="fade-up">
-        <div className="etsy-container text-center mb-8">
+      <section className="py-5 sm:py-7 border-b border-[rgba(34,29,22,0.14)]" data-aos="fade-up">
+        <div className="etsy-container text-center mb-4 sm:mb-5">
           <span className="text-[11px] sm:text-xs font-semibold tracking-[0.25em] uppercase text-[#8C6C43] block mb-1">
             SOCIAL GALLERY
           </span>

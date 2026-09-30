@@ -73,14 +73,14 @@ export function CategoryGrid() {
       : defaultTiles;
 
   return (
-    <section className="bg-[#FFFDFA] py-8 sm:py-12 border-b border-[#E6E0D4] select-none" data-aos="fade-up">
+    <section className="bg-[#FFFDFA] pt-3 sm:pt-4 pb-6 sm:pb-8 border-b border-[#E6E0D4] select-none" data-aos="fade-up">
       <div className="max-w-[1220px] mx-auto px-4 sm:px-8">
 
         {/* Top Centered Outlined Button */}
-        <div className="flex justify-center mb-8 sm:mb-10" data-aos="fade-up" data-aos-delay="50">
+        <div className="flex justify-center mb-3.5 sm:mb-4.5" data-aos="fade-up" data-aos-delay="50">
           <Link
             href="/shop"
-            className="inline-block border border-[#221D16] text-[#221D16] text-xs font-semibold tracking-widest uppercase px-8 py-3 rounded-none hover:bg-[#221D16] hover:text-white transition-colors no-underline cursor-pointer"
+            className="inline-block border border-[#221D16] text-[#221D16] text-xs font-semibold tracking-widest uppercase px-6 py-2 rounded-none hover:bg-[#221D16] hover:text-white transition-colors no-underline cursor-pointer"
           >
             View all new arrivals
           </Link>
