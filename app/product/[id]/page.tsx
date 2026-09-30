@@ -1,6 +1,6 @@
 'use client';
 
-import React, { use } from 'react';
+import React, { use, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import { useStore } from '@/context/StoreContext';
@@ -17,37 +17,58 @@ export default function ProductDetailPage({
   const resolvedParams = use(params);
   const { id } = resolvedParams;
   const { products } = useStore();
+  const [asyncProduct, setAsyncProduct] = useState<any>(null);
 
-  // Find target product from store or fallback to default product object
+  // Find target product from store
   const storeProduct = products.find(
     (p) => p.id === id || (p as any).slug === id
   );
 
-  const product = storeProduct || {
+  useEffect(() => {
+    if (!storeProduct && id) {
+      fetch(`/api/products/${encodeURIComponent(id)}`)
+        .then((res) => res.json())
+        .then((data) => {
+          if (data?.success && data?.data) {
+            setAsyncProduct(data.data);
+          }
+        })
+        .catch(() => {});
+    }
+  }, [storeProduct, id]);
+
+  const activeProduct = storeProduct || asyncProduct;
+
+  const product = activeProduct || {
     id: id || '1',
-    name: 'Loose Fit Hoodie',
-    price: 24.99,
-    originalPrice: 35.00,
-    discount: '30% off',
-    category: 'Tops',
+    name: 'Peach Blossom Ruffle Peplum & Flared Skirt Set',
+    price: 2899,
+    originalPrice: 3499,
+    discount: '17% off',
+    category: 'Top & Skirt',
     description:
-      'Loose-fit sweatshirt hoodie in medium weight cotton-blend fabric with a generous, but not oversized silhouette. Jersey-lined, drawstring hood, dropped shoulders, long sleeves, and a kangaroo pocket. Wide ribbing at cuffs and hem. Soft, brushed inside.',
+      'Exquisite two-piece ensemble featuring a multi-tiered ruffle peplum crop top with fine floral embroidery and a cascading full-volume flared skirt. Crafted with hypoallergenic, breathable pure cotton inner lining for all-day festive comfort.',
     itemDetails: [
-      'Medium weight cotton-blend french terry',
-      'Jersey-lined hood with drawstrings',
-      'Ribbed cuffs and hem',
-      'Kangaroo pocket front',
+      'Set includes: Peplum Crop Top & Voluminous Flared Skirt',
+      'Fabric: Premium Georgette & Organza Silk',
+      'Lining: 100% Breathable Pure Cotton',
+      'Waistband: Elasticated with custom drawstring tie',
     ],
-    images: [
-      'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=1000&q=80',
-      'https://images.unsplash.com/photo-1509967419530-da38b4704bc6?auto=format&fit=crop&w=1000&q=80',
-      'https://images.unsplash.com/photo-1578587018452-892bacefd3f2?auto=format&fit=crop&w=1000&q=80',
-      'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=1000&q=80',
-    ],
-    rating: 4.9,
-    reviewCount: 2840,
+    images: ['/images/1.png'],
+    rating: 5.0,
+    reviewCount: 142,
     stock: 25,
   };
+
+  // Safely extract only real images from product
+  const rawImages = product.images;
+  const productImages: string[] = Array.isArray(rawImages) && rawImages.length > 0
+    ? rawImages
+    : typeof rawImages === 'string' && (rawImages as string).trim() !== ''
+    ? [rawImages]
+    : (product as any).image
+    ? [(product as any).image]
+    : ['/images/1.png'];
 
   return (
     <div className="bg-[#FFFDFA] min-h-screen text-[#221D16] flex flex-col font-sans select-none pb-12">
@@ -70,7 +91,7 @@ export default function ProductDetailPage({
           {/* Left Column: Image Gallery (Compact width -> 5 cols in 12-col grid) */}
           <div className="lg:col-span-5 w-full flex justify-center lg:justify-start">
             <ProductGallery
-              images={product.images}
+              images={productImages}
               productTitle={product.name}
             />
           </div>
