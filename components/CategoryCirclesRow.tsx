@@ -79,10 +79,10 @@ export function CategoryCirclesRow() {
   const items = categoryCircles && categoryCircles.length > 0 ? categoryCircles : CATEGORY_ITEMS;
 
   return (
-    <section className="bg-[#FFFDFA] py-4 sm:py-5 lg:py-6 border-b border-[#E6E0D4] select-none relative overflow-hidden" data-aos="fade-up">
-      <div className="max-w-[1240px] 2xl:max-w-[1620px] min-[1800px]:max-w-[1760px] 2xl:px-12 mx-auto px-4 sm:px-8">
+    <section className="bg-[#FFFDFA] py-4 sm:py-5 lg:py-6 2xl:py-8 border-b border-[#E6E0D4] select-none relative overflow-hidden" data-aos="fade-up">
+      <div className="site-container">
         {/* Heading */}
-        <div className="text-center mb-2.5 sm:mb-3.5" data-aos="fade-up" data-aos-delay="100">
+        <div className="text-center mb-3 sm:mb-4 2xl:mb-6" data-aos="fade-up" data-aos-delay="100">
           <h2
             className="text-2xl sm:text-3xl lg:text-4xl 2xl:text-5xl font-serif font-semibold text-[#221D16] tracking-wide"
             style={{ fontFamily: "'Cormorant Garamond', Georgia, serif" }}
@@ -92,7 +92,7 @@ export function CategoryCirclesRow() {
         </div>
 
         {/* Category circles */}
-        <div className="flex items-start justify-start lg:justify-center gap-4 sm:gap-6 2xl:gap-8 overflow-x-auto no-scrollbar pt-1.5 sm:pt-2 pb-1 px-2">
+        <div className="flex items-start justify-start sm:justify-between gap-3 sm:gap-4 md:gap-6 overflow-x-auto no-scrollbar pt-1.5 sm:pt-2 pb-1 px-1 w-full">
           {items.map((item, idx) => (
             <Link
               key={item.id}
@@ -102,7 +102,7 @@ export function CategoryCirclesRow() {
               className="flex flex-col items-center gap-2.5 shrink-0 group cursor-pointer"
             >
               {/* Outer wrapper: no overflow-hidden, so the badge can sit on the edge */}
-              <div className="relative w-[68px] h-[68px] sm:w-[88px] sm:h-[88px] md:w-[104px] md:h-[104px] 2xl:w-[124px] 2xl:h-[124px] transition-transform duration-300 group-hover:scale-105">
+              <div className="relative w-[68px] h-[68px] sm:w-[88px] sm:h-[88px] md:w-[104px] md:h-[104px] lg:w-[120px] lg:h-[120px] xl:w-[134px] xl:h-[134px] 2xl:w-[150px] 2xl:h-[150px] transition-transform duration-300 group-hover:scale-105">
                 {/* Inner circle: clips the image only */}
                 <div className="w-full h-full rounded-full overflow-hidden border border-[#E6E0D4] shadow-sm group-hover:shadow-md transition-shadow duration-300">
                   {item.isSaleCard ? (

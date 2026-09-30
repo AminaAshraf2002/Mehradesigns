@@ -95,7 +95,8 @@ export default function MehraDesignsHomePage() {
         </div>
 
         {/* 6-column grid */}
-        <div className="grid grid-cols-3 min-[900px]:grid-cols-6 gap-2 sm:gap-3 2xl:gap-5 px-2 sm:px-4 2xl:px-8 max-w-[1440px] 2xl:max-w-[1680px] min-[1800px]:max-w-[1760px] mx-auto">
+        <div className="site-container">
+          <div className="grid grid-cols-3 min-[900px]:grid-cols-6 gap-2 sm:gap-3 2xl:gap-5">
           {(socialGallery && socialGallery.length > 0 ? socialGallery : [
             { id: 'sg-1', imgUrl: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=400&q=80', link: 'https://instagram.com' },
             { id: 'sg-2', imgUrl: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=400&q=80', link: 'https://instagram.com' },
@@ -126,6 +127,7 @@ export default function MehraDesignsHomePage() {
               </a>
             );
           })}
+          </div>
         </div>
       </section>
 

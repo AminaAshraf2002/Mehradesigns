@@ -113,7 +113,7 @@ export function CuratedCollections() {
 
   return (
     <section className="bg-[#FFFDFA] pt-4 sm:pt-6 pb-6 sm:pb-8 border-b border-[#E6E0D4] select-none" data-aos="fade-up">
-      <div className="max-w-[1220px] 2xl:max-w-[1620px] min-[1800px]:max-w-[1760px] 2xl:px-12 mx-auto px-4 sm:px-8">
+      <div className="site-container">
         {/* Centered heading */}
         <div className="text-center mb-3 sm:mb-4" data-aos="fade-up" data-aos-delay="100">
           <span className="text-[10px] sm:text-[11px] 2xl:text-xs font-semibold tracking-[0.2em] uppercase text-[#8C6C43] block mb-1.5">
@@ -165,11 +165,11 @@ export function CuratedCollections() {
                 </div>
 
                 {/* Info */}
-                <div className="pt-1.5 2xl:pt-2">
-                  <p className="text-[11px] sm:text-xs 2xl:text-sm font-medium text-[#221D16] leading-snug group-hover:text-[#8C6C43] transition-colors">
+                <div className="pt-2 2xl:pt-3">
+                  <p className="text-xs sm:text-sm md:text-base 2xl:text-lg font-medium text-[#221D16] leading-snug group-hover:text-[#8C6C43] transition-colors">
                     {p.name}
                   </p>
-                  <p className="text-[11px] sm:text-xs 2xl:text-sm font-semibold text-[#221D16] mt-0.5">
+                  <p className="text-xs sm:text-sm md:text-base 2xl:text-lg font-semibold text-[#221D16] mt-1">
                     {formatPrice(p.price)}
                   </p>
 

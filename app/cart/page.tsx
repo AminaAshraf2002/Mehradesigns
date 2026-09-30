@@ -53,7 +53,7 @@ export default function MehraCartPage() {
 
   return (
     <div className="bg-[#FAF9F5] min-h-screen pb-28 text-[#221D16] relative">
-      <div className="max-w-[1240px] 2xl:max-w-[1620px] min-[1800px]:max-w-[1760px] mx-auto px-4 sm:px-6 lg:px-8 2xl:px-12 py-8 sm:py-12 2xl:py-16">
+      <div className="site-container py-8 sm:py-12 2xl:py-16">
         {/* Page Header */}
         <div className="mb-8 sm:mb-10 text-left">
           <span className="text-[10.5px] tracking-[0.25em] text-[#8C6C43] font-bold uppercase block mb-1">

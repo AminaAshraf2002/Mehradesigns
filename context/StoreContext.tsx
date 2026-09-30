@@ -241,27 +241,27 @@ export const defaultSections: HomeSectionConfig[] = [
 export const defaultHeroSlides: HeroSlideItem[] = [
   {
     id: 'slide-1',
-    eyebrow: 'NEW ARRIVALS',
-    headlineLine1: 'Find Yours.',
-    headlineLine2: 'Feel Beautiful.',
-    subtext: 'Bespoke couture and designer gowns tailored for everyday elegance.',
-    buttonText: 'Shop Dresses',
-    buttonLink: '/shop?category=Dresses',
-    imageSrc: '/hero1.png?v=7',
-    image: '/hero1.png?v=7',
-    alt: 'New dress collection',
-  },
-  {
-    id: 'slide-2',
     eyebrow: 'SUMMER EDIT',
     headlineLine1: 'Light Fabrics.',
     headlineLine2: 'Golden Evenings.',
     subtext: 'Breezy linen and Italian silks for daytime celebrations.',
     buttonText: 'Shop Summer Dresses',
     buttonLink: '/shop?category=Women',
-    imageSrc: '/hero2.png?v=7',
-    image: '/hero2.png?v=7',
+    imageSrc: '/hero2.png?v=8',
+    image: '/hero2.png?v=8',
     alt: 'Summer dress collection',
+  },
+  {
+    id: 'slide-2',
+    eyebrow: 'NEW ARRIVALS',
+    headlineLine1: 'Find Yours.',
+    headlineLine2: 'Feel Beautiful.',
+    subtext: 'Bespoke couture and designer gowns tailored for everyday elegance.',
+    buttonText: 'Shop Dresses',
+    buttonLink: '/shop?category=Dresses',
+    imageSrc: '/hero1.png?v=8',
+    image: '/hero1.png?v=8',
+    alt: 'New dress collection',
   },
   {
     id: 'slide-3',
@@ -292,7 +292,7 @@ export const defaultCategoryCircles: CategoryCircleItem[] = [
   { id: 'cat-bottoms', name: 'BOTTOMS', image: '/images/cat_bottoms_rack.jpg?v=200', slug: 'Bottoms' },
   { id: 'cat-bags', name: 'BAGS', image: '/images/cat_bags.jpg?v=200', slug: 'Bags' },
   { id: 'cat-shoes', name: 'SHOES', image: '/images/cat_shoes.jpg?v=200', slug: 'Shoes' },
-  { id: 'cat-accessories', name: 'ACCESSORIES', image: '/images/cat_accessories.jpg?v=200', slug: 'Accessories' },
+  { id: 'cat-accessories', name: 'ACCESSORIES', image: '/images/cat_tops_rack.jpg?v=200', slug: 'Accessories' },
 ];
 
 export const defaultCuratedCollections: CuratedCollectionsData = {
@@ -653,19 +653,43 @@ interface StoreContextType {
 const StoreContext = createContext<StoreContextType | undefined>(undefined);
 
 // Storage keys
-const HERO_KEY = 'mfs_hero_banner_v2';
-const PROSPERITY_KEY = 'mfs_prosperity_cards_v2';
-const SPECIAL_GIFTS_KEY = 'mfs_special_gifts_v2';
-const GUIDE_CARDS_KEY = 'mfs_guide_cards_v2';
-const BLOG_POSTS_KEY = 'mfs_blog_posts_v2';
-const SECTIONS_KEY = 'mfs_sections_v2';
-const HERO_SLIDES_KEY = 'md_hero_slides_v1';
-const CATEGORY_CIRCLES_KEY = 'md_category_circles_v1';
-const CURATED_COLLECTIONS_KEY = 'md_curated_collections_v1';
-const PROMO_BANNERS_KEY = 'md_promo_banners_v1';
-const FEATURES_STRIP_KEY = 'md_features_strip_v1';
-const CATEGORY_GRID_KEY = 'md_category_grid_v1';
-const SOCIAL_GALLERY_KEY = 'md_social_gallery_v1';
+const HERO_KEY = 'md_hero_banner_v2';
+const PROSPERITY_KEY = 'md_prosperity_cards_v2';
+const SPECIAL_GIFTS_KEY = 'md_special_gifts_v2';
+const GUIDE_CARDS_KEY = 'md_guide_cards_v2';
+const BLOG_POSTS_KEY = 'md_blog_posts_v2';
+const SECTIONS_KEY = 'md_sections_v2';
+const HERO_SLIDES_KEY = 'md_hero_slides_v2';
+const CATEGORY_CIRCLES_KEY = 'md_category_circles_v2';
+const CURATED_COLLECTIONS_KEY = 'md_curated_collections_v2';
+const PROMO_BANNERS_KEY = 'md_promo_banners_v2';
+const FEATURES_STRIP_KEY = 'md_features_strip_v2';
+const CATEGORY_GRID_KEY = 'md_category_grid_v2';
+const SOCIAL_GALLERY_KEY = 'md_social_gallery_v2';
+
+export const isLegacyHeroSlide = (s: any): boolean => {
+  if (!s) return true;
+  const content = `${s.headlineLine1 || ''} ${s.headlineLine2 || ''} ${s.subtext || ''} ${s.eyebrow || ''} ${s.title || ''} ${s.image || ''} ${s.imageSrc || ''} ${s.alt || ''}`.toLowerCase();
+  
+  const legacyKeywords = [
+    'feng shui',
+    'fengshui',
+    'prosperity',
+    'miracle',
+    'harmony',
+    'crystal',
+    'sacred',
+    'spiritual',
+    'cure',
+    'talisman',
+    'amulet',
+    'brass bell',
+    'wealth',
+    'zen',
+  ];
+
+  return legacyKeywords.some((kw) => content.includes(kw));
+};
 
 export function StoreProvider({ children }: { children: React.ReactNode }) {
   const [products, setProducts] = useState<Product[]>(initialProducts);
@@ -816,11 +840,39 @@ const filterFashionProducts = (items: any[]) => {
     // 1. Check local storage for customized homepage content
     if (typeof window !== 'undefined') {
       try {
+        // Clean up legacy mfs_* and v1 storage keys that might hold old feng shui data
+        const oldKeys = [
+          'mfs_hero_banner_v2',
+          'mfs_prosperity_cards_v2',
+          'mfs_special_gifts_v2',
+          'mfs_guide_cards_v2',
+          'mfs_blog_posts_v2',
+          'mfs_sections_v2',
+          'md_hero_slides_v1',
+          'md_category_circles_v1',
+          'md_curated_collections_v1',
+          'md_promo_banners_v1',
+          'md_features_strip_v1',
+          'md_category_grid_v1',
+          'md_social_gallery_v1',
+        ];
+        oldKeys.forEach((k) => {
+          try { localStorage.removeItem(k); } catch {}
+        });
+
         const savedHero = localStorage.getItem(HERO_KEY);
         if (savedHero) setHeroBanner(JSON.parse(savedHero));
 
         const savedHeroSlides = localStorage.getItem(HERO_SLIDES_KEY);
-        if (savedHeroSlides) setHeroSlides(JSON.parse(savedHeroSlides));
+        if (savedHeroSlides) {
+          const parsed = JSON.parse(savedHeroSlides);
+          if (Array.isArray(parsed) && parsed.length > 0 && !parsed.some(isLegacyHeroSlide)) {
+            setHeroSlides(parsed);
+          } else {
+            localStorage.setItem(HERO_SLIDES_KEY, JSON.stringify(defaultHeroSlides));
+            setHeroSlides(defaultHeroSlides);
+          }
+        }
 
         const savedCatCircles = localStorage.getItem(CATEGORY_CIRCLES_KEY);
         if (savedCatCircles) setCategoryCircles(JSON.parse(savedCatCircles));
@@ -875,7 +927,14 @@ const filterFashionProducts = (items: any[]) => {
                 setSections(data.data);
                 data.data.forEach((sec: any) => {
                   if (!sec.config) return;
-                  if (sec.sectionKey === 'hero' && sec.config.slides) setHeroSlides(sec.config.slides);
+                  if (sec.sectionKey === 'hero' && sec.config.slides) {
+                    const slides = sec.config.slides;
+                    if (Array.isArray(slides) && slides.length > 0 && !slides.some(isLegacyHeroSlide)) {
+                      setHeroSlides(slides);
+                    } else {
+                      setHeroSlides(defaultHeroSlides);
+                    }
+                  }
                   if (sec.sectionKey === 'category_circles' && sec.config.items) setCategoryCircles(sec.config.items);
                   if (sec.sectionKey === 'curated_collections') setCuratedCollections((prev) => ({ ...prev, ...sec.config }));
                   if (sec.sectionKey === 'promo_banners') setPromoBanners((prev) => ({ ...prev, ...sec.config }));

@@ -52,7 +52,7 @@ export default function ProductDetailPage({
   return (
     <div className="bg-[#FFFDFA] min-h-screen text-[#221D16] flex flex-col font-sans select-none pb-12">
       {/* 1. Breadcrumb Navigation (Back arrow + Home • Product details) */}
-      <div className="w-full max-w-[1220px] 2xl:max-w-[1620px] min-[1800px]:max-w-[1760px] mx-auto px-4 sm:px-8 2xl:px-12 py-4 flex items-center gap-2 text-xs 2xl:text-sm text-[#71717A]">
+      <div className="site-container py-4 flex items-center gap-2 text-xs 2xl:text-sm text-[#71717A]">
         <Link
           href="/"
           aria-label="Back to home"
@@ -64,7 +64,7 @@ export default function ProductDetailPage({
       </div>
 
       {/* Main Container Wrapper */}
-      <main className="w-full max-w-[1220px] 2xl:max-w-[1620px] min-[1800px]:max-w-[1760px] mx-auto px-4 sm:px-8 2xl:px-12 flex-1">
+      <main className="site-container flex-1">
         {/* 2. Product Section (Two Columns ~42% / 58%) */}
         <section className="py-4 sm:py-8 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           {/* Left Column: Image Gallery (Compact width -> 5 cols in 12-col grid) */}

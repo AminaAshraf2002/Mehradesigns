@@ -36,7 +36,7 @@ export function ProductRecommendations({
 
   return (
     <section className="bg-[#FFFDFA] pt-12 sm:pt-16 pb-12 sm:pb-16 border-t border-[#E6E0D4] select-none">
-      <div className="max-w-[1220px] mx-auto px-4 sm:px-8">
+      <div className="site-container">
         
         {/* Header Row (Left-aligned like homepage Most Loved Picks) */}
         <div className="flex items-end justify-between mb-5 sm:mb-6">
@@ -62,7 +62,7 @@ export function ProductRecommendations({
         </div>
 
         {/* 6-Column Grid (2 on mobile, up to 6 on desktop) */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 lg:gap-6">
           {recommendedList.map((prod, idx) => (
             <LovedProductCard key={prod.id} product={prod} delayIndex={idx} />
           ))}

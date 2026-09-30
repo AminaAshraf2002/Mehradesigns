@@ -406,18 +406,18 @@ export function Header() {
   return (
     <>
       {/* 1. ANNOUNCEMENT BAR */}
-      <div className="bg-[#221D16] text-[#FFFDFA] py-2 px-4 border-b border-white/10 select-none">
-        <div className="max-w-[1280px] 2xl:max-w-[1620px] min-[1800px]:max-w-[1760px] 2xl:px-12 mx-auto flex items-center justify-between w-full">
+      <div className="bg-[#221D16] text-[#FFFDFA] py-2 xl:py-2.5 2xl:py-3.5 border-b border-white/10 select-none w-full">
+        <div className="site-container flex items-center justify-between w-full">
           <button
             type="button"
             onClick={handlePrevAnnouncement}
             className="text-white/70 hover:text-white transition-colors p-1 cursor-pointer"
             aria-label="Previous announcement"
           >
-            <ChevronLeft className="w-3.5 h-3.5" />
+            <ChevronLeft className="w-3.5 h-3.5 xl:w-4.5 xl:h-4.5 2xl:w-5 2xl:h-5" />
           </button>
 
-          <div className="text-center font-medium tracking-[0.18em] text-[10.5px] 2xl:text-xs uppercase truncate px-2 text-white/90">
+          <div className="text-center font-medium tracking-[0.18em] text-[10.5px] xl:text-xs 2xl:text-sm uppercase truncate px-2 text-white/90">
             {announcementMessages[announcementIndex]}
           </div>
 
@@ -427,24 +427,24 @@ export function Header() {
             className="text-white/70 hover:text-white transition-colors p-1 cursor-pointer"
             aria-label="Next announcement"
           >
-            <ChevronRight className="w-3.5 h-3.5" />
+            <ChevronRight className="w-3.5 h-3.5 xl:w-4.5 xl:h-4.5 2xl:w-5 2xl:h-5" />
           </button>
         </div>
       </div>
 
       {/* 2. HEADER MAIN ROW */}
       <header className="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-[#E6E0D4] shadow-xs select-none">
-        <div className="max-w-[1280px] 2xl:max-w-[1620px] min-[1800px]:max-w-[1760px] 2xl:px-12 mx-auto px-3 sm:px-6 md:px-8 py-2 sm:py-2 md:py-2.5 flex items-center justify-between gap-2 sm:gap-4">
+        <div className="site-container py-2 sm:py-2.5 md:py-3 xl:py-4 2xl:py-5 flex items-center justify-between gap-2 sm:gap-4 xl:gap-6 2xl:gap-8">
           {/* Left: Menu Hamburger Button + Mobile Brand Logo (placed near menu on mobile) */}
-          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+          <div className="flex items-center gap-2 sm:gap-3 xl:gap-4 shrink-0">
             <button
               type="button"
               onClick={() => setMobileMenuOpen(true)}
-              className="flex items-center gap-1.5 sm:gap-2 text-[#221D16] hover:text-[#B99465] transition-colors py-1 cursor-pointer shrink-0"
+              className="flex items-center gap-1.5 sm:gap-2 xl:gap-2.5 2xl:gap-3 text-[#221D16] hover:text-[#B99465] transition-colors py-1 cursor-pointer shrink-0"
               aria-label="Open navigation menu"
             >
-              <Menu className="w-5 h-5 stroke-[1.75]" />
-              <span className="text-xs font-semibold tracking-widest uppercase hidden sm:inline-block">MENU</span>
+              <Menu className="w-5 h-5 xl:w-6 xl:h-6 2xl:w-7 2xl:h-7 stroke-[1.75]" />
+              <span className="text-xs xl:text-sm 2xl:text-base font-semibold tracking-widest uppercase hidden sm:inline-block">MENU</span>
             </button>
 
             {/* Mobile Brand Logo: directly near the menu */}
@@ -464,12 +464,12 @@ export function Header() {
               href="/"
               className="flex items-center hover:opacity-90 transition-opacity"
             >
-              <MehraLogo size="md" />
+              <MehraLogo size="md" className="xl:[&_img]:h-16 xl:[&_img]:max-w-[420px] 2xl:[&_img]:h-20 2xl:[&_img]:max-w-[500px]" />
             </Link>
           </div>
 
           {/* Right: Action Icons (Search, Account, Wishlist, Cart) */}
-          <div className="flex items-center gap-2 sm:gap-3.5 md:gap-5 shrink-0 text-[#221D16]">
+          <div className="flex items-center gap-2 sm:gap-3.5 md:gap-5 xl:gap-6 2xl:gap-7 shrink-0 text-[#221D16]">
             {/* Search Trigger Button */}
             <button
               type="button"
@@ -480,7 +480,7 @@ export function Header() {
               className="p-1 sm:p-1.5 hover:text-[#B99465] transition-colors cursor-pointer shrink-0"
               aria-label="Search"
             >
-              <Search className="w-5 h-5 stroke-[1.75]" />
+              <Search className="w-5 h-5 xl:w-6 xl:h-6 2xl:w-7 2xl:h-7 stroke-[1.75]" />
             </button>
 
             {/* User Profile / Account Trigger */}
@@ -489,7 +489,7 @@ export function Header() {
                 <button
                   type="button"
                   onClick={() => setProfileDropdownOpen((prev) => !prev)}
-                  className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#221D16] hover:bg-[#3D3327] text-[#F9F6F0] flex items-center justify-center text-xs font-bold shrink-0 tracking-wider shadow-xs transition-colors cursor-pointer border border-[#221D16]"
+                  className="w-7 h-7 sm:w-8 sm:h-8 xl:w-10 xl:h-10 2xl:w-11 2xl:h-11 rounded-full bg-[#221D16] hover:bg-[#3D3327] text-[#F9F6F0] flex items-center justify-center text-xs xl:text-sm 2xl:text-base font-bold shrink-0 tracking-wider shadow-xs transition-colors cursor-pointer border border-[#221D16]"
                   aria-label="User account menu"
                 >
                   {(userName || userEmail || 'U').charAt(0).toUpperCase()}
@@ -563,7 +563,7 @@ export function Header() {
                 className="p-1.5 hover:text-[#B99465] transition-colors cursor-pointer"
                 aria-label="Sign in"
               >
-                <User className="w-5 h-5 stroke-[1.75]" />
+                <User className="w-5 h-5 xl:w-6 xl:h-6 2xl:w-7 2xl:h-7 stroke-[1.75]" />
               </button>
             )}
 
@@ -573,9 +573,9 @@ export function Header() {
               className="p-1 sm:p-1.5 hover:text-[#B99465] transition-colors relative cursor-pointer shrink-0 block"
               aria-label="Wishlist"
             >
-              <Heart className="w-5 h-5 stroke-[1.75]" />
+              <Heart className="w-5 h-5 xl:w-6 xl:h-6 2xl:w-7 2xl:h-7 stroke-[1.75]" />
               {favorites.length > 0 && (
-                <span className="absolute -top-1 -right-1 bg-[#221D16] text-white text-[9px] font-bold rounded-full min-w-[15px] h-[15px] px-1 flex items-center justify-center border border-white">
+                <span className="absolute -top-1 -right-1 bg-[#221D16] text-white text-[9px] xl:text-[10px] 2xl:text-xs font-bold rounded-full min-w-[15px] xl:min-w-[18px] 2xl:min-w-[20px] h-[15px] xl:h-[18px] 2xl:h-[20px] px-1 flex items-center justify-center border border-white">
                   {favorites.length}
                 </span>
               )}
@@ -587,9 +587,9 @@ export function Header() {
               className="p-1 sm:p-1.5 hover:text-[#B99465] transition-colors relative cursor-pointer shrink-0 block"
               aria-label="Shopping Cart"
             >
-              <ShoppingBag className="w-5 h-5 stroke-[1.75]" />
+              <ShoppingBag className="w-5 h-5 xl:w-6 xl:h-6 2xl:w-7 2xl:h-7 stroke-[1.75]" />
               {count > 0 && (
-                <span className="absolute -top-1 -right-1 bg-[#221D16] text-white text-[9px] font-bold rounded-full min-w-[15px] h-[15px] px-1 flex items-center justify-center border border-white">
+                <span className="absolute -top-1 -right-1 bg-[#221D16] text-white text-[9px] xl:text-[10px] 2xl:text-xs font-bold rounded-full min-w-[15px] xl:min-w-[18px] 2xl:min-w-[20px] h-[15px] xl:h-[18px] 2xl:h-[20px] px-1 flex items-center justify-center border border-white">
                   {count}
                 </span>
               )}
@@ -599,33 +599,33 @@ export function Header() {
 
         {/* EXPANDABLE INLINE HEADER SEARCH OVERLAY */}
         {isSearchOpen && (
-          <div className="absolute inset-0 bg-white/98 backdrop-blur-md z-50 px-3 sm:px-6 flex items-center justify-between gap-2.5 animate-in fade-in duration-200 shadow-xs">
-            <form onSubmit={handleSearch} className="flex-1 relative flex items-center max-w-xl mx-auto">
-              <Search className="w-3.5 h-3.5 text-[#8C6C43] absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+          <div className="absolute inset-0 bg-white/98 backdrop-blur-md z-50 px-3 sm:px-6 xl:px-10 flex items-center justify-between gap-2.5 animate-in fade-in duration-200 shadow-xs">
+            <form onSubmit={handleSearch} className="flex-1 relative flex items-center max-w-xl xl:max-w-2xl mx-auto">
+              <Search className="w-3.5 h-3.5 xl:w-4.5 xl:h-4.5 text-[#8C6C43] absolute left-3 xl:left-4 top-1/2 -translate-y-1/2 pointer-events-none" />
               <input
                 ref={searchInputRef}
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search collections, pieces..."
-                className="w-full h-8 sm:h-9 pl-8.5 pr-8 rounded-full border border-[#E6E0D4] focus:border-[#221D16] focus:outline-none text-xs text-[#221D16] bg-[#FAF8F3] placeholder:text-[#9C9488] shadow-2xs transition-colors"
+                className="w-full h-8 sm:h-9 xl:h-11 2xl:h-12 pl-8.5 xl:pl-11 pr-8 rounded-full border border-[#E6E0D4] focus:border-[#221D16] focus:outline-none text-xs xl:text-sm 2xl:text-base text-[#221D16] bg-[#FAF8F3] placeholder:text-[#9C9488] shadow-2xs transition-colors"
                 autoFocus
               />
               {query && (
                 <button
                   type="button"
                   onClick={() => setQuery('')}
-                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-700 p-0.5 cursor-pointer"
+                  className="absolute right-2.5 xl:right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-700 p-0.5 cursor-pointer"
                   aria-label="Clear search"
                 >
-                  <X className="w-3.5 h-3.5" />
+                  <X className="w-3.5 h-3.5 xl:w-4.5 xl:h-4.5" />
                 </button>
               )}
             </form>
             <button
               type="button"
               onClick={() => setIsSearchOpen(false)}
-              className="text-[11px] font-bold text-[#7C7267] hover:text-[#221D16] px-2 py-1 cursor-pointer shrink-0 uppercase tracking-widest transition-colors flex items-center gap-1"
+              className="text-[11px] xl:text-xs 2xl:text-sm font-bold text-[#7C7267] hover:text-[#221D16] px-2 py-1 cursor-pointer shrink-0 uppercase tracking-widest transition-colors flex items-center gap-1"
               aria-label="Close search"
             >
               <X className="w-4 h-4 sm:hidden" />
@@ -676,29 +676,28 @@ export function Header() {
           {/* Drawer Content */}
           <div
             ref={drawerRef}
-            className="fixed inset-y-0 left-0 max-w-sm w-full bg-[#FFFDFA] shadow-2xl z-50 flex flex-col p-6 overflow-y-auto border-r border-[#E6E0D4] will-change-transform"
+            className="fixed inset-y-0 left-0 max-w-sm xl:max-w-md 2xl:max-w-lg w-full bg-[#FFFDFA] shadow-2xl z-50 flex flex-col p-6 xl:p-8 2xl:p-10 overflow-y-auto border-r border-[#E6E0D4] will-change-transform"
           >
             {/* Drawer Header with Logo & Brand Name */}
-            {/* Drawer Header with Logo & Brand Name */}
-            <div className="relative flex items-center justify-center h-16 border-b border-[#E6E0D4] shrink-0">
+            <div className="relative flex items-center justify-center h-16 xl:h-20 2xl:h-24 border-b border-[#E6E0D4] shrink-0">
               <img
                 src="/logo.png"
                 alt="Mehra Designs Logo"
-                className="h-9 w-auto object-contain scale-[1.6] origin-center"
+                className="h-9 xl:h-12 2xl:h-14 w-auto object-contain scale-[1.6] xl:scale-[1.8] 2xl:scale-[2.0] origin-center"
               />
               <button
                 type="button"
                 onClick={handleCloseDrawer}
-                className="absolute right-0 top-1/2 -translate-y-1/2 p-1.5 rounded-full hover:bg-black/5 text-[#221D16] transition-colors cursor-pointer"
+                className="absolute right-0 top-1/2 -translate-y-1/2 p-1.5 xl:p-2 rounded-full hover:bg-black/5 text-[#221D16] transition-colors cursor-pointer"
                 aria-label="Close menu"
               >
-                <X className="w-5 h-5" />
+                <X className="w-5 h-5 xl:w-6 xl:h-6 2xl:w-7 2xl:h-7" />
               </button>
             </div>
 
             {/* Menu Navigation Categories */}
-            <div className="py-6 space-y-1.5 flex-1">
-              <p className="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-3 px-3">Explore Collections</p>
+            <div className="py-6 xl:py-8 space-y-1.5 xl:space-y-2.5 flex-1">
+              <p className="text-[11px] xl:text-xs 2xl:text-sm font-bold text-gray-400 uppercase tracking-wider mb-3 xl:mb-4 2xl:mb-5 px-3 xl:px-4">Explore Collections</p>
               {[
                 { name: 'New In', href: '/shop?category=New%20Arrivals' },
                 { name: 'Clothing', href: '/shop?category=Clothing' },
@@ -713,27 +712,27 @@ export function Header() {
                   key={link.name}
                   href={link.href}
                   onClick={handleCloseDrawer}
-                  className="drawer-nav-item flex items-center justify-between px-3 py-2.5 rounded-md hover:bg-[#F6F1E9] text-sm font-medium text-[#221D16] transition-colors"
+                  className="drawer-nav-item flex items-center justify-between px-3 xl:px-4 py-2.5 xl:py-3.5 2xl:py-4 rounded-md hover:bg-[#F6F1E9] text-sm xl:text-base 2xl:text-lg font-medium text-[#221D16] transition-colors"
                 >
                   <span>{link.name}</span>
-                  <ChevronRight className="w-4 h-4 text-gray-400" />
+                  <ChevronRight className="w-4 h-4 xl:w-5 xl:h-5 2xl:w-6 2xl:h-6 text-gray-400" />
                 </Link>
               ))}
             </div>
 
             {/* Quick Actions Footer */}
-            <div className="pt-4 border-t border-[#E6E0D4] space-y-2 text-xs font-semibold text-[#221D16]">
+            <div className="pt-4 xl:pt-6 2xl:pt-8 border-t border-[#E6E0D4] space-y-2 xl:space-y-3 text-xs xl:text-sm 2xl:text-base font-semibold text-[#221D16]">
               <Link
                 href="/favorites"
                 onClick={handleCloseDrawer}
-                className="drawer-nav-item flex items-center justify-between px-3 py-2.5 rounded-md hover:bg-[#F6F1E9]"
+                className="drawer-nav-item flex items-center justify-between px-3 xl:px-4 py-2.5 xl:py-3.5 2xl:py-4 rounded-md hover:bg-[#F6F1E9]"
               >
-                <span className="flex items-center gap-2.5">
-                  <Heart className="w-4.5 h-4.5 text-gray-500" />
+                <span className="flex items-center gap-2.5 xl:gap-3">
+                  <Heart className="w-4.5 h-4.5 xl:w-5.5 xl:h-5.5 2xl:w-6 2xl:h-6 text-gray-500" />
                   <span>Wishlist</span>
                 </span>
                 {favorites.length > 0 && (
-                  <span className="bg-[#221D16] text-white text-[10px] px-2 py-0.5 rounded-full">
+                  <span className="bg-[#221D16] text-white text-[10px] xl:text-xs px-2 py-0.5 xl:px-2.5 xl:py-1 rounded-full">
                     {favorites.length}
                   </span>
                 )}
@@ -742,14 +741,14 @@ export function Header() {
               <Link
                 href="/cart"
                 onClick={handleCloseDrawer}
-                className="drawer-nav-item flex items-center justify-between px-3 py-2.5 rounded-md hover:bg-[#F6F1E9]"
+                className="drawer-nav-item flex items-center justify-between px-3 xl:px-4 py-2.5 xl:py-3.5 2xl:py-4 rounded-md hover:bg-[#F6F1E9]"
               >
-                <span className="flex items-center gap-2.5">
-                  <ShoppingBag className="w-4.5 h-4.5 text-gray-500" />
+                <span className="flex items-center gap-2.5 xl:gap-3">
+                  <ShoppingBag className="w-4.5 h-4.5 xl:w-5.5 xl:h-5.5 2xl:w-6 2xl:h-6 text-gray-500" />
                   <span>Shopping Cart</span>
                 </span>
                 {count > 0 && (
-                  <span className="bg-[#221D16] text-white text-[10px] px-2 py-0.5 rounded-full">
+                  <span className="bg-[#221D16] text-white text-[10px] xl:text-xs px-2 py-0.5 xl:px-2.5 xl:py-1 rounded-full">
                     {count}
                   </span>
                 )}

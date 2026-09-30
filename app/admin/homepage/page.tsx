@@ -10,6 +10,8 @@ import {
   CategoryCircleItem,
   FeaturesStripItem,
   SocialGalleryItem,
+  isLegacyHeroSlide,
+  defaultHeroSlides,
 } from '@/context/StoreContext';
 import ImageUploadField from '@/components/admin/ImageUploadField';
 
@@ -434,102 +436,109 @@ export default function AdminHomepageManager() {
       </div>
 
       {/* TAB 1: HERO SLIDES */}
-      {activeTab === 'hero' && (
-        <div className="bg-[#FFFDFA] rounded-2xl border border-[#E6E0D4] p-6 space-y-6 shadow-xs">
-          <div className="flex items-center justify-between">
-            <div>
-              <h2
-                className="text-xl font-serif font-bold text-[#221D16]"
-                style={{ fontFamily: "'Cormorant Garamond', Georgia, serif" }}
+      {activeTab === 'hero' && (() => {
+        const validHeroSlides = heroSlides && heroSlides.length > 0
+          ? heroSlides.filter((s) => !isLegacyHeroSlide(s))
+          : defaultHeroSlides;
+        const activeHeroSlides = validHeroSlides.length > 0 ? validHeroSlides : defaultHeroSlides;
+
+        return (
+          <div className="bg-[#FFFDFA] rounded-2xl border border-[#E6E0D4] p-6 space-y-6 shadow-xs">
+            <div className="flex items-center justify-between">
+              <div>
+                <h2
+                  className="text-xl font-serif font-bold text-[#221D16]"
+                  style={{ fontFamily: "'Cormorant Garamond', Georgia, serif" }}
+                >
+                  Hero Carousel Slides ({activeHeroSlides.length})
+                </h2>
+                <p className="text-xs text-[#221D16]/70 mt-0.5">
+                  Full-width luxury rotating banners on the homepage top.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() =>
+                  setHeroModal({
+                    isOpen: true,
+                    isNew: true,
+                    slide: {
+                      eyebrow: 'NEW SEASON',
+                      headlineLine1: 'Find Yours. Feel Beautiful.',
+                      subtext: 'Bespoke couture and designer gowns tailored for everyday elegance.',
+                      buttonText: 'Shop Collection',
+                      buttonLink: '/shop?category=Dresses',
+                      image: '/hero1.png',
+                    },
+                  })
+                }
+                className="px-4 py-2 bg-[#221D16] hover:bg-[#8C6C43] text-white text-xs font-semibold rounded-full flex items-center gap-1.5 transition-colors cursor-pointer shadow-xs"
               >
-                Hero Carousel Slides ({heroSlides.length})
-              </h2>
-              <p className="text-xs text-[#221D16]/70 mt-0.5">
-                Full-width luxury rotating banners on the homepage top.
-              </p>
+                <i className="fa-solid fa-plus text-xs" />
+                <span>Add Slide</span>
+              </button>
             </div>
-            <button
-              type="button"
-              onClick={() =>
-                setHeroModal({
-                  isOpen: true,
-                  isNew: true,
-                  slide: {
-                    eyebrow: 'NEW SEASON',
-                    headlineLine1: 'Find Yours. Feel Beautiful.',
-                    subtext: 'Bespoke couture and designer gowns tailored for everyday elegance.',
-                    buttonText: 'Shop Collection',
-                    buttonLink: '/shop?category=Dresses',
-                    image: '/hero1.png',
-                  },
-                })
-              }
-              className="px-4 py-2 bg-[#221D16] hover:bg-[#8C6C43] text-white text-xs font-semibold rounded-full flex items-center gap-1.5 transition-colors cursor-pointer shadow-xs"
-            >
-              <i className="fa-solid fa-plus text-xs" />
-              <span>Add Slide</span>
-            </button>
-          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {heroSlides.map((slide, idx) => (
-              <div
-                key={slide.id || idx}
-                className="bg-[#FAF7F2] rounded-xl border border-[#E6E0D4] overflow-hidden flex flex-col group hover:border-[#8C6C43] transition-all shadow-xs"
-              >
-                <div className="relative aspect-[16/9] bg-[#EFE9E1] overflow-hidden">
-                  <img
-                    src={slide.image || slide.imageSrc || '/hero1.png'}
-                    alt={slide.headlineLine1 || 'Slide'}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute top-2 left-2 bg-[#221D16]/80 text-[#FFFDFA] text-[9px] font-bold tracking-widest uppercase px-2.5 py-0.5 rounded-full backdrop-blur-xs">
-                    Slide {idx + 1}
-                  </div>
-                </div>
-
-                <div className="p-4 flex-1 flex flex-col justify-between space-y-3">
-                  <div>
-                    {slide.eyebrow && (
-                      <span className="text-[10px] font-bold text-[#8C6C43] uppercase tracking-widest block mb-0.5">
-                        {slide.eyebrow}
-                      </span>
-                    )}
-                    <h3 className="text-base font-serif font-bold text-[#221D16] line-clamp-1">
-                      {slide.headlineLine1} {slide.headlineLine2}
-                    </h3>
-                    <p className="text-xs text-[#221D16]/70 line-clamp-2 mt-1">
-                      {slide.subtext}
-                    </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+              {activeHeroSlides.map((slide, idx) => (
+                <div
+                  key={slide.id || idx}
+                  className="bg-[#FAF7F2] rounded-xl border border-[#E6E0D4] overflow-hidden flex flex-col group hover:border-[#8C6C43] transition-all shadow-xs"
+                >
+                  <div className="relative aspect-[16/9] bg-[#EFE9E1] overflow-hidden">
+                    <img
+                      src={slide.image || slide.imageSrc || '/hero1.png'}
+                      alt={slide.headlineLine1 || 'Slide'}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute top-2 left-2 bg-[#221D16]/80 text-[#FFFDFA] text-[9px] font-bold tracking-widest uppercase px-2.5 py-0.5 rounded-full backdrop-blur-xs">
+                      Slide {idx + 1}
+                    </div>
                   </div>
 
-                  <div className="flex items-center justify-between pt-2 border-t border-[#E6E0D4]/80 text-xs">
-                    <span className="font-semibold text-[#8C6C43]">{slide.buttonText || 'Shop Collection'}</span>
-                    <div className="flex items-center gap-1">
-                      <button
-                        type="button"
-                        onClick={() => setHeroModal({ isOpen: true, slide, isNew: false })}
-                        className="p-1.5 hover:bg-[#EAE2D5] rounded-lg text-[#221D16] transition-colors"
-                        title="Edit Slide"
-                      >
-                        <i className="fa-solid fa-pen text-xs" />
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => handleDeleteHeroSlide(slide.id)}
-                        className="p-1.5 hover:bg-rose-100 rounded-lg text-rose-600 transition-colors"
-                        title="Delete Slide"
-                      >
-                        <i className="fa-solid fa-trash-can text-xs" />
-                      </button>
+                  <div className="p-4 flex-1 flex flex-col justify-between space-y-3">
+                    <div>
+                      {slide.eyebrow && (
+                        <span className="text-[10px] font-bold text-[#8C6C43] uppercase tracking-widest block mb-0.5">
+                          {slide.eyebrow}
+                        </span>
+                      )}
+                      <h3 className="text-base font-serif font-bold text-[#221D16] line-clamp-1">
+                        {slide.headlineLine1} {slide.headlineLine2}
+                      </h3>
+                      <p className="text-xs text-[#221D16]/70 line-clamp-2 mt-1">
+                        {slide.subtext}
+                      </p>
+                    </div>
+
+                    <div className="flex items-center justify-between pt-2 border-t border-[#E6E0D4]/80 text-xs">
+                      <span className="font-semibold text-[#8C6C43]">{slide.buttonText || 'Shop Collection'}</span>
+                      <div className="flex items-center gap-1">
+                        <button
+                          type="button"
+                          onClick={() => setHeroModal({ isOpen: true, slide, isNew: false })}
+                          className="p-1.5 hover:bg-[#EAE2D5] rounded-lg text-[#221D16] transition-colors"
+                          title="Edit Slide"
+                        >
+                          <i className="fa-solid fa-pen text-xs" />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleDeleteHeroSlide(slide.id)}
+                          className="p-1.5 hover:bg-rose-100 rounded-lg text-rose-600 transition-colors"
+                          title="Delete Slide"
+                        >
+                          <i className="fa-solid fa-trash-can text-xs" />
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      )}
+        );
+      })()}
 
       {/* TAB 2: CATEGORY CIRCLES */}
       {activeTab === 'categories' && (

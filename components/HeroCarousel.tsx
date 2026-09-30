@@ -20,25 +20,25 @@ export interface HeroSlide {
 const HERO_SLIDES: HeroSlide[] = [
   {
     id: 'slide-1',
-    eyebrow: 'NEW ARRIVALS',
-    headlineLine1: 'Find Yours.',
-    headlineLine2: 'Feel Beautiful.',
-    subtext: 'Elegant dresses.',
-    buttonText: 'Shop Dresses',
-    buttonLink: '/shop',
-    imageSrc: '/hero1.png?v=7',
-    alt: 'New dress collection',
-  },
-  {
-    id: 'slide-2',
     eyebrow: 'SUMMER EDIT',
     headlineLine1: 'Light Fabrics.',
     headlineLine2: 'Golden Evenings.',
-    subtext: 'Summer dresses.',
+    subtext: 'Breezy linen and Italian silks for daytime celebrations.',
     buttonText: 'Shop Summer Dresses',
-    buttonLink: '/shop?category=Women',
-    imageSrc: '/hero2.png?v=7',
+    buttonLink: '/shop?category=Dresses',
+    imageSrc: '/hero2.png?v=8',
     alt: 'Summer dress collection',
+  },
+  {
+    id: 'slide-2',
+    eyebrow: 'NEW ARRIVALS',
+    headlineLine1: 'Find Yours.',
+    headlineLine2: 'Feel Beautiful.',
+    subtext: 'Bespoke couture and designer gowns tailored for everyday elegance.',
+    buttonText: 'Shop Dresses',
+    buttonLink: '/shop?category=Women',
+    imageSrc: '/hero1.png?v=8',
+    alt: 'New dress collection',
   },
   {
     id: 'slide-3',
@@ -53,11 +53,12 @@ const HERO_SLIDES: HeroSlide[] = [
   },
 ];
 
-import { useStore } from '@/context/StoreContext';
+import { useStore, isLegacyHeroSlide } from '@/context/StoreContext';
 
 export function HeroCarousel() {
   const { heroSlides } = useStore();
-  const activeSlides = heroSlides && heroSlides.length > 0 ? heroSlides : HERO_SLIDES;
+  const validSlides = heroSlides && heroSlides.length > 0 ? heroSlides.filter((s) => !isLegacyHeroSlide(s)) : [];
+  const activeSlides = validSlides.length > 0 ? validSlides : HERO_SLIDES;
   const [currentSlide, setCurrentSlide] = useState(0);
   const rootRef = useRef<HTMLElement>(null);
 
@@ -87,7 +88,7 @@ export function HeroCarousel() {
   return (
     <section
       ref={rootRef}
-      className="relative overflow-hidden text-[#221D16] select-none border-b border-[#E6E0D4] bg-[#F0E9DC] min-h-[490px] sm:min-h-[570px] 2xl:min-h-[680px] min-[1800px]:min-h-[740px] flex items-center"
+      className="relative overflow-hidden text-[#221D16] select-none border-b border-[#E6E0D4] bg-[#F0E9DC] min-h-[490px] sm:min-h-[570px] md:min-h-[640px] lg:min-h-[720px] 2xl:min-h-[820px] flex items-center"
     >
       {/* Background image layer (animated separately so only the image zooms) */}
       <div
@@ -100,15 +101,15 @@ export function HeroCarousel() {
       {/* Lighter gradient backdrop, just enough for text readability */}
       <div className="absolute inset-0 bg-gradient-to-r from-[#F0E9DC]/60 via-[#F0E9DC]/30 to-transparent max-w-4xl pointer-events-none" />
 
-      <div className="max-w-[1280px] 2xl:max-w-[1620px] min-[1800px]:max-w-[1760px] mx-auto w-full px-6 sm:px-12 2xl:px-16 py-14 sm:py-20 2xl:py-28 relative z-10 grid grid-cols-1 lg:grid-cols-12 items-center">
+      <div className="site-container w-full py-16 sm:py-24 md:py-28 lg:py-32 2xl:py-40 relative z-10 grid grid-cols-1 lg:grid-cols-12 items-center">
         {/* LEFT COLUMN: Text content */}
-        <div className="lg:col-span-7 2xl:col-span-8 flex flex-col items-start justify-center space-y-5 2xl:space-y-7">
-          <span className="hero-eyebrow text-[11px] sm:text-xs 2xl:text-sm font-semibold tracking-[0.25em] uppercase text-[#8C6C43]">
+        <div className="lg:col-span-8 flex flex-col items-start justify-center space-y-6 2xl:space-y-8">
+          <span className="hero-eyebrow text-[11px] sm:text-xs md:text-sm 2xl:text-base font-semibold tracking-[0.25em] uppercase text-[#8C6C43]">
             {slide.eyebrow || 'NEW ARRIVALS'}
           </span>
 
           <h1
-            className="text-4xl sm:text-6xl lg:text-7xl 2xl:text-8xl leading-[0.95] tracking-tight text-[#221D16] mb-2"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl 2xl:text-8xl leading-[0.98] tracking-tight text-[#221D16] mb-2"
             style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 400 }}
           >
             <span className="block overflow-hidden pb-1">
@@ -116,7 +117,7 @@ export function HeroCarousel() {
             </span>
             <span className="block overflow-hidden pb-1 mt-1">
               <span
-                className="hero-line block text-3xl sm:text-5xl lg:text-6xl 2xl:text-7xl text-[#221D16]/90"
+                className="hero-line block text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl 2xl:text-7xl text-[#221D16]/90"
                 style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 400 }}
               >
                 {slide.headlineLine2 || 'Feel Beautiful.'}
@@ -124,18 +125,18 @@ export function HeroCarousel() {
             </span>
           </h1>
 
-          <p className="hero-sub text-sm sm:text-base 2xl:text-lg font-body text-[rgba(34,29,22,0.85)] max-w-md 2xl:max-w-xl leading-relaxed font-normal">
+          <p className="hero-sub text-sm sm:text-base md:text-lg 2xl:text-xl font-body text-[rgba(34,29,22,0.85)] max-w-lg 2xl:max-w-2xl leading-relaxed font-normal">
             {slide.subtext || 'Bespoke couture and designer gowns tailored for everyday elegance.'}
           </p>
 
           <div className="hero-btn pt-3 2xl:pt-4">
             <Link
               href={slide.buttonLink || '/shop?category=Dresses'}
-              className="inline-flex items-center justify-center bg-[#221D16] text-xs 2xl:text-sm font-semibold tracking-wider px-6 2xl:px-8 py-2.5 2xl:py-3.5 rounded-full hover:bg-[#8C6C43] transition-colors shadow-lg cursor-pointer gap-2"
+              className="inline-flex items-center justify-center bg-[#221D16] text-xs sm:text-sm 2xl:text-base font-semibold tracking-wider px-7 sm:px-9 2xl:px-12 py-3 sm:py-3.5 2xl:py-4 rounded-full hover:bg-[#8C6C43] transition-colors shadow-lg cursor-pointer gap-2.5"
               style={{ color: '#FFFFFF' }}
             >
               <span style={{ color: '#FFFFFF' }}>{slide.buttonText || 'Shop Dresses'}</span>
-              <span className="text-sm 2xl:text-base" style={{ color: '#FFFFFF' }}>&rarr;</span>
+              <span className="text-sm sm:text-base 2xl:text-lg" style={{ color: '#FFFFFF' }}>&rarr;</span>
             </Link>
           </div>
         </div>

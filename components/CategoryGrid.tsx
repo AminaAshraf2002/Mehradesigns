@@ -16,7 +16,7 @@ export function CategoryGrid() {
       buttonText: 'Shop now',
       link: '/shop?category=Dresses',
       image: '/grid1.png',
-      colSpan: 'md:col-span-5 md:row-span-2 min-h-[380px] md:min-h-[510px]',
+      colSpan: 'md:col-span-5 md:row-span-2 min-h-[390px] md:min-h-[530px] lg:min-h-[660px] xl:min-h-[720px] 2xl:min-h-[800px]',
     },
     {
       id: 'grid-2',
@@ -25,7 +25,7 @@ export function CategoryGrid() {
       buttonText: 'Shop now',
       link: '/shop?category=Dresses',
       image: '/grid2.png',
-      colSpan: 'md:col-span-3 min-h-[220px] sm:min-h-[240px]',
+      colSpan: 'md:col-span-3 min-h-[220px] sm:min-h-[240px] lg:min-h-[315px] xl:min-h-[345px] 2xl:min-h-[385px]',
     },
     {
       id: 'grid-3',
@@ -34,7 +34,7 @@ export function CategoryGrid() {
       buttonText: 'Shop now',
       link: '/shop?category=Accessories',
       image: '/grid3.png',
-      colSpan: 'md:col-span-4 min-h-[220px] sm:min-h-[240px]',
+      colSpan: 'md:col-span-4 min-h-[220px] sm:min-h-[240px] lg:min-h-[315px] xl:min-h-[345px] 2xl:min-h-[385px]',
     },
     {
       id: 'grid-4',
@@ -43,7 +43,7 @@ export function CategoryGrid() {
       buttonText: 'Shop the sale',
       link: '/shop?category=Sale',
       image: '/grid4.png',
-      colSpan: 'md:col-span-7 min-h-[230px] sm:min-h-[255px]',
+      colSpan: 'md:col-span-7 min-h-[230px] sm:min-h-[260px] lg:min-h-[330px] xl:min-h-[360px] 2xl:min-h-[395px]',
     },
   ];
 
@@ -58,7 +58,7 @@ export function CategoryGrid() {
             buttonText: (categoryGrid as any).largeCard.buttonText || 'Shop now',
             link: (categoryGrid as any).largeCard.link || '/shop?category=Dresses',
             image: (categoryGrid as any).largeCard.image || '/grid1.png',
-            colSpan: 'md:col-span-5 md:row-span-2 min-h-[380px] md:min-h-[510px]',
+            colSpan: 'md:col-span-5 md:row-span-2 min-h-[390px] md:min-h-[530px] lg:min-h-[660px] xl:min-h-[720px] 2xl:min-h-[800px]',
           },
           ...((categoryGrid as any).gridCards || []).map((gc: any, i: number) => ({
             id: `grid-${i + 2}`,
@@ -67,14 +67,14 @@ export function CategoryGrid() {
             buttonText: gc.buttonText || (i === 2 ? 'Shop the sale' : 'Shop now'),
             link: gc.link || '/shop',
             image: gc.image || `/grid${i + 2}.png`,
-            colSpan: i === 0 ? 'md:col-span-3 min-h-[220px] sm:min-h-[240px]' : i === 1 ? 'md:col-span-4 min-h-[220px] sm:min-h-[240px]' : 'md:col-span-7 min-h-[230px] sm:min-h-[255px]',
+            colSpan: i === 0 ? 'md:col-span-3 min-h-[220px] sm:min-h-[240px] lg:min-h-[315px] xl:min-h-[345px] 2xl:min-h-[385px]' : i === 1 ? 'md:col-span-4 min-h-[220px] sm:min-h-[240px] lg:min-h-[315px] xl:min-h-[345px] 2xl:min-h-[385px]' : 'md:col-span-7 min-h-[230px] sm:min-h-[260px] lg:min-h-[330px] xl:min-h-[360px] 2xl:min-h-[395px]',
           }))
         ]
       : defaultTiles;
 
   return (
     <section className="bg-[#FFFDFA] pt-3 sm:pt-4 2xl:pt-6 pb-6 sm:pb-8 2xl:pb-12 border-b border-[#E6E0D4] select-none" data-aos="fade-up">
-      <div className="max-w-[1220px] 2xl:max-w-[1620px] min-[1800px]:max-w-[1760px] mx-auto px-4 sm:px-8 2xl:px-12">
+      <div className="site-container">
 
         {/* Top Centered Outlined Button */}
         <div className="flex justify-center mb-3.5 sm:mb-4.5 2xl:mb-6" data-aos="fade-up" data-aos-delay="50">
@@ -87,9 +87,9 @@ export function CategoryGrid() {
         </div>
 
         {/* 3-Column Asymmetric Grid Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-3 sm:gap-4 2xl:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-3.5 sm:gap-5 2xl:gap-6">
           {tiles.map((tile, idx) => {
-            const spanClass = tile.colSpan || (idx === 0 ? 'md:col-span-5 md:row-span-2 min-h-[380px] md:min-h-[510px] 2xl:min-h-[640px]' : idx === 1 ? 'md:col-span-3 min-h-[220px] sm:min-h-[240px] 2xl:min-h-[305px]' : idx === 2 ? 'md:col-span-4 min-h-[220px] sm:min-h-[240px] 2xl:min-h-[305px]' : 'md:col-span-7 min-h-[230px] sm:min-h-[255px] 2xl:min-h-[320px]');
+            const spanClass = tile.colSpan || (idx === 0 ? 'md:col-span-5 md:row-span-2 min-h-[390px] md:min-h-[530px] lg:min-h-[660px] xl:min-h-[720px] 2xl:min-h-[800px]' : idx === 1 ? 'md:col-span-3 min-h-[220px] sm:min-h-[240px] lg:min-h-[315px] xl:min-h-[345px] 2xl:min-h-[385px]' : idx === 2 ? 'md:col-span-4 min-h-[220px] sm:min-h-[240px] lg:min-h-[315px] xl:min-h-[345px] 2xl:min-h-[385px]' : 'md:col-span-7 min-h-[230px] sm:min-h-[260px] lg:min-h-[330px] xl:min-h-[360px] 2xl:min-h-[395px]');
             const isHighlight = idx === 3;
 
             return (
@@ -97,9 +97,14 @@ export function CategoryGrid() {
                 key={tile.id || idx}
                 data-aos="fade-up"
                 data-aos-delay={100 + idx * 50}
-                className={`relative ${spanClass} overflow-hidden rounded-none group cursor-pointer bg-cover bg-center`}
-                style={{ backgroundImage: `url('${tile.image}')` }}
+                className={`relative ${spanClass} h-full w-full overflow-hidden rounded-none group cursor-pointer`}
               >
+                <img
+                  src={tile.image}
+                  alt={tile.title}
+                  className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out pointer-events-none select-none"
+                  loading="lazy"
+                />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10 group-hover:from-black/90 transition-colors duration-500 pointer-events-none" />
 
                 <div className="absolute bottom-0 left-0 p-5 sm:p-7 2xl:p-9 flex flex-col items-start z-10 text-white max-w-lg 2xl:max-w-xl">

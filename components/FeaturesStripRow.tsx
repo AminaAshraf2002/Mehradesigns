@@ -40,7 +40,7 @@ export function FeaturesStripRow() {
 
   return (
     <section className="bg-[#FFFDFA] py-3.5 sm:py-4 lg:py-5 2xl:py-7 border-b border-[#E6E0D4] select-none" data-aos="fade-up">
-      <div className="max-w-[1220px] 2xl:max-w-[1620px] min-[1800px]:max-w-[1760px] mx-auto px-4 sm:px-8 2xl:px-12">
+      <div className="site-container">
         <div className="bg-[#F3EEE7] rounded-xl p-4 sm:p-5 2xl:p-7 border border-[#E6E0D4]" data-aos="fade-up" data-aos-delay="100">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-0 divide-y lg:divide-y-0 divide-[#E6E0D4]/80 lg:divide-x lg:divide-[#E6E0D4]">
             {items.map((item: any, idx: number) => {

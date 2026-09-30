@@ -117,7 +117,7 @@ export function MostLovedPicksRow() {
 
   return (
     <section className="bg-[#FFFDFA] pt-4 sm:pt-6 2xl:pt-8 pb-6 sm:pb-8 2xl:pb-10 border-b border-[#E6E0D4] select-none" data-aos="fade-up">
-      <div className="max-w-[1220px] 2xl:max-w-[1620px] min-[1800px]:max-w-[1760px] mx-auto px-4 sm:px-8 2xl:px-12">
+      <div className="site-container">
         
         {/* Header Row: strictly aligns with left (16px) and right (16px) margins */}
         <div className="flex items-end justify-between mb-3 sm:mb-4 2xl:mb-6" data-aos="fade-up" data-aos-delay="100">
