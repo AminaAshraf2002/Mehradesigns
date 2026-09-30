@@ -406,33 +406,35 @@ export function Header() {
   return (
     <>
       {/* 1. ANNOUNCEMENT BAR */}
-      <div className="bg-[#221D16] text-[#FFFDFA] py-2 px-4 border-b border-white/10 flex items-center justify-between select-none">
-        <button
-          type="button"
-          onClick={handlePrevAnnouncement}
-          className="text-white/70 hover:text-white transition-colors p-1 cursor-pointer"
-          aria-label="Previous announcement"
-        >
-          <ChevronLeft className="w-3.5 h-3.5" />
-        </button>
+      <div className="bg-[#221D16] text-[#FFFDFA] py-2 px-4 border-b border-white/10 select-none">
+        <div className="max-w-[1280px] 2xl:max-w-[1620px] min-[1800px]:max-w-[1760px] 2xl:px-12 mx-auto flex items-center justify-between w-full">
+          <button
+            type="button"
+            onClick={handlePrevAnnouncement}
+            className="text-white/70 hover:text-white transition-colors p-1 cursor-pointer"
+            aria-label="Previous announcement"
+          >
+            <ChevronLeft className="w-3.5 h-3.5" />
+          </button>
 
-        <div className="text-center font-medium tracking-[0.18em] text-[10.5px] uppercase truncate px-2 text-white/90">
-          {announcementMessages[announcementIndex]}
+          <div className="text-center font-medium tracking-[0.18em] text-[10.5px] 2xl:text-xs uppercase truncate px-2 text-white/90">
+            {announcementMessages[announcementIndex]}
+          </div>
+
+          <button
+            type="button"
+            onClick={handleNextAnnouncement}
+            className="text-white/70 hover:text-white transition-colors p-1 cursor-pointer"
+            aria-label="Next announcement"
+          >
+            <ChevronRight className="w-3.5 h-3.5" />
+          </button>
         </div>
-
-        <button
-          type="button"
-          onClick={handleNextAnnouncement}
-          className="text-white/70 hover:text-white transition-colors p-1 cursor-pointer"
-          aria-label="Next announcement"
-        >
-          <ChevronRight className="w-3.5 h-3.5" />
-        </button>
       </div>
 
       {/* 2. HEADER MAIN ROW */}
       <header className="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-[#E6E0D4] shadow-xs select-none">
-        <div className="max-w-[1280px] mx-auto px-3 sm:px-6 md:px-8 py-2 sm:py-2 md:py-2.5 flex items-center justify-between gap-2 sm:gap-4">
+        <div className="max-w-[1280px] 2xl:max-w-[1620px] min-[1800px]:max-w-[1760px] 2xl:px-12 mx-auto px-3 sm:px-6 md:px-8 py-2 sm:py-2 md:py-2.5 flex items-center justify-between gap-2 sm:gap-4">
           {/* Left: Menu Hamburger Button + Mobile Brand Logo (placed near menu on mobile) */}
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             <button

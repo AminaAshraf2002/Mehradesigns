@@ -116,14 +116,14 @@ export function MostLovedPicksRow() {
   };
 
   return (
-    <section className="bg-[#FFFDFA] pt-4 sm:pt-6 pb-6 sm:pb-8 border-b border-[#E6E0D4] select-none" data-aos="fade-up">
-      <div className="max-w-[1220px] mx-auto px-4 sm:px-8">
+    <section className="bg-[#FFFDFA] pt-4 sm:pt-6 2xl:pt-8 pb-6 sm:pb-8 2xl:pb-10 border-b border-[#E6E0D4] select-none" data-aos="fade-up">
+      <div className="max-w-[1220px] 2xl:max-w-[1620px] min-[1800px]:max-w-[1760px] mx-auto px-4 sm:px-8 2xl:px-12">
         
         {/* Header Row: strictly aligns with left (16px) and right (16px) margins */}
-        <div className="flex items-end justify-between mb-3 sm:mb-4" data-aos="fade-up" data-aos-delay="100">
+        <div className="flex items-end justify-between mb-3 sm:mb-4 2xl:mb-6" data-aos="fade-up" data-aos-delay="100">
           <div>
-            <div className="flex items-center gap-2 mb-1">
-              <span className="text-[10px] sm:text-[11px] font-semibold tracking-[0.25em] uppercase text-[#8C6C43]">
+            <div className="flex items-center gap-2 mb-1 2xl:mb-1.5">
+              <span className="text-[10px] sm:text-[11px] 2xl:text-xs font-semibold tracking-[0.25em] uppercase text-[#8C6C43]">
                 BEST SELLERS
               </span>
               {/* Subtle Live Trending Pulse on Mobile */}
@@ -133,7 +133,7 @@ export function MostLovedPicksRow() {
               </span>
             </div>
             <h2
-              className="text-2xl sm:text-3xl font-serif font-semibold text-[#221D16]"
+              className="text-2xl sm:text-3xl 2xl:text-4xl font-serif font-semibold text-[#221D16]"
               style={{ fontFamily: "'Cormorant Garamond', Georgia, serif" }}
             >
               Our Most Loved Picks
@@ -163,10 +163,10 @@ export function MostLovedPicksRow() {
 
             <Link
               href="/shop?sort=bestselling"
-              className="text-xs sm:text-sm font-semibold text-[#221D16] hover:text-[#8C6C43] transition-colors flex items-center gap-1 shrink-0 no-underline"
+              className="text-xs sm:text-sm 2xl:text-base font-semibold text-[#221D16] hover:text-[#8C6C43] transition-colors flex items-center gap-1 shrink-0 no-underline"
             >
               <span>View All</span>
-              <span className="text-base leading-none">&rarr;</span>
+              <span className="text-base 2xl:text-lg leading-none">&rarr;</span>
             </Link>
           </div>
         </div>
@@ -223,7 +223,7 @@ export function MostLovedPicksRow() {
         {/* ══════════════════════════════════════════════════════════════════════
             DESKTOP & TABLET VIEW (>= sm): 6-Column Responsive Grid
             ══════════════════════════════════════════════════════════════════════ */}
-        <div className="hidden sm:grid sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 items-stretch">
+        <div className="hidden sm:grid sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 2xl:gap-6 items-stretch">
           {bestsellers.slice(0, 6).map((product, idx) => (
             <LovedProductCard key={product.id} product={product} delayIndex={idx} />
           ))}

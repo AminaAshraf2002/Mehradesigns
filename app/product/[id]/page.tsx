@@ -52,19 +52,19 @@ export default function ProductDetailPage({
   return (
     <div className="bg-[#FFFDFA] min-h-screen text-[#221D16] flex flex-col font-sans select-none pb-12">
       {/* 1. Breadcrumb Navigation (Back arrow + Home • Product details) */}
-      <div className="w-full max-w-[1220px] mx-auto px-4 sm:px-8 py-4 flex items-center gap-2 text-xs text-[#71717A]">
+      <div className="w-full max-w-[1220px] 2xl:max-w-[1620px] min-[1800px]:max-w-[1760px] mx-auto px-4 sm:px-8 2xl:px-12 py-4 flex items-center gap-2 text-xs 2xl:text-sm text-[#71717A]">
         <Link
           href="/"
           aria-label="Back to home"
           className="p-1 hover:bg-[#F0E9DC] rounded-full transition-colors text-[#221D16] flex items-center justify-center no-underline"
         >
-          <ArrowLeft className="w-4 h-4" />
+          <ArrowLeft className="w-4 h-4 2xl:w-5 2xl:h-5" />
         </Link>
         <span>Home &bull; Product details</span>
       </div>
 
       {/* Main Container Wrapper */}
-      <main className="w-full max-w-[1220px] mx-auto px-4 sm:px-8 flex-1">
+      <main className="w-full max-w-[1220px] 2xl:max-w-[1620px] min-[1800px]:max-w-[1760px] mx-auto px-4 sm:px-8 2xl:px-12 flex-1">
         {/* 2. Product Section (Two Columns ~42% / 58%) */}
         <section className="py-4 sm:py-8 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           {/* Left Column: Image Gallery (Compact width -> 5 cols in 12-col grid) */}

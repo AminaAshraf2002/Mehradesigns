@@ -80,11 +80,11 @@ export function CategoryCirclesRow() {
 
   return (
     <section className="bg-[#FFFDFA] py-4 sm:py-5 lg:py-6 border-b border-[#E6E0D4] select-none relative overflow-hidden" data-aos="fade-up">
-      <div className="max-w-[1240px] mx-auto px-4 sm:px-8">
+      <div className="max-w-[1240px] 2xl:max-w-[1620px] min-[1800px]:max-w-[1760px] 2xl:px-12 mx-auto px-4 sm:px-8">
         {/* Heading */}
         <div className="text-center mb-2.5 sm:mb-3.5" data-aos="fade-up" data-aos-delay="100">
           <h2
-            className="text-2xl sm:text-3xl lg:text-4xl font-serif font-semibold text-[#221D16] tracking-wide"
+            className="text-2xl sm:text-3xl lg:text-4xl 2xl:text-5xl font-serif font-semibold text-[#221D16] tracking-wide"
             style={{ fontFamily: "'Cormorant Garamond', Georgia, serif" }}
           >
             Shop By Category
@@ -92,7 +92,7 @@ export function CategoryCirclesRow() {
         </div>
 
         {/* Category circles */}
-        <div className="flex items-start justify-start lg:justify-center gap-4 sm:gap-6 overflow-x-auto no-scrollbar pt-1.5 sm:pt-2 pb-1 px-2">
+        <div className="flex items-start justify-start lg:justify-center gap-4 sm:gap-6 2xl:gap-8 overflow-x-auto no-scrollbar pt-1.5 sm:pt-2 pb-1 px-2">
           {items.map((item, idx) => (
             <Link
               key={item.id}
@@ -102,18 +102,18 @@ export function CategoryCirclesRow() {
               className="flex flex-col items-center gap-2.5 shrink-0 group cursor-pointer"
             >
               {/* Outer wrapper: no overflow-hidden, so the badge can sit on the edge */}
-              <div className="relative w-[68px] h-[68px] sm:w-[88px] sm:h-[88px] md:w-[104px] md:h-[104px] transition-transform duration-300 group-hover:scale-105">
+              <div className="relative w-[68px] h-[68px] sm:w-[88px] sm:h-[88px] md:w-[104px] md:h-[104px] 2xl:w-[124px] 2xl:h-[124px] transition-transform duration-300 group-hover:scale-105">
                 {/* Inner circle: clips the image only */}
                 <div className="w-full h-full rounded-full overflow-hidden border border-[#E6E0D4] shadow-sm group-hover:shadow-md transition-shadow duration-300">
                   {item.isSaleCard ? (
                     <div className="w-full h-full bg-[#F6F1E9] text-[#221D16] flex flex-col items-center justify-center p-1 text-center">
-                      <span className="text-[8px] sm:text-[9px] font-bold tracking-widest text-[#8C6C43] uppercase">
+                      <span className="text-[8px] sm:text-[9px] 2xl:text-[10px] font-bold tracking-widest text-[#8C6C43] uppercase">
                         LIMITED
                       </span>
-                      <span className="text-sm sm:text-base md:text-lg font-serif font-bold tracking-tight leading-none">
+                      <span className="text-sm sm:text-base md:text-lg 2xl:text-xl font-serif font-bold tracking-tight leading-none">
                         SALE
                       </span>
-                      <span className="text-[8px] sm:text-[9px] font-semibold text-[#8C6C43] mt-0.5">
+                      <span className="text-[8px] sm:text-[9px] 2xl:text-[10px] font-semibold text-[#8C6C43] mt-0.5">
                         UP TO 50%
                       </span>
                     </div>
@@ -128,14 +128,14 @@ export function CategoryCirclesRow() {
 
                 {/* Badge: outside the clipped circle, so it shows fully */}
                 {item.badge && !item.isSaleCard && (
-                  <span className="absolute -top-1 -right-1 z-10 bg-[#221D16] text-[#FFFDFA] text-[8px] sm:text-[9px] font-bold tracking-widest px-2 py-0.5 rounded-full shadow-sm whitespace-nowrap">
+                  <span className="absolute -top-1 -right-1 z-10 bg-[#221D16] text-[#FFFDFA] text-[8px] sm:text-[9px] 2xl:text-[10px] font-bold tracking-widest px-2 py-0.5 rounded-full shadow-sm whitespace-nowrap">
                     {item.badge}
                   </span>
                 )}
               </div>
 
               {/* Category name */}
-              <span className="text-[10px] sm:text-[11px] font-semibold tracking-[0.14em] text-[#221D16]/80 uppercase text-center">
+              <span className="text-[10px] sm:text-[11px] 2xl:text-xs font-semibold tracking-[0.14em] 2xl:tracking-[0.18em] text-[#221D16]/80 uppercase text-center">
                 {item.name}
               </span>
             </Link>

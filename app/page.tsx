@@ -84,18 +84,18 @@ export default function MehraDesignsHomePage() {
       <CategoryGrid />
 
       {/* 10. INSTAGRAM / SOCIAL GRID */}
-      <section className="py-5 sm:py-7 border-b border-[rgba(34,29,22,0.14)]" data-aos="fade-up">
-        <div className="etsy-container text-center mb-4 sm:mb-5">
-          <span className="text-[11px] sm:text-xs font-semibold tracking-[0.25em] uppercase text-[#8C6C43] block mb-1">
+      <section className="py-5 sm:py-7 2xl:py-10 border-b border-[rgba(34,29,22,0.14)]" data-aos="fade-up">
+        <div className="etsy-container text-center mb-4 sm:mb-5 2xl:mb-8">
+          <span className="text-[11px] sm:text-xs 2xl:text-sm font-semibold tracking-[0.25em] uppercase text-[#8C6C43] block mb-1 2xl:mb-2">
             SOCIAL GALLERY
           </span>
-          <h2 className="text-2xl sm:text-3xl font-serif text-[#221D16]" style={{ fontFamily: "'Cormorant Garamond', Georgia, serif" }}>
+          <h2 className="text-2xl sm:text-3xl 2xl:text-4xl font-serif text-[#221D16]" style={{ fontFamily: "'Cormorant Garamond', Georgia, serif" }}>
             Follow @MehraDesigns on Instagram
           </h2>
         </div>
 
         {/* 6-column grid */}
-        <div className="grid grid-cols-3 min-[900px]:grid-cols-6 gap-2 sm:gap-3 px-2 sm:px-4 max-w-[1440px] mx-auto">
+        <div className="grid grid-cols-3 min-[900px]:grid-cols-6 gap-2 sm:gap-3 2xl:gap-5 px-2 sm:px-4 2xl:px-8 max-w-[1440px] 2xl:max-w-[1680px] min-[1800px]:max-w-[1760px] mx-auto">
           {(socialGallery && socialGallery.length > 0 ? socialGallery : [
             { id: 'sg-1', imgUrl: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=400&q=80', link: 'https://instagram.com' },
             { id: 'sg-2', imgUrl: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=400&q=80', link: 'https://instagram.com' },
@@ -121,7 +121,7 @@ export default function MehraDesignsHomePage() {
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
-                  <i className="fa-brands fa-instagram text-2xl" />
+                  <i className="fa-brands fa-instagram text-2xl 2xl:text-3xl" />
                 </div>
               </a>
             );
@@ -131,29 +131,29 @@ export default function MehraDesignsHomePage() {
 
       {/* 10. NEWSLETTER SIGNUP (Dark image background banner with hero1.png and increased height) */}
       <section
-        className="relative bg-cover bg-center text-white py-24 sm:py-32 lg:py-36 min-h-[380px] sm:min-h-[450px] flex items-center overflow-hidden"
+        className="relative bg-cover bg-center text-white py-24 sm:py-32 lg:py-36 2xl:py-44 min-h-[380px] sm:min-h-[450px] 2xl:min-h-[520px] flex items-center overflow-hidden"
         style={{ backgroundImage: "url('/hero.png')" }}
         data-aos="fade-up"
       >
         {/* Light gradient: darker on the left where the text sits, image stays clear elsewhere (no blur) */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/25 to-transparent pointer-events-none" />
 
-        <div className="etsy-container relative z-10 grid grid-cols-1 min-[900px]:grid-cols-12 items-center gap-8 w-full">
+        <div className="etsy-container relative z-10 grid grid-cols-1 min-[900px]:grid-cols-12 items-center gap-8 2xl:gap-12 w-full">
 
           {/* Left Column: Mail icon + Heading + Subtext */}
-          <div className="min-[900px]:col-span-7 flex items-start gap-4">
-            <div className="w-12 h-12 rounded-full bg-white/20 border border-white/60 text-white flex items-center justify-center shrink-0 mt-1">
-              <i className="fa-regular fa-envelope text-xl" />
+          <div className="min-[900px]:col-span-7 flex items-start gap-4 2xl:gap-6">
+            <div className="w-12 h-12 2xl:w-16 2xl:h-16 rounded-full bg-white/20 border border-white/60 text-white flex items-center justify-center shrink-0 mt-1">
+              <i className="fa-regular fa-envelope text-xl 2xl:text-2xl" />
             </div>
             <div>
               <span
-                className="text-[10px] sm:text-[11px] font-semibold tracking-[0.25em] uppercase text-white block mb-1"
+                className="text-[10px] sm:text-[11px] 2xl:text-xs font-semibold tracking-[0.25em] uppercase text-white block mb-1 2xl:mb-2"
                 style={{ textShadow: '0 1px 8px rgba(0,0,0,0.55)' }}
               >
                 PRIVATE SALON ACCESS
               </span>
               <h2
-                className="text-3xl sm:text-4xl lg:text-5xl font-serif font-normal text-white mb-2"
+                className="text-3xl sm:text-4xl lg:text-5xl 2xl:text-6xl font-serif font-normal text-white mb-2 2xl:mb-3"
                 style={{
                   fontFamily: "'Cormorant Garamond', Georgia, serif",
                   textShadow: '0 2px 12px rgba(0,0,0,0.45)',
@@ -162,7 +162,7 @@ export default function MehraDesignsHomePage() {
                 Join The Inner Circle
               </h2>
               <p
-                className="text-xs sm:text-sm text-gray-100 font-normal leading-relaxed max-w-lg"
+                className="text-xs sm:text-sm 2xl:text-base text-gray-100 font-normal leading-relaxed max-w-lg 2xl:max-w-xl"
                 style={{ textShadow: '0 1px 8px rgba(0,0,0,0.45)' }}
               >
                 Subscribe to receive early access to new collections, private salon invitations, and 10% off your first order.
@@ -185,11 +185,11 @@ export default function MehraDesignsHomePage() {
                   value={emailInput}
                   onChange={(e) => setEmailInput(e.target.value)}
                   placeholder="Enter your email address"
-                  className="w-full h-12 px-5 rounded-full bg-white text-[#221D16] placeholder-gray-400 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#B99465]"
+                  className="w-full h-12 2xl:h-14 px-5 2xl:px-6 rounded-full bg-white text-[#221D16] placeholder-gray-400 text-xs sm:text-sm 2xl:text-base focus:outline-none focus:ring-2 focus:ring-[#B99465]"
                 />
                 <button
                   type="submit"
-                  className="w-full sm:w-auto h-12 px-8 rounded-full bg-[#B99465] hover:bg-[#8C6C43] text-[#221D16] font-bold text-xs sm:text-sm transition-all shadow-md shrink-0 cursor-pointer"
+                  className="w-full sm:w-auto h-12 2xl:h-14 px-8 2xl:px-10 rounded-full bg-[#B99465] hover:bg-[#8C6C43] text-[#221D16] font-bold text-xs sm:text-sm 2xl:text-base transition-all shadow-md shrink-0 cursor-pointer"
                 >
                   Subscribe Now
                 </button>

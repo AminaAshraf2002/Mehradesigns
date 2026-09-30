@@ -124,7 +124,7 @@ export default function AboutPage() {
     <div className="min-h-screen bg-[#FFFDFA] text-[#221D16] select-none font-sans">
       {/* Sticky Secondary Subnav */}
       <div className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-[#E6E0D4] transition-all duration-200">
-        <div className="max-w-[1220px] mx-auto px-4 sm:px-8 flex items-center justify-between h-13">
+        <div className="max-w-[1220px] 2xl:max-w-[1620px] min-[1800px]:max-w-[1760px] mx-auto px-4 sm:px-8 2xl:px-12 flex items-center justify-between h-13 2xl:h-16">
           <nav className="flex items-center gap-1.5 sm:gap-4 text-xs font-semibold text-[#71717A] overflow-x-auto no-scrollbar py-1">
             <button
               type="button"
@@ -194,8 +194,8 @@ export default function AboutPage() {
       </div>
 
       {/* SECTION 1: HERO STATEMENT */}
-      <section className="relative overflow-hidden pt-12 pb-16 sm:pt-16 sm:pb-24 border-b border-[#E6E0D4] bg-[#FFFDFA]">
-        <div className="max-w-[1220px] mx-auto px-4 sm:px-8 relative z-10">
+      <section className="relative overflow-hidden pt-12 pb-16 sm:pt-16 sm:pb-24 2xl:pt-20 2xl:pb-32 border-b border-[#E6E0D4] bg-[#FFFDFA]">
+        <div className="max-w-[1220px] 2xl:max-w-[1620px] min-[1800px]:max-w-[1760px] mx-auto px-4 sm:px-8 2xl:px-12 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
             
             {/* Left Column: Visual Frame */}
@@ -281,9 +281,9 @@ export default function AboutPage() {
       {/* SECTION 2: HOW IT WORKS */}
       <section
         id="how-it-works-section"
-        className="py-16 sm:py-24 bg-[#221D16] text-white"
+        className="py-16 sm:py-24 2xl:py-32 bg-[#221D16] text-white"
       >
-        <div className="max-w-[1220px] mx-auto px-4 sm:px-8">
+        <div className="max-w-[1220px] 2xl:max-w-[1620px] min-[1800px]:max-w-[1760px] mx-auto px-4 sm:px-8 2xl:px-12">
           <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
             <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#8C6C43] block mb-2">
               THE MEHRA EXPERIENCE
@@ -331,8 +331,8 @@ export default function AboutPage() {
       </section>
 
       {/* SECTION 3: ARTISAN SHOWCASE & IMPACT STATS */}
-      <section id="artisan-section" className="py-16 sm:py-24 bg-[#F6F1E9] border-b border-[#E6E0D4]">
-        <div className="max-w-[1220px] mx-auto px-4 sm:px-8">
+      <section id="artisan-section" className="py-16 sm:py-24 2xl:py-32 bg-[#F6F1E9] border-b border-[#E6E0D4]">
+        <div className="max-w-[1220px] 2xl:max-w-[1620px] min-[1800px]:max-w-[1760px] mx-auto px-4 sm:px-8 2xl:px-12">
           {/* Numbers Bar */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 p-8 rounded-2xl bg-white border border-[#E6E0D4] shadow-xs mb-16 text-center">
             <div>
@@ -376,8 +376,8 @@ export default function AboutPage() {
       </section>
 
       {/* SECTION 4: FAQ SLIDER */}
-      <section id="faq-section" className="py-16 sm:py-24 bg-white">
-        <div className="max-w-[1220px] mx-auto px-4 sm:px-8">
+      <section id="faq-section" className="py-16 sm:py-24 2xl:py-32 bg-white">
+        <div className="max-w-[1220px] 2xl:max-w-[1620px] min-[1800px]:max-w-[1760px] mx-auto px-4 sm:px-8 2xl:px-12">
           <div className="text-center max-w-2xl mx-auto mb-12">
             <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#8C6C43] block mb-2">
               HELP &amp; INFORMATION

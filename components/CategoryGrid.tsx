@@ -73,23 +73,23 @@ export function CategoryGrid() {
       : defaultTiles;
 
   return (
-    <section className="bg-[#FFFDFA] pt-3 sm:pt-4 pb-6 sm:pb-8 border-b border-[#E6E0D4] select-none" data-aos="fade-up">
-      <div className="max-w-[1220px] mx-auto px-4 sm:px-8">
+    <section className="bg-[#FFFDFA] pt-3 sm:pt-4 2xl:pt-6 pb-6 sm:pb-8 2xl:pb-12 border-b border-[#E6E0D4] select-none" data-aos="fade-up">
+      <div className="max-w-[1220px] 2xl:max-w-[1620px] min-[1800px]:max-w-[1760px] mx-auto px-4 sm:px-8 2xl:px-12">
 
         {/* Top Centered Outlined Button */}
-        <div className="flex justify-center mb-3.5 sm:mb-4.5" data-aos="fade-up" data-aos-delay="50">
+        <div className="flex justify-center mb-3.5 sm:mb-4.5 2xl:mb-6" data-aos="fade-up" data-aos-delay="50">
           <Link
             href="/shop"
-            className="inline-block border border-[#221D16] text-[#221D16] text-xs font-semibold tracking-widest uppercase px-6 py-2 rounded-none hover:bg-[#221D16] hover:text-white transition-colors no-underline cursor-pointer"
+            className="inline-block border border-[#221D16] text-[#221D16] text-xs 2xl:text-sm font-semibold tracking-widest uppercase px-6 2xl:px-8 py-2 2xl:py-3 rounded-none hover:bg-[#221D16] hover:text-white transition-colors no-underline cursor-pointer"
           >
             View all new arrivals
           </Link>
         </div>
 
         {/* 3-Column Asymmetric Grid Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-3 sm:gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-3 sm:gap-4 2xl:gap-6">
           {tiles.map((tile, idx) => {
-            const spanClass = tile.colSpan || (idx === 0 ? 'md:col-span-5 md:row-span-2 min-h-[380px] md:min-h-[510px]' : idx === 1 ? 'md:col-span-3 min-h-[220px] sm:min-h-[240px]' : idx === 2 ? 'md:col-span-4 min-h-[220px] sm:min-h-[240px]' : 'md:col-span-7 min-h-[230px] sm:min-h-[255px]');
+            const spanClass = tile.colSpan || (idx === 0 ? 'md:col-span-5 md:row-span-2 min-h-[380px] md:min-h-[510px] 2xl:min-h-[640px]' : idx === 1 ? 'md:col-span-3 min-h-[220px] sm:min-h-[240px] 2xl:min-h-[305px]' : idx === 2 ? 'md:col-span-4 min-h-[220px] sm:min-h-[240px] 2xl:min-h-[305px]' : 'md:col-span-7 min-h-[230px] sm:min-h-[255px] 2xl:min-h-[320px]');
             const isHighlight = idx === 3;
 
             return (
@@ -102,22 +102,22 @@ export function CategoryGrid() {
               >
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10 group-hover:from-black/90 transition-colors duration-500 pointer-events-none" />
 
-                <div className="absolute bottom-0 left-0 p-5 sm:p-7 flex flex-col items-start z-10 text-white max-w-lg">
+                <div className="absolute bottom-0 left-0 p-5 sm:p-7 2xl:p-9 flex flex-col items-start z-10 text-white max-w-lg 2xl:max-w-xl">
                   <h3
-                    className="text-xl sm:text-2xl lg:text-3xl text-white font-normal uppercase tracking-wide mb-1"
+                    className="text-xl sm:text-2xl lg:text-3xl 2xl:text-4xl text-white font-normal uppercase tracking-wide mb-1 2xl:mb-2"
                     style={{ fontFamily: "'Cormorant Garamond', Georgia, serif" }}
                   >
                     {tile.title}
                   </h3>
                   {tile.subtitle && (
-                    <p className="text-xs sm:text-sm text-gray-200 font-normal mb-3 leading-relaxed">
+                    <p className="text-xs sm:text-sm 2xl:text-base text-gray-200 font-normal mb-3 2xl:mb-4 leading-relaxed">
                       {tile.subtitle}
                     </p>
                   )}
                   {isHighlight ? (
                     <Link
                       href={tile.link || '/shop'}
-                      className="group inline-block bg-[#8C6C43] hover:bg-white text-[10px] sm:text-xs font-semibold uppercase tracking-wider px-5 py-2.5 rounded-none transition-colors no-underline shadow-sm"
+                      className="group inline-block bg-[#8C6C43] hover:bg-white text-[10px] sm:text-xs 2xl:text-sm font-semibold uppercase tracking-wider px-5 2xl:px-7 py-2.5 2xl:py-3.5 rounded-none transition-colors no-underline shadow-sm"
                     >
                       <span className="text-white group-hover:text-[#221D16] transition-colors">
                         {tile.buttonText || 'Shop now'}
@@ -126,10 +126,10 @@ export function CategoryGrid() {
                   ) : (
                     <Link
                       href={tile.link || '/shop'}
-                      className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-white hover:text-[#B99465] transition-colors border-b border-transparent hover:border-[#B99465] pb-0.5 no-underline"
+                      className="inline-flex items-center gap-2 text-xs 2xl:text-sm font-semibold uppercase tracking-widest text-white hover:text-[#B99465] transition-colors border-b border-transparent hover:border-[#B99465] pb-0.5 no-underline"
                     >
                       <span>{tile.buttonText || 'Shop now'}</span>
-                      <span className="text-sm">&rarr;</span>
+                      <span className="text-sm 2xl:text-base">&rarr;</span>
                     </Link>
                   )}
                 </div>

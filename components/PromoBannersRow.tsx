@@ -51,37 +51,37 @@ export function PromoBannersRow() {
       : defaultBanners;
 
   return (
-    <section className="bg-[#FFFDFA] py-4 sm:py-5 lg:py-6 border-b border-[#E6E0D4] select-none" data-aos="fade-up">
-      <div className="max-w-[1220px] mx-auto px-4 sm:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+    <section className="bg-[#FFFDFA] py-4 sm:py-5 lg:py-6 2xl:py-8 border-b border-[#E6E0D4] select-none" data-aos="fade-up">
+      <div className="max-w-[1220px] 2xl:max-w-[1620px] min-[1800px]:max-w-[1760px] mx-auto px-4 sm:px-8 2xl:px-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 2xl:gap-8">
           {banners.map((b, idx) => (
             <div
               key={b.id || idx}
               data-aos={idx === 0 ? 'fade-right' : 'fade-left'}
               data-aos-delay={(idx + 1) * 100}
-              className="bg-[#EFE9E1] rounded-sm overflow-hidden min-h-[200px] sm:min-h-[220px] flex items-center justify-between shadow-2xs hover:shadow-sm transition-shadow duration-300"
+              className="bg-[#EFE9E1] rounded-sm overflow-hidden min-h-[200px] sm:min-h-[220px] 2xl:min-h-[280px] flex items-center justify-between shadow-2xs hover:shadow-sm transition-shadow duration-300"
             >
-              <div className="p-6 sm:p-8 flex-1 pr-2">
-                <span className="text-[10px] sm:text-[11px] font-semibold tracking-[0.25em] text-[#8C6C43] uppercase block mb-1.5">
+              <div className="p-6 sm:p-8 2xl:p-10 flex-1 pr-2">
+                <span className="text-[10px] sm:text-[11px] 2xl:text-xs font-semibold tracking-[0.25em] text-[#8C6C43] uppercase block mb-1.5 2xl:mb-2">
                   {b.tag}
                 </span>
                 <h3
-                  className="text-xl sm:text-2xl lg:text-3xl text-[#221D16] font-normal leading-tight mb-4 whitespace-pre-line"
+                  className="text-xl sm:text-2xl lg:text-3xl 2xl:text-4xl text-[#221D16] font-normal leading-tight mb-4 2xl:mb-6 whitespace-pre-line"
                   style={{ fontFamily: "'Cormorant Garamond', Georgia, serif" }}
                 >
                   {b.title}
                 </h3>
                 <Link
                   href={b.link || '/shop'}
-                  className="inline-flex items-center gap-1.5 bg-[#221D16] text-xs font-semibold px-4 py-2 rounded-full hover:bg-[#8C6C43] transition-colors cursor-pointer"
+                  className="inline-flex items-center gap-1.5 bg-[#221D16] text-xs 2xl:text-sm font-semibold px-4 2xl:px-6 py-2 2xl:py-3 rounded-full hover:bg-[#8C6C43] transition-colors cursor-pointer"
                   style={{ color: '#FFFFFF' }}
                 >
                   <span style={{ color: '#FFFFFF' }}>{b.buttonText || 'Shop Now'}</span>
-                  <span className="text-sm" style={{ color: '#FFFFFF' }}>&rarr;</span>
+                  <span className="text-sm 2xl:text-base" style={{ color: '#FFFFFF' }}>&rarr;</span>
                 </Link>
               </div>
 
-              <div className="w-2/5 sm:w-1/2 h-full min-h-[200px] sm:min-h-[220px] relative overflow-hidden shrink-0">
+              <div className="w-2/5 sm:w-1/2 h-full min-h-[200px] sm:min-h-[220px] 2xl:min-h-[280px] relative overflow-hidden shrink-0">
                 <img
                   src={b.image || '/images/cat_women.jpg'}
                   alt={b.title}

@@ -113,14 +113,14 @@ export function CuratedCollections() {
 
   return (
     <section className="bg-[#FFFDFA] pt-4 sm:pt-6 pb-6 sm:pb-8 border-b border-[#E6E0D4] select-none" data-aos="fade-up">
-      <div className="max-w-[1220px] mx-auto px-4 sm:px-8">
+      <div className="max-w-[1220px] 2xl:max-w-[1620px] min-[1800px]:max-w-[1760px] 2xl:px-12 mx-auto px-4 sm:px-8">
         {/* Centered heading */}
         <div className="text-center mb-3 sm:mb-4" data-aos="fade-up" data-aos-delay="100">
-          <span className="text-[10px] sm:text-[11px] font-semibold tracking-[0.2em] uppercase text-[#8C6C43] block mb-1.5">
+          <span className="text-[10px] sm:text-[11px] 2xl:text-xs font-semibold tracking-[0.2em] uppercase text-[#8C6C43] block mb-1.5">
             {sectionSubtitle}
           </span>
           <h2
-            className="text-2xl sm:text-3xl lg:text-4xl font-serif font-semibold text-[#221D16] tracking-wide"
+            className="text-2xl sm:text-3xl lg:text-4xl 2xl:text-5xl font-serif font-semibold text-[#221D16] tracking-wide"
             style={{ fontFamily: "'Cormorant Garamond', Georgia, serif" }}
           >
             {sectionTitle}
@@ -128,7 +128,7 @@ export function CuratedCollections() {
         </div>
 
         {/* 4-column product grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 2xl:gap-8">
           {displayList.map((p: any, idx: number) => {
             const favorited = isFavorite(p.id);
             return (
@@ -152,10 +152,10 @@ export function CuratedCollections() {
                     type="button"
                     onClick={(e) => toggleLike(e, p)}
                     aria-label="Add to wishlist"
-                    className="absolute top-2.5 right-2.5 p-1 cursor-pointer z-10"
+                    className="absolute top-2.5 right-2.5 2xl:top-3.5 2xl:right-3.5 p-1 cursor-pointer z-10"
                   >
                     <Heart
-                      className={`w-4 h-4 stroke-[1.5] transition-colors ${
+                      className={`w-4 h-4 2xl:w-5 2xl:h-5 stroke-[1.5] transition-colors ${
                         favorited
                           ? 'fill-[#8C6C43] text-[#8C6C43]'
                           : 'text-[#221D16] hover:text-[#8C6C43]'
@@ -165,20 +165,20 @@ export function CuratedCollections() {
                 </div>
 
                 {/* Info */}
-                <div className="pt-1.5">
-                  <p className="text-[11px] sm:text-xs font-medium text-[#221D16] leading-snug group-hover:text-[#8C6C43] transition-colors">
+                <div className="pt-1.5 2xl:pt-2">
+                  <p className="text-[11px] sm:text-xs 2xl:text-sm font-medium text-[#221D16] leading-snug group-hover:text-[#8C6C43] transition-colors">
                     {p.name}
                   </p>
-                  <p className="text-[11px] sm:text-xs font-semibold text-[#221D16] mt-0.5">
+                  <p className="text-[11px] sm:text-xs 2xl:text-sm font-semibold text-[#221D16] mt-0.5">
                     {formatPrice(p.price)}
                   </p>
 
                   {/* Color swatches */}
-                  <div className="flex items-center gap-1.5 mt-2">
+                  <div className="flex items-center gap-1.5 2xl:gap-2 mt-2 2xl:mt-2.5">
                     {(p.colors || []).map((c: string, i: number) => (
                       <span
                         key={i}
-                        className="w-2.5 h-2.5 rounded-full border border-[#221D16]/40"
+                        className="w-2.5 h-2.5 2xl:w-3.5 2xl:h-3.5 rounded-full border border-[#221D16]/40"
                         style={{ backgroundColor: c }}
                       />
                     ))}
@@ -190,12 +190,12 @@ export function CuratedCollections() {
         </div>
 
         {/* View all button */}
-        <div className="flex justify-center mt-5 sm:mt-6">
+        <div className="flex justify-center mt-5 sm:mt-6 2xl:mt-8">
           <Link
             href="/shop?category=New%20Arrivals"
             onMouseEnter={() => setBtnHover(true)}
             onMouseLeave={() => setBtnHover(false)}
-            className="inline-flex items-center justify-center border border-[#221D16]/70 text-[10px] sm:text-[11px] font-medium tracking-[0.12em] uppercase px-7 py-2 transition-colors"
+            className="inline-flex items-center justify-center border border-[#221D16]/70 text-[10px] sm:text-[11px] 2xl:text-xs font-medium tracking-[0.12em] uppercase px-7 2xl:px-9 py-2 2xl:py-3 transition-colors"
             style={{
               backgroundColor: btnHover ? '#221D16' : 'transparent',
               color: btnHover ? '#FFFFFF' : '#221D16',

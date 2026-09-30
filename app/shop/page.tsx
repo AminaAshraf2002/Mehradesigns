@@ -222,12 +222,12 @@ function EtsyShopContent() {
         </div>
 
         {/* Main 2-Column Browse Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-[240px_1fr] gap-8 mt-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[240px_1fr] 2xl:grid-cols-[280px_1fr] gap-8 2xl:gap-12 mt-8">
           {/* LEFT SIDEBAR FILTERS (Desktop) */}
-          <aside className="hidden lg:block space-y-6 text-[14px] text-etsy-dark pr-4 border-r border-[#E6E0D4]">
+          <aside className="hidden lg:block space-y-6 text-[14px] 2xl:text-[15px] text-etsy-dark pr-4 border-r border-[#E6E0D4]">
             {/* Categories Filter */}
             <div>
-              <h3 className="font-bold text-[14px] uppercase tracking-wider text-etsy-gray mb-3">
+              <h3 className="font-bold text-[14px] 2xl:text-[15px] uppercase tracking-wider text-etsy-gray mb-3">
                 {t('shop.categories', 'Categories')}
               </h3>
               <ul className="list-none p-0 m-0 space-y-2">
@@ -239,7 +239,7 @@ function EtsyShopContent() {
                     <li key={cat}>
                       <button
                         onClick={() => updateFilters({ category: cat })}
-                        className={`text-left text-[14px] w-full py-1 transition-colors ${
+                        className={`text-left text-[14px] 2xl:text-[15px] w-full py-1 transition-colors ${
                           isActive
                             ? 'font-bold text-[#8C6C43] underline'
                             : 'hover:text-[#8C6C43] text-[#221D16]'
@@ -255,7 +255,7 @@ function EtsyShopContent() {
 
             {/* Special Offers */}
             <div className="border-t border-[#E6E0D4] pt-5">
-              <h3 className="font-bold text-[14px] mb-3">{t('shop.special_offers', 'Special offers')}</h3>
+              <h3 className="font-bold text-[14px] 2xl:text-[15px] mb-3">{t('shop.special_offers', 'Special offers')}</h3>
               <div className="space-y-2.5">
                 <label className="flex items-center gap-2.5 cursor-pointer select-none">
                   <input
@@ -266,7 +266,7 @@ function EtsyShopContent() {
                     }
                     className="w-4 h-4 rounded text-[#8C6C43] focus:ring-[#8C6C43]"
                   />
-                  <span className="text-[14px]">{t('shop.free_delivery', 'FREE delivery')}</span>
+                  <span className="text-[14px] 2xl:text-[15px]">{t('shop.free_delivery', 'FREE delivery')}</span>
                 </label>
                 <label className="flex items-center gap-2.5 cursor-pointer select-none">
                   <input
@@ -277,14 +277,14 @@ function EtsyShopContent() {
                     }
                     className="w-4 h-4 rounded text-[#8C6C43] focus:ring-[#8C6C43]"
                   />
-                  <span className="text-[14px]">{t('shop.on_sale', 'On sale')}</span>
+                  <span className="text-[14px] 2xl:text-[15px]">{t('shop.on_sale', 'On sale')}</span>
                 </label>
               </div>
             </div>
 
             {/* Price Range */}
             <div className="border-t border-[#E6E0D4] pt-5">
-              <h3 className="font-bold text-[14px] mb-3">{t('shop.price', 'Price')} ({currencySymbol})</h3>
+              <h3 className="font-bold text-[14px] 2xl:text-[15px] mb-3">{t('shop.price', 'Price')} ({currencySymbol})</h3>
               <div className="space-y-2">
                 {[
                   { label: t('shop.any_price', 'Any price'), val: 'all' },
@@ -304,7 +304,7 @@ function EtsyShopContent() {
                       onChange={() => updateFilters({ price: p.val })}
                       className="w-4 h-4 text-[#8C6C43] focus:ring-[#8C6C43]"
                     />
-                    <span className="text-[14px]">{p.label}</span>
+                    <span className="text-[14px] 2xl:text-[15px]">{p.label}</span>
                   </label>
                 ))}
               </div>
@@ -314,7 +314,7 @@ function EtsyShopContent() {
             <div className="border-t border-[#E6E0D4] pt-5">
               <button
                 onClick={clearAllFilters}
-                className="w-full py-2 rounded-full border border-[#221D16] text-[13px] font-bold text-[#221D16] hover:bg-[#F0E9DC] transition-colors"
+                className="w-full py-2.5 rounded-full border border-[#221D16] text-[13px] 2xl:text-[14px] font-bold text-[#221D16] hover:bg-[#F0E9DC] transition-colors"
               >
                 {t('shop.reset_filters', 'Reset all filters')}
               </button>
@@ -324,7 +324,7 @@ function EtsyShopContent() {
           {/* RIGHT PRODUCT GRID OR EMPTY STATE */}
           <div>
             {filteredProducts.length > 0 ? (
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 gap-y-10">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-4 sm:gap-6 2xl:gap-8 gap-y-10 2xl:gap-y-14">
                 {filteredProducts.map((product, idx) => (
                   <ProductCard key={product.id} product={product} delayIndex={idx % 8} />
                 ))}
